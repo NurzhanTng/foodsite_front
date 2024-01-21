@@ -67,7 +67,7 @@ function MainPage() {
           rect.bottom >= window.innerHeight / 2 - 100
         ) {
           setActiveCategory(category.id);
-          console.log(`New active category ${category.id}`);
+          // console.log(`New active category ${category.id}`);
           break;
         }
       }
@@ -93,7 +93,7 @@ function MainPage() {
         categories={categories}
         setActiveCategory={setActiveCategory}
       />
-      <div className="mx-[10px] mt-[90px] w-full">
+      <div className="mt-[90px] w-full max-w-screen-lg px-[10px]">
         {categories.map((category) => (
           <MenuCategory
             key={category.id}
