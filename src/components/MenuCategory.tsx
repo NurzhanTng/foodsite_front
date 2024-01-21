@@ -1,4 +1,4 @@
-import { Category, CategoryRefs } from "../pages/MainPage.tsx";
+import { Category, CategoryRefs } from "../hooks/useMainPage.tsx";
 import { MutableRefObject } from "react";
 
 type MenuCategoryProps = {

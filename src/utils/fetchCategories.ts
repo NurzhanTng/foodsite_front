@@ -1,4 +1,4 @@
-import { Category } from "../pages/MainPage.tsx";
+import { Category } from "../hooks/useMainPage.tsx";
 
 async function fetchCategories(setCategory: (categories: Category[]) => void) {
   /*
