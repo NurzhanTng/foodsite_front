@@ -1,10 +1,10 @@
 import Navigation from "../components/Navigation.tsx";
 import MenuCategory from "../components/MenuCategory.tsx";
-import useMainPage from "../hooks/useMainPage.ts";
+import useScrollEffect from "../hooks/useScrollEffect.ts";
 
 function MainPage() {
   const { activeCategory, setActiveCategory, categories, categoryRefs } =
-    useMainPage();
+    useScrollEffect();
 
   return (
     <>

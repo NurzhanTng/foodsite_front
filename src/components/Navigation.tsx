@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Category } from "../hooks/useMainPage.tsx";
+import { Category } from "../Types.ts";
 
 interface NavigationProps {
   categories: Category[];
@@ -55,7 +55,7 @@ const Navigation: React.FC<NavigationProps> = ({
   return (
     <nav
       ref={myRef}
-      className="no-scrollbar fixed top-0 w-full overflow-x-scroll border-b border-secondary bg-transparent backdrop-blur-md backdrop-filter"
+      className="no-scrollbar fixed top-0 z-10 w-full overflow-x-scroll border-b border-secondary bg-transparent backdrop-blur backdrop-filter"
     >
       <ul
         ref={ulRef}
@@ -66,7 +66,7 @@ const Navigation: React.FC<NavigationProps> = ({
             <a
               id={`${category.name}-link`}
               onClick={() => scrollToCategory(category)}
-              className={`${activeCategory === category.id ? "bg-button" : ""} block w-max cursor-default rounded-full px-3 py-2 no-underline transition-all hover:bg-buttonHover`}
+              className={`${activeCategory === category.id ? "bg-button" : "bg-bgColor"} block w-max cursor-default rounded-full px-3 py-2 no-underline transition-all lg:hover:bg-buttonHover`}
             >
               {category.name}
             </a>

@@ -6,35 +6,13 @@ import React, {
   useState,
 } from "react";
 import fetchCategories from "../utils/fetchCategories.ts";
+import { Category } from "../Types.ts";
 
 export type CategoryRefs = {
   [key: string]: HTMLDivElement | null;
 };
 
-export type ProductTypes = {
-  name: string;
-  price: number;
-  stop: boolean;
-};
-
-export type Product = {
-  id: number;
-  name: string;
-  image_url: string;
-  types: ProductTypes[];
-  price: number;
-  stop: boolean;
-};
-
-export type Category = {
-  id: number;
-  name: string;
-  description: string;
-  products: Product[];
-  stop: boolean;
-};
-
-const useMainPage = () => {
+const useScrollEffect = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [activeCategory, setActiveCategory] = useState<number | null>(null);
 
@@ -92,4 +70,4 @@ const useMainPage = () => {
   };
 };
 
-export default useMainPage;
+export default useScrollEffect;

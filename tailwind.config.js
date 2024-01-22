@@ -10,6 +10,9 @@ export default {
         buttonHover: "#4A7AAE",
         fontSecondary: "#708499",
       },
+      boxShadow: {
+        card: "0 0 40px 0 rgba(41, 59, 76, 0.5)",
+      },
     },
   },
   plugins: [],

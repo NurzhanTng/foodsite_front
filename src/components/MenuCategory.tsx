@@ -1,5 +1,7 @@
-import { Category, CategoryRefs } from "../hooks/useMainPage.tsx";
+import { CategoryRefs } from "../hooks/useScrollEffect.tsx";
+import { Category } from "../Types.ts";
 import { MutableRefObject } from "react";
+import ProductCard from "./ProductCard.tsx";
 
 type MenuCategoryProps = {
   category: Category;
@@ -12,19 +14,18 @@ const MenuCategory = ({ category, categoryRefs }: MenuCategoryProps) => {
       id={category.name}
       key={category.id}
       ref={(el) => (categoryRefs.current[category.id] = el)}
-      className="w-full pb-[700px]"
+      className="w-full pb-[50px]"
     >
-      <h2 className="mb-3 text-xl font-semibold">{category.name}</h2>
-      <p className="w-[310px] overflow-hidden text-sm text-fontSecondary">
+      <h2 className="mb-3 w-fit text-xl font-semibold">{category.name}</h2>
+      <p className="mb-[30px] max-w-[calc(100%-40px)] overflow-hidden text-sm text-fontSecondary">
         {category.description}
       </p>
-      {category.products.map((product) => {
-        return (
-          <p key={product.id} className="mb-10 ml-5">
-            {product.name}
-          </p>
-        );
-      })}
+
+      <div className="mx-auto flex flex-row flex-wrap justify-between gap-5 gap-y-[20px] sm:justify-start">
+        {category.products.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
     </div>
   );
 };
