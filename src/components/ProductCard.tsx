@@ -1,11 +1,16 @@
 import { Product } from "../Types.ts";
 import ProductTag from "./ProductTag.tsx";
+import { increment } from "../store/counter/counterSlice.ts";
+import { useDispatch, useSelector } from "react-redux";
 
 type ProductCardProps = {
   product: Product;
 };
 
 const ProductCard = ({ product }: ProductCardProps) => {
+  const counter = useSelector((state) => state.counter);
+  const dispatch = useDispatch();
+
   return (
     <div className="relative min-h-max w-[calc(50%-10px)] md:w-[calc(33%-20px)]">
       <div className="absolute left-3 top-3 flex flex-col gap-2">
@@ -28,7 +33,13 @@ const ProductCard = ({ product }: ProductCardProps) => {
               {product.name}
             </p>
           </div>
-          <div className="rounded-[6px] bg-button py-2">
+          <div
+            className="rounded-[6px] bg-button py-2"
+            onClick={() => {
+              console.log(counter);
+              dispatch(increment());
+            }}
+          >
             <p className="text-center text-sm text-white">
               {product.price ? product.price : product.sizes[0].price}{" "}
               {product.currency === "KZT" ? "₸" : ""}
