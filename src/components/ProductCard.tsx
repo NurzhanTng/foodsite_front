@@ -1,15 +1,16 @@
 import { Product } from "../Types.ts";
 import ProductTag from "./ProductTag.tsx";
 import { increment } from "../store/counter/counterSlice.ts";
-import { useDispatch, useSelector } from "react-redux";
+
+import { useAppSelector, useAppDispatch } from "../store/hooks.ts";
 
 type ProductCardProps = {
   product: Product;
 };
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  const counter = useSelector((state) => state.counter);
-  const dispatch = useDispatch();
+  const counter = useAppSelector((state) => state.counter);
+  const dispatch = useAppDispatch();
 
   return (
     <div className="relative min-h-max w-[calc(50%-10px)] md:w-[calc(33%-20px)]">
@@ -18,7 +19,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <ProductTag key={index} tag={tag} />
         ))}
       </div>
-      <div className="shadow-card absolute z-[-100] h-full w-full rounded-[10px] bg-transparent" />
+      <div className="absolute z-[-100] h-full w-full rounded-[10px] bg-transparent shadow-card" />
       <div className="h-full w-full rounded-[10px] bg-bgColor">
         <div
           style={{ backgroundImage: `url(${product.image_url})` }}
@@ -29,7 +30,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             <h4 className="mb-3 line-clamp-2 text-sm text-white">
               {product.name}
             </h4>
-            <p className="line-clamp-2  text-xs text-fontSecondary">
+            <p className="line-clamp-4 text-xs text-fontSecondary md:line-clamp-2">
               {product.name}
             </p>
           </div>
