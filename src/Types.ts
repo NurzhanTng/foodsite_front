@@ -39,3 +39,11 @@ export type Category = {
   products: Product[];
   stop: boolean;
 };
+
+export type OrderProduct = {
+  product_id: Product["id"];
+  active_size: ProductSizes["id"] | null; // Индекс выбранного размера блюда, если есть разновидности. Иначе null
+  modifiers: Array<Modifiers["id"]>;
+  amount: number;
+  client_comment: string;
+};

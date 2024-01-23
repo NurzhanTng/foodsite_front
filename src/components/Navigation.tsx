@@ -1,17 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import { Category } from "../Types.ts";
+import { useAppSelector } from "../store/hooks.ts";
 
-interface NavigationProps {
-  categories: Category[];
-  activeCategory: number | null;
-  setActiveCategory: (category_id: number | null) => void;
-}
+const Navigation = () => {
+  const state = useAppSelector((state) => state.main);
 
-const Navigation: React.FC<NavigationProps> = ({
-  categories,
-  activeCategory,
-  // setActiveCategory,
-}) => {
   const navigationHeight = 100;
   const myRef: React.MutableRefObject<HTMLElement | null> = useRef(null);
   const ulRef: React.MutableRefObject<HTMLUListElement | null> = useRef(null);
@@ -21,7 +14,6 @@ const Navigation: React.FC<NavigationProps> = ({
     if (element) {
       const offset = element.offsetTop - navigationHeight;
       window.scrollTo({ top: offset, behavior: "smooth" });
-      // setActiveCategory(category.id);
     }
   };
 
@@ -45,12 +37,12 @@ const Navigation: React.FC<NavigationProps> = ({
   };
 
   useEffect(() => {
-    for (const category of categories) {
-      if (activeCategory === category.id) {
+    for (const category of state.categories) {
+      if (state.activeCategory === category.id) {
         scrollNavbar(category);
       }
     }
-  }, [activeCategory, categories]);
+  }, [state.activeCategory, state.categories]);
 
   return (
     <nav
@@ -61,12 +53,12 @@ const Navigation: React.FC<NavigationProps> = ({
         ref={ulRef}
         className="m-0 flex w-max select-none list-none gap-3 p-4"
       >
-        {categories.map((category) => (
+        {state.categories.map((category) => (
           <li key={category.id}>
             <a
               id={`${category.name}-link`}
               onClick={() => scrollToCategory(category)}
-              className={`${activeCategory === category.id ? "bg-button" : "bg-bgColor"} block w-max cursor-default rounded-full px-3 py-2 no-underline transition-all lg:hover:bg-buttonHover`}
+              className={`${state.activeCategory === category.id ? "bg-button" : "bg-bgColor"} block w-max cursor-default rounded-full px-3 py-2 no-underline transition-all lg:hover:bg-buttonHover`}
             >
               {category.name}
             </a>

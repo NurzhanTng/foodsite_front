@@ -1,20 +1,17 @@
 import Navigation from "../components/Navigation.tsx";
 import MenuCategory from "../components/MenuCategory.tsx";
 import useScrollEffect from "../hooks/useScrollEffect.ts";
+import { useAppSelector } from "../store/hooks.ts";
 
 function MainPage() {
-  const { activeCategory, setActiveCategory, categories, categoryRefs } =
-    useScrollEffect();
+  const state = useAppSelector((state) => state.main);
+  const { categoryRefs } = useScrollEffect();
 
   return (
     <>
-      <Navigation
-        activeCategory={activeCategory}
-        categories={categories}
-        setActiveCategory={setActiveCategory}
-      />
+      <Navigation />
       <div className="mt-[90px] w-full px-[10px]">
-        {categories.map((category) => (
+        {state.categories.map((category) => (
           <MenuCategory
             key={category.id}
             category={category}

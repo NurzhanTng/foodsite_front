@@ -1,6 +1,6 @@
 import { Product } from "../Types.ts";
 import ProductTag from "./ProductTag.tsx";
-import { increment } from "../store/counter/counterSlice.ts";
+import { increment } from "../store/slices/counterSlice.ts";
 
 import { useAppSelector, useAppDispatch } from "../store/hooks.ts";
 

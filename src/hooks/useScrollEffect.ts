@@ -1,27 +1,23 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import fetchCategories from "../utils/fetchCategories.ts";
-import { Category } from "../Types.ts";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
+// import fetchCategories from "../utils/fetchCategories.ts";
+// import { Category } from "../Types.ts";
+import { useAppDispatch, useAppSelector } from "../store/hooks.ts";
+import { setActiveCategory } from "../store/slices/mainSlice.ts";
 
 export type CategoryRefs = {
   [key: string]: HTMLDivElement | null;
 };
 
 const useScrollEffect = () => {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [activeCategory, setActiveCategory] = useState<number | null>(null);
+  const state = useAppSelector((state) => state.main);
+  const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    fetchCategories((categories: Category[]) => {
-      setCategories(categories);
-      setActiveCategory(categories[0].id);
-    });
-  }, []);
+  // useEffect(() => {
+  //   fetchCategories((categories: Category[]) => {
+  //     setCategories(categories);
+  //     setActiveCategory(categories[0].id);
+  //   });
+  // }, []);
 
   const categoryRefs: React.MutableRefObject<CategoryRefs> = useRef({});
 
@@ -34,7 +30,7 @@ const useScrollEffect = () => {
   };
 
   const handleScroll = useCallback(() => {
-    for (const category of categories) {
+    for (const category of state.categories) {
       const element = categoryRefs.current[category.id];
       if (element) {
         const rect = element.getBoundingClientRect();
@@ -42,13 +38,13 @@ const useScrollEffect = () => {
           rect.top <= window.innerHeight / 2 - 100 &&
           rect.bottom >= window.innerHeight / 2 - 100
         ) {
-          setActiveCategory(category.id);
+          dispatch(setActiveCategory(category.id));
           // console.log(`New active category ${category.id}`);
           break;
         }
       }
     }
-  }, [categories, categoryRefs]);
+  }, [dispatch, state.categories]);
 
   const debouncedHandleScroll = useMemo(
     () => debounce(handleScroll, 30),
@@ -63,9 +59,6 @@ const useScrollEffect = () => {
   }, [debouncedHandleScroll]);
 
   return {
-    categories,
-    activeCategory,
-    setActiveCategory,
     categoryRefs,
   };
 };
