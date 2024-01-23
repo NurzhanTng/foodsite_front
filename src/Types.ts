@@ -21,6 +21,7 @@ type ProductSizes = {
 
 export type Product = {
   id: number;
+  category_id: number;
   image_url: string;
   name: string;
   description: string | null;
@@ -37,11 +38,10 @@ export type Category = {
   name: string;
   description: string;
   products: Product[];
-  stop: boolean;
 };
 
 export type OrderProduct = {
-  product_id: Product["id"];
+  product: Product;
   active_size: ProductSizes["id"] | null; // Индекс выбранного размера блюда, если есть разновидности. Иначе null
   modifiers: Array<Modifiers["id"]>;
   amount: number;

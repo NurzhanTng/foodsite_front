@@ -1,16 +1,34 @@
 import { Product } from "../Types.ts";
 import ProductTag from "./ProductTag.tsx";
-import { increment } from "../store/slices/counterSlice.ts";
+// import { increment } from "../store/slices/counterSlice.ts";
 
-import { useAppSelector, useAppDispatch } from "../store/hooks.ts";
+// import { useAppSelector, useAppDispatch } from "../store/hooks.ts";
 
 type ProductCardProps = {
   product: Product;
 };
 
+const ProductAddButton = (product: Product) => {
+  // const dispatch = useAppDispatch();
+
+  return (
+    <div
+      className="rounded-[6px] bg-button py-2"
+      onClick={() => {
+        // dispatch(add);
+      }}
+    >
+      <p className="text-center text-sm text-white">
+        {product.price ? product.price : product.sizes[0].price}{" "}
+        {product.currency === "KZT" ? "₸" : ""}
+      </p>
+    </div>
+  );
+};
+
 const ProductCard = ({ product }: ProductCardProps) => {
-  const counter = useAppSelector((state) => state.counter);
-  const dispatch = useAppDispatch();
+  // const counter = useAppSelector((state) => state.main);
+  // const dispatch = useAppDispatch();
 
   return (
     <div className="relative min-h-max w-[calc(50%-10px)] md:w-[calc(33%-20px)]">
@@ -34,18 +52,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
               {product.name}
             </p>
           </div>
-          <div
-            className="rounded-[6px] bg-button py-2"
-            onClick={() => {
-              console.log(counter);
-              dispatch(increment());
-            }}
-          >
-            <p className="text-center text-sm text-white">
-              {product.price ? product.price : product.sizes[0].price}{" "}
-              {product.currency === "KZT" ? "₸" : ""}
-            </p>
-          </div>
+
+          <ProductAddButton {...product} />
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Category, OrderProduct } from "../../Types.ts";
 
 // Define a type for the slice state
@@ -19,6 +19,7 @@ const initialState: MainState = {
       products: [
         {
           id: 0,
+          category_id: 0,
           image_url:
             "https://eda.yandex.ru/images/3490335/6a1ccf7e5ce90b8e3f1a24ff3b1720ff-680x500.jpeg",
           name: "Свиные ребра в пивной глазури с салатом и соусом Сальса",
@@ -42,6 +43,7 @@ const initialState: MainState = {
         },
         {
           id: 1,
+          category_id: 0,
           image_url:
             "https://lobsterhouse.ru/wp-content/uploads/2/b/3/2b3e420d76050fa1a1cdfe31be639254.jpeg",
           name: "Кальмар в сливочном соусе",
@@ -55,6 +57,7 @@ const initialState: MainState = {
         },
         {
           id: 2,
+          category_id: 0,
           image_url:
             "https://sun9-63.userapi.com/zXXNsZm9UcK-w9b9Y_lpWSiN2cHukEOd6vcFGw/fUS2i4QvMpU.jpg",
           name: "Филе утиной грудки с соусом из смородины и пюре батата",
@@ -67,6 +70,7 @@ const initialState: MainState = {
           on_stop: false,
         },
         {
+          category_id: 0,
           id: 3,
           image_url: "https://sludsky.ru/images/prods/big661.jpg",
           name: "Язык с запеченным картофелем",
@@ -109,7 +113,6 @@ const initialState: MainState = {
           on_stop: false,
         },
       ],
-      stop: false,
     },
     {
       id: 1,
@@ -119,6 +122,7 @@ const initialState: MainState = {
       products: [
         {
           id: 4,
+          category_id: 1,
           image_url:
             "http://static.tildacdn.com/tild6664-3432-4462-b938-353731303733/1592584780.jpg",
           name: "Бургер с котлетой из мраморной говядины с томатным джемом",
@@ -137,6 +141,7 @@ const initialState: MainState = {
         },
         {
           id: 5,
+          category_id: 1,
           image_url:
             "https://s3.amazonaws.com/images.ecwid.com/images/29352200/3360832319.jpg",
           name: "Бургер с куриной котлетой и свежими овощами",
@@ -149,7 +154,6 @@ const initialState: MainState = {
           on_stop: false,
         },
       ],
-      stop: false,
     },
     {
       id: 2,
@@ -159,6 +163,7 @@ const initialState: MainState = {
       products: [
         {
           id: 6,
+          category_id: 2,
           image_url:
             "https://s3.amazonaws.com/images.ecwid.com/images/29352200/3360832319.jpg",
           name: "Бургер с куриной котлетой и свежими овощами",
@@ -172,6 +177,7 @@ const initialState: MainState = {
         },
         {
           id: 7,
+          category_id: 2,
           image_url:
             "https://s3.amazonaws.com/images.ecwid.com/images/29352200/3360832319.jpg",
           name: "Бургер с куриной котлетой и свежими овощами",
@@ -185,6 +191,7 @@ const initialState: MainState = {
         },
         {
           id: 8,
+          category_id: 2,
           image_url:
             "https://s3.amazonaws.com/images.ecwid.com/images/29352200/3360832319.jpg",
           name: "Бургер с куриной котлетой и свежими овощами",
@@ -198,6 +205,7 @@ const initialState: MainState = {
         },
         {
           id: 9,
+          category_id: 2,
           image_url:
             "https://s3.amazonaws.com/images.ecwid.com/images/29352200/3360832319.jpg",
           name: "Бургер с куриной котлетой и свежими овощами",
@@ -211,6 +219,7 @@ const initialState: MainState = {
         },
         {
           id: 10,
+          category_id: 2,
           image_url:
             "https://s3.amazonaws.com/images.ecwid.com/images/29352200/3360832319.jpg",
           name: "Бургер с куриной котлетой и свежими овощами",
@@ -224,6 +233,7 @@ const initialState: MainState = {
         },
         {
           id: 11,
+          category_id: 2,
           image_url:
             "https://s3.amazonaws.com/images.ecwid.com/images/29352200/3360832319.jpg",
           name: "Бургер с куриной котлетой и свежими овощами",
@@ -236,7 +246,6 @@ const initialState: MainState = {
           on_stop: false,
         },
       ],
-      stop: false,
     },
     {
       id: 3,
@@ -246,6 +255,7 @@ const initialState: MainState = {
       products: [
         {
           id: 12,
+          category_id: 3,
           image_url:
             "https://s3.amazonaws.com/images.ecwid.com/images/29352200/3360832319.jpg",
           name: "Бургер с куриной котлетой и свежими овощами",
@@ -259,6 +269,7 @@ const initialState: MainState = {
         },
         {
           id: 13,
+          category_id: 3,
           image_url:
             "https://s3.amazonaws.com/images.ecwid.com/images/29352200/3360832319.jpg",
           name: "Бургер с куриной котлетой и свежими овощами",
@@ -271,20 +282,64 @@ const initialState: MainState = {
           on_stop: false,
         },
       ],
-      stop: false,
     },
   ],
   activeCategory: 0,
   cart: [],
 };
 
-export const mainSlice = createSlice({
+export const fetchCategory = createAsyncThunk(
+  "category",
+  async () => {
+    console.log('request')
+    const response = await fetch(
+      import.meta.env.VITE_REACT_APP_API_BASE_URL + "food/categories/",
+      {
+        method: "GET",
+      },
+    );
+    console.log(`My response from category: ${ await response.json()}`)
+    const categories: Category[] = await response.json();
+
+    console.log('Get categories: ', await response.json());
+
+    for (const category of categories) {
+      const response = await fetch(
+        import.meta.env.VITE_REACT_APP_API_BASE_URL +
+          "get_products_by_category",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            category_id: category.id,
+          }),
+        },
+      );
+      category.products = await response.json();
+      console.log(`Get products of category['${category.id}']: ${categories}`);
+    }
+    return categories;
+  },
+);
+
+const mainSlice = createSlice({
   name: "main",
   initialState,
   reducers: {
     setActiveCategory: (state, action: PayloadAction<number>) => {
       state.activeCategory = action.payload;
     },
+
+    // addProductToCart: (state, action: PayloadAction<OrderProduct>) => {
+    //   for
+    // },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchCategory.fulfilled, (_state, action) => {
+      console.log("Builder data: ", action.payload);
+    });
   },
 });
 
