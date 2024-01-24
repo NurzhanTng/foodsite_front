@@ -1,7 +1,7 @@
 import { Product } from "../Types.ts";
 import ProductTag from "./ProductTag.tsx";
-// import { increment } from "../store/slices/counterSlice.ts";
-
+import React, { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 // import { useAppSelector, useAppDispatch } from "../store/hooks.ts";
 
 type ProductCardProps = {
@@ -13,10 +13,7 @@ const ProductAddButton = (product: Product) => {
 
   return (
     <div
-      className="rounded-[6px] bg-button py-2"
-      onClick={() => {
-        // dispatch(add);
-      }}
+      className="exclude-click rounded-[6px] bg-button py-2"
     >
       <p className="text-center text-sm text-white">
         {product.price ? product.price : product.sizes[0].price}{" "}
@@ -27,11 +24,24 @@ const ProductAddButton = (product: Product) => {
 };
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  // const counter = useAppSelector((state) => state.main);
-  // const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleClick = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
+    // Check if the clicked element or its ancestor has the specific class
+    const clickedElement = event.target as HTMLElement;
+    const isExcluded = clickedElement.closest('.exclude-click');
+
+    if (isExcluded) {
+      console.log('excluded click added')
+      // Clicked on the excluded child div or its descendants, do nothing
+      return;
+    }
+
+    navigate(`/dish/${product.id}`)
+  }, [navigate, product.id]);
 
   return (
-    <div className="relative min-h-max w-[calc(50%-10px)] md:w-[calc(33%-20px)]">
+    <div onClick={handleClick} className="relative min-h-max w-[calc(50%-10px)] md:w-[calc(33%-20px)]">
       <div className="absolute left-3 top-3 flex flex-col gap-2">
         {product.tags.map((tag, index) => (
           <ProductTag key={index} tag={tag} />

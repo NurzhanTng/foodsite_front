@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Category, OrderProduct } from "../../Types.ts";
+// import range from "../../utils/range.ts";
 
 // Define a type for the slice state
 export type MainState = {
@@ -10,7 +11,53 @@ export type MainState = {
 
 // Define the initial state using that type
 const initialState: MainState = {
-  categories: [
+  categories: [],
+  activeCategory: 0,
+  cart: [],
+};
+
+export const fetchCategories = createAsyncThunk("category", async () => {
+  /*
+  const response = await fetch(
+    import.meta.env.VITE_REACT_APP_API_BASE_URL + "food/categories/",
+    {
+      method: "GET",
+    },
+  );
+  const categories: Category[] = await response.json();
+
+  for (const category of categories) {
+    const response = await fetch(
+      import.meta.env.VITE_REACT_APP_API_BASE_URL +
+        `food/categories/${category.id}/products/`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+    const products: Product[] = await response.json();
+    for (const i of range(0, products.length)) {
+      const response = await fetch(
+        import.meta.env.VITE_REACT_APP_API_BASE_URL +
+          `food/categories/${products[i].id}/products/`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          }
+        },
+      );
+      products[i].tags = await response.json();
+    }
+    category.products = products;
+  }
+
+  return categories;
+  */
+
+  const data: Category[] = [
     {
       id: 0,
       name: "🥘 Основные блюда",
@@ -283,46 +330,9 @@ const initialState: MainState = {
         },
       ],
     },
-  ],
-  activeCategory: 0,
-  cart: [],
-};
-
-export const fetchCategory = createAsyncThunk(
-  "category",
-  async () => {
-    console.log('request')
-    const response = await fetch(
-      import.meta.env.VITE_REACT_APP_API_BASE_URL + "food/categories/",
-      {
-        method: "GET",
-      },
-    );
-    console.log(`My response from category: ${ await response.json()}`)
-    const categories: Category[] = await response.json();
-
-    console.log('Get categories: ', await response.json());
-
-    for (const category of categories) {
-      const response = await fetch(
-        import.meta.env.VITE_REACT_APP_API_BASE_URL +
-          "get_products_by_category",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            category_id: category.id,
-          }),
-        },
-      );
-      category.products = await response.json();
-      console.log(`Get products of category['${category.id}']: ${categories}`);
-    }
-    return categories;
-  },
-);
+  ]
+  return data
+});
 
 const mainSlice = createSlice({
   name: "main",
@@ -333,12 +343,12 @@ const mainSlice = createSlice({
     },
 
     // addProductToCart: (state, action: PayloadAction<OrderProduct>) => {
-    //   for
+    //   state.cart
     // },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchCategory.fulfilled, (_state, action) => {
-      console.log("Builder data: ", action.payload);
+    builder.addCase(fetchCategories.fulfilled, (state, action) => {
+      state.categories = action.payload;
     });
   },
 });

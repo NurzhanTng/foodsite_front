@@ -1,6 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks.ts";
-import { setActiveCategory } from "../store/slices/mainSlice.ts";
+import {
+  fetchCategories,
+  setActiveCategory,
+} from "../store/slices/mainSlice.ts";
 // import fetchCategories from "../utils/fetchCategories.ts";
 // import { Category } from "../Types.ts";
 
@@ -11,43 +14,12 @@ export type CategoryRefs = {
 const useScrollEffect = () => {
   const state = useAppSelector((state) => state.main);
   const dispatch = useAppDispatch();
-
-  // console.log(1)
-  // // dispatch(fetchCategory());
-  // const result = fetchCategories;
-  // result.then((value) => {
-  //   console.log(value)
-  // }).catch((err) => {
-  //   console.log("Error: ", err)
-  // })
-  // console.log(2)
-  // const =
-
-  const req = () => {
-    return fetch(
-       "https://913b-213-211-96-139.ngrok-free.app/food/categories/",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }
-    ).then((data) => {
-      // console.log(data.text())
-      // return data.json()
-      return data.text()
-    })
-  };
-
-  console.log('1')
-  const result = req();
-  result.then((data) => {
-    console.log(data)
-  })
-  console.log('1')
-
-
   const categoryRefs: React.MutableRefObject<CategoryRefs> = useRef({});
+
+  useEffect(() => {
+    dispatch(fetchCategories())
+  }, [dispatch]);
+
 
   const debounce = (func: () => void, delay: number) => {
     let timeoutId: NodeJS.Timeout;
@@ -76,7 +48,7 @@ const useScrollEffect = () => {
 
   const debouncedHandleScroll = useMemo(
     () => debounce(handleScroll, 30),
-    [handleScroll]
+    [handleScroll],
   );
 
   useEffect(() => {
@@ -87,7 +59,7 @@ const useScrollEffect = () => {
   }, [debouncedHandleScroll]);
 
   return {
-    categoryRefs
+    categoryRefs,
   };
 };
 
