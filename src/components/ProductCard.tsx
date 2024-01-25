@@ -2,46 +2,81 @@ import { Product } from "../Types.ts";
 import ProductTag from "./ProductTag.tsx";
 import React, { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-// import { useAppSelector, useAppDispatch } from "../store/hooks.ts";
+import useCart from "../hooks/useCart.ts";
+import currencyFormatter from "../utils/currencyFormatter.ts";
 
 type ProductCardProps = {
   product: Product;
 };
 
 const ProductAddButton = (product: Product) => {
-  // const dispatch = useAppDispatch();
+  const { addOneProductToCart, countProductInCart, increaseProduct, decreaseProduct } = useCart();
+  const [count, typesCount] = countProductInCart(product.id);
 
   return (
-    <div
-      className="exclude-click rounded-[6px] bg-button py-2"
-    >
-      <p className="text-center text-sm text-white">
-        {product.price ? product.price : product.sizes[0].price}{" "}
-        {product.currency === "KZT" ? "₸" : ""}
-      </p>
-    </div>
+    <>
+      {typesCount === 0 && (
+        <div
+          className="exclude-click rounded-[6px] bg-button py-3 text-center text-sm leading-[14px] text-white"
+          onClick={() => addOneProductToCart(product)}
+        >
+          <p>
+            {currencyFormatter(
+              product.price ? product.price : product.modifiers[0].price,
+              product.currency,
+            )}
+          </p>
+        </div>
+      )}
+      {typesCount === 1 && (
+        <div className="exclude-click flex flex-row justify-between md:gap-5 gap-2 text-center text-sm leading-[14px] text-white">
+          <div className="min-w-[20px] flex-1 rounded-[6px] bg-button py-3" onClick={() => decreaseProduct(product)}>
+            -
+          </div>
+          <div className="bg-bgColor2 flex-2 rounded-[6px] px-3 py-3">
+            <p>{count}</p>
+          </div>
+          <div className="min-w-[20px] flex-1 rounded-[6px] bg-button py-3" onClick={() => increaseProduct(product)}>
+            +
+          </div>
+        </div>
+      )}
+      {typesCount > 1 && (
+        <div className="exclude-click  bg-bgColor2 rounded-[6px] py-3 text-center text-sm leading-[14px] text-white">
+          <p>{count}</p>
+        </div>
+      )}
+    </>
   );
 };
+
+// <div className="exclude-click rounded-[6px] bg-button py-2" onClick={() => addOneProductToCart(product)}>
+//   <p className="text-center text-sm text-white">
+//     {currencyFormatter(
+//       product.price ? product.price : product.modifiers[0].price,
+//       product.currency
+//     )}
+//   </p>
+// </div>;
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const navigate = useNavigate();
 
-  const handleClick = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
-    // Check if the clicked element or its ancestor has the specific class
-    const clickedElement = event.target as HTMLElement;
-    const isExcluded = clickedElement.closest('.exclude-click');
-
-    if (isExcluded) {
-      console.log('excluded click added')
-      // Clicked on the excluded child div or its descendants, do nothing
-      return;
-    }
-
-    navigate(`/dish/${product.id}`)
-  }, [navigate, product.id]);
+  const handleClick = useCallback(
+    (event: React.MouseEvent<HTMLDivElement>) => {
+      const clickedElement = event.target as HTMLElement;
+      const isExcluded = clickedElement.closest(".exclude-click");
+      if (isExcluded) return;
+      navigate(`/dish/${product.id}`);
+    },
+    [navigate, product.id],
+  );
 
   return (
-    <div onClick={handleClick} className="relative min-h-max w-[calc(50%-10px)] md:w-[calc(33%-20px)]">
+    <div
+      onClick={handleClick}
+      className="relative min-h-max w-[calc(50%-10px)] md:w-[calc(33%-20px)]"
+    >
       <div className="absolute left-3 top-3 flex flex-col gap-2">
         {product.tags.map((tag, index) => (
           <ProductTag key={index} tag={tag} />
@@ -62,7 +97,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
               {product.name}
             </p>
           </div>
-
           <ProductAddButton {...product} />
         </div>
       </div>

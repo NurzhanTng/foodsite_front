@@ -17,7 +17,7 @@ const MenuCategory = ({ category, categoryRefs }: MenuCategoryProps) => {
       className="w-full pb-[50px]"
     >
       <h2 className="mb-3 w-fit text-xl font-semibold">{category.name}</h2>
-      <p className="mb-[30px] max-w-[calc(100%-40px)] overflow-hidden text-sm text-fontSecondary">
+      <p className="mb-[30px] max-w-full overflow-hidden text-sm text-fontSecondary">
         {category.description}
       </p>
 

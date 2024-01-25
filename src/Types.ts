@@ -11,7 +11,7 @@ type Modifiers = {
   on_stop: boolean;
 };
 
-type ProductSizes = {
+type Additions = {
   id: number;
   price: number;
   currency: "KZT";
@@ -27,8 +27,8 @@ export type Product = {
   description: string | null;
   price: number | null;
   currency: "KZT";
-  sizes: ProductSizes[];
   modifiers: Modifiers[];
+  additions: Additions[];
   tags: ProductTag[];
   on_stop: boolean;
 };
@@ -42,8 +42,8 @@ export type Category = {
 
 export type OrderProduct = {
   product: Product;
-  active_size: ProductSizes["id"] | null; // Индекс выбранного размера блюда, если есть разновидности. Иначе null
-  modifiers: Array<Modifiers["id"]>;
+  active_modifier: Modifiers["id"] | null;
+  additions: Array<Additions>;
   amount: number;
   client_comment: string;
 };
