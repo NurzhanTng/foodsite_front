@@ -5,6 +5,9 @@ import App from "./App.tsx";
 import "./index.css";
 import store from "./store/store.ts";
 
+const tg = window.Telegram.WebApp;
+tg.expand();
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   // <React.StrictMode>
     <Provider store={store}>
