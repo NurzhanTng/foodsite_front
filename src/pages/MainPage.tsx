@@ -15,7 +15,7 @@ function MainPage() {
   return (
     <>
       <Navigation />
-      <div className="mb-[30px] mt-[90px] w-full px-[10px]">
+      <div className="mb-[50px] mt-[90px] w-full px-[10px]">
         {state.categories.map((category) => (
           <MenuCategory
             key={category.id}
@@ -28,8 +28,8 @@ function MainPage() {
       {/* To cart button */}
       <div
         onClick={() => navigate('/cart')}
-        className="flex align-center justify-center fixed bottom-0 h-[50px] w-full bg-button text-center text-sm leading-[14px] text-white">
-        <p className='h-fit my-auto text-sm font-semibold'>Корзина: {currencyFormatter(sumCurrency(state.cart))}</p>
+        className="flex align-center justify-center fixed bottom-0 h-[70px] w-full bg-button text-center text-sm leading-[14px] text-white">
+        <p className='h-fit my-auto text-lg font-semibold'>Корзина: {currencyFormatter(sumCurrency(state.cart))}</p>
       </div>
     </>
   );

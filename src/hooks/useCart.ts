@@ -93,7 +93,6 @@ const useCart = () => {
     } else {
       price = orderProduct.product.price;
     }
-    console.log(`Price: ${price}`);
 
     return (
       orderProduct.amount *

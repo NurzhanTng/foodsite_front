@@ -30,8 +30,6 @@ function DishPage() {
       const product = getProductById(
         parseInt(dishId !== undefined ? dishId : "0"),
       );
-      console.log("State update product:");
-      console.log(product);
       setOrderProduct((oldProduct) => {
         return { ...oldProduct, product: product };
       });
