@@ -6,6 +6,8 @@ import { OrderProduct } from "../Types.ts";
 import currencyFormatter from "../utils/currencyFormatter.ts";
 import { useAppDispatch, useAppSelector } from "../store/hooks.ts";
 import { addProductToCart } from "../store/slices/mainSlice.ts";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 function DishPage() {
   const state = useAppSelector((state) => state.main);
@@ -25,10 +27,14 @@ function DishPage() {
 
   useEffect(() => {
     if (state.categories && orderProduct.product === undefined) {
-      const product = getProductById(parseInt(dishId !== undefined ? dishId : "0"));
-      console.log('State update product:')
-      console.log(product)
-      setOrderProduct((oldProduct) => { return {...oldProduct, product: product} })
+      const product = getProductById(
+        parseInt(dishId !== undefined ? dishId : "0"),
+      );
+      console.log("State update product:");
+      console.log(product);
+      setOrderProduct((oldProduct) => {
+        return { ...oldProduct, product: product };
+      });
     }
   }, [dishId, getProductById, orderProduct.product, state.categories]);
 
@@ -43,18 +49,26 @@ function DishPage() {
   }, [dispatch, navigate, orderProduct, product?.modifiers.length]);
 
   return (
-    <div className="relative mb-[70px] min-h-[100vh]">
+    <div className="relative mb-[70px] min-h-[calc(100vh-70px)]">
       {/* Абсолютные расположенные теги */}
-      <div className="absolute left-3 top-3 flex flex-col gap-2">
+      <div className="absolute right-3 top-3 flex flex-col gap-2">
         {product?.tags.map((tag, index) => (
-          <ProductTag className={"px-2"} key={index} tag={tag} />
+          <ProductTag className={"px-2 ml-auto"} key={index} tag={tag} />
         ))}
+      </div>
+
+      {/* Кнопка назад */}
+      <div
+        onClick={() => navigate("/")}
+        className="fixed left-[20px] top-[15px] rounded-full px-[16px] py-[11px] text-xl backdrop-blur backdrop-filter"
+      >
+        <FontAwesomeIcon icon={faArrowLeft} />
       </div>
 
       {/* Картинка блюда */}
       <div
         style={{ backgroundImage: `url(${product?.image_url})` }}
-        className="shadow-image mb-5 h-[200px] bg-transparent bg-cover"
+        className="mb-5 h-[300px] bg-transparent bg-cover shadow-image"
       ></div>
 
       {/* Внешний контейнер */}
@@ -66,10 +80,10 @@ function DishPage() {
         {/* Выбрать тип блюда */}
         {product?.modifiers.length !== 0 && (
           <>
-            <p className="text-fontSecondary2 mb-1 ml-3 text-xs font-semibold">
+            <p className="mb-1 ml-3 text-xs font-semibold text-fontSecondary2">
               Выберите вариант блюда
             </p>
-            <div className="shadow-option mb-6 rounded-[6px]">
+            <div className="mb-6 rounded-[6px] shadow-option">
               {product?.modifiers.map((modifier, index) => {
                 return (
                   <div
@@ -112,10 +126,10 @@ function DishPage() {
         {/* Дополнительные продукты */}
         {product?.additions.length !== 0 && (
           <>
-            <p className="text-fontSecondary2 mb-1 ml-3 text-xs font-semibold">
+            <p className="mb-1 ml-3 text-xs font-semibold text-fontSecondary2">
               Дополнительно
             </p>
-            <div className="shadow-option mb-6 rounded-[6px]">
+            <div className="mb-6 rounded-[6px] shadow-option">
               {product?.additions.map((addition, index) => {
                 return (
                   <div
@@ -162,7 +176,7 @@ function DishPage() {
         {product?.modifiers.length !== 0 &&
           state.cart.filter((_product) => _product.product?.id === product?.id)
             .length > 0 && (
-            <div className="shadow-option rounded-[6px] bg-bgColor2 px-3 pb-2 pt-3">
+            <div className="rounded-[6px] bg-bgColor2 px-3 pb-2 pt-3 shadow-option">
               <p className="mb-1 text-xs font-semibold text-fontSecondary">
                 В корзине
               </p>

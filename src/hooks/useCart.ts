@@ -10,32 +10,7 @@ const useCart = () => {
   const state = useAppSelector((state) => state.main);
   const dispatch = useAppDispatch();
 
-  const findOrderByProduct = (product: Product) => {
-    return state.cart.findIndex((orderProduct) => {
-      if (product.modifiers.length !== 0) {
-        const modifiers = Array.from(product.modifiers);
-        modifiers.sort((a, b) => {
-          return a.price - b.price;
-        });
-        const activeModifier = modifiers[0].id;
-        return (
-          orderProduct.product?.id === product.id &&
-          orderProduct.additions.length === 0 &&
-          orderProduct.active_modifier === activeModifier
-        );
-      } else {
-        return (
-          orderProduct.product?.id === product.id &&
-          orderProduct.additions.length === 0 &&
-          !orderProduct.active_modifier
-        );
-      }
-    });
-  };
-
   const getProductById = (id: number) => {
-    console.log('\n\n\nstate')
-    console.log(state)
     for (const category of state.categories) {
       for (const product of category.products) {
         if (product.id === id) {
@@ -67,13 +42,23 @@ const useCart = () => {
   };
 
   const increaseProduct = (product: Product) => {
-    const indexOfOrderProduct = findOrderByProduct(product);
-    dispatch(addOneToOrderProduct(indexOfOrderProduct));
+    dispatch(
+      addOneToOrderProduct(
+        state.cart.findIndex(
+          (orderProduct) => orderProduct.product?.id === product.id,
+        ),
+      ),
+    );
   };
 
   const decreaseProduct = (product: Product) => {
-    const indexOfOrderProduct = findOrderByProduct(product);
-    dispatch(removeOneToOrderProduct(indexOfOrderProduct));
+    dispatch(
+      removeOneToOrderProduct(
+        state.cart.findIndex(
+          (orderProduct) => orderProduct.product?.id === product.id,
+        ),
+      ),
+    );
   };
 
   const countProductInCart = (product_id: number) => {

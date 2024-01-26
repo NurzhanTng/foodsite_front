@@ -6,7 +6,6 @@ import { useAppSelector } from "../store/hooks.ts";
 function MainPage() {
   const state = useAppSelector((state) => state.main);
   const { categoryRefs } = useScrollEffect();
-  console.log('hello')
 
   return (
     <>
