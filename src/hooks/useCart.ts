@@ -104,6 +104,31 @@ const useCart = () => {
     );
   };
 
+  const cartToJson = (cart: OrderProduct[] = []) => {
+    if (cart.length == 0) cart = state.cart;
+
+    return JSON.stringify({
+      products: cart.map((orderProduct) => {
+        return {
+          amount: orderProduct.amount,
+          client_comment: orderProduct.client_comment,
+          price: sumOneOrderProduct(orderProduct),
+          product_id: orderProduct.product?.id,
+          active_modifier: orderProduct.active_modifier,
+          additions: orderProduct.additions.map((addition) => addition.id)
+        };
+      }),
+      client_id: 111111,
+      bonus_used: false,
+      user_name: "Nurzhan",
+      loc: 29.5,
+      lat: 23.123,
+      exact_address: "Толе",
+      phone: "87007382452",
+      client_comment: "",
+    });
+  };
+
   return {
     getProductById,
     addOneProductToCart,
@@ -112,6 +137,7 @@ const useCart = () => {
     decreaseProduct,
     sumCurrency,
     sumOneOrderProduct,
+    cartToJson
   };
 };
 

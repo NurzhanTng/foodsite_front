@@ -1,12 +1,14 @@
 import { useAppSelector } from "../store/hooks.ts";
 import CartElement from "../components/CartElement.tsx";
+import useCart from "../hooks/useCart.ts";
 
 const CartPage = () => {
   const state = useAppSelector((state) => state.main);
+  const {cartToJson} = useCart();
 
   const handleClick = () => {
     const tg = window.Telegram.WebApp;
-    tg.sendData('hello from webApp');
+    tg.sendData(cartToJson());
     tg.close()
   }
 
