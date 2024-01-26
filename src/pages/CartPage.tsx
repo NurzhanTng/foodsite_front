@@ -13,7 +13,7 @@ const CartPage = () => {
       {/* Кнопка оформления заказа */}
       <div
         onClick={() => console.log("close")}
-        className="align-center fixed bottom-0 flex h-[70px] w-full justify-center bg-button text-center text-sm leading-[14px] text-white"
+        className="align-center fixed bottom-0 flex h-[50px] w-full justify-center bg-button text-center text-sm leading-[14px] text-white"
       >
         <p className="my-auto h-fit text-lg font-semibold">Оформить заказ</p>
       </div>

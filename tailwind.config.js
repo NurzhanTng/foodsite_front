@@ -33,6 +33,9 @@ export default {
       flex: {
         '2': '2 2 0%',
         '3': '3 3 0%'
+      },
+      screens: {
+        'sm-s': '400px'
       }
     },
   },

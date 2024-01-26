@@ -2,7 +2,10 @@ import { OrderProduct } from "../Types.ts";
 import useCart from "../hooks/useCart.ts";
 import currencyFormatter from "../utils/currencyFormatter.ts";
 import { useAppDispatch } from "../store/hooks.ts";
-import { addOneToOrderProduct, removeOneToOrderProduct } from "../store/slices/mainSlice.ts";
+import {
+  addOneToOrderProduct,
+  removeOneToOrderProduct,
+} from "../store/slices/mainSlice.ts";
 
 interface CartElementProps {
   element: OrderProduct;
@@ -19,10 +22,10 @@ const CartElement = ({ element, index }: CartElementProps) => {
     >
       <div
         style={{ backgroundImage: `url(${element.product?.image_url})` }}
-        className="min-h-[100px] min-w-[100px] rounded-[10px] bg-cover"
+        className="sm-s:block hidden min-h-[100px] min-w-[100px] rounded-[10px] bg-cover"
       />
       <div>
-        <p className="line-clamp-1 text-base text-white">
+        <p className="sm-s:line-clamp-1 line-clamp-2 text-base text-white">
           {element.product?.name}
         </p>
         <p
@@ -37,7 +40,7 @@ const CartElement = ({ element, index }: CartElementProps) => {
         <p className="line-clamp-1 text-sm text-fontSecondary2">
           {element.additions.map((addition) => addition.name).join(", ")}
         </p>
-        <div className='flex mt-4 flex-row justify-between gap-2 text-center text-sm leading-[14px] text-white w-[150px]'>
+        <div className="mt-4 flex w-[150px] flex-row justify-between gap-2 text-center text-sm leading-[14px] text-white">
           <div
             className="min-w-[20px] flex-1 rounded-[6px] bg-button py-3"
             onClick={() => dispatch(removeOneToOrderProduct(index))}
