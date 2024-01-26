@@ -23,9 +23,12 @@ export default {
         button: "#5288C1",
         buttonHover: "#4A7AAE",
         fontSecondary: "#708499",
+        fontSecondary2: '#495868'
       },
       boxShadow: {
         card: "0 0 40px 0 rgba(41, 59, 76, 0.5)",
+        option: "0 0 20px 0 rgba(41, 59, 76, 0.3)",
+        image: "0 3px 10px 0 rgba(0, 0, 0, 0.7)",
       },
       flex: {
         '2': '2 2 0%',

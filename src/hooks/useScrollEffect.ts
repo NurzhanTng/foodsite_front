@@ -1,11 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks.ts";
-import {
-  fetchCategories,
-  setActiveCategory,
-} from "../store/slices/mainSlice.ts";
-// import fetchCategories from "../utils/fetchCategories.ts";
-// import { Category } from "../Types.ts";
+import { setActiveCategory } from "../store/slices/mainSlice.ts";
 
 export type CategoryRefs = {
   [key: string]: HTMLDivElement | null;
@@ -15,11 +10,6 @@ const useScrollEffect = () => {
   const state = useAppSelector((state) => state.main);
   const dispatch = useAppDispatch();
   const categoryRefs: React.MutableRefObject<CategoryRefs> = useRef({});
-
-  useEffect(() => {
-    dispatch(fetchCategories())
-  }, [dispatch]);
-
 
   const debounce = (func: () => void, delay: number) => {
     let timeoutId: NodeJS.Timeout;

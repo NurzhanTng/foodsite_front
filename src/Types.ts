@@ -41,7 +41,7 @@ export type Category = {
 };
 
 export type OrderProduct = {
-  product: Product;
+  product: Product | undefined;
   active_modifier: Modifiers["id"] | null;
   additions: Array<Additions>;
   amount: number;

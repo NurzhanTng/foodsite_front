@@ -16,11 +16,13 @@ const MenuCategory = ({ category, categoryRefs }: MenuCategoryProps) => {
       ref={(el) => (categoryRefs.current[category.id] = el)}
       className="w-full pb-[50px]"
     >
+      {/* Описание категории */}
       <h2 className="mb-3 w-fit text-xl font-semibold">{category.name}</h2>
       <p className="mb-[30px] max-w-full overflow-hidden text-sm text-fontSecondary">
         {category.description}
       </p>
 
+      {/* Все карточки блюд */}
       <div className="mx-auto flex flex-row flex-wrap justify-between gap-5 gap-y-[20px] sm:justify-start">
         {category.products.map((product) => (
           <ProductCard key={product.id} product={product} />
