@@ -1,5 +1,5 @@
 export type ProductTag = {
-  tag_name: string;
+  name: string;
   tag_color: string;
 };
 

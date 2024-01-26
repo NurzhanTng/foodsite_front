@@ -111,7 +111,7 @@ const useCart = () => {
       products: cart.map((orderProduct) => {
         return {
           amount: orderProduct.amount,
-          client_comment: orderProduct.client_comment,
+          client_comment: 'good product',
           price: sumOneOrderProduct(orderProduct),
           product_id: orderProduct.product?.id,
           active_modifier: orderProduct.active_modifier,
@@ -125,7 +125,7 @@ const useCart = () => {
       lat: 23.123,
       exact_address: "Толе",
       phone: "87007382452",
-      client_comment: "",
+      client_comment: "Мне пожалуйста еще 1 негритянку к заказу",
     });
   };
 

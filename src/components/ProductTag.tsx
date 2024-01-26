@@ -12,7 +12,7 @@ const ProductTag = ({ tag, className = '' }: ProductTagProps) => {
       style={{ backgroundColor: tag.tag_color }}
       className={twMerge("w-fit rounded-[6px] p-1 text-xs text-white " + className)}
     >
-      {tag.tag_name}
+      {tag.name}
     </div>
   );
 };
