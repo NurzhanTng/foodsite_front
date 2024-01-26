@@ -23,7 +23,7 @@ const ProductAddButton = (product: Product) => {
       {/* Когда корзина пуста */}
       {typesCount === 0 && (
         <div
-          className="exclude-click bg-button py-3 text-center text-sm leading-[14px] text-white"
+          className="exclude-click rounded-[6px] bg-button py-3 text-center text-sm leading-[14px] text-white"
           onClick={() => addOneProductToCart(product)}
         >
           <p>
