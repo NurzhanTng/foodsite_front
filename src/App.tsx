@@ -23,6 +23,10 @@ const router = createBrowserRouter([
     element: <DishPage />,
   },
   {
+    path: '/cart',
+    element: <p>Корзина</p>
+  },
+  {
     path: "*",
     element: <Navigate to={"/"} replace={true} />,
   },
