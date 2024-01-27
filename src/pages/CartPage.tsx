@@ -10,20 +10,20 @@ const CartPage = () => {
     const tg = window.Telegram.WebApp;
     tg.sendData(cartToJson());
     tg.close()
-    console.log(cartToJson());
+    // console.log(cartToJson());
 
-    fetch(import.meta.env.VITE_REACT_APP_API_BASE_URL + `food/orders/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: cartToJson(),
-    })
-      .then((data) => {
-        console.log(data.status);
-        console.log(data.json())
-      })
-      .catch((err) => console.log("Error: " + err));
+    // fetch(import.meta.env.VITE_REACT_APP_API_BASE_URL + `food/orders/`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: cartToJson(),
+    // })
+    //   .then((data) => {
+    //     console.log(data.status);
+    //     console.log(data.json())
+    //   })
+    //   .catch((err) => console.log("Error: " + err));
   };
 
   return (

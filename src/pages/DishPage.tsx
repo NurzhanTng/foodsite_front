@@ -26,15 +26,17 @@ function DishPage() {
   });
 
   useEffect(() => {
-    if (state.categories && orderProduct.product === undefined) {
-      const product = getProductById(
-        parseInt(dishId !== undefined ? dishId : "0"),
-      );
+  if (state.categories && orderProduct.product === undefined) {
+    const timerId = setTimeout(() => {
+      const product = getProductById(parseInt(dishId !== undefined ? dishId : "0"));
       setOrderProduct((oldProduct) => {
         return { ...oldProduct, product: product };
       });
-    }
-  }, [dishId, getProductById, orderProduct.product, state.categories]);
+    }, 1000); // Adjust the delay time as needed (in milliseconds)
+
+    return () => clearTimeout(timerId); // Clear the timeout on component unmount or dependency change
+  }
+}, [dishId, getProductById, orderProduct.product, state.categories]);
 
   const handleClick = useCallback(() => {
     if (

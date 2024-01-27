@@ -18,14 +18,14 @@ const CartElement = ({ element, index }: CartElementProps) => {
 
   return (
     <div
-      className={`${index !== 0 ? "border-t-[1px] border-secondary" : ""} mx-3 flex w-[100%-24px] flex-row gap-2 py-4`}
+      className={`${index !== 0 ? "border-t-[1px] border-secondary" : ""} mx-3 flex w-[100%-24px] flex-row gap-4 sm-s:gap-2 py-4`}
     >
       <div
         style={{ backgroundImage: `url(${element.product?.image_url})` }}
-        className="sm-s:block hidden min-h-[100px] min-w-[100px] rounded-[10px] bg-cover"
+        className="min-h-[100px] min-w-[100px] rounded-[10px] bg-cover"
       />
       <div>
-        <p className="sm-s:line-clamp-1 line-clamp-2 text-base text-white">
+        <p className="line-clamp-2 text-base text-white sm-s:line-clamp-1">
           {element.product?.name}
         </p>
         <p
@@ -39,6 +39,9 @@ const CartElement = ({ element, index }: CartElementProps) => {
         </p>
         <p className="line-clamp-1 text-sm text-fontSecondary2">
           {element.additions.map((addition) => addition.name).join(", ")}
+        </p>
+        <p className="mt-2 sm-s:hidden">
+          {currencyFormatter(sumOneOrderProduct(element))}
         </p>
         <div className="mt-4 flex w-[150px] flex-row justify-between gap-2 text-center text-sm leading-[14px] text-white">
           <div
@@ -60,7 +63,7 @@ const CartElement = ({ element, index }: CartElementProps) => {
           </div>
         </div>
       </div>
-      <p className="ml-auto">
+      <p className="ml-auto hidden sm-s:inline">
         {currencyFormatter(sumOneOrderProduct(element))}
       </p>
     </div>

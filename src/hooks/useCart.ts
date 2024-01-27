@@ -85,10 +85,10 @@ const useCart = () => {
     if (!orderProduct.product) return 0;
 
     let price = 0;
-    if (orderProduct.product.price === null) {
+    if (orderProduct.product.price === null || orderProduct.product.price === undefined) {
       if (orderProduct.active_modifier !== null) {
         price =
-          orderProduct.product.modifiers[orderProduct.active_modifier].price;
+          orderProduct.product.modifiers.find((modifier) => modifier.id === orderProduct.active_modifier)?.price || 0;
       }
     } else {
       price = orderProduct.product.price;
@@ -118,14 +118,14 @@ const useCart = () => {
           additions: orderProduct.additions.map((addition) => addition.id)
         };
       }),
-      client_id: 111111,
+      client_id: 0,
       bonus_used: false,
-      user_name: "Nurzhan",
-      loc: 29.5,
-      lat: 23.123,
-      exact_address: "Толе",
-      phone: "87007382452",
-      client_comment: "Мне пожалуйста еще 1 негритянку к заказу",
+      user_name: "",
+      loc: 0,
+      lat: 0,
+      exact_address: "",
+      phone: "",
+      client_comment: "",
     });
   };
 
