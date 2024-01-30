@@ -4,11 +4,43 @@ import {
   addOneToOrderProduct,
   addProductToCart,
   removeOneToOrderProduct,
+  setCart,
+  setIsParamsCartUpdated,
 } from "../store/slices/mainSlice.ts";
 
 const useCart = () => {
+  // console.log("---- useCart ----");
   const state = useAppSelector((state) => state.main);
   const dispatch = useAppDispatch();
+
+  const updateCartFromParams = (params: string | null) => {
+    if (state.isParamsCartUpdated) return;
+    if (params === null) return;
+    if (state.categories.length === 0) return;
+
+    const cart = JSON.parse(params);
+    const new_cart: OrderProduct[] = [];
+
+    for (const cartElement of cart) {
+      const product = getProductById(cartElement["product_id"]);
+      if (product === undefined) continue;
+
+      new_cart.push({
+        product: product,
+        active_modifier: cartElement["active_modifier"],
+        additions: cartElement["additions"].map((addition_id: string) => {
+          return product.additions.find(
+            (addition) => addition.id === parseInt(addition_id),
+          );
+        }),
+        amount: cartElement["amount"],
+        client_comment: "",
+      });
+    }
+
+    dispatch(setIsParamsCartUpdated(true));
+    dispatch(setCart(new_cart));
+  };
 
   const getProductById = (id: number) => {
     for (const category of state.categories) {
@@ -85,10 +117,15 @@ const useCart = () => {
     if (!orderProduct.product) return 0;
 
     let price = 0;
-    if (orderProduct.product.price === null || orderProduct.product.price === undefined) {
+    if (
+      orderProduct.product.price === null ||
+      orderProduct.product.price === undefined
+    ) {
       if (orderProduct.active_modifier !== null) {
         price =
-          orderProduct.product.modifiers.find((modifier) => modifier.id === orderProduct.active_modifier)?.price || 0;
+          orderProduct.product.modifiers.find(
+            (modifier) => modifier.id === orderProduct.active_modifier,
+          )?.price || 0;
       }
     } else {
       price = orderProduct.product.price;
@@ -111,11 +148,11 @@ const useCart = () => {
       products: cart.map((orderProduct) => {
         return {
           amount: orderProduct.amount,
-          client_comment: 'good product',
+          client_comment: "",
           price: sumOneOrderProduct(orderProduct),
           product_id: orderProduct.product?.id,
           active_modifier: orderProduct.active_modifier,
-          additions: orderProduct.additions.map((addition) => addition.id)
+          additions: orderProduct.additions.map((addition) => addition.id),
         };
       }),
       client_id: 0,
@@ -137,7 +174,8 @@ const useCart = () => {
     decreaseProduct,
     sumCurrency,
     sumOneOrderProduct,
-    cartToJson
+    cartToJson,
+    updateCartFromParams,
   };
 };
 

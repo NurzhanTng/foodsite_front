@@ -1,16 +1,23 @@
 import { useAppSelector } from "../store/hooks.ts";
 import CartElement from "../components/CartElement.tsx";
 import useCart from "../hooks/useCart.ts";
+import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
 const CartPage = () => {
   const state = useAppSelector((state) => state.main);
-  const { cartToJson } = useCart();
+  const { cartToJson, updateCartFromParams } = useCart();
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    updateCartFromParams(searchParams.get("cart"));
+  }, [searchParams, updateCartFromParams, state.categories]);
 
   const handleClick = () => {
     const tg = window.Telegram.WebApp;
     tg.sendData(cartToJson());
     tg.close()
-    // console.log(cartToJson());
+    console.log(cartToJson());
 
     // fetch(import.meta.env.VITE_REACT_APP_API_BASE_URL + `food/orders/`, {
     //   method: "POST",

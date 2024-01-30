@@ -4,13 +4,19 @@ import useScrollEffect from "../hooks/useScrollEffect.ts";
 import { useAppSelector } from "../store/hooks.ts";
 import currencyFormatter from "../utils/currencyFormatter.ts";
 import useCart from "../hooks/useCart.ts";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
 
 function MainPage() {
   const state = useAppSelector((state) => state.main);
   const { categoryRefs } = useScrollEffect();
-  const { sumCurrency } = useCart();
+  const { sumCurrency, updateCartFromParams } = useCart();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    updateCartFromParams(searchParams.get("cart"));
+  }, [searchParams, updateCartFromParams, state.categories]);
 
   return (
     <>
@@ -27,9 +33,12 @@ function MainPage() {
 
       {/* To cart button */}
       <div
-        onClick={() => navigate('/cart')}
-        className="flex align-center justify-center fixed bottom-0 h-[50px] w-full bg-button text-center text-base leading-[14px] text-white">
-        <p className='h-fit my-auto text-lg font-semibold'>Корзина: {currencyFormatter(sumCurrency(state.cart))}</p>
+        onClick={() => navigate("/cart")}
+        className="align-center fixed bottom-0 flex h-[50px] w-full justify-center bg-button text-center text-base leading-[14px] text-white"
+      >
+        <p className="my-auto h-fit text-lg font-semibold">
+          Корзина: {currencyFormatter(sumCurrency(state.cart))}
+        </p>
       </div>
     </>
   );

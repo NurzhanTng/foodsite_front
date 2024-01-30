@@ -7,12 +7,14 @@ export type MainState = {
   categories: Category[];
   activeCategory: number | null;
   cart: OrderProduct[];
+  isParamsCartUpdated: boolean;
 };
 
 const initialState: MainState = {
   categories: [],
   activeCategory: 0,
   cart: [],
+  isParamsCartUpdated: false
 };
 
 export const fetchCategories = createAsyncThunk("category", async () => {
@@ -23,6 +25,14 @@ const mainSlice = createSlice({
   name: "main",
   initialState,
   reducers: {
+    setIsParamsCartUpdated: (state, action: PayloadAction<boolean>) => {
+      state.isParamsCartUpdated = action.payload
+    },
+
+    setCart: (state, action: PayloadAction<OrderProduct[]>) => {
+      state.cart = action.payload
+    },
+
     setActiveCategory: (state, action: PayloadAction<number>) => {
       state.activeCategory = action.payload;
     },
@@ -52,6 +62,8 @@ const mainSlice = createSlice({
 });
 
 export const {
+  setCart,
+  setIsParamsCartUpdated,
   setActiveCategory,
   addProductToCart,
   addOneToOrderProduct,
