@@ -36,6 +36,7 @@ function DishPage() {
         oldOrderProduct.product?.price === null
       );
     });
+    console.log(same_product)
 
     dispatch(
       setCart(
@@ -45,14 +46,14 @@ function DishPage() {
               return {
                 ...oldOrderProduct,
                 amount:
-                  same_product === undefined
+                  same_product === -1
                     ? oldOrderProduct.amount
                     : oldOrderProduct.amount + orderProduct.amount,
               };
             } else {
               return {
                 ...orderProduct,
-                amount: same_product === undefined ? orderProduct.amount : 0,
+                amount: same_product === -1 ? orderProduct.amount : 0,
               };
             }
           })
