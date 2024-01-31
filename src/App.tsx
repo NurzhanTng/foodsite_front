@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { fetchCategories } from "./store/slices/mainSlice.ts";
 import { useAppDispatch } from "./store/hooks.ts";
 import CartPage from "./pages/CartPage.tsx";
+import CartDishPage from "./pages/CartDishPage.tsx";
 
 // import { library } from "@fortawesome/fontawesome-svg-core";
 // import { faCheckSquare, faCoffee } from "@fortawesome/free-solid-svg-icons";
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
   {
     path: '/cart',
     element: <CartPage />
+  },
+  {
+    path: '/cartProduct/:product_index',
+    element: <CartDishPage />
   },
   {
     path: "*",

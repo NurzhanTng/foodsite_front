@@ -166,6 +166,10 @@ const useCart = () => {
     });
   };
 
+  const deleteCartProducts = () => {
+    dispatch(setCart([]));
+  }
+
   return {
     getProductById,
     addOneProductToCart,
@@ -176,6 +180,7 @@ const useCart = () => {
     sumOneOrderProduct,
     cartToJson,
     updateCartFromParams,
+    deleteCartProducts
   };
 };
 

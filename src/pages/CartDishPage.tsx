@@ -1,67 +1,79 @@
 import { useNavigate, useParams } from "react-router-dom";
 import useCart from "../hooks/useCart.ts";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import ProductTag from "../components/ProductTag.tsx";
-import { OrderProduct } from "../Types.ts";
 import currencyFormatter from "../utils/currencyFormatter.ts";
 import { useAppDispatch, useAppSelector } from "../store/hooks.ts";
-import { addProductToCart } from "../store/slices/mainSlice.ts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { OrderProduct } from "../Types.ts";
+import { setCart } from "../store/slices/mainSlice.ts";
+import isArraysEqual from "../utils/isArraysEqual.ts";
 
 function DishPage() {
   const state = useAppSelector((state) => state.main);
   const dispatch = useAppDispatch();
-  const { dishId } = useParams();
-  const { getProductById, sumOneOrderProduct } = useCart();
+  const { product_index } = useParams();
+  const { sumOneOrderProduct } = useCart();
   const navigate = useNavigate();
 
-  const product = getProductById(parseInt(dishId !== undefined ? dishId : "0"));
+  const orderProductIndex = parseInt(
+    product_index === undefined ? "0" : product_index,
+  );
   const [orderProduct, setOrderProduct] = useState<OrderProduct>({
-    product: product,
-    active_modifier: null,
-    additions: [],
-    amount: 1,
-    client_comment: "",
+    ...state.cart[orderProductIndex],
   });
 
-  useEffect(() => {
-    if (state.categories && orderProduct.product === undefined) {
-      const timerId = setTimeout(() => {
-        const product = getProductById(
-          parseInt(dishId !== undefined ? dishId : "0"),
-        );
-        setOrderProduct((oldProduct) => {
-          return { ...oldProduct, product: product };
-        });
-      }, 1000); // Adjust the delay time as needed (in milliseconds)
-
-      return () => clearTimeout(timerId); // Clear the timeout on component unmount or dependency change
-    }
-  }, [dishId, getProductById, orderProduct.product, state.categories]);
-
   const handleClick = useCallback(() => {
-    if (
-      product?.modifiers.length !== 0 &&
-      orderProduct.active_modifier === null
-    )
-      return;
-    dispatch(addProductToCart(orderProduct));
-    navigate("/");
-  }, [dispatch, navigate, orderProduct, product?.modifiers.length]);
+    const same_product = state.cart.findIndex((oldOrderProduct) => {
+      return (
+        oldOrderProduct.product?.id === orderProduct.product?.id &&
+        oldOrderProduct.active_modifier === orderProduct.active_modifier &&
+        isArraysEqual(
+          oldOrderProduct.additions.map((addition) => addition.id),
+          orderProduct.additions.map((addition) => addition.id),
+        ) &&
+        oldOrderProduct.product?.price === null
+      );
+    });
+
+    dispatch(
+      setCart(
+        state.cart
+          .map((oldOrderProduct, index) => {
+            if (index !== orderProductIndex) {
+              return {
+                ...oldOrderProduct,
+                amount:
+                  same_product === undefined
+                    ? oldOrderProduct.amount
+                    : oldOrderProduct.amount + orderProduct.amount,
+              };
+            } else {
+              return {
+                ...orderProduct,
+                amount: same_product === undefined ? orderProduct.amount : 0,
+              };
+            }
+          })
+          .filter((orderProduct) => orderProduct.amount !== 0),
+      ),
+    );
+    navigate("/cart");
+  }, [dispatch, navigate, orderProduct, orderProductIndex, state.cart]);
 
   return (
     <div className="relative mb-[70px] min-h-[calc(100vh-70px)]">
       {/* Абсолютные расположенные теги */}
       <div className="absolute right-3 top-3 flex flex-col gap-2">
-        {product?.tags.map((tag, index) => (
+        {orderProduct.product?.tags.map((tag, index) => (
           <ProductTag className={"ml-auto px-2"} key={index} tag={tag} />
         ))}
       </div>
 
       {/* Кнопка назад */}
       <div
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/cart")}
         className="fixed left-[20px] top-[15px] rounded-full px-[16px] py-[11px] text-xl backdrop-blur backdrop-filter"
       >
         <FontAwesomeIcon icon={faArrowLeft} />
@@ -69,41 +81,42 @@ function DishPage() {
 
       {/* Картинка блюда */}
       <div
-        style={{ backgroundImage: `url(${product?.image_url})` }}
+        style={{ backgroundImage: `url(${orderProduct.product?.image_url})` }}
         className="mb-5 h-[300px] bg-transparent bg-cover shadow-image"
-      ></div>
+      />
 
       {/* Внешний контейнер */}
       <div className="px-3">
         {/* Описание блюда */}
-        <h4 className="mb-3 text-base font-bold text-white">{product?.name}</h4>
-        <p className="mb-6 text-xs text-fontSecondary">{product?.name}</p>
+        <h4 className="mb-3 text-base font-bold text-white">
+          {orderProduct.product?.name}
+        </h4>
+        <p className="mb-6 text-xs text-fontSecondary">
+          {orderProduct.product?.name}
+        </p>
 
         {/* Выбрать тип блюда */}
-        {product?.modifiers.length !== 0 && (
+        {orderProduct.product?.modifiers.length !== 0 && (
           <>
             <p className="mb-1 ml-3 text-xs font-semibold text-fontSecondary2">
               Выберите вариант блюда
             </p>
             <div className="mb-6 rounded-[6px] shadow-option">
-              {product?.modifiers.map((modifier, index) => {
+              {orderProduct.product?.modifiers.map((modifier, index) => {
                 return (
                   <div
                     key={index}
                     className={`
-                    ${orderProduct.active_modifier === modifier.id ? "bg-button" : "bg-bgColor2"} 
+                    ${orderProduct.active_modifier === modifier.id ? "bg-button" : "bg-bgColor2"}
                     ${index === 0 ? "rounded-t-[6px]" : ""}
-                    ${index === product?.modifiers.length - 1 ? "rounded-b-[6px]" : ""}
+                    ${index === (orderProduct.product?.modifiers.length !== undefined && orderProduct.product?.modifiers.length) ? "rounded-b-[6px]" : ""}
                     flex flex-row justify-between p-4 text-center text-sm leading-[14px] text-white
                   `}
                     onClick={() => {
-                      setOrderProduct((oldProduct) => {
+                      setOrderProduct((orderProduct) => {
                         return {
-                          ...oldProduct,
-                          active_modifier:
-                            oldProduct.active_modifier === modifier.id
-                              ? null
-                              : modifier.id,
+                          ...orderProduct,
+                          active_modifier: modifier.id,
                         };
                       });
                     }}
@@ -126,33 +139,33 @@ function DishPage() {
         )}
 
         {/* Дополнительные продукты */}
-        {product?.additions.length !== 0 && (
+        {orderProduct.product?.additions.length !== 0 && (
           <>
             <p className="mb-1 ml-3 text-xs font-semibold text-fontSecondary2">
               Дополнительно
             </p>
             <div className="mb-6 rounded-[6px] shadow-option">
-              {product?.additions.map((addition, index) => {
+              {orderProduct.product?.additions.map((addition, index) => {
                 return (
                   <div
                     key={index}
                     className={`
-                    ${orderProduct.additions.includes(addition) ? "bg-button" : "bg-bgColor2"} 
+                    ${orderProduct.additions.includes(addition) ? "bg-button" : "bg-bgColor2"}
                     ${index === 0 ? "rounded-t-[6px]" : ""}
-                    ${index === product?.modifiers.length - 1 ? "rounded-b-[6px]" : ""}
+                    ${index === (orderProduct.product?.modifiers.length !== undefined && orderProduct.product?.modifiers.length - 1) ? "rounded-b-[6px]" : ""}
                     flex flex-row justify-between p-4 text-center text-sm leading-[14px] text-white
                   `}
                     onClick={() => {
-                      setOrderProduct((oldProduct) => {
+                      setOrderProduct((orderProduct) => {
                         return {
-                          ...oldProduct,
-                          additions: oldProduct.additions.includes(addition)
+                          ...orderProduct,
+                          additions: orderProduct.additions.includes(addition)
                             ? [
-                                ...oldProduct.additions.filter(
+                                ...orderProduct.additions.filter(
                                   (item) => item !== addition,
                                 ),
                               ]
-                            : [...oldProduct.additions, addition],
+                            : [...orderProduct.additions, addition],
                         };
                       });
                     }}
@@ -173,42 +186,6 @@ function DishPage() {
             </div>
           </>
         )}
-
-        {/* Часть корзины с этими блюдами */}
-        {product?.modifiers.length !== 0 &&
-          state.cart.filter((_product) => _product.product?.id === product?.id)
-            .length > 0 && (
-            <div className="rounded-[6px] bg-bgColor2 px-3 pb-2 pt-3 shadow-option">
-              <p className="mb-1 text-xs font-semibold text-fontSecondary">
-                В корзине
-              </p>
-              {state.cart
-                .filter((_product) => _product.product?.id === product?.id)
-                .map((order, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className={`${index !== 0 ? "border-t-[1px] border-secondary" : ""} flex flex-row justify-between bg-bgColor2 py-2 text-xs leading-[14px] text-white`}
-                    >
-                      <div>
-                        <p>{order.product?.name}</p>
-                        <p className="mt-1 text-fontSecondary">
-                          {
-                            order.product?.modifiers.find(
-                              (modifier) =>
-                                modifier.id == order.active_modifier,
-                            )?.name
-                          }
-                        </p>
-                      </div>
-                      <p className="my-auto h-fit font-semibold">
-                        {order.amount} шт
-                      </p>
-                    </div>
-                  );
-                })}
-            </div>
-          )}
       </div>
 
       {/* Абсолютное меню добавления */}
@@ -216,14 +193,13 @@ function DishPage() {
         <div className="flex flex-1 flex-row gap-3">
           <div
             className="flex-1 rounded-[6px] bg-button p-3 text-center text-xl font-bold leading-[14px] text-white"
-            onClick={() =>
-              setOrderProduct((oldProduct) => {
-                return {
-                  ...oldProduct,
-                  amount: oldProduct.amount > 1 ? oldProduct.amount - 1 : 1,
-                };
-              })
-            }
+            onClick={() => {
+              if (orderProduct.amount > 0) {
+                setOrderProduct((orderProduct) => {
+                  return { ...orderProduct, amount: orderProduct.amount - 1 };
+                });
+              }
+            }}
           >
             -
           </div>
@@ -232,11 +208,11 @@ function DishPage() {
           </p>
           <div
             className="flex-1 rounded-[6px] bg-button p-3 text-center text-xl  font-bold leading-[14px] text-white"
-            onClick={() =>
-              setOrderProduct((oldProduct) => {
-                return { ...oldProduct, amount: oldProduct.amount + 1 };
-              })
-            }
+            onClick={() => {
+              setOrderProduct((orderProduct) => {
+                return { ...orderProduct, amount: orderProduct.amount + 1 };
+              });
+            }}
           >
             +
           </div>
@@ -245,7 +221,7 @@ function DishPage() {
           className="flex-1 rounded-[6px] bg-button p-3 text-center text-sm leading-[14px] text-white"
           onClick={handleClick}
         >
-          Добавить {currencyFormatter(sumOneOrderProduct(orderProduct))}
+          Сохранить {currencyFormatter(sumOneOrderProduct(orderProduct))}
         </div>
       </div>
     </div>
