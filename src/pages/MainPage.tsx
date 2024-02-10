@@ -36,7 +36,7 @@ function MainPage() {
         onClick={() => navigate("/cart")}
         className="align-center fixed bottom-0 flex h-[50px] w-full justify-center bg-button text-center text-base leading-[14px] text-white"
       >
-        <p className="my-auto h-fit text-lg font-semibold">
+        <p className="my-auto h-fit text-lg">
           Корзина: {currencyFormatter(sumCurrency(state.cart))}
         </p>
       </div>

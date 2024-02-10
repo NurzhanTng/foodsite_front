@@ -56,30 +56,30 @@ const CartPage = () => {
       })}
 
       {/* Кнопка оформления заказа */}
-      <div className="align-center fixed bottom-0 flex h-[120px] w-full flex-col justify-center bg-button text-center text-sm leading-[14px] text-white">
+      <div className="align-center fixed bottom-0 flex h-[130px] w-full flex-col justify-center  text-center text-sm leading-[14px] text-white">
         <div
           onClick={handleCartClick}
-          className="align-center flex h-[40px] w-full justify-center border-b-[1px] border-secondary bg-button text-center text-sm leading-[14px] text-white"
+          className="align-center flex h-[40px] mb-[5px] rounded mx-[10px] w-[calc(100%-20px)] justify-center border-b-[1px] border-secondary bg-button text-center text-sm leading-[14px] text-white"
         >
-          <p className="my-auto h-fit text-lg font-semibold">
+          <p className="my-auto h-fit text-lg">
             <FontAwesomeIcon icon={faTrash} className="pr-2" />
             Очистить корзину
           </p>
         </div>
         <div
           onClick={handleMenuClick}
-          className="align-center flex h-[40px] w-full justify-center border-b-[1px] border-secondary bg-button text-center text-sm leading-[14px] text-white"
+          className="align-center flex h-[40px] mb-[5px] rounded mx-[10px] w-[calc(100%-20px)] justify-center border-b-[1px] border-secondary bg-button text-center text-sm leading-[14px] text-white"
         >
-          <p className="my-auto h-fit text-lg font-semibold">
+          <p className="my-auto h-fit text-lg">
             <FontAwesomeIcon icon={faBookOpen} className="pr-2" />
             Вернуться к меню
           </p>
         </div>
         <div
           onClick={handleOrderClick}
-          className="align-center flex h-[40px] w-full justify-center bg-button text-center text-sm leading-[14px] text-white"
+          className="align-center flex h-[40px] rounded mx-[10px] w-[calc(100%-20px)] justify-center border-b-[1px] border-secondary bg-button text-center text-sm leading-[14px] text-white"
         >
-          <p className="my-auto h-fit text-lg font-semibold">
+          <p className="my-auto h-fit text-lg">
             <FontAwesomeIcon icon={faReceipt} className="pr-2" />
             Оформить заказ
           </p>
