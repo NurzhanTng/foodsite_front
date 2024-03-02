@@ -3,22 +3,20 @@ import {
   Navigate,
   RouterProvider
 } from "react-router-dom";
-import MainPage from "./pages/MainPage.tsx";
+import MenuPage from "./pages/MenuPage";
 import DishPage from "./pages/DishPage.tsx";
 import { useEffect } from "react";
 import { fetchCategories } from "./store/slices/mainSlice.ts";
 import { useAppDispatch } from "./store/hooks.ts";
 import CartPage from "./pages/CartPage.tsx";
 import CartDishPage from "./pages/CartDishPage.tsx";
+import MapTestPage from "./pages/MapTestPage.tsx";
 
-// import { library } from "@fortawesome/fontawesome-svg-core";
-// import { faCheckSquare, faCoffee } from "@fortawesome/free-solid-svg-icons";
-// library.add(faCheckSquare, faCoffee);
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainPage />,
+    element: <MenuPage />,
   },
   {
     path: "/dish/:dishId",
@@ -31,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: '/cartProduct/:product_index',
     element: <CartDishPage />
+  },
+  {
+    path: '/mapTest',
+    element: <MapTestPage />
   },
   {
     path: "*",

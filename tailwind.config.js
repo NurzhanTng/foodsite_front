@@ -17,11 +17,15 @@ export default {
         section_header_text_color: "var(--tg-theme-section-header-text-color)",
         subtitle_text_color: "var(--tg-theme-subtitle-text-color)",
         destructive_text_color: "var(--tg-theme-destructive-text-color)",
+
         bgColor: "#17212B",
         bgColor2: "#141C25",
         secondary: "#232E39",
         button: "#5288C1",
         buttonHover: "#4A7AAE",
+        buttonSecondary1: "#17212B",
+        buttonSecondary2: "#232E3C",
+        buttonInactive: "#141C25",
         fontSecondary: "#708499",
         fontSecondary2: '#495868'
       },

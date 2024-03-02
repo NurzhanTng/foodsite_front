@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../store/hooks.ts";
-import { Product, OrderProduct } from "../Types.ts";
+import { Product, OrderProduct } from "../utils/Types.ts";
 import {
   addOneToOrderProduct,
   addProductToCart,

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Category, OrderProduct } from "../../Types.ts";
+import { Category, OrderProduct } from "../../utils/Types.ts";
 import _fetchCategories from "../../utils/fetchCategories.ts";
 // import range from "../../utils/range.ts";
 

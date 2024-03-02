@@ -1,14 +1,15 @@
 import { useNavigate, useParams } from "react-router-dom";
 import useCart from "../hooks/useCart.ts";
 import { useCallback, useState } from "react";
-import ProductTag from "../components/ProductTag.tsx";
+import ProductTag from "../shared/ProductTag.tsx";
 import currencyFormatter from "../utils/currencyFormatter.ts";
 import { useAppDispatch, useAppSelector } from "../store/hooks.ts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { OrderProduct } from "../Types.ts";
+import { OrderProduct } from "../utils/Types.ts";
 import { setCart } from "../store/slices/mainSlice.ts";
 import isArraysEqual from "../utils/isArraysEqual.ts";
+
 
 function DishPage() {
   const state = useAppSelector((state) => state.main);

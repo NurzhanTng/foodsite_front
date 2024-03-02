@@ -1,4 +1,4 @@
-import { Category } from "../Types.ts";
+import { Category } from "./Types.ts";
 
 async function _fetchCategories() {
   /*

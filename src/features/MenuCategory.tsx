@@ -1,7 +1,7 @@
 import { CategoryRefs } from "../hooks/useScrollEffect.tsx";
-import { Category } from "../Types.ts";
+import { Category } from "../utils/Types.ts";
 import { MutableRefObject } from "react";
-import ProductCard from "./ProductCard.tsx";
+import ProductCard from "../unsorted/ProductCard.tsx";
 
 type MenuCategoryProps = {
   category: Category;

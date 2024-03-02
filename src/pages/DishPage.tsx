@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
 import useCart from "../hooks/useCart.ts";
 import { useCallback, useEffect, useState } from "react";
-import ProductTag from "../components/ProductTag.tsx";
-import { OrderProduct } from "../Types.ts";
+import ProductTag from "../shared/ProductTag.tsx";
+import { OrderProduct } from "../utils/Types.ts";
 import currencyFormatter from "../utils/currencyFormatter.ts";
 import { useAppDispatch, useAppSelector } from "../store/hooks.ts";
 import { addProductToCart } from "../store/slices/mainSlice.ts";

@@ -1,4 +1,4 @@
-import { OrderProduct } from "../Types.ts";
+import { OrderProduct } from "../utils/Types.ts";
 import useCart from "../hooks/useCart.ts";
 import currencyFormatter from "../utils/currencyFormatter.ts";
 import { useAppDispatch } from "../store/hooks.ts";
