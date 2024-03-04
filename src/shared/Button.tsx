@@ -6,7 +6,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   styleType?: "primary" | "secondary" | "inactive" | "outline";
   className?: string;
   showText?: boolean;
-  text: string;
+  text?: string;
   textClassName?: string;
   showIcon?: boolean;
   iconType?: iconTypes;

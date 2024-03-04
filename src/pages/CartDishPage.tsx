@@ -10,7 +10,6 @@ import { OrderProduct } from "../utils/Types.ts";
 import { setCart } from "../store/slices/mainSlice.ts";
 import isArraysEqual from "../utils/isArraysEqual.ts";
 
-
 function DishPage() {
   const state = useAppSelector((state) => state.main);
   const dispatch = useAppDispatch();

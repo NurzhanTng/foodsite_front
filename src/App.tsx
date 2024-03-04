@@ -3,12 +3,13 @@ import {
   Navigate,
   RouterProvider
 } from "react-router-dom";
-import MenuPage from "./pages/MenuPage";
-import DishPage from "./pages/DishPage.tsx";
 import { useEffect } from "react";
 import { fetchCategories } from "./store/slices/mainSlice.ts";
 import { useAppDispatch } from "./store/hooks.ts";
-import CartPage from "./pages/CartPage.tsx";
+
+import MenuPage from "./pages/MenuPage";
+import DishPage from "./pages/DishPage.tsx";
+import CartPage from "./pages/CartPage";
 import CartDishPage from "./pages/CartDishPage.tsx";
 import MapTestPage from "./pages/MapTestPage.tsx";
 

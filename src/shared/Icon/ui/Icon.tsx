@@ -18,12 +18,12 @@ const Icon: React.FC<IconProps> = ({ viewBox,  className, type, pathsClassName }
   if (Array.isArray(icon)) {
     for (const parameter of icon) {
       paths.push(
-        <path className={twMerge(pathsStyle, pathsClassName)} {...parameter} />,
+        <path key={parameter.d} className={twMerge(pathsStyle, pathsClassName)} {...parameter} />,
       );
     }
   } else {
     paths.push(
-      <path className={twMerge(pathsStyle, pathsClassName)} {...icon} />,
+      <path key={icon.d} className={twMerge(pathsStyle, pathsClassName)} {...icon} />,
     );
   }
 

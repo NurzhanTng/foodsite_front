@@ -21,13 +21,17 @@ export default {
         bgColor: "#17212B",
         bgColor2: "#141C25",
         secondary: "#232E39",
+
         button: "#5288C1",
         buttonHover: "#4A7AAE",
         buttonSecondary1: "#17212B",
         buttonSecondary2: "#232E3C",
         buttonInactive: "#141C25",
+
         fontSecondary: "#708499",
-        fontSecondary2: '#495868'
+        fontSecondary2: '#495868',
+        textSecondary: "#6A7D91",
+        textMain: "#ffffff",
       },
       boxShadow: {
         card: "0 0 40px 0 rgba(41, 59, 76, 0.5)",
