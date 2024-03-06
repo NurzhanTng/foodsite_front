@@ -3,7 +3,7 @@ import { twMerge } from "tailwind-merge";
 type CashbackProps = {
   amount: number;
   cashback: number;
-  className: string;
+  className?: string;
 };
 
 const Cashback = ({ amount, cashback, className }: CashbackProps) => {

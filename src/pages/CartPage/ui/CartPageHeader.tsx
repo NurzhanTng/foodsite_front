@@ -3,36 +3,51 @@ import Button from "../../../shared/Button.tsx";
 import { useNavigate } from "react-router-dom";
 
 type CartPageHeaderProps = {
-  text?: string,
-  isMain?: boolean,
-  backPage?: string
-}
+  text?: string;
+  isMain?: boolean;
+  backPage?: string;
+  onClear?: () => void;
+  elementsInCart?: number;
+};
 
-const CartPageHeader = ({ text = "Pizzeria Almaty", isMain = true, backPage = '/' }: CartPageHeaderProps) => {
-  const navigate = useNavigate()
+const CartPageHeader = ({
+  text = "Pizzeria Almaty",
+  isMain = true,
+  backPage = "/",
+  onClear = () => {},
+  elementsInCart = 0,
+}: CartPageHeaderProps) => {
+  const navigate = useNavigate();
 
   return (
     <Header className="pt-auto align-center flex flex-row justify-center ">
       <Button
         onClick={() => navigate(backPage)}
-        className="absolute left-5 top-[15px] h-10 w-10 rounded-full bg-transparent p-2.5 active:bg-buttonSecondary2"
-        iconClassName="h-5 w-5"
+        className="absolute left-5 top-[15px] h-10 w-10 rounded-full bg-transparent p-2.5 active:bg-transparent"
+        iconClassName="h-5 w-5 active:text-button transition-all"
         styleType={"secondary"}
         showText={false}
         showIcon={true}
         iconType={"arrowLeft"}
       />
-      <h2 className="text-white text-2xl font-medium leading-loose h-fit my-auto">{text}</h2>
+
+      <h2 className="my-auto h-fit text-2xl font-medium leading-loose text-white">
+        {text}
+      </h2>
+
       <Button
-        className={
-          `${isMain? "" : "hidden"} absolute right-5 top-[15px] h-10 w-10 rounded-full bg-transparent p-2.5 active:bg-buttonSecondary2`
-        }
-        iconClassName="h-5 w-5"
+        onClick={onClear}
+        className={`${isMain ? "" : "hidden"} absolute right-5 top-[15px] h-10 w-10 rounded-full bg-transparent p-2 active:bg-transparent`}
+        iconClassName="h-6 w-6 active:text-button transition-all"
         styleType={"secondary"}
         showText={false}
         showIcon={true}
         iconType={"trash"}
-      />
+      >
+        <div className="h-[15px] w-[15px] bg-blue-500 rounded-[100px] text-center text-[10px] font-bold leading-[15px] text-white absolute left-[4px] top-[4px]">
+          {elementsInCart}
+        </div>
+      </Button>
     </Header>
   );
 };

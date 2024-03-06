@@ -1,5 +1,5 @@
 import { useAppSelector } from "../../../store/hooks.ts";
-import CartElement from "../../../features/CartElement.tsx";
+import CartElement from "../../../features/CartElement/ui/CartElementOld.tsx";
 import useCart from "../../../hooks/useCart.ts";
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";

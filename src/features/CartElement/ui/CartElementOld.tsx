@@ -1,11 +1,11 @@
-import { OrderProduct } from "../utils/Types.ts";
-import useCart from "../hooks/useCart.ts";
-import currencyFormatter from "../utils/currencyFormatter.ts";
-import { useAppDispatch } from "../store/hooks.ts";
+import { OrderProduct } from "../../../utils/Types.ts";
+import useCart from "../../../hooks/useCart.ts";
+import currencyFormatter from "../../../utils/currencyFormatter.ts";
+import { useAppDispatch } from "../../../store/hooks.ts";
 import {
   addOneToOrderProduct,
   removeOneToOrderProduct,
-} from "../store/slices/mainSlice.ts";
+} from "../../../store/slices/mainSlice.ts";
 import { useNavigate } from "react-router-dom";
 
 interface CartElementProps {
@@ -13,7 +13,7 @@ interface CartElementProps {
   index: number;
 }
 
-const CartElement = ({ element, index }: CartElementProps) => {
+const CartElementOld = ({ element, index }: CartElementProps) => {
   const { sumOneOrderProduct } = useCart();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -76,4 +76,4 @@ const CartElement = ({ element, index }: CartElementProps) => {
   );
 };
 
-export default CartElement;
+export default CartElementOld;

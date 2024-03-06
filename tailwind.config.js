@@ -43,7 +43,7 @@ export default {
         '3': '3 3 0%'
       },
       screens: {
-        'sm-s': '400px'
+        'sm-s': '350px'
       }
     },
   },

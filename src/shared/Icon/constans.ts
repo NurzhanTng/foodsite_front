@@ -1,4 +1,8 @@
-export const icons = {
+import { SVGProps } from "react";
+
+type Dictionary<T> = { [key: string]: T };
+
+export const icons: Dictionary<SVGProps<SVGPathElement> | SVGProps<SVGPathElement>[]> = {
   arrowRightUp: {
     fill: "currentColor",
     d: "M4.00003 1.75C3.80112 1.75 3.61035 1.67098 3.4697 1.53033C3.32905 1.38968 3.25003 1.19891 3.25003 1C3.25003 0.801088 3.32905 0.610322 3.4697 0.46967C3.61035 0.329018 3.80112 0.25 4.00003 0.25H13C13.1989 0.25 13.3897 0.329018 13.5304 0.46967C13.671 0.610322 13.75 0.801088 13.75 1V10C13.75 10.1989 13.671 10.3897 13.5304 10.5303C13.3897 10.671 13.1989 10.75 13 10.75C12.8011 10.75 12.6104 10.671 12.4697 10.5303C12.329 10.3897 12.25 10.1989 12.25 10V2.81L1.53003 13.53C1.38785 13.6625 1.19981 13.7346 1.00551 13.7312C0.811206 13.7277 0.625821 13.649 0.488408 13.5116C0.350995 13.3742 0.272283 13.1888 0.268855 12.9945C0.265426 12.8002 0.337549 12.6122 0.470029 12.47L11.19 1.75H4.00003Z",
@@ -142,7 +146,11 @@ export const icons = {
   },
 };
 
-export const iconsViewBox = {
+export type iconTypes = keyof typeof icons;
+
+type Dictionary2<T> = { [key: iconTypes]: T };
+
+export const iconsViewBox: Dictionary2<string> = {
   arrowRightUp: "-2 0 18 14",
   arrowLeft: "0 -2 18 18",
   arrowRight: "0 -2 18 18",
@@ -165,5 +173,3 @@ export const iconsViewBox = {
   user: "1 1 22 22",
   pencil: "-2 -3 24 24",
 }
-
-export type iconTypes = keyof typeof icons;

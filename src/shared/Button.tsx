@@ -45,9 +45,9 @@ const Button: React.FC<ButtonProps> = ({
     <button className={twMerge(buttonStyle, className)} {...rest}>
       {showText && <p className={textClassName}>{text}</p>}
       {showIcon && !(iconType === undefined) && (
-        <Icon className={twMerge("h-4 w-4", iconClassName)} type={iconType} />
+        <Icon className={twMerge("h-4 w-4 transition-all", iconClassName)} type={iconType} />
       )}
-      {!showIcon && !showText && children}
+      {children}
     </button>
   );
 };
