@@ -12,7 +12,7 @@ import {
   setExactAddress,
 } from "../../../store/slices/orderSlice.ts";
 import { useNavigate } from "react-router-dom";
-import { set } from "@pbe/react-yandex-maps/typings/util/set";
+// import { set } from "@pbe/react-yandex-maps/typings/util/set";
 
 export type CompanySpot = {
   id: number;
