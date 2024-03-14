@@ -7,11 +7,43 @@ import {
   setCart,
   setIsParamsCartUpdated,
 } from "../store/slices/mainSlice.ts";
+import { useState } from "react";
 
 const useCart = () => {
-  // console.log("---- useCart ----");
   const state = useAppSelector((state) => state.main);
+  const order = useAppSelector((state) => state.order);
   const dispatch = useAppDispatch();
+  const [showComment, setShowComment] = useState(false);
+  const [showTime, setShowTime] = useState(false);
+
+  const usePopup = {
+    showComment,
+    toggleComment: () => setShowComment(!showComment),
+    showTime,
+    toggleTime: () => setShowTime(!showTime),
+  };
+
+  const handleOrderClick = () => {
+    console.log("My cart", cartToJson());
+    if (state.cart.length === 0) return;
+    fetch(import.meta.env.VITE_REACT_APP_API_BASE_URL + `food/orders/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: cartToJson(),
+    })
+      .then((data) => {
+        console.log(data.status);
+        console.log(data.json());
+
+        if (data.status >= 200 && data.status < 300) {
+          const tg = window.Telegram.WebApp;
+          tg.close();
+        }
+      })
+      .catch((err) => console.log("Error: " + err))
+  };
 
   const updateCartFromParams = (params: string | null) => {
     if (state.isParamsCartUpdated) return;
@@ -155,20 +187,22 @@ const useCart = () => {
           additions: orderProduct.additions.map((addition) => addition.id),
         };
       }),
-      client_id: 0,
-      bonus_used: false,
-      user_name: "",
-      loc: 0,
-      lat: 0,
-      exact_address: "",
-      phone: "",
-      client_comment: "",
+      client_id: order.client_id,
+      bonus_used: order.bonus_used,
+      user_name: order.user_name,
+      long: order.address.long,
+      lat: order.address.lat,
+      company_id: order.company_id,
+      exact_address: order.exactAddress,
+      phone: order.phone,
+      client_comment: order.client_comment,
+      actions: [],
     });
   };
 
   const deleteCartProducts = () => {
     dispatch(setCart([]));
-  }
+  };
 
   return {
     getProductById,
@@ -180,7 +214,9 @@ const useCart = () => {
     sumOneOrderProduct,
     cartToJson,
     updateCartFromParams,
-    deleteCartProducts
+    deleteCartProducts,
+    handleOrderClick,
+    usePopup,
   };
 };
 

@@ -1,11 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import fetchAddress from "../../utils/fetchAddress.ts";
+// import { getAddress } from "../../utils/fetchAddress.ts";
 
 export type OrderState = {
   client_id: number;
+  jwt_token: string;
+  delivery_id: number;
   company_id: number;
+  max_bonus: number;
   bonus_used: boolean;
-  done_time: number;
+  done_time: string;
   user_name: string;
   address: {
     long: number;
@@ -22,9 +25,12 @@ export type OrderState = {
 
 const initialState: OrderState = {
   client_id: -1,
+  jwt_token: "",
+  delivery_id: -1,
   company_id: -1,
+  max_bonus: 0,
   bonus_used: false,
-  done_time: 0,
+  done_time: "00:00",
   user_name: "",
   address: {
     long: 0,
@@ -43,8 +49,25 @@ const orderSlice = createSlice({
   name: "order",
   initialState,
   reducers: {
-    setUserData: (state, action: PayloadAction<number>) => {
-      state.client_id = action.payload;
+    setUserData: (
+      state,
+      action: PayloadAction<{
+        client_id: number;
+        jwt_token: string;
+        user_name: string;
+        phone: string;
+        kaspi_phone: string;
+        max_bonus: number
+      }>,
+    ) => {
+      const data = action.payload;
+      state.client_id = data.client_id;
+      state.client_id= data.client_id
+      state.jwt_token= data.jwt_token
+      state.user_name= data.user_name
+      state.phone= data.phone
+      state.kaspi_phone= data.kaspi_phone
+      state.max_bonus= data.max_bonus
     },
     setUserName: (state, action: PayloadAction<string>) => {
       state.user_name = action.payload;
@@ -54,13 +77,13 @@ const orderSlice = createSlice({
     },
     setAddress: (
       state,
-      action: PayloadAction<{ long: number; lat: number }>,
+      action: PayloadAction<{ long: number; lat: number; parsed?: string }>,
     ) => {
-      fetchAddress(action.payload.lat, action.payload.long)
-        .then((data) => {
-          console.log("Fetched data: ", data);
-          state.address = { ...action.payload, parsed: "data" };
-        });
+      if (action.payload.parsed === undefined) {
+        state.address = { ...action.payload, parsed: "" };
+      } else {
+        state.address = { ...action.payload, parsed: action.payload.parsed };
+      }
     },
     setExactAddress: (state, action: PayloadAction<string>) => {
       state.exactAddress = action.payload;
@@ -74,6 +97,12 @@ const orderSlice = createSlice({
     setBonusUsed: (state, action: PayloadAction<boolean>) => {
       state.bonus_used = action.payload;
     },
+    setCompanyId: (state, action: PayloadAction<number>) => {
+      state.company_id = action.payload;
+    },
+    setDoneTime: (state, action: PayloadAction<string>) => {
+      state.done_time = action.payload;
+    },
   },
 });
 
@@ -85,7 +114,9 @@ export const {
   setAddress,
   setExactAddress,
   setClientComment,
-  setBonusUsed
+  setBonusUsed,
+  setCompanyId,
+  setDoneTime,
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

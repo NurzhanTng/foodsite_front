@@ -8,7 +8,7 @@ function formatPhoneNumber(phoneNumber: string): string {
     countryCode = "+7 ";
     cleaned.slice(1); // Remove the country code from the cleaned string
   } else if (cleaned.startsWith("8")) {
-    countryCode = "8 ";
+    countryCode = "+7 ";
     cleaned.slice(1); // Remove the country code from the cleaned string
   }
 

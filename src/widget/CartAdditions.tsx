@@ -13,9 +13,10 @@ import Switch from "../shared/Switch.tsx";
 
 type CartAdditionsProps = {
   className?: string;
+  toggleComment: () => void;
 };
 
-const CartAdditions = ({ className = "" }: CartAdditionsProps) => {
+const CartAdditions = ({ className = "", toggleComment }: CartAdditionsProps) => {
   // const state = useAppSelector((state) => state.main);
   const orderState = useAppSelector((state) => state.order);
   const dispatch = useAppDispatch();
@@ -27,6 +28,9 @@ const CartAdditions = ({ className = "" }: CartAdditionsProps) => {
       </h3>
 
       <Input
+        aria-required={true}
+        aria-valuemin={3}
+        type="text"
         className="mb-2"
         label="Введите ваше имя"
         onChange={(event) => dispatch(setUserName(event.target.value))}
@@ -34,6 +38,9 @@ const CartAdditions = ({ className = "" }: CartAdditionsProps) => {
       />
 
       <Input
+        aria-required={true}
+        aria-valuemin={10}
+        type="tel"
         label="Введите номер для связи"
         onChange={(event) =>
           dispatch(setUserPhone(event.target.value.replace(/\D/g, "")))
@@ -41,7 +48,11 @@ const CartAdditions = ({ className = "" }: CartAdditionsProps) => {
         value={formatPhoneNumber(orderState.phone)}
       />
 
-      <SelectCard borderBottom={true} name="Комментарий к заказу">
+      <SelectCard
+        borderBottom={true}
+        name="Комментарий к заказу"
+        onClick={() => toggleComment()}
+      >
         <Icon className="my-auto h-5 w-5" type="arrowRight" />
       </SelectCard>
 

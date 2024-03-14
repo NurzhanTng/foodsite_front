@@ -1,13 +1,14 @@
 import Icon, { iconTypes } from "../shared/Icon";
 import React from "react";
 import Button from "../shared/Button.tsx";
+import { twMerge } from "tailwind-merge";
 
 type SelectCardProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   name: string;
   description?: string;
   leftIcon?: iconTypes;
   onClick?: () => void;
-  borderBottom?: boolean
+  borderBottom?: boolean,
 };
 
 const SelectCard = ({
@@ -16,11 +17,12 @@ const SelectCard = ({
   leftIcon,
   onClick,
   children,
-  borderBottom = false
+  borderBottom = false,
+  className
 }: SelectCardProps) => {
   return (
     <Button
-      className={`${borderBottom ? "border-b border-secondary" : ""} py-3 relative flex w-full flex-row justify-between rounded-none px-0 text-left hover:bg-transparent active:bg-transparent`}
+      className={twMerge(`${borderBottom ? "border-b border-secondary" : ""} py-3 relative flex w-full flex-row justify-between rounded-none px-0 text-left hover:bg-transparent active:bg-transparent`, className)}
       showText={false}
       styleType="secondary"
       onClick={onClick}

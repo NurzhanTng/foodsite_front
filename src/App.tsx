@@ -1,7 +1,7 @@
 import {
   createBrowserRouter,
   Navigate,
-  RouterProvider
+  RouterProvider,
 } from "react-router-dom";
 import { useEffect } from "react";
 import { fetchCategories } from "./store/slices/mainSlice.ts";
@@ -12,7 +12,10 @@ import DishPage from "./pages/DishPage.tsx";
 import CartPage from "./pages/CartPage";
 import CartDishPage from "./pages/CartDishPage.tsx";
 import MapTestPage from "./pages/MapTestPage.tsx";
-
+import DeliveryPage from "./pages/DeliveryPage";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import ManagerMainPage from "./pages/ManagerMainPage/ui/ManagerMainPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -24,16 +27,24 @@ const router = createBrowserRouter([
     element: <DishPage />,
   },
   {
-    path: '/cart',
-    element: <CartPage />
+    path: "/cart",
+    element: <CartPage />,
   },
   {
-    path: '/cartProduct/:product_index',
-    element: <CartDishPage />
+    path: "/cartProduct/:product_index",
+    element: <CartDishPage />,
   },
   {
-    path: '/mapTest',
-    element: <MapTestPage />
+    path: "/mapTest",
+    element: <MapTestPage />,
+  },
+  {
+    path: "/delivery",
+    element: <DeliveryPage />,
+  },
+  {
+    path: "/orders",
+    element: <ManagerMainPage />
   },
   {
     path: "*",
@@ -48,7 +59,11 @@ function App() {
     dispatch(fetchCategories());
   }, [dispatch]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <RouterProvider router={router} />
+    </LocalizationProvider>
+  );
 }
 
 export default App;
