@@ -49,7 +49,7 @@ const useMenu = () => {
         max_bonus: userObject.bonus
     }));
 
-    navigate("/")
+    navigate("/menu")
   }, [searchParams, updateCartFromParams, state.categories, dispatch, navigate]);
 
   return { state, categoryRefs, sumCurrency, navigate };

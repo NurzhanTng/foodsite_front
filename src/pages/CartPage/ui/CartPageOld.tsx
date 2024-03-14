@@ -42,7 +42,7 @@ const CartPage = () => {
   };
 
   const handleMenuClick = () => {
-    navigate("/");
+    navigate("/menu");
   };
 
   const handleCartClick = () => {

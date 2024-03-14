@@ -47,7 +47,7 @@ function DishPage() {
     )
       return;
     dispatch(addProductToCart(orderProduct));
-    navigate("/");
+    navigate("/menu");
   }, [dispatch, navigate, orderProduct, product?.modifiers.length]);
 
   return (
@@ -61,7 +61,7 @@ function DishPage() {
 
       {/* Кнопка назад */}
       <div
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/menu")}
         className="fixed left-[20px] top-[15px] rounded-full px-[16px] py-[11px] text-xl backdrop-blur backdrop-filter"
       >
         <FontAwesomeIcon icon={faArrowLeft} />

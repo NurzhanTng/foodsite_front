@@ -16,10 +16,15 @@ import DeliveryPage from "./pages/DeliveryPage";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import ManagerMainPage from "./pages/ManagerMainPage/ui/ManagerMainPage.tsx";
+import TransferPage from "./pages/TransferPage.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <TransferPage />
+  },
+  {
+    path: "/menu",
     element: <MenuPage />,
   },
   {
@@ -48,7 +53,7 @@ const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <Navigate to={"/"} replace={true} />,
+    element: <Navigate to={"/menu"} replace={true} />,
   },
 ]);
 

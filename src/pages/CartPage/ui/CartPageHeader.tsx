@@ -13,7 +13,7 @@ type CartPageHeaderProps = {
 const CartPageHeader = ({
   text = "Pizzeria Almaty",
   isMain = true,
-  backPage = "/",
+  backPage = "/menu",
   onClear = () => {},
   elementsInCart = 0,
 }: CartPageHeaderProps) => {
