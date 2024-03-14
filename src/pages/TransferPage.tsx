@@ -15,7 +15,7 @@ const TransferPage = () => {
 
   return (
     <div>
-      {window.Telegram.WebApp}
+      {JSON.stringify(window.Telegram.WebApp, null, 10)}
     </div>
   );
 };
