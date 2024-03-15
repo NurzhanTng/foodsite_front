@@ -1,5 +1,9 @@
-import { ProductTag } from "../utils/Types.ts";
 import { twMerge } from "tailwind-merge";
+
+export type ProductTag = {
+  name: string;
+  tag_color: string;
+};
 
 interface ProductTagProps {
   tag: ProductTag;
