@@ -20,6 +20,9 @@ declare global {
         HapticFeedback: NonNullable<unknown>;
         CloudStorage: NonNullable<unknown>;
         BiometricManager: NonNullable<unknown>;
+        close: () => void;
+        expand: () => void;
+        sendData: (data: string = "") => void;
       };
     };
   }

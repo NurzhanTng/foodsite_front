@@ -4,6 +4,8 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { useEffect } from "react";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { fetchCategories } from "./store/slices/mainSlice.ts";
 import { useAppDispatch } from "./store/hooks.ts";
 
@@ -13,10 +15,9 @@ import CartPage from "./pages/CartPage";
 import CartDishPage from "./pages/CartDishPage.tsx";
 import MapTestPage from "./pages/MapTestPage.tsx";
 import DeliveryPage from "./pages/DeliveryPage";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import ManagerMainPage from "./pages/ManagerMainPage/ui/ManagerMainPage.tsx";
-import TransferPage from "./pages/TransferPage.tsx";
+import TransferPage from "./pages/TransferPage";
+import ManagerMainPage from "./pages/ManagerMainPage";
+
 
 const router = createBrowserRouter([
   {
