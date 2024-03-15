@@ -11,8 +11,12 @@ const TransferPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const bot_id = window.Telegram.WebApp?.initDataUnsafe?.user?.id;
+    const params_id = searchParams.get("telegram_id");
+    const telegram_id = bot_id ? bot_id : params_id;
+
     const postData = {
-      telegram_id: window.Telegram.WebApp?.initDataUnsafe.user.id,
+      telegram_id: Number(telegram_id),
       telegram_fullname: "",
       promo: "",
     };
@@ -39,11 +43,11 @@ const TransferPage = () => {
   }, [dispatch, navigate, searchParams]);
 
   useEffect(() => {
-    if (user.role === "client") {
-      navigate("/menu");
-    } else if (user.role === "manager") {
-      navigate("/orders");
-    }
+    // if (user.role === "client") {
+    //   navigate("/menu");
+    // } else if (user.role === "manager") {
+    //   navigate("/orders");
+    // }
   }, [navigate, user]);
 
   return <div>{JSON.stringify(window.Telegram.WebApp, null, 10)}</div>;
