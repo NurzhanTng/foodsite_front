@@ -1,10 +1,11 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setUser } from "../store/slices/userSlice.ts";
 import { useEffect } from "react";
-import { useAppSelector } from "../store/hooks.ts";
 
-const TransferPage = () => {
+import { setUser } from "../../../store/slices/userSlice.ts";
+import { useAppSelector } from "../../../store/hooks.ts";
+
+const useMainHook = () => {
   const user = useAppSelector((state) => state.user);
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
@@ -42,15 +43,7 @@ const TransferPage = () => {
       });
   }, [dispatch, navigate, searchParams]);
 
-  useEffect(() => {
-    // if (user.role === "client") {
-    //   navigate("/menu");
-    // } else if (user.role === "manager") {
-    //   navigate("/orders");
-    // }
-  }, [navigate, user]);
-
-  return <div>{JSON.stringify(window.Telegram.WebApp, null, 10)}</div>;
+  return { user, navigate };
 };
 
-export default TransferPage;
+export default useMainHook;
