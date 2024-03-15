@@ -52,22 +52,21 @@ const orderSlice = createSlice({
     setUserData: (
       state,
       action: PayloadAction<{
-        client_id: number;
-        jwt_token: string;
-        user_name: string;
-        phone: string;
-        kaspi_phone: string;
-        max_bonus: number
-      }>,
+      telegram_id: number;
+      jwt_token: string;
+      telegram_fullname: string;
+      phone: string;
+      kaspi_phone?: string;
+      bonus: number;
+    }>,
     ) => {
       const data = action.payload;
-      state.client_id = data.client_id;
-      state.client_id= data.client_id
+      state.client_id = data.telegram_id;
       state.jwt_token= data.jwt_token
-      state.user_name= data.user_name
+      state.user_name= data.telegram_fullname
       state.phone= data.phone
-      state.kaspi_phone= data.kaspi_phone
-      state.max_bonus= data.max_bonus
+      state.kaspi_phone= data.kaspi_phone ? data.kaspi_phone : ""
+      state.max_bonus= data.bonus
     },
     setUserName: (state, action: PayloadAction<string>) => {
       state.user_name = action.payload;

@@ -113,8 +113,8 @@
 //
 // export default MapTestPage;
 
-import Button from "../shared/Button.tsx";
-import Switch from "../shared/Switch.tsx";
+import Button from "../../../shared/Button.tsx";
+import Switch from "../../../shared/Switch.tsx";
 import { useState } from "react";
 
 function MapTestPage() {

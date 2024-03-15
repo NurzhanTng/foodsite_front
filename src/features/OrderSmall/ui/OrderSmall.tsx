@@ -1,6 +1,6 @@
-import { Orders } from "../../../pages/ManagerMainPage/mainHook.ts";
 import { useState } from "react";
 import Button from "../../../shared/Button.tsx";
+import { Orders } from "../../../pages/ManagerMainPage/hooks/mainHook.ts";
 
 type OrderSmallProps = {
   order: Orders;

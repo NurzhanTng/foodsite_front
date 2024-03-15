@@ -1,15 +1,16 @@
 import { useAppSelector } from "../store/hooks.ts";
 import { twMerge } from "tailwind-merge";
 import SelectCard from "../entities/SelectCard.tsx";
-import useMenu from "../pages/MenuPage/hooks/useMenu.ts";
 import currencyFormatter from "../utils/currencyFormatter.ts";
+import useCart from "../hooks/useCart.ts";
 
 type CartPriceProps = {
   className?: string;
 };
 
 const CartPrice = ({ className = "" }: CartPriceProps) => {
-  const { state, sumCurrency } = useMenu();
+  const { sumCurrency } = useCart();
+  const state = useAppSelector((state) => state.main);
   const orderState = useAppSelector((state) => state.order);
 
   return (

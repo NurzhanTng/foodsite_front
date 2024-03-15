@@ -5,15 +5,15 @@ import CartAdditions from "../../../widget/CartAdditions.tsx";
 import CartPayments from "../../../widget/CartPayments.tsx";
 import Button from "../../../shared/Button.tsx";
 import currencyFormatter from "../../../utils/currencyFormatter.ts";
-import useMenu from "../../MenuPage/hooks/useMenu.ts";
 import CartPrice from "../../../widget/CartPrice.tsx";
 import CartAddressAndTime from "../../../widget/CartAddressAndTime.tsx";
 import { CommentPopup, TimePopup } from "../../../features/Popups";
 import useCart from "../../../hooks/useCart.ts";
+import { useAppSelector } from "../../../store/hooks.ts";
 
 const CartPage = () => {
-  const { state, sumCurrency } = useMenu();
-  const { deleteCartProducts, handleOrderClick, usePopup } = useCart();
+  const state = useAppSelector((state) => state.main);
+  const { deleteCartProducts, handleOrderClick, usePopup, sumCurrency } = useCart();
 
   return (
     <>

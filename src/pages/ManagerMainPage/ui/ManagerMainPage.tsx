@@ -1,4 +1,4 @@
-import useMainHook, { Orders, OrderStatuses } from "../mainHook.ts";
+import useMainHook, { Orders, OrderStatuses } from "../hooks/mainHook.ts";
 import Header from "../../../entities/Header.tsx";
 import SelectCard from "../../../entities/SelectCard.tsx";
 import Icon from "../../../shared/Icon";

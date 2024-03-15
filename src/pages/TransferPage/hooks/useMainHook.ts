@@ -2,8 +2,9 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 
-import { setUser } from "../../../store/slices/userSlice.ts";
+import { setUser, UserState } from "../../../store/slices/userSlice.ts";
 import { useAppSelector } from "../../../store/hooks.ts";
+import { setUserData } from "../../../store/slices/orderSlice.ts";
 
 const useMainHook = () => {
   const user = useAppSelector((state) => state.user);
@@ -35,8 +36,9 @@ const useMainHook = () => {
         }
         return response.json();
       })
-      .then((data) => {
+      .then((data: UserState) => {
         dispatch(setUser(data));
+        dispatch(setUserData(data));
       })
       .catch((error) => {
         console.error("Error during registration:", error);

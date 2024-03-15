@@ -2,10 +2,16 @@ import currencyFormatter from "../../../utils/currencyFormatter.ts";
 import Button from "../../../shared/Button.tsx";
 import MenuPageHeader from "../../../features/MenuPageHeader";
 import MenuCategories from "../../../widget/MenuCategories.tsx";
-import useMenu from "../hooks/useMenu.ts";
+import { useAppSelector } from "../../../store/hooks.ts";
+import useScrollEffect from "../../../hooks/useScrollEffect.ts";
+import useCart from "../../../hooks/useCart.ts";
+import { useNavigate } from "react-router-dom";
 
 function MenuPage() {
-  const { state, categoryRefs, navigate, sumCurrency } = useMenu();
+  const state = useAppSelector((state) => state.main);
+  const { categoryRefs } = useScrollEffect();
+  const { sumCurrency } = useCart();
+  const navigate = useNavigate();
 
   return (
     <>

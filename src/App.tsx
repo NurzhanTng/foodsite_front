@@ -13,7 +13,6 @@ import MenuPage from "./pages/MenuPage";
 import DishPage from "./pages/DishPage.tsx";
 import CartPage from "./pages/CartPage";
 import CartDishPage from "./pages/CartDishPage.tsx";
-import MapTestPage from "./pages/MapTestPage.tsx";
 import DeliveryPage from "./pages/DeliveryPage";
 import TransferPage from "./pages/TransferPage";
 import ManagerMainPage from "./pages/ManagerMainPage";
@@ -39,10 +38,6 @@ const router = createBrowserRouter([
   {
     path: "/cartProduct/:product_index",
     element: <CartDishPage />,
-  },
-  {
-    path: "/mapTest",
-    element: <MapTestPage />,
   },
   {
     path: "/delivery",
