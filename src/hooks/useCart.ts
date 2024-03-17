@@ -5,7 +5,7 @@ import {
   addProductToCart,
   removeOneToOrderProduct,
   setCart,
-  setIsParamsCartUpdated,
+  setIsParamsCartUpdated
 } from "../store/slices/mainSlice.ts";
 import { useState } from "react";
 
@@ -20,7 +20,7 @@ const useCart = () => {
     showComment,
     toggleComment: () => setShowComment(!showComment),
     showTime,
-    toggleTime: () => setShowTime(!showTime),
+    toggleTime: () => setShowTime(!showTime)
   };
 
   const handleOrderClick = () => {
@@ -28,9 +28,9 @@ const useCart = () => {
     fetch(import.meta.env.VITE_REACT_APP_API_BASE_URL + `food/orders/`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
-      body: cartToJson(),
+      body: cartToJson()
     })
       .then((data) => {
         // console.log(data.status);
@@ -61,11 +61,11 @@ const useCart = () => {
         active_modifier: cartElement["active_modifier"],
         additions: cartElement["additions"].map((addition_id: string) => {
           return product.additions.find(
-            (addition) => addition.id === parseInt(addition_id),
+            (addition) => addition.id === parseInt(addition_id)
           );
         }),
         amount: cartElement["amount"],
-        client_comment: "",
+        client_comment: ""
       });
     }
 
@@ -90,7 +90,7 @@ const useCart = () => {
       active_modifier: null,
       additions: [],
       amount: 1,
-      client_comment: "",
+      client_comment: ""
     };
 
     if (product.modifiers.length !== 0) {
@@ -108,9 +108,9 @@ const useCart = () => {
     dispatch(
       addOneToOrderProduct(
         state.cart.findIndex(
-          (orderProduct) => orderProduct.product?.id === product.id,
-        ),
-      ),
+          (orderProduct) => orderProduct.product?.id === product.id
+        )
+      )
     );
   };
 
@@ -118,9 +118,9 @@ const useCart = () => {
     dispatch(
       removeOneToOrderProduct(
         state.cart.findIndex(
-          (orderProduct) => orderProduct.product?.id === product.id,
-        ),
-      ),
+          (orderProduct) => orderProduct.product?.id === product.id
+        )
+      )
     );
   };
 
@@ -157,7 +157,7 @@ const useCart = () => {
       if (orderProduct.active_modifier !== null) {
         price =
           orderProduct.product.modifiers.find(
-            (modifier) => modifier.id === orderProduct.active_modifier,
+            (modifier) => modifier.id === orderProduct.active_modifier
           )?.price || 0;
       }
     } else {
@@ -169,7 +169,7 @@ const useCart = () => {
       (price +
         orderProduct.additions.reduce(
           (acc, addition) => (acc += addition.price),
-          0,
+          0
         ))
     );
   };
@@ -179,15 +179,17 @@ const useCart = () => {
 
     return JSON.stringify({
       products: cart.map((orderProduct) => {
+        if (orderProduct.product === undefined) return null;
         return {
+          product: getProductById(orderProduct.product.id),
           amount: orderProduct.amount,
           client_comment: "",
           price: sumOneOrderProduct(orderProduct),
-          product_id: orderProduct.product?.id,
+          product_id: orderProduct.product.id,
           active_modifier: orderProduct.active_modifier,
-          additions: orderProduct.additions.map((addition) => addition.id),
+          additions: orderProduct.additions.map((addition) => addition.id)
         };
-      }),
+      }).filter((orderProduct) => orderProduct !== null),
       client_id: order.client_id,
       bonus_used: order.bonus_used,
       user_name: order.user_name,
@@ -196,13 +198,14 @@ const useCart = () => {
       exact_address: order.exactAddress,
       phone: order.phone,
       client_comment: order.client_comment,
-      actions: [],
+      actions: []
     });
   };
 
   const deleteCartProducts = () => {
     dispatch(setCart([]));
   };
+
 
   return {
     getProductById,
@@ -216,7 +219,8 @@ const useCart = () => {
     updateCartFromParams,
     deleteCartProducts,
     handleOrderClick,
-    usePopup,
+
+    usePopup
   };
 };
 
