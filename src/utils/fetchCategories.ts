@@ -1,6 +1,8 @@
 import { Category } from "./Types.ts";
 
 async function _fetchCategories() {
+  console.log('fetch categories: ', import.meta.env.VITE_REACT_APP_API_BASE_URL + "food/categories/")
+
   const response = await fetch(
     import.meta.env.VITE_REACT_APP_API_BASE_URL + "food/categories/",
     {
