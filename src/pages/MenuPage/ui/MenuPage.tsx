@@ -20,6 +20,7 @@ function MenuPage() {
         categories={state.categories}
         categoryRefs={categoryRefs}
       />
+     <p>{JSON.stringify(state.categories)}</p>
       <Button
         className={"fixed bottom-0 h-[50px] w-full rounded-none"}
         onClick={() => navigate("/cart")}
