@@ -24,7 +24,6 @@ const useCart = () => {
   };
 
   const handleOrderClick = () => {
-    console.log("My cart", cartToJson());
     if (state.cart.length === 0) return;
     fetch(import.meta.env.VITE_REACT_APP_API_BASE_URL + `food/orders/`, {
       method: "POST",
@@ -34,15 +33,15 @@ const useCart = () => {
       body: cartToJson(),
     })
       .then((data) => {
-        console.log(data.status);
-        console.log(data.json());
+        // console.log(data.status);
+        // console.log(data.json());
 
         if (data.status >= 200 && data.status < 300) {
           const tg = window.Telegram.WebApp;
           tg.close();
         }
       })
-      .catch((err) => console.log("Error: " + err))
+      .catch((err) => console.log("Error: " + err));
   };
 
   const updateCartFromParams = (params: string | null) => {
@@ -151,7 +150,9 @@ const useCart = () => {
     let price = 0;
     if (
       orderProduct.product.price === null ||
-      orderProduct.product.price === undefined
+      orderProduct.product.price === undefined ||
+      orderProduct.product.price === 0 ||
+      orderProduct.product.modifiers.length !== 0
     ) {
       if (orderProduct.active_modifier !== null) {
         price =
@@ -190,9 +191,8 @@ const useCart = () => {
       client_id: order.client_id,
       bonus_used: order.bonus_used,
       user_name: order.user_name,
-      long: order.address.long,
-      lat: order.address.lat,
-      company_id: order.company_id,
+      address: order.address,
+      company_id: 1,
       exact_address: order.exactAddress,
       phone: order.phone,
       client_comment: order.client_comment,

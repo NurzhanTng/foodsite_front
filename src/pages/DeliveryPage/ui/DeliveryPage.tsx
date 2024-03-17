@@ -1,18 +1,14 @@
 import { YMaps, Map, Placemark } from "@pbe/react-yandex-maps";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../../../shared/Button.tsx";
-import { getAddress, getCoordinates } from "../../../utils/fetchAddress.ts";
 import CompanyCards from "../../../widget/CompanyCards.tsx";
-import SelectCard from "../../../entities/SelectCard.tsx";
-import Icon from "../../../shared/Icon";
 import Input from "../../../shared/Input.tsx";
 import {
   setAddress,
   setExactAddress,
 } from "../../../store/slices/orderSlice.ts";
 import { useNavigate } from "react-router-dom";
-// import { set } from "@pbe/react-yandex-maps/typings/util/set";
 
 export type CompanySpot = {
   id: number;
@@ -30,98 +26,82 @@ export type CompanySpot = {
 const DeliveryPage = () => {
   const orderState = useAppSelector((state) => state.order);
   const dispatch = useAppDispatch();
-  const [isDelivery, setIsDelivery] = useState(true);
-  const [companySpots, setCompanySpots] = useState<Array<CompanySpot>>([
-    {
-      id: 0,
-      name: "Название точки 1",
-      link: "ссылка на точку",
-      manager_id: 0,
-      address: { long: 76.91607387419788, lat: 43.251934750000004 },
-      address_link: "",
-      deliveryLayers: [],
-
-      open_time: "10:00",
-      close_time: "21:00",
-    },
-    {
-      id: 1,
-      name: "Название точки 2",
-      link: "ссылка на точку",
-      manager_id: 0,
-      address: { long: 76.92607387419788, lat: 43.22193475000004 },
-      address_link: "",
-      deliveryLayers: [],
-
-      open_time: "10:00",
-      close_time: "21:00",
-    },
-  ]);
-
-  const [address, setMapAddress] = useState("");
   const navigate = useNavigate();
+  const [isDelivery, setIsDelivery] = useState(true);
+  const [companySpots, setCompanySpots] = useState<Array<CompanySpot>>([]);
+  const [errorText, setErrorText] = useState("");
+  const emptyAddressParsed = "Адрес указан на карте";
 
   useEffect(() => {
-    console.log("useeffect");
-    if (orderState.address.parsed === "") {
-      getAddress(orderState.address.lat, orderState.address.long).then(
-        (data) => {
-          dispatch(
-            setAddress({
-              ...orderState.address,
-              parsed: data === "" ? " " : data,
-            }),
-          );
-        },
-      );
-    } else {
-      setMapAddress(orderState.address.parsed);
-    }
-  }, [dispatch, orderState.address.lat]);
+    setCompanySpots([
+      {
+        id: 0,
+        name: "Название точки 1",
+        link: "ссылка на точку",
+        manager_id: 0,
+        address: { long: 76.91607387419788, lat: 43.251934750000004 },
+        address_link: "",
+        deliveryLayers: [],
 
-  let typingTimer: NodeJS.Timeout;
+        open_time: "10:00",
+        close_time: "21:00",
+      },
+      {
+        id: 1,
+        name: "Название точки 2",
+        link: "ссылка на точку",
+        manager_id: 0,
+        address: { long: 76.92607387419788, lat: 43.22193475000004 },
+        address_link: "",
+        deliveryLayers: [],
+
+        open_time: "10:00",
+        close_time: "21:00",
+      },
+    ]);
+  }, []);
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    setMapAddress(event.target.value);
-    clearTimeout(typingTimer);
-    typingTimer = setTimeout(() => {
-      console.log("Address found started");
-      getCoordinates(event.target.value).then((data) => {
-        console.log(data);
-        dispatch(
-          setAddress({
-            long: data?.lon,
-            lat: data?.lat,
-            parsed: event.target.value,
-          }),
-        );
-      });
-    }, 3000); // Adjust the delay as needed (in milliseconds)
+    let pattern = event.target.value;
+    pattern = pattern.replace(emptyAddressParsed, "");
+    pattern = pattern.replace(
+      emptyAddressParsed.slice(0, emptyAddressParsed.length - 1),
+      "",
+    );
+    dispatch(
+      setAddress({
+        long: -1,
+        lat: -1,
+        parsed: pattern,
+      }),
+    );
+    setErrorText("")
+  };
+
+  const onSubmit = () => {
+    if (
+      (orderState.address.lat === -1 ||
+      orderState.address.lat === 0) &&
+      orderState.address.parsed === ""
+    ) {
+      setErrorText(
+        "Выберите адрес на карте или введите адрес перед сохранением",
+      );
+    } else {
+      navigate("/cart");
+    }
   };
 
   const onClick = (props: any) => {
-    console.log(props);
     const [lat, long] = props.get("coords");
-    dispatch(setAddress({ long: long, lat: lat }));
+    dispatch(setAddress({ lat: lat, long: long, parsed: "" }));
+    setErrorText("")
   };
 
-  useEffect(() => {
-    const newSpots = [...companySpots];
-    for (let i = 0; i < companySpots.length; i++) {
-      getAddress(
-        companySpots[i].address.lat,
-        companySpots[i].address.long,
-      ).then((data) => {
-        newSpots[i].address.parsed = data;
-      });
-    }
-    setCompanySpots(newSpots);
-  }, [companySpots]);
-
   return (
-    <>
+    <div className="relative h-[100vh]">
       <YMaps>
         <Map
           width="100%"
@@ -155,7 +135,7 @@ const DeliveryPage = () => {
         </Map>
       </YMaps>
 
-      <div className="mx-5 mb-[30px]">
+      <div className="mx-5 mb-[80px]">
         <div className="my-[30px] flex flex-row justify-between rounded-full border-2 border-button">
           <Button
             className="py-auto h-10 rounded-full px-5"
@@ -178,18 +158,22 @@ const DeliveryPage = () => {
 
         {!isDelivery && <CompanyCards companySpots={companySpots} />}
         {isDelivery && (
-          <div className="flex flex-col gap-5">
-            <SelectCard
-              name="Прошлые адреса"
-              description="Нажмите, чтобы выбрать"
-              leftIcon="geo"
-            >
-              <Icon type="arrowRight" />
-            </SelectCard>
+          <div className="mt-[50px] flex flex-col gap-5">
+            {/*<SelectCard*/}
+            {/*  name="Прошлые адреса"*/}
+            {/*  description="Нажмите, чтобы выбрать"*/}
+            {/*  leftIcon="geo"*/}
+            {/*>*/}
+            {/*  <Icon type="arrowRight" />*/}
+            {/*</SelectCard>*/}
 
             <Input
               onChange={handleChange}
-              value={address}
+              value={
+                orderState.address.lat === -1 || orderState.address.lat === 0
+                  ? orderState.address.parsed
+                  : emptyAddressParsed
+              }
               label="Введите адрес доставки"
             />
 
@@ -202,13 +186,19 @@ const DeliveryPage = () => {
             />
           </div>
         )}
+
+        {errorText !== "" && (
+          <p className="mb-[30px] mt-[30px] font-medium text-fontSecondary">
+            {errorText}
+          </p>
+        )}
       </div>
       <Button
-        className={"z-10 h-[50px] w-full rounded-none"}
-        onClick={() => navigate("/cart")}
+        className={"absolute bottom-0 z-10 h-[50px] w-full rounded-none"}
+        onClick={onSubmit}
         text="Сохранить"
       />
-    </>
+    </div>
   );
 };
 export default DeliveryPage;

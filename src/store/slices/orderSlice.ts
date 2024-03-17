@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-// import { getAddress } from "../../utils/fetchAddress.ts";
 
 export type OrderState = {
   client_id: number;
@@ -52,21 +51,30 @@ const orderSlice = createSlice({
     setUserData: (
       state,
       action: PayloadAction<{
-      telegram_id: number;
-      jwt_token: string;
-      telegram_fullname: string;
-      phone: string;
-      kaspi_phone?: string;
-      bonus: number;
-    }>,
+        telegram_id: number;
+        jwt_token: string;
+        telegram_fullname: string;
+        phone: string;
+        kaspi_phone: string;
+        bonus: number;
+        address: {
+          long: number;
+          lat: number;
+          parsed: string;
+        } | null;
+        exact_address: string | null;
+      }>,
     ) => {
       const data = action.payload;
       state.client_id = data.telegram_id;
-      state.jwt_token= data.jwt_token
-      state.user_name= data.telegram_fullname
-      state.phone= data.phone
-      state.kaspi_phone= data.kaspi_phone ? data.kaspi_phone : ""
-      state.max_bonus= data.bonus
+      state.jwt_token = data.jwt_token;
+      state.user_name = data.telegram_fullname;
+      state.phone = data.phone;
+      state.kaspi_phone = data.kaspi_phone;
+      state.max_bonus = data.bonus;
+      if (data.address === null || data.exact_address === null) return;
+      state.address = data.address;
+      state.exactAddress = data.exact_address;
     },
     setUserName: (state, action: PayloadAction<string>) => {
       state.user_name = action.payload;
@@ -76,13 +84,9 @@ const orderSlice = createSlice({
     },
     setAddress: (
       state,
-      action: PayloadAction<{ long: number; lat: number; parsed?: string }>,
+      action: PayloadAction<{ long: number; lat: number; parsed: string }>,
     ) => {
-      if (action.payload.parsed === undefined) {
-        state.address = { ...action.payload, parsed: "" };
-      } else {
-        state.address = { ...action.payload, parsed: action.payload.parsed };
-      }
+      state.address = { ...action.payload, parsed: action.payload.parsed };
     },
     setExactAddress: (state, action: PayloadAction<string>) => {
       state.exactAddress = action.payload;

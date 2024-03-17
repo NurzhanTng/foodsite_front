@@ -4,6 +4,7 @@ export type UserState = {
   telegram_id: number;
   telegram_fullname: string;
   phone: string;
+  kaspi_phone: string;
   promo: string | null;
   address: {
     long: number;
@@ -21,6 +22,7 @@ const initialState: UserState = {
   telegram_id: -1,
   telegram_fullname: "",
   phone: "",
+  kaspi_phone: "",
   promo: null,
   address: {
     long: -1,
@@ -43,6 +45,7 @@ const orderSlice = createSlice({
       state.telegram_id = data.telegram_id;
       state.telegram_fullname = data.telegram_fullname;
       state.phone = data.phone;
+      state.kaspi_phone = data.kaspi_phone;
       state.promo = data.promo;
       state.address = data.address;
       state.exact_address = data.exact_address;

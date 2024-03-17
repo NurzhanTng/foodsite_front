@@ -9,7 +9,10 @@ type CartAddressAndTimeProps = {
   toggleTime?: () => void;
 };
 
-const CartAddressAndTime = ({ className = "", toggleTime }: CartAddressAndTimeProps) => {
+const CartAddressAndTime = ({
+  className = "",
+  toggleTime,
+}: CartAddressAndTimeProps) => {
   const orderState = useAppSelector((state) => state.order);
   const navigate = useNavigate();
 
@@ -33,7 +36,14 @@ const CartAddressAndTime = ({ className = "", toggleTime }: CartAddressAndTimePr
 
       <SelectCard
         leftIcon="clock"
-        name="Время приготовления"
+        name={
+          orderState.done_time !== ""
+            ? orderState.done_time !== "00:00"
+              ? orderState.done_time
+              : "Как можно скорее"
+            : "Время" + " приготовления"
+        }
+        description={orderState.done_time ? "Время приготовления" : ""}
         onClick={toggleTime}
       >
         <Icon className="my-auto h-5 w-5" type="arrowRight" />

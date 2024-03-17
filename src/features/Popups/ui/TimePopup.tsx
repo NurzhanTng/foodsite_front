@@ -5,22 +5,12 @@ import { setDoneTime } from "../../../store/slices/orderSlice.ts";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
 import Button from "../../../shared/Button.tsx";
 import { TimeField } from "@mui/x-date-pickers";
+import { Dayjs } from "dayjs";
+import dayjs from 'dayjs';
 
 type TimePopupProps = React.HTMLProps<HTMLDivElement> & {
   show: boolean;
   toggleShow: () => void;
-};
-
-type timeData = {
-  $H: number;
-  $m: number;
-}
-
-const getCurrentTime = (): string => {
-  const now = new Date();
-  const hours = now.getHours().toString().padStart(2, "0");
-  const minutes = now.getMinutes().toString().padStart(2, "0");
-  return `${hours}:${minutes}`;
 };
 
 const TimePopup = ({ show, toggleShow }: TimePopupProps) => {
@@ -30,24 +20,19 @@ const TimePopup = ({ show, toggleShow }: TimePopupProps) => {
   const oldTime = useAppSelector((state) => state.order.done_time);
   const dispatch = useAppDispatch();
   const [isFastest, setIsFastest] = useState(oldTime === "00:00");
-  const [value, setValue] = useState<string | timeData>(getCurrentTime());
+  const [value, setValue] = useState<Dayjs | null>(() => {
+    const currentDate = new Date();
+    currentDate.setMinutes(currentDate.getMinutes() + (isDelivery ? 40 : 20));
+    return dayjs().set('hour', currentDate.getHours()).set('minute', currentDate.getMinutes());
+  });
   const [isValid, setIsValid] = useState(true);
   const [errorText, setErrorText] = useState("");
 
-  const handleChange = (newValue: string | null) => {
-    if (newValue === null) return;
-    setValue(newValue);
+  const timeToString = (value: Dayjs) => {
+    return `${value.get("hour")}:${value.get("minute")}`;
   };
 
-  const timeToString = (value: string | timeData) => {
-    if (typeof value === "string") {
-      return value
-    } else {
-      return `${value.$H}:${value.$m}`
-    }
-  }
-
-  function isTimeInRange(time: timeData): boolean {
+  function isTimeInRange(time: Dayjs): boolean {
     console.log(time);
     // Get current time
     const now = new Date();
@@ -55,8 +40,8 @@ const TimePopup = ({ show, toggleShow }: TimePopupProps) => {
     const currentMinutes = now.getMinutes();
 
     // Parse given time string
-    const givenHours = time.$H;
-    const givenMinutes = time.$m;
+    const givenHours = time.get("hour");
+    const givenMinutes = time.get("minute");
 
     // Calculate time difference in minutes
     const timeDifference =
@@ -110,9 +95,13 @@ const TimePopup = ({ show, toggleShow }: TimePopupProps) => {
       {!isFastest && (
         <>
           <TimeField
-            label="Controlled field"
-            value={timeToString(value)}
-            onChange={handleChange}
+            label="Укажите время"
+            value={value}
+            onChange={(newValue, context) => {
+              console.log(newValue);
+              console.log(context);
+              setValue(newValue);
+            }}
             ampm={false}
             sx={{
               width: "100%",
@@ -158,20 +147,21 @@ const TimePopup = ({ show, toggleShow }: TimePopupProps) => {
             }}
           />
           {!isValid && (
-            <p className="text-center font-medium text-fontSecondary my-[10px]">
+            <p className="mt-[10px] mb-[30px] text-center font-medium text-fontSecondary">
               {errorText}
             </p>
           )}
         </>
       )}
 
-      <div className="flex flex-col gap-[10px] mt-[10px]">
+      <div className="mt-[10px] flex flex-col gap-[10px]">
         <Button
           text="Сохранить"
           onClick={() => {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error
-            if (isTimeInRange(value)) {
+            if (value === null) {
+              setErrorText("Укажите время перед сохранением");
+              setIsValid(false);
+            } else if (isTimeInRange(value)) {
               dispatch(setDoneTime(isFastest ? "00:00" : timeToString(value)));
               toggleShow();
             }
