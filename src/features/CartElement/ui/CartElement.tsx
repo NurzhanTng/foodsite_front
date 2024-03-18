@@ -46,7 +46,7 @@ const CartElement = ({ className, element, index }: CartElementProps) => {
     >
       <div /* Element image */
         style={{ backgroundImage: `url(${element.product?.image_url})` }}
-        className="min-h-[100px] min-w-[100px] rounded-[10px] bg-cover"
+        className="min-h-[100px] min-w-[100px] rounded-[10px] bg-cover bg-center"
       />
 
       <div
