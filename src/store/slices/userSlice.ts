@@ -36,8 +36,8 @@ const initialState: UserState = {
   jwt_token: "",
 };
 
-const orderSlice = createSlice({
-  name: "order",
+const userSlice = createSlice({
+  name: "user",
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<UserState>) => {
@@ -57,6 +57,6 @@ const orderSlice = createSlice({
   },
 });
 
-export const { setUser } = orderSlice.actions;
+export const { setUser } = userSlice.actions;
 
-export default orderSlice.reducer;
+export default userSlice.reducer;

@@ -16,6 +16,7 @@ import CartDishPage from "./pages/CartDishPage.tsx";
 import DeliveryPage from "./pages/DeliveryPage";
 import TransferPage from "./pages/TransferPage";
 import ManagerMainPage from "./pages/ManagerMainPage";
+import { fetchCompanies } from "./store/slices/companySlice.ts";
 
 
 const router = createBrowserRouter([
@@ -58,6 +59,7 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchCategories());
+    dispatch(fetchCompanies());
   }, [dispatch]);
 
   return (
