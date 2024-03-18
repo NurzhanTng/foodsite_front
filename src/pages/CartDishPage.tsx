@@ -153,7 +153,7 @@ function DishPage() {
                     className={`
                     ${orderProduct.additions.includes(addition) ? "bg-button" : "bg-bgColor2"}
                     ${index === 0 ? "rounded-t-[6px]" : ""}
-                    ${index === (orderProduct.product?.modifiers.length !== undefined && orderProduct.product?.modifiers.length - 1) ? "rounded-b-[6px]" : ""}
+                    ${index === (orderProduct.product?.additions.length !== undefined && orderProduct.product?.modifiers.length - 1) ? "rounded-b-[6px]" : ""}
                     flex flex-row justify-between p-4 text-center text-sm leading-[14px] text-white
                   `}
                     onClick={() => {

@@ -8,7 +8,7 @@ const TransferPage = () => {
     console.log("User Role: ", user.role)
     if (user.role === "client") {
       navigate("/menu");
-    } else {
+    } else if (user.role === "manager") {
       navigate("/orders");
     }
   }, [navigate, user]);
