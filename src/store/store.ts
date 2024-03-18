@@ -3,13 +3,15 @@ import mainReducer from "./slices/mainSlice.ts";
 import orderSlice from "./slices/orderSlice.ts";
 import userSlice from "./slices/userSlice.ts";
 import companiesSlice from "./slices/companySlice.ts";
+import managerSlice from "./slices/managerSlice.ts";
 
 const store = configureStore({
   reducer: {
     main: mainReducer,
     order: orderSlice,
     user: userSlice,
-    companies: companiesSlice
+    companies: companiesSlice,
+    manager: managerSlice
   },
 });
 

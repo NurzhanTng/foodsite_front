@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export type OrderState = {
   client_id: number;
-  jwt_token: string;
   delivery_id: number;
   company_id: number;
   max_bonus: number;
@@ -24,7 +23,6 @@ export type OrderState = {
 
 const initialState: OrderState = {
   client_id: -1,
-  jwt_token: "",
   delivery_id: -1,
   company_id: -1,
   max_bonus: 0,
@@ -52,7 +50,6 @@ const orderSlice = createSlice({
       state,
       action: PayloadAction<{
         telegram_id: number;
-        jwt_token: string;
         telegram_fullname: string;
         phone: string;
         kaspi_phone: string;
@@ -67,7 +64,6 @@ const orderSlice = createSlice({
     ) => {
       const data = action.payload;
       state.client_id = data.telegram_id;
-      state.jwt_token = data.jwt_token;
       state.user_name = data.telegram_fullname;
       state.phone = data.phone;
       state.kaspi_phone = data.kaspi_phone;

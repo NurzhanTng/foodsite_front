@@ -18,14 +18,14 @@ const useCart = () => {
 
   const usePopup = {
     showComment,
-    toggleComment: () => setShowComment(!showComment),
+    toggleComment: () => setShowComment((value) => !value),
     showTime,
-    toggleTime: () => setShowTime(!showTime)
+    toggleTime: () => setShowTime((value) => !value)
   };
 
   const handleOrderClick = () => {
-    console.log("cart to json", cartToJson());
-    if (state.cart.length === 0) return;
+    // console.log("cart to json", cartToJson());
+    if (state.cart.length === 0 || order.phone.length !== 11 || order.kaspi_phone.length !== 11) return;
     fetch(import.meta.env.VITE_REACT_APP_API_BASE_URL + `food/orders/`, {
       method: "POST",
       headers: {

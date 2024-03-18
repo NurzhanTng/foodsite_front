@@ -5,8 +5,8 @@ import formatPhoneNumber from "../utils/formatPhoneNumber.ts";
 import { twMerge } from "tailwind-merge";
 
 type CartPaymentsProps = {
-  className?: string
-}
+  className?: string;
+};
 
 const CartPayments = ({ className = "" }: CartPaymentsProps) => {
   // const state = useAppSelector((state) => state.main);
@@ -15,13 +15,25 @@ const CartPayments = ({ className = "" }: CartPaymentsProps) => {
 
   return (
     <div className={twMerge("", className)}>
-      <h3 className="mb-[26px] text-base font-medium text-textSecondary">Оплата</h3>
+      <h3 className="mb-[26px] text-base font-medium text-textSecondary">
+        Оплата
+      </h3>
 
       <Input
         label="Введите номер каспи"
-        onChange={(event) =>
-          dispatch(setKaspiPhone(event.target.value.replace(/\D/g, "")))
-        }
+        inputMode="tel"
+        onChange={(event) => {
+          dispatch(setKaspiPhone(event.target.value.replace(/\D/g, "")));
+          if (event.target.value.replace(/\D/g, "").length < 11) return;
+
+          event.target.setAttribute("readonly", "readonly");
+          event.target.setAttribute("disabled", "true");
+          setTimeout(function () {
+            event.target.blur();
+            event.target.removeAttribute("readonly");
+            event.target.removeAttribute("disabled");
+          }, 100);
+        }}
         value={formatPhoneNumber(orderState.kaspi_phone)}
       />
     </div>

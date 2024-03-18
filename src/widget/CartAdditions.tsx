@@ -16,7 +16,10 @@ type CartAdditionsProps = {
   toggleComment: () => void;
 };
 
-const CartAdditions = ({ className = "", toggleComment }: CartAdditionsProps) => {
+const CartAdditions = ({
+  className = "",
+  toggleComment,
+}: CartAdditionsProps) => {
   // const state = useAppSelector((state) => state.main);
   const orderState = useAppSelector((state) => state.order);
   const dispatch = useAppDispatch();
@@ -40,11 +43,21 @@ const CartAdditions = ({ className = "", toggleComment }: CartAdditionsProps) =>
       <Input
         aria-required={true}
         aria-valuemin={10}
+        inputMode="tel"
         type="tel"
         label="Введите номер для связи"
-        onChange={(event) =>
-          dispatch(setUserPhone(event.target.value.replace(/\D/g, "")))
-        }
+        onChange={(event) => {
+          dispatch(setUserPhone(event.target.value.replace(/\D/g, "")));
+          if (event.target.value.replace(/\D/g, "").length < 11) return;
+
+          event.target.setAttribute("readonly", "readonly");
+          event.target.setAttribute("disabled", "true");
+          setTimeout(function () {
+            event.target.blur();
+            event.target.removeAttribute("readonly");
+            event.target.removeAttribute("disabled");
+          }, 100);
+        }}
         value={formatPhoneNumber(orderState.phone)}
       />
 

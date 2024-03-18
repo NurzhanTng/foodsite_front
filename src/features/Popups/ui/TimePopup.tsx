@@ -97,9 +97,7 @@ const TimePopup = ({ show, toggleShow }: TimePopupProps) => {
           <TimeField
             label="Укажите время"
             value={value}
-            onChange={(newValue, context) => {
-              console.log(newValue);
-              console.log(context);
+            onChange={(newValue) => {
               setValue(newValue);
             }}
             ampm={false}
@@ -161,9 +159,12 @@ const TimePopup = ({ show, toggleShow }: TimePopupProps) => {
             if (value === null) {
               setErrorText("Укажите время перед сохранением");
               setIsValid(false);
-            } else if (isTimeInRange(value)) {
-              dispatch(setDoneTime(isFastest ? "00:00" : timeToString(value)));
+            } else if (isTimeInRange(value) || isFastest) {
               toggleShow();
+              dispatch(setDoneTime(isFastest ? "00:00" : timeToString(value)));
+            } else {
+              setErrorText("В выбранное время мы не принимаем заказы");
+              setIsValid(false);
             }
           }}
         />

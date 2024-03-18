@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type Products = {
   id: number;
@@ -63,7 +63,7 @@ export type Orders = {
   bonus_used: boolean;
   done_time: string; // new
   user_name: string;
-  address: { long: number, lat: number, parsed: string } | null;
+  address: { long: number; lat: number; parsed: string } | null;
   exact_address: string | null;
   phone: string;
   kaspi_phone: string;
@@ -74,9 +74,8 @@ export type Orders = {
 
   actions: []; // change
 
-  order_time: string
+  order_time: string;
 };
-
 
 type OrderProducts = {
   id?: number;
@@ -89,41 +88,52 @@ type OrderProducts = {
   client_comment: string;
 };
 
-function isToday(dateString: string)  {
+export type ManagerState = {
+  orders: Array<Orders>;
+};
+
+const initialState: ManagerState = {
+  orders: [],
+};
+
+function isToday(dateString: string) {
   const date = new Date(dateString);
   const today = new Date();
-  return date.getDate() === today.getDate() &&
-         date.getMonth() === today.getMonth() &&
-         date.getFullYear() === today.getFullYear();
+  return (
+    date.getDate() === today.getDate() &&
+    date.getMonth() === today.getMonth() &&
+    date.getFullYear() === today.getFullYear()
+  );
 }
 
-
-const useMainHook = () => {
-  const [orders, setOrders] = useState<Array<Orders>>([]);
-
-  useEffect(() => {
-    fetch(import.meta.env.VITE_REACT_APP_API_BASE_URL + "food/orders/",
+export const fetchOrders = createAsyncThunk("orders", async () => {
+  const response = await fetch(
+    import.meta.env.VITE_REACT_APP_API_BASE_URL + "food/orders/",
     {
       method: "GET",
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then((data: Array<Orders>) => {
-        console.log(data)
-        setOrders(data.filter((order) => isToday(order.order_time)));
-      })
-      .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
-      });
-  }, []);
+    },
+  );
+  const data: Array<Orders> = await response.json();
+  return data.filter((order) => isToday(order.created_at));
+});
 
-  return {
-    orders, setOrders
-  }
-}
+const managerSlice = createSlice({
+  name: "manager",
+  initialState,
+  reducers: {
+    setOrders: (state, action: PayloadAction<Array<Orders>>) => {
+      state.orders = action.payload
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchOrders.fulfilled, (state, action) => {
+      state.orders = action.payload;
+    });
+  },
+});
 
-export default useMainHook
+export const {
+  setOrders
+} = managerSlice.actions;
+
+export default managerSlice.reducer;

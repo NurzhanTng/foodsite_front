@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from "../../../shared/Button.tsx";
-import { Orders } from "../../../pages/ManagerMainPage/hooks/mainHook.ts";
+import { Orders } from "../../../store/slices/managerSlice.ts";
+import { useNavigate } from "react-router-dom";
 
 type OrderSmallProps = {
   order: Orders;
@@ -17,18 +18,23 @@ const text = {
   inactive: "Завершенный заказы",
 };
 
-const OrderSmall = ({ order, additionalText = false, NextStep }: OrderSmallProps) => {
+const OrderSmall = ({
+  order,
+  additionalText = false,
+  NextStep,
+}: OrderSmallProps) => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div
-      className={`$ mt-5 h-fit w-full rounded-[10px] border border-button p-[20px] text-base font-normal leading-none text-white transition-all`}
+      className={`$ my-5 h-fit w-full rounded-[10px] border border-button p-[20px] text-base font-normal leading-none text-white transition-all`}
     >
       <div
         onClick={() => {
           setOpen(!open);
         }}
-        className={`${open ? "mb-[10px] border-b border-secondary py-[5px]" : ""} relative flex w-[calc(100vw-80px)] flex-row`}
+        className={`${open ? "mb-[10px] border-b border-secondary pb-[5px]" : ""} relative flex w-[calc(100vw-80px)] flex-row`}
       >
         <h2 className=" leading-non block text-base font-normal text-white">
           Заказ № {order.id}
@@ -44,7 +50,10 @@ const OrderSmall = ({ order, additionalText = false, NextStep }: OrderSmallProps
       </div>
 
       {open && (
-        <div className="flex w-full flex-col gap-2">
+        <div
+          onClick={() => navigate(`/orders/${order.id}`)}
+          className="flex w-full flex-col gap-2"
+        >
           <div className=" flex w-[calc(100vw-80px)] flex-row  justify-between">
             <p className="w-full text-sm font-normal leading-none text-fontSecondary">
               Время оформления
@@ -94,7 +103,18 @@ const OrderSmall = ({ order, additionalText = false, NextStep }: OrderSmallProps
         </div>
       )}
 
-      {(order.status !== "inactive" && open) && <Button className="mt-5 w-full" styleType="outline" text="Следующий этап" onClick={() => NextStep(order)} />}
+      {order.status !== "inactive" && open && (
+        <Button
+          className="mt-5 w-full"
+          styleType="outline"
+          text="Следующий этап"
+          onClick={() => {
+            console.log(`Order [${order.id}] next step start`)
+            NextStep(order)
+            console.log("next step ended")
+          }}
+        />
+      )}
     </div>
   );
 };

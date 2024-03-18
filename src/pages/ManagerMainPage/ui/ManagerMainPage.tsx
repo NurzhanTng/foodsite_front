@@ -1,162 +1,92 @@
-import useMainHook, { Orders, OrderStatuses } from "../hooks/mainHook.ts";
-import Header from "../../../entities/Header.tsx";
-import SelectCard from "../../../entities/SelectCard.tsx";
-import Icon from "../../../shared/Icon";
 import { useState } from "react";
-import OrderSmall from "../../../features/OrderSmall/ui/OrderSmall.tsx";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
+import {
+  OrderStatuses,
+  Orders,
+  setOrders,
+} from "../../../store/slices/managerSlice.ts";
+import ManagerHeader from "../../../features/Headers";
+import OrderCategory from "../../../widget/OrderCategory.tsx";
 
 const ManagerMainPage = () => {
-  const { orders, setOrders } = useMainHook();
-  const [showManagerAwait, setShowManagerAwait] = useState(false);
-  const [showPaymentAwait, setShowPaymentAwait] = useState(false);
-  const [showActive, setActive] = useState(false);
-  const [showDone, setDone] = useState(false);
-  const [showOnDelivery, setOnDelivery] = useState(false);
-  const [showInactive, setInactive] = useState(false);
+  const manager = useAppSelector((state) => state.manager);
+  const dispatch = useAppDispatch();
+  const orders = useAppSelector((state) => state.manager.orders);
 
-  const NextStep = (order: Orders) => {
-    const statuses: Array<OrderStatuses> = [
-      "manager_await",
-      "payment_await",
-      "active",
-      "done",
-      "on_delivery",
-      "inactive",
-    ];
+  const statuses: Array<OrderStatuses> = [
+    "manager_await",
+    "payment_await",
+    "active",
+    "done",
+    "on_delivery",
+    "inactive",
+  ];
 
-    setOrders((orders) => {
-      const oldOrders = orders;
-      for (let i = 0; i < oldOrders.length; i++) {
-        if (oldOrders[i].id === order.id) {
-          const index = statuses.indexOf(oldOrders[i].status)
-          oldOrders[i].status = statuses[index + 1]
-        }
-      }
-      return oldOrders;
+  const statusNames: { [key in OrderStatuses]: string } = {
+    manager_await: "Новые заказы",
+    payment_await: "Ожидающие оплаты",
+    active: "Активные заказы",
+    done: "Приготовленные заказы",
+    on_delivery: "Переданные доставщику",
+    inactive: "Завершенные заказы",
+  };
+
+  const [statusOpen, setStatusOpen] = useState<{
+    [key in OrderStatuses]: boolean;
+  }>({
+    manager_await: false,
+    payment_await: false,
+    active: false,
+    done: false,
+    on_delivery: false,
+    inactive: false,
+  });
+
+  const handleStatusChange = async (targetOrder: Orders) => {
+    const newOrders = orders.map((order) => {
+      if (order.id !== targetOrder.id) return order;
+      const index = statuses.indexOf(order.status);
+      const newStatus = statuses.at(index + 1);
+      if (newStatus === undefined) return order;
+      const newOrder = { ...order, status: newStatus };
+      fetch(
+        import.meta.env.VITE_REACT_APP_API_BASE_URL +
+          `food/orders/${order.id}/`,
+        {
+          method: "Put",
+          headers: {
+            "Content-Type": "application/json", // Indicates JSON content in the request body
+          },
+          body: JSON.stringify({
+            status: statuses[index + 1],
+            user_name: order.user_name,
+            phone: order.phone,
+            client_id: order.client_id,
+          }),
+        },
+      );
+      return newOrder;
     });
+
+    dispatch(setOrders(newOrders));
   };
 
   return (
     <div className="px-5 pt-[80px]">
-      <Header>
-        <p className="mt-4 h-max text-center text-xl font-medium leading-loose text-white ">
-          Заказы
-        </p>
-      </Header>
+      <ManagerHeader />
 
-      <SelectCard
-        onClick={() => setShowManagerAwait(!showManagerAwait)}
-        className="mb-5 pl-[30px]"
-        borderBottom={true}
-        name="Новые заказы"
-      >
-        <div className="absolute left-[4px] top-[16px] h-[15px] w-[15px] rounded-[100px] bg-blue-500 text-center text-[10px] font-bold leading-[15px] text-white">
-          {orders.filter((order) => order.status === "manager_await").length}
-        </div>
-        <Icon
-          className="my-auto h-5 w-5"
-          type={showManagerAwait ? "list" : "arrowDown"}
+      {statuses.map((status) => (
+        <OrderCategory
+          orders={manager.orders.filter((order) => order.status === status)}
+          key={status}
+          open={statusOpen[status]}
+          setOpen={(isOpen) =>
+            setStatusOpen({ ...statusOpen, [status]: isOpen })
+          }
+          nextStep={handleStatusChange}
+          name={statusNames[status]}
         />
-      </SelectCard>
-      {showManagerAwait &&
-        orders
-          .filter((order) => order.status === "manager_await")
-          .map((order) => <OrderSmall NextStep={NextStep} key={order.id} order={order} />)}
-
-      <SelectCard
-        onClick={() => setShowPaymentAwait(!showPaymentAwait)}
-        className="mb-5 pl-[30px]"
-        borderBottom={true}
-        name="Ожидающие оплаты"
-      >
-        <div className="absolute left-[4px] top-[16px] h-[15px] w-[15px] rounded-[100px] bg-blue-500 text-center text-[10px] font-bold leading-[15px] text-white">
-          {orders.filter((order) => order.status === "payment_await").length}
-        </div>
-        <Icon
-          className="my-auto h-5 w-5"
-          type={showPaymentAwait ? "list" : "arrowDown"}
-        />
-      </SelectCard>
-      {showPaymentAwait &&
-        orders
-          .filter((order) => order.status === "payment_await")
-          .map((order) => <OrderSmall NextStep={NextStep} key={order.id} order={order} />)}
-
-      <SelectCard
-        onClick={() => setActive(!showActive)}
-        className="mb-5 pl-[30px]"
-        borderBottom={true}
-        name="Активные заказы"
-      >
-        <div className="absolute left-[4px] top-[16px] h-[15px] w-[15px] rounded-[100px] bg-blue-500 text-center text-[10px] font-bold leading-[15px] text-white">
-          {orders.filter((order) => order.status === "active").length}
-        </div>
-        <Icon
-          className="my-auto h-5 w-5"
-          type={showActive ? "list" : "arrowDown"}
-        />
-      </SelectCard>
-      {showActive &&
-        orders
-          .filter((order) => order.status === "active")
-          .map((order) => <OrderSmall NextStep={NextStep} key={order.id} order={order} />)}
-
-      <SelectCard
-        onClick={() => setDone(!showDone)}
-        className="mb-5 pl-[30px]"
-        borderBottom={true}
-        name="Приготовленные заказы"
-      >
-        <div className="absolute left-[4px] top-[16px] h-[15px] w-[15px] rounded-[100px] bg-blue-500 text-center text-[10px] font-bold leading-[15px] text-white">
-          {orders.filter((order) => order.status === "done").length}
-        </div>
-        <Icon
-          className="my-auto h-5 w-5"
-          type={showDone ? "list" : "arrowDown"}
-        />
-      </SelectCard>
-      {showDone &&
-        orders
-          .filter((order) => order.status === "done")
-          .map((order) => <OrderSmall NextStep={NextStep} key={order.id} order={order} />)}
-
-      <SelectCard
-        onClick={() => setOnDelivery(!showOnDelivery)}
-        className="mb-5 pl-[30px]"
-        borderBottom={true}
-        name="Переданные доставщику"
-      >
-        <div className="absolute left-[4px] top-[16px] h-[15px] w-[15px] rounded-[100px] bg-blue-500 text-center text-[10px] font-bold leading-[15px] text-white">
-          {orders.filter((order) => order.status === "on_delivery").length}
-        </div>
-        <Icon
-          className="my-auto h-5 w-5"
-          type={showOnDelivery ? "list" : "arrowDown"}
-        />
-      </SelectCard>
-      {showOnDelivery &&
-        orders
-          .filter((order) => order.status === "on_delivery")
-          .map((order) => <OrderSmall NextStep={NextStep} key={order.id} order={order} />)}
-
-      <SelectCard
-        onClick={() => setInactive(!showInactive)}
-        className="mb-5 pl-[30px]"
-        borderBottom={true}
-        name="Завершенные заказы"
-      >
-        <div className="absolute left-[4px] top-[16px] h-[15px] w-[15px] rounded-[100px] bg-blue-500 text-center text-[10px] font-bold leading-[15px] text-white">
-          {orders.filter((order) => order.status === "inactive").length}
-        </div>
-        <Icon
-          className="my-auto h-5 w-5"
-          type={showInactive ? "list" : "arrowDown"}
-        />
-      </SelectCard>
-      {showInactive &&
-        orders
-          .filter((order) => order.status === "inactive")
-          .map((order) => <OrderSmall NextStep={NextStep} key={order.id} order={order} />)}
+      ))}
     </div>
   );
 };

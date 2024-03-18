@@ -17,6 +17,7 @@ import DeliveryPage from "./pages/DeliveryPage";
 import TransferPage from "./pages/TransferPage";
 import ManagerMainPage from "./pages/ManagerMainPage";
 import { fetchCompanies } from "./store/slices/companySlice.ts";
+import OrderPage from "./pages/OrderPage";
 
 
 const router = createBrowserRouter([
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
   {
     path: "/orders",
     element: <ManagerMainPage />
+  },
+  {
+    path: "/orders/:order_id",
+    element: <OrderPage />
   },
   {
     path: "*",
