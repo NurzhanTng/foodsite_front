@@ -93,7 +93,7 @@ function DishPage() {
           {orderProduct.product?.name}
         </h4>
         <p className="mb-6 text-xs text-fontSecondary">
-          {orderProduct.product?.name}
+          {orderProduct.product?.description}
         </p>
 
         {/* Выбрать тип блюда */}
