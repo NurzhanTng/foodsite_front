@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from "../store/hooks.ts";
 import { twMerge } from "tailwind-merge";
-import { CompanySpot } from "../pages/DeliveryPage/ui/DeliveryPage.tsx";
 import Button from "../shared/Button.tsx";
 import { setCompanyId } from "../store/slices/orderSlice.ts";
+import { CompanySpot } from "../store/slices/companySlice.ts";
 
 type CompanyCardsProps = {
   className?: string;
