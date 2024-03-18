@@ -83,7 +83,7 @@ function DishPage() {
       {/* Картинка блюда */}
       <div
         style={{ backgroundImage: `url(${orderProduct.product?.image_url})` }}
-        className="mb-5 h-[300px] bg-transparent bg-cover shadow-image"
+        className="mb-5 h-[300px] bg-transparent bg-cover shadow-image bg-center"
       />
 
       {/* Внешний контейнер */}
