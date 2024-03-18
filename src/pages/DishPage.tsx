@@ -77,7 +77,7 @@ function DishPage() {
       <div className="px-3">
         {/* Описание блюда */}
         <h4 className="mb-3 text-base font-bold text-white">{product?.name}</h4>
-        <p className="mb-6 text-xs text-fontSecondary">{product?.name}</p>
+        <p className="mb-6 text-xs text-fontSecondary">{product?.description}</p>
 
         {/* Выбрать тип блюда */}
         {product?.modifiers.length !== 0 && (
