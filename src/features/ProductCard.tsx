@@ -111,7 +111,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
               {product.name}
             </h4>
             <p className="line-clamp-4 text-xs text-fontSecondary md:line-clamp-2">
-              {product.name}
+              {product.description}
             </p>
           </div>
 

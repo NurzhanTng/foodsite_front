@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Products = {
   id: number;
@@ -69,6 +69,9 @@ export type Orders = {
   kaspi_phone: string;
   client_comment: string | null;
 
+  created_at: string;
+  updated_at: string;
+
   actions: []; // change
 
   order_time: string
@@ -86,91 +89,37 @@ type OrderProducts = {
   client_comment: string;
 };
 
+function isToday(dateString: string)  {
+  const date = new Date(dateString);
+  const today = new Date();
+  return date.getDate() === today.getDate() &&
+         date.getMonth() === today.getMonth() &&
+         date.getFullYear() === today.getFullYear();
+}
+
 
 const useMainHook = () => {
-  const [orders, setOrders] = useState<Array<Orders>>([
-    {
-      id: 1,
-      "products":[
-          {"amount":2,"client_comment":"","price":6600,"product_id":2,"active_modifier":null,"additions":[]},
-          {"amount":1,"client_comment":"","price":3300,"product_id":2,"active_modifier":null,"additions":[]}
-      ],
-      "status": "manager_await",
-      "is_delivery": true,
-      "delivery_id": 0,
-      "client_id":921564968,
-      "bonus_used":false,
-      "user_name":"Nurzhan",
-      "address": {
-        "long": 76.940421,
-        "lat": 43.246945,
-        parsed: "улица Толе би, 128"
-      },
-      "company_id": 1,
-      "exact_address":"42 квартира",
-      "phone":"+77074862447",
-      "kaspi_phone": "+77074862447",
-      "client_comment":"",
-      "actions":[],
-      "done_time":"10:00",
-      "order_time": "8:32"
-    },
-    {
-      id: 2,
-      "products":[
-          {"amount":2,"client_comment":"","price":6600,"product_id":2,"active_modifier":null,"additions":[]},
-          {"amount":1,"client_comment":"","price":3300,"product_id":2,"active_modifier":null,"additions":[]},
-          {"amount":2,"client_comment":"","price":6600,"product_id":1,"active_modifier":null,"additions":[]},
-      ],
-      "status": "payment_await",
-      "is_delivery": false,
-      "delivery_id": 0,
-      "client_id": 921564968,
-      "bonus_used": true,
-      "user_name": "Nurzhan",
-      "address": {
-        "long": 76.920853,
-        "lat": 43.240962,
-        parsed: "Жандосова 49"
-      },
-      "company_id": 1,
-      "exact_address":"",
-      "phone":"",
-      "kaspi_phone": "+77074862447",
-      "client_comment":"",
-      "actions":[],
-      "done_time":"15:00",
-      "order_time": "14:10"
-    },
-    {
-      id: 3,
-      "products":[
-          {"amount":2,"client_comment":"","price":6600,"product_id":2,"active_modifier":null,"additions":[]},
-          {"amount":1,"client_comment":"","price":3300,"product_id":2,"active_modifier":null,"additions":[]},
-          {"amount":2,"client_comment":"","price":6600,"product_id":1,"active_modifier":null,"additions":[]},
-      ],
-      "status": "payment_await",
-      "is_delivery": false,
-      "delivery_id": 0,
-      "client_id": 921564968,
-      "bonus_used": false,
-      "user_name": "Nurzhan",
-      "address": {
-        "long": 76.920853,
-        "lat": 43.240962,
-        parsed: "улица Кабанбай батыра 42"
-      },
-      "company_id": 1,
-      "exact_address":"",
-      "phone":"",
-      "kaspi_phone": "+77074862447",
-      "client_comment":"",
-      "actions":[],
-      "done_time":"16:00",
-      "order_time": "15:22"
-    }
-  ]);
+  const [orders, setOrders] = useState<Array<Orders>>([]);
 
+  useEffect(() => {
+    fetch(import.meta.env.VITE_REACT_APP_API_BASE_URL + "food/orders/",
+    {
+      method: "GET",
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data: Array<Orders>) => {
+        console.log(data)
+        setOrders(data.filter((order) => isToday(order.order_time)));
+      })
+      .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+      });
+  }, []);
 
   return {
     orders, setOrders

@@ -13,7 +13,7 @@ export type UserState = {
   } | null;
   exact_address: string | null;
   bonus: number;
-  role: "client" | "manager";
+  role: "client" | "manager" | "";
   blocked: boolean;
   jwt_token: string;
 };
@@ -31,7 +31,7 @@ const initialState: UserState = {
   },
   exact_address: null,
   bonus: 0,
-  role: "client",
+  role: "",
   blocked: false,
   jwt_token: "",
 };

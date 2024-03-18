@@ -24,6 +24,7 @@ const useCart = () => {
   };
 
   const handleOrderClick = () => {
+    console.log("cart to json", cartToJson());
     if (state.cart.length === 0) return;
     fetch(import.meta.env.VITE_REACT_APP_API_BASE_URL + `food/orders/`, {
       method: "POST",
@@ -197,6 +198,7 @@ const useCart = () => {
       company_id: 1,
       exact_address: order.exactAddress,
       phone: order.phone,
+      kaspi_phone: order.kaspi_phone,
       client_comment: order.client_comment,
       actions: []
     });

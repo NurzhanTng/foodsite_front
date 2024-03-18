@@ -5,9 +5,10 @@ const TransferPage = () => {
   const { user, navigate } = useMainHook();
 
   useEffect(() => {
+    console.log("User Role: ", user.role)
     if (user.role === "client") {
       navigate("/menu");
-    } else if (user.role === "manager") {
+    } else {
       navigate("/orders");
     }
   }, [navigate, user]);
