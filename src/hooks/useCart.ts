@@ -25,7 +25,10 @@ const useCart = () => {
 
   const handleOrderClick = () => {
     // console.log("cart to json", cartToJson());
-    if (state.cart.length === 0 || order.phone.length !== 11 || order.kaspi_phone.length !== 11) return;
+    // console.log(order.phone.length)
+    // console.log(order.kaspi_phone.length)
+    // console.log(state.cart.length)
+    if (state.cart.length === 0 || order.phone.length !== 12 || order.kaspi_phone.length !== 12) return;
     fetch(import.meta.env.VITE_REACT_APP_API_BASE_URL + `food/orders/`, {
       method: "POST",
       headers: {
@@ -178,7 +181,7 @@ const useCart = () => {
   const cartToJson = (cart: OrderProduct[] = []) => {
     if (cart.length == 0) cart = state.cart;
 
-    return JSON.stringify({
+    const cartJSON = JSON.stringify({
       products: cart.map((orderProduct) => {
         if (orderProduct.product === undefined) return null;
         return {
@@ -195,13 +198,18 @@ const useCart = () => {
       bonus_used: order.bonus_used,
       user_name: order.user_name,
       address: order.address,
-      company_id: 1,
+      company_id: 2,
       exact_address: order.exactAddress,
       phone: order.phone,
       kaspi_phone: order.kaspi_phone,
       client_comment: order.client_comment,
+      bonus_amount: Math.min(sumCurrency(state.cart), order.max_bonus),
+      delivery_amount: 0,
       actions: []
     });
+
+    console.log(cartJSON)
+    return cartJSON
   };
 
   const deleteCartProducts = () => {

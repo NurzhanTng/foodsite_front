@@ -1,13 +1,12 @@
 import SelectCard from "../entities/SelectCard.tsx";
 import Icon from "../shared/Icon";
-import OrderSmall from "../features/OrderSmall/ui/OrderSmall.tsx";
+import OrderSmall from "../features/OrderSmall";
 import { Orders } from "../store/slices/managerSlice.ts";
 
 type OrderCategoryProps = {
   open: boolean;
   setOpen: (isOpen: boolean) => void;
   orders: Array<Orders>;
-  nextStep: (order: Orders) => void;
   name: string;
 };
 
@@ -15,7 +14,6 @@ const OrderCategory = ({
   open,
   setOpen,
   orders,
-  nextStep,
   name,
 }: OrderCategoryProps) => {
   return (
@@ -33,7 +31,7 @@ const OrderCategory = ({
       </SelectCard>
       {open &&
         orders.map((order) => (
-          <OrderSmall NextStep={nextStep} key={order.id} order={order} />
+          <OrderSmall key={order.id} order={order} />
         ))}
     </div>
   );

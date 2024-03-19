@@ -2,29 +2,20 @@ import { useState } from "react";
 import Button from "../../../shared/Button.tsx";
 import { Orders } from "../../../store/slices/managerSlice.ts";
 import { useNavigate } from "react-router-dom";
+import useManager from "../../../hooks/useManager.ts";
 
 type OrderSmallProps = {
   order: Orders;
   additionalText?: boolean;
-  NextStep: (order: Orders) => void;
-};
-
-const text = {
-  manager_await: "Новый заказ",
-  payment_await: "Ожидающий оплаты",
-  active: "Активный заказ",
-  done: "Приготовленный заказ",
-  on_delivery: "Переданный доставщику",
-  inactive: "Завершенный заказы",
 };
 
 const OrderSmall = ({
   order,
-  additionalText = false,
-  NextStep,
+  additionalText = false
 }: OrderSmallProps) => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const { statusesText, handleStatusChange } = useManager();
 
   return (
     <div
@@ -42,7 +33,7 @@ const OrderSmall = ({
         <p
           className={`${additionalText ? "" : "hidden"} my-auto h-fit pl-4 text-center text-sm font-normal leading-none text-button`}
         >
-          {text[order.status]}
+          {statusesText[order.status]}
         </p>
         {/*<div className="right-5 top-5" onClick={() => setOpen(!open)}>*/}
         {/*  <Icon type={open ? "close" : "list"} className="h-4 w-4" />*/}
@@ -108,11 +99,7 @@ const OrderSmall = ({
           className="mt-5 w-full"
           styleType="outline"
           text="Следующий этап"
-          onClick={() => {
-            console.log(`Order [${order.id}] next step start`)
-            NextStep(order)
-            console.log("next step ended")
-          }}
+          onClick={() => handleStatusChange(order)}
         />
       )}
     </div>

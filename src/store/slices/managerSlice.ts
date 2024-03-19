@@ -58,6 +58,7 @@ export type Orders = {
 
   is_delivery: boolean;
   delivery_id: number | null;
+  delivery_name: string;
   products: Array<OrderProducts>; // change
   status: OrderStatuses;
   bonus_used: boolean;
@@ -114,7 +115,11 @@ export const fetchOrders = createAsyncThunk("orders", async () => {
     },
   );
   const data: Array<Orders> = await response.json();
-  return data.filter((order) => isToday(order.created_at));
+  return data
+    .filter((order) => isToday(order.created_at))
+    .map((order) => {
+      return { ...order, delivery_name: "" };
+    });
 });
 
 const managerSlice = createSlice({
@@ -122,7 +127,7 @@ const managerSlice = createSlice({
   initialState,
   reducers: {
     setOrders: (state, action: PayloadAction<Array<Orders>>) => {
-      state.orders = action.payload
+      state.orders = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -132,8 +137,6 @@ const managerSlice = createSlice({
   },
 });
 
-export const {
-  setOrders
-} = managerSlice.actions;
+export const { setOrders } = managerSlice.actions;
 
 export default managerSlice.reducer;
