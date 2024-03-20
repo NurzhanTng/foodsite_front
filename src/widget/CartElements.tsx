@@ -22,6 +22,8 @@ const CartElements = () => {
         );
       })}
 
+      {state.cart.length === 0 && <p className="text-white text-base font-normal pt-3">Пусто</p>}
+
       <Button
         type="submit"
         onClick={() => navigate('/menu')}
@@ -29,8 +31,6 @@ const CartElements = () => {
         styleType="outline"
         text="Перейти к меню"
       />
-
-      {state.cart.length === 0 && <p className="text-white text-base font-normal pt-3">Пусто</p>}
     </div>
   );
 };
