@@ -25,7 +25,8 @@ const CartElements = () => {
       <Button
         type="submit"
         onClick={() => navigate('/menu')}
-        className={"h-[50px] mb-[50px] w-full rounded-none"}
+        className={"h-[50px] mb-[50px] w-full"}
+        styleType="outline"
         text="Перейти к меню"
       />
 
