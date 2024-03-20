@@ -4,6 +4,7 @@ import { Orders } from "../../../store/slices/managerSlice.ts";
 import { useNavigate } from "react-router-dom";
 import useManager from "../../../hooks/useManager.ts";
 import OrderOneLine from "../../../pages/OrderPage/ui/OrderOneLine.tsx";
+import DeliveryUserPopup from "../../Popups/ui/DeliveryUserPopup.tsx";
 
 type OrderSmallProps = {
   order: Orders;
@@ -11,14 +12,17 @@ type OrderSmallProps = {
 };
 
 const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
-  const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
   const { statusesText, handleStatusChange } = useManager();
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
   return (
     <div
       className={`$ my-5 h-fit w-full rounded-[10px] border border-button p-[20px] text-base font-normal leading-none text-white transition-all`}
     >
+      <DeliveryUserPopup show={showPopup} toggleShow={() => setShowPopup(!showPopup)} order={order} />
+
       <div
         onClick={() => {
           setOpen(!open);
@@ -93,6 +97,15 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
             }
           />
         </div>
+      )}
+
+      {(order?.address?.lat || order?.address?.parsed) && open && (
+        <Button
+          className="mt-5 w-full"
+          styleType="outline"
+          text="Назначить доставщика"
+          onClick={() => setShowPopup(true)}
+        />
       )}
 
       {order.status !== "inactive" && open && (

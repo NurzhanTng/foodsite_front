@@ -13,7 +13,7 @@ export type UserState = {
   } | null;
   exact_address: string | null;
   bonus: number;
-  role: "client" | "manager" | "";
+  role: "client" | "manager" | "delivery" | "";
   blocked: boolean;
   jwt_token: string;
 };

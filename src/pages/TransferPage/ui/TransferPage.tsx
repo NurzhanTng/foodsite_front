@@ -1,7 +1,7 @@
 import useMainHook from "../hooks/useMainHook.ts";
 import { useEffect } from "react";
 import { useAppDispatch } from "../../../store/hooks.ts";
-import { fetchOrders } from "../../../store/slices/managerSlice.ts";
+import { fetchDeliveries, fetchOrders } from "../../../store/slices/managerSlice.ts";
 
 const TransferPage = () => {
   const { user, navigate } = useMainHook();
@@ -14,6 +14,7 @@ const TransferPage = () => {
       navigate("/menu");
     } else if (user.role === "manager") {
       dispatch(fetchOrders());
+      dispatch(fetchDeliveries());
       navigate("/orders");
     }
   }, [navigate, user]);

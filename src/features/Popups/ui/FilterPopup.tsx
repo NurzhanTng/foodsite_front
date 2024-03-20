@@ -1,7 +1,6 @@
 import Popup from "../../../shared/Popup.tsx";
 import React from "react";
 import { FilterState } from "../../../pages/OrderSearchPage";
-import Icon from "../../../shared/Icon";
 import Button from "../../../shared/Button.tsx";
 import useManager from "../../../hooks/useManager.ts";
 import { Checkbox, FormControlLabel } from "@mui/material";

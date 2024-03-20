@@ -1,12 +1,13 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppSelector } from "../../../store/hooks.ts";
 import ManagerHeader from "../../../features/Headers";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Button from "../../../shared/Button.tsx";
 import useManager from "../../../hooks/useManager.ts";
 import OrderOneLine from "./OrderOneLine.tsx";
 import useCart from "../../../hooks/useCart.ts";
 import currencyFormatter from "../../../utils/currencyFormatter.ts";
+import DeliveryUserPopup from "../../../features/Popups/ui/DeliveryUserPopup.tsx";
 
 const OrderPage = () => {
   const { order_id } = useParams();
@@ -14,8 +15,10 @@ const OrderPage = () => {
   const order = useAppSelector((state) =>
     state.manager.orders.find((order) => order.id === Number(order_id)),
   );
+  const deliveries = useAppSelector((state) => state.manager.deliveries);
   const { handleStatusChange, statusesText } = useManager();
   const { getProductById } = useCart();
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     // console.log(order);
@@ -25,8 +28,19 @@ const OrderPage = () => {
     }
   }, [navigate, order, order_id]);
 
+  if (order_id === undefined || order === undefined) {
+    navigate("/orders");
+    return;
+  }
+
   return (
     <div className="px-5">
+      <DeliveryUserPopup
+        show={showPopup}
+        toggleShow={() => setShowPopup(!showPopup)}
+        order={order}
+      />
+
       <ManagerHeader
         leftIconShow={true}
         iconOnClick={() => navigate("/orders")}
@@ -90,7 +104,13 @@ const OrderPage = () => {
                 : order?.address?.parsed
             }
           />
-          <OrderOneLine title="Доставщик" description={order?.delivery_name} />
+          <OrderOneLine
+            title="Доставщик"
+            description={
+              deliveries.find((user) => user.telegram_id === order.delivery_id)
+                ?.telegram_fullname
+            }
+          />
           <OrderOneLine
             title="Комментарий"
             description={
@@ -187,6 +207,15 @@ const OrderPage = () => {
           })}
         </div>
       </div>
+
+      {(order?.address?.lat || order?.address?.parsed) && (
+        <Button
+          className="mt-5 w-full"
+          styleType="outline"
+          text="Назначить доставщика"
+          onClick={() => setShowPopup(true)}
+        />
+      )}
 
       {order?.status !== "inactive" && (
         <Button

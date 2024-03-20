@@ -17,7 +17,7 @@ const Popup: React.FC<PopupProps> = ({
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     let target: EventTarget | null = event.target;
     while (target !== null) {
-      if ((target as HTMLElement).id === "click_ignore") {
+      if ((target as HTMLElement).id === "click_ignore" || (target as HTMLElement)?.id?.startsWith("menu")) {
         return; // Ignore clicks on buttons
       }
       target = (target as HTMLElement).parentNode;

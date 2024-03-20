@@ -34,10 +34,10 @@ const statusesTitles: { [key in OrderStatuses]: string } = {
 
 const useManager = () => {
   const dispatch = useAppDispatch();
-  const orders = useAppSelector((state) => state.manager.orders);
+  const managerState = useAppSelector((state) => state.manager);
 
   const handleStatusChange = async (targetOrder: Orders) => {
-    const newOrders = orders.map((order) => {
+    const newOrders = managerState.orders.map((order) => {
       if (order.id !== targetOrder.id) return order;
       const index = statuses.indexOf(order.status);
       const newStatus = statuses.at(index + 1);
@@ -49,7 +49,7 @@ const useManager = () => {
         import.meta.env.VITE_REACT_APP_API_BASE_URL +
           `food/orders/${order.id}/`,
         {
-          method: "Put",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
@@ -67,8 +67,60 @@ const useManager = () => {
     dispatch(setOrders(newOrders));
   };
 
+  const changeDeliveryId = async (order: Orders, delivery_id: number) => {
+    const currentOrders = managerState.orders;
+    const index = currentOrders.findIndex((oldOrder) => oldOrder.id === order.id);
+    console.log(index)
+    if (index === -1) return;
+
+    fetch(
+      import.meta.env.VITE_REACT_APP_API_BASE_URL + `food/orders/${order.id}/`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          delivery_id: delivery_id,
+          user_name: order.user_name,
+          phone: order.phone,
+          client_id: order.client_id,
+        }),
+      },
+    )
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Success:', data);
+        // Добавьте здесь код для обработки успешного ответа
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        // Добавьте здесь код для обработки ошибки
+      });
+
+    dispatch(
+      setOrders(
+        currentOrders.map((order, idx) =>
+          idx === index
+            ? {
+                ...order,
+                delivery_id: delivery_id,
+              }
+            : order,
+        ),
+      ),
+    );
+
+  };
+
   return {
     handleStatusChange,
+    changeDeliveryId,
     statuses,
     statusesText,
     statusesTitles,

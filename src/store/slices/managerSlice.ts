@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { UserState } from "./userSlice.ts";
 
 type Products = {
   id: number;
@@ -89,9 +90,15 @@ type OrderProducts = {
   client_comment: string;
 };
 
+type DeliveryUser = {
+  telegram_id: number,
+  telegram_fullname: string,
+}
+
 export type ManagerState = {
   orders: Array<Orders>;
   statusOpen: { [key in OrderStatuses]: boolean };
+  deliveries: DeliveryUser[];
 };
 
 const initialState: ManagerState = {
@@ -104,6 +111,7 @@ const initialState: ManagerState = {
     on_delivery: false,
     inactive: false,
   },
+  deliveries: []
 };
 
 function isToday(dateString: string) {
@@ -131,6 +139,22 @@ export const fetchOrders = createAsyncThunk("orders", async () => {
     });
 });
 
+export const fetchDeliveries = createAsyncThunk("deliveries", async () => {
+  const response = await fetch(
+    import.meta.env.VITE_REACT_APP_API_BASE_URL + "auth/register/",
+    {
+      method: "GET",
+    },
+  );
+  const data: UserState[] = await response.json();
+  return data.filter((user) => user.role === 'delivery').map((user) => {
+    return {
+      telegram_id: user.telegram_id,
+      telegram_fullname: user.telegram_fullname,
+    }
+  })
+});
+
 const managerSlice = createSlice({
   name: "manager",
   initialState,
@@ -148,6 +172,10 @@ const managerSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchOrders.fulfilled, (state, action) => {
       state.orders = action.payload;
+    });
+    builder.addCase(fetchDeliveries.fulfilled, (state, action) => {
+      state.deliveries = action.payload;
+      console.log("fetchDeliveries fulfilled: ", action.payload)
     });
   },
 });
