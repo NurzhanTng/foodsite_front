@@ -1,8 +1,11 @@
 import { useAppSelector } from "../store/hooks.ts";
 import CartElement from "../features/CartElement";
+import Button from "../shared/Button.tsx";
+import { useNavigate } from "react-router-dom";
 
 const CartElements = () => {
   const state = useAppSelector((state) => state.main);
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -18,6 +21,13 @@ const CartElements = () => {
           />
         );
       })}
+
+      <Button
+        type="submit"
+        onClick={() => navigate('/menu')}
+        className={"h-[50px] mb-[50px] w-full rounded-none"}
+        text="Перейти к меню"
+      />
 
       {state.cart.length === 0 && <p className="text-white text-base font-normal pt-3">Пусто</p>}
     </div>
