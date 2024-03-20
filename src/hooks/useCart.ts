@@ -24,10 +24,6 @@ const useCart = () => {
   };
 
   const handleOrderClick = () => {
-    // console.log("cart to json", cartToJson());
-    // console.log(order.phone.length)
-    // console.log(order.kaspi_phone.length)
-    // console.log(state.cart.length)
     if (state.cart.length === 0 || order.phone.length !== 12 || order.kaspi_phone.length !== 12) return;
     fetch(import.meta.env.VITE_REACT_APP_API_BASE_URL + `food/orders/`, {
       method: "POST",

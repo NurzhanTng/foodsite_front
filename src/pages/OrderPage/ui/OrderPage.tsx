@@ -8,22 +8,13 @@ import OrderOneLine from "./OrderOneLine.tsx";
 import useCart from "../../../hooks/useCart.ts";
 import currencyFormatter from "../../../utils/currencyFormatter.ts";
 
-const text = {
-  manager_await: "Новый заказ",
-  payment_await: "Ожидающий оплаты",
-  active: "Активный заказ",
-  done: "Приготовленный заказ",
-  on_delivery: "Переданный доставщику",
-  inactive: "Завершенный заказы",
-};
-
 const OrderPage = () => {
   const { order_id } = useParams();
   const navigate = useNavigate();
   const order = useAppSelector((state) =>
     state.manager.orders.find((order) => order.id === Number(order_id)),
   );
-  const { handleStatusChange } = useManager();
+  const { handleStatusChange, statusesText } = useManager();
   const { getProductById } = useCart();
 
   useEffect(() => {
@@ -54,7 +45,7 @@ const OrderPage = () => {
             className={`my-auto h-fit pl-4 text-center text-sm font-normal leading-none text-button`}
           >
             {
-              text[
+              statusesText[
                 order?.status === undefined ? "manager_await" : order?.status
               ]
             }
@@ -148,7 +139,7 @@ const OrderPage = () => {
         <div className="flex w-full flex-col gap-2">
           {order?.products.map((orderProduct) => {
             const product = getProductById(orderProduct.product_id);
-            if (product === undefined) return <div></div>;
+            // if (product === undefined) return <div key={1}></div>;
 
             return (
               <div
@@ -157,7 +148,7 @@ const OrderPage = () => {
               >
                 <div className="flex flex-col gap-1">
                   <p className="w-full text-sm font-normal leading-none text-fontSecondary">
-                    {product.name}
+                    {product?.name}
                   </p>
                   <p className="w-full text-sm font-normal leading-none text-fontSecondary">
                     {
@@ -180,7 +171,7 @@ const OrderPage = () => {
                 </div>
 
                 <div
-                  className={`${product.name.length < 30 && orderProduct.additions.length === 0 && orderProduct.active_modifier === null ? "flex-row" : "flex-col"} align-right my-auto flex  gap-3`}
+                  className={`${(product?.name?.length || 0) < 30 && orderProduct.additions.length === 0 && orderProduct.active_modifier === null ? "flex-row" : "flex-col"} align-right my-auto flex  gap-3`}
                 >
                   <p className="text-right text-sm font-normal leading-none text-fontSecondary">
                     {orderProduct.amount} шт.

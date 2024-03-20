@@ -91,10 +91,19 @@ type OrderProducts = {
 
 export type ManagerState = {
   orders: Array<Orders>;
+  statusOpen: { [key in OrderStatuses]: boolean };
 };
 
 const initialState: ManagerState = {
   orders: [],
+  statusOpen: {
+    manager_await: false,
+    payment_await: false,
+    active: false,
+    done: false,
+    on_delivery: false,
+    inactive: false,
+  },
 };
 
 function isToday(dateString: string) {
@@ -129,6 +138,12 @@ const managerSlice = createSlice({
     setOrders: (state, action: PayloadAction<Array<Orders>>) => {
       state.orders = action.payload;
     },
+    setStatusOpen: (
+      state,
+      action: PayloadAction<{ [key in OrderStatuses]: boolean }>,
+    ) => {
+      state.statusOpen = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchOrders.fulfilled, (state, action) => {
@@ -137,6 +152,6 @@ const managerSlice = createSlice({
   },
 });
 
-export const { setOrders } = managerSlice.actions;
+export const { setOrders, setStatusOpen } = managerSlice.actions;
 
 export default managerSlice.reducer;
