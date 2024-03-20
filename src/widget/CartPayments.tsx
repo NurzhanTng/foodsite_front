@@ -22,6 +22,7 @@ const CartPayments = ({ className = "" }: CartPaymentsProps) => {
       <Input
         label="Введите номер каспи"
         inputMode="tel"
+        type="tel"
         onChange={(event) => {
           dispatch(setKaspiPhone(event.target.value.replace(/\D/g, "")));
           if (event.target.value.replace(/\D/g, "").length < 11) return;
