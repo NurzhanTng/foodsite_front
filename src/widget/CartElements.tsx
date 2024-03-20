@@ -22,12 +22,12 @@ const CartElements = () => {
         );
       })}
 
-      {state.cart.length === 0 && <p className="text-white text-base font-normal pt-3">Пусто</p>}
+      {state.cart.length === 0 && <p className="text-white text-base font-normal pt-3 mb-[20px]">Пусто</p>}
 
       <Button
         type="submit"
         onClick={() => navigate('/menu')}
-        className={"h-[50px] mb-[50px] w-full"}
+        className={"h-[50px] mt-[20px] mb-[50px] w-full"}
         styleType="outline"
         text="Перейти к меню"
       />
