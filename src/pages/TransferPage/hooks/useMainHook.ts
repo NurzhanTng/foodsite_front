@@ -18,12 +18,14 @@ const useMainHook = () => {
     const telegram_id = bot_id ? bot_id : params_id;
 
     const postData = {
-      telegram_id: Number(telegram_id),
+      telegram_id: telegram_id,
       telegram_fullname: "",
       promo: "",
     };
 
-    fetch("https://back.pizzeria-almaty.kz/auth/register/", {
+    console.log("postData", postData);
+
+    fetch(import.meta.env.VITE_REACT_APP_API_BASE_URL + "auth/register/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +39,7 @@ const useMainHook = () => {
         return response.json();
       })
       .then((data: UserState) => {
-        console.log("user ", data)
+        console.log("user ", data);
         data.kaspi_phone = data.phone;
         dispatch(setUser(data));
         dispatch(setUserData(data));

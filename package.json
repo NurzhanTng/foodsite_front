@@ -30,6 +30,7 @@
     "react-redux": "^9.1.0",
     "react-router-dom": "^6.21.3",
     "redux": "^5.0.1",
+    "redux-persist": "^6.0.0",
     "rollup": "^4.13.0",
     "tailwind-merge": "^2.2.1"
   },

@@ -1,11 +1,11 @@
 import { useNavigate, useParams } from "react-router-dom";
-import useCart from "../hooks/useCart.ts";
+import useCart from "../../../hooks/useCart.ts";
 import { useCallback, useEffect, useState } from "react";
-import ProductTag from "../shared/ProductTag.tsx";
-import { OrderProduct } from "../utils/Types.ts";
-import currencyFormatter from "../utils/currencyFormatter.ts";
-import { useAppDispatch, useAppSelector } from "../store/hooks.ts";
-import { addProductToCart } from "../store/slices/mainSlice.ts";
+import ProductTag from "../../../shared/ProductTag.tsx";
+import { OrderProduct } from "../../../utils/Types.ts";
+import currencyFormatter from "../../../utils/currencyFormatter.ts";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
+import { addProductToCart } from "../../../store/slices/mainSlice.ts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 

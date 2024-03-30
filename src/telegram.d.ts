@@ -1,5 +1,3 @@
-// telegram.d.ts
-
 declare global {
   interface Window {
     Telegram: {

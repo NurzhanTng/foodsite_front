@@ -1,23 +1,49 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers } from "redux";
+import { persistReducer, persistStore } from "redux-persist";
+import {
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+  REHYDRATE,
+} from "redux-persist/es/constants";
+import storage from "redux-persist/lib/storage";
+
 import mainReducer from "./slices/mainSlice.ts";
 import orderSlice from "./slices/orderSlice.ts";
 import userSlice from "./slices/userSlice.ts";
 import companiesSlice from "./slices/companySlice.ts";
 import managerSlice from "./slices/managerSlice.ts";
 
-const store = configureStore({
-  reducer: {
+const rootReducer = persistReducer(
+  {
+    key: "root",
+    storage,
+  },
+  combineReducers({
     main: mainReducer,
     order: orderSlice,
     user: userSlice,
     companies: companiesSlice,
-    manager: managerSlice
-  },
+    manager: managerSlice,
+  }),
+);
+
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
+const persistor = persistStore(store);
+
 export type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
 
-export default store;
+export { store, persistor };
