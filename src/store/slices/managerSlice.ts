@@ -91,14 +91,19 @@ type OrderProducts = {
 };
 
 type DeliveryUser = {
-  telegram_id: number,
-  telegram_fullname: string,
-}
+  telegram_id: number;
+  telegram_fullname: string;
+};
+
+export type Notification = {
+  order_id: number;
+};
 
 export type ManagerState = {
   orders: Array<Orders>;
   statusOpen: { [key in OrderStatuses]: boolean };
   deliveries: DeliveryUser[];
+  notifications: Notification[];
 };
 
 const initialState: ManagerState = {
@@ -111,7 +116,8 @@ const initialState: ManagerState = {
     on_delivery: false,
     inactive: false,
   },
-  deliveries: []
+  deliveries: [],
+  notifications: [],
 };
 
 function isToday(dateString: string) {
@@ -132,11 +138,13 @@ export const fetchOrders = createAsyncThunk("orders", async () => {
     },
   );
   const data: Array<Orders> = await response.json();
-  return data
+  const filteredData = data
     .filter((order) => isToday(order.created_at))
     .map((order) => {
       return { ...order, delivery_name: "" };
     });
+  console.log(filteredData)
+  return filteredData
 });
 
 export const fetchDeliveries = createAsyncThunk("deliveries", async () => {
@@ -147,12 +155,14 @@ export const fetchDeliveries = createAsyncThunk("deliveries", async () => {
     },
   );
   const data: UserState[] = await response.json();
-  return data.filter((user) => user.role === 'delivery').map((user) => {
-    return {
-      telegram_id: user.telegram_id,
-      telegram_fullname: user.telegram_fullname,
-    }
-  })
+  return data
+    .filter((user) => user.role === "delivery")
+    .map((user) => {
+      return {
+        telegram_id: user.telegram_id,
+        telegram_fullname: user.telegram_fullname,
+      };
+    });
 });
 
 const managerSlice = createSlice({
@@ -168,18 +178,23 @@ const managerSlice = createSlice({
     ) => {
       state.statusOpen = action.payload;
     },
+    setNotifications: (state, action: PayloadAction<Notification[]>) => {
+      state.notifications = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchOrders.fulfilled, (state, action) => {
       state.orders = action.payload;
+      console.log("fetchOrders fulfilled: ", action.payload);
     });
     builder.addCase(fetchDeliveries.fulfilled, (state, action) => {
       state.deliveries = action.payload;
-      console.log("fetchDeliveries fulfilled: ", action.payload)
+      console.log("fetchDeliveries fulfilled: ", action.payload);
     });
   },
 });
 
-export const { setOrders, setStatusOpen } = managerSlice.actions;
+export const { setOrders, setStatusOpen, setNotifications } =
+  managerSlice.actions;
 
 export default managerSlice.reducer;

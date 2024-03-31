@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Button from "../../../shared/Button.tsx";
 import { Orders } from "../../../store/slices/managerSlice.ts";
 import { useNavigate } from "react-router-dom";
 import useManager from "../../../hooks/useManager.ts";
 import OrderOneLine from "../../../pages/OrderPage/ui/OrderOneLine.tsx";
 import DeliveryUserPopup from "../../Popups/ui/DeliveryUserPopup.tsx";
+import { NotificationTimePopup } from "../../Popups";
+import { useAppSelector } from "../../../store/hooks.ts";
+import timestampToTime from "../../../utils/timestampToTime.ts";
+import { useTimer } from "../../../app/context/TimerContext.tsx";
 
 type OrderSmallProps = {
   order: Orders;
@@ -12,16 +16,45 @@ type OrderSmallProps = {
 };
 
 const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
+  const timers = useAppSelector((state) => state.timer.timers);
+  const { stopTimer } = useTimer();
   const { statusesText, handleStatusChange } = useManager();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const [showPopup, setShowPopup] = useState(false);
+  const [showDeliveryPopup, setShowDeliveryPopup] = useState(false);
+  const [showNotificationPopup, setShowNotificationPopup] = useState(false);
+
+  const isNotificationExist = useMemo(
+    () => timers.find((timer) => timer.id === order.id),
+    [timers],
+  );
+
+  const onNotificationClick = () => {
+    if (isNotificationExist !== undefined) {
+      stopTimer(order.id)
+    } else {
+      setShowNotificationPopup(true);
+    }
+  };
 
   return (
     <div
       className={`$ my-5 h-fit w-full rounded-[10px] border border-button p-[20px] text-base font-normal leading-none text-white transition-all`}
     >
-      <DeliveryUserPopup show={showPopup} toggleShow={() => setShowPopup(!showPopup)} order={order} />
+      {showNotificationPopup && (
+        <NotificationTimePopup
+          order_id={order.id}
+          show={showNotificationPopup}
+          toggleShow={() => setShowNotificationPopup(!showNotificationPopup)}
+        />
+      )}
+      {showDeliveryPopup && (
+        <DeliveryUserPopup
+          show={showDeliveryPopup}
+          toggleShow={() => setShowDeliveryPopup(!showDeliveryPopup)}
+          order={order}
+        />
+      )}
 
       <div
         onClick={() => {
@@ -99,12 +132,25 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
         </div>
       )}
 
+      {order.status !== "inactive" && open && (
+        <Button
+          className="mt-5 w-full"
+          styleType="outline"
+          text={
+            isNotificationExist === undefined
+              ? "Создать напоминание"
+              : `Удалить напоминание в ${timestampToTime(isNotificationExist.endTimestamp)}`
+          }
+          onClick={onNotificationClick}
+        />
+      )}
+
       {(order?.address?.lat || order?.address?.parsed) && open && (
         <Button
           className="mt-5 w-full"
           styleType="outline"
           text="Назначить доставщика"
-          onClick={() => setShowPopup(true)}
+          onClick={() => setShowDeliveryPopup(true)}
         />
       )}
 

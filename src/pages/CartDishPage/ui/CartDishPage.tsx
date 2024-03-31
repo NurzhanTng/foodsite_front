@@ -10,7 +10,7 @@ import { OrderProduct } from "../../../utils/Types.ts";
 import { setCart } from "../../../store/slices/mainSlice.ts";
 import isArraysEqual from "../../../utils/isArraysEqual.ts";
 
-function DishPage() {
+function CartDishPage() {
   const state = useAppSelector((state) => state.main);
   const dispatch = useAppDispatch();
   const { product_index } = useParams();
@@ -229,4 +229,4 @@ function DishPage() {
   );
 }
 
-export default DishPage;
+export default CartDishPage;

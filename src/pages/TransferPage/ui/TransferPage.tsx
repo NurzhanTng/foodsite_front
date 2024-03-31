@@ -1,15 +1,22 @@
 import useMainHook from "../hooks/useMainHook.ts";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
 import { useEffect } from "react";
-import { useAppDispatch } from "../../../store/hooks.ts";
-import { fetchDeliveries, fetchOrders } from "../../../store/slices/managerSlice.ts";
+import { fetchCategories } from "../../../store/slices/mainSlice.ts";
+import { fetchCompanies } from "../../../store/slices/companySlice.ts";
+import {
+  fetchDeliveries,
+  fetchOrders,
+} from "../../../store/slices/managerSlice.ts";
 
 const TransferPage = () => {
   const { user, navigate } = useMainHook();
+  const orders = useAppSelector((state) => state.manager.orders);
   const dispatch = useAppDispatch();
 
-
   useEffect(() => {
-    console.log("User Role: ", user.role)
+    dispatch(fetchCategories());
+    dispatch(fetchCompanies());
+    console.log("User Role: ", user.role);
     if (user.role === "client") {
       navigate("/menu");
     } else if (user.role === "manager") {
@@ -17,11 +24,13 @@ const TransferPage = () => {
       dispatch(fetchDeliveries());
       navigate("/orders");
     }
-  }, [navigate, user]);
+  }, [dispatch, navigate, orders, user]);
 
-  return (<div className="flex flex-col gap-5">
-    {/*<p>window.Telegram.WebApp.initDataUnsafe: {JSON.stringify(window.Telegram.WebApp.initDataUnsafe, null, 10)}</p>*/}
-  </div>);
+  return (
+    <div className="flex flex-col gap-5">
+      {/*<p>window.Telegram.WebApp.initDataUnsafe: {JSON.stringify(window.Telegram.WebApp.initDataUnsafe, null, 10)}</p>*/}
+    </div>
+  );
 };
 
 export default TransferPage;

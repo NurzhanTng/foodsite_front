@@ -1,4 +1,3 @@
-import useApp from "./hooks/useApp.ts";
 import {
   createBrowserRouter,
   Navigate,
@@ -60,8 +59,6 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  useApp();
-
   return (
     <TimerProvider>
       <RouterProvider router={router} />

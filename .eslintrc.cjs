@@ -8,18 +8,11 @@ module.exports = {
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",
-  plugins: ["react-refresh"],
+  plugins: ["react-refresh", "react", "react-hooks"],
   rules: {
     "react-refresh/only-export-components": [
       "warn",
       { allowConstantExport: true }
-    ],
-    "import/no-internal-modules": [
-      "error",
-      {
-        "allow": ["src/**/*"],
-        "forbid": ["src/app/**", "src/features/**", "src/entities/**", "src/pages/**", "src/shared/**", "src/widget/**"]
-      }
     ]
   }
 };

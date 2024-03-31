@@ -34,7 +34,7 @@ const useCart = () => {
     })
       .then((data) => {
         // console.log(data.status);
-        // console.log(data.json());
+        // console.log(data.json.local());
 
         if (data.status >= 200 && data.status < 300) {
           const tg = window.Telegram.WebApp;
@@ -194,7 +194,7 @@ const useCart = () => {
       bonus_used: order.bonus_used,
       user_name: order.user_name,
       address: order.address,
-      company_id: 2,
+      company_id: 1,
       exact_address: order.exactAddress,
       phone: order.phone,
       kaspi_phone: order.kaspi_phone,
