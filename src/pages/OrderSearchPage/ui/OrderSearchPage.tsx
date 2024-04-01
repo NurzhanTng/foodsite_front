@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   Orders,
   OrderStatuses,
-  setOrders,
+  // setOrders,
 } from "../../../store/slices/managerSlice";
 import SearchOrderHeader from "../../../features/Headers/ui/SearchOrderHeader.tsx";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
+import { useAppSelector } from "../../../store/hooks.ts";
 import OrderSmall from "../../../features/OrderSmall";
 import FilterPopup from "../../../features/Popups/ui/FilterPopup.tsx";
 import Notifications from "../../../widget/Notifications";
@@ -35,8 +35,8 @@ const filterOrder = (order: Orders, filter: FilterState) => {
 
 const OrderSearchPage = () => {
   const navigate = useNavigate();
-  const manager = useAppSelector((state) => state.manager);
-  const dispatch = useAppDispatch();
+  // const manager = useAppSelector((state) => state.manager);
+  // const dispatch = useAppDispatch();
   const orders = useAppSelector((state) => state.manager.orders);
   const [showPopup, setShowPopup] = useState<boolean>(false);
 
@@ -58,25 +58,25 @@ const OrderSearchPage = () => {
     [orders, filter],
   );
 
-  useEffect(() => {
-    const ws = new WebSocket(
-      "ws://back.pizzeria-almaty.kz:8001/ws/new_orders/",
-    );
-    ws.onmessage = (event) => {
-      const data = JSON.parse(event.data).order_data;
-      const orderData: Orders = { ...data, id: data.order_id };
-      const findOrder = manager.orders.findIndex(
-        (order) => order.id === orderData.id,
-      );
-      console.log("ws new order:", orderData);
-      if (findOrder !== -1) return;
-      console.log("dispatch new order: ", [...manager.orders, orderData]);
-      dispatch(setOrders([...manager.orders, orderData]));
-    };
-    return () => {
-      ws.close();
-    };
-  }, [dispatch, manager.orders]);
+  // useEffect(() => {
+  //   const ws = new WebSocket(
+  //     "ws://back.pizzeria-almaty.kz:8001/ws/new_orders/",
+  //   );
+  //   ws.onmessage = (event) => {
+  //     const data = JSON.parse(event.data).order_data;
+  //     const orderData: Orders = { ...data, id: data.order_id };
+  //     const findOrder = manager.orders.findIndex(
+  //       (order) => order.id === orderData.id,
+  //     );
+  //     console.log("ws new order:", orderData);
+  //     if (findOrder !== -1) return;
+  //     console.log("dispatch new order: ", [...manager.orders, orderData]);
+  //     dispatch(setOrders([...manager.orders, orderData]));
+  //   };
+  //   return () => {
+  //     ws.close();
+  //   };
+  // }, [dispatch, manager.orders]);
 
   return (
     <div>
