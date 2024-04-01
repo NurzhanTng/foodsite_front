@@ -28,7 +28,7 @@ const OrderPage = () => {
   const [showNotificationPopup, setShowNotificationPopup] = useState(false);
 
   useEffect(() => {
-    // console.log(order);
+    console.log(order);
     if (order_id === undefined || order === undefined) {
       navigate("/orders");
       return;
@@ -96,6 +96,7 @@ const OrderPage = () => {
           </div>
 
           <div className="flex w-full flex-col gap-2">
+            {order.status}
             <OrderOneLine
               title="Время оформления"
               description={

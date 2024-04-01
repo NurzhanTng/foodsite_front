@@ -14,6 +14,8 @@ import DeliveryPage from "../pages/DeliveryPage";
 import ManagerMainPage from "../pages/ManagerMainPage";
 import OrderPage from "../pages/OrderPage";
 import OrderSearchPage from "../pages/OrderSearchPage";
+import ActiveOrdersPage from "../pages/ActiveOrdersPage";
+import InactiveOrdersPage from "../pages/InactiveOrdersPage";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +53,14 @@ const router = createBrowserRouter([
   {
     path: "/orders/search",
     element: <OrderSearchPage />,
+  },
+  {
+    path: "",
+    element: <ActiveOrdersPage />
+  },
+  {
+    path: "",
+    element: <InactiveOrdersPage />
   },
   {
     path: "*",
