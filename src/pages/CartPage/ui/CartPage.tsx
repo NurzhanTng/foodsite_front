@@ -13,6 +13,7 @@ import { useAppSelector } from "../../../store/hooks.ts";
 
 const CartPage = () => {
   const state = useAppSelector((state) => state.main);
+  const orderState = useAppSelector((state) => state.order);
   const { deleteCartProducts, handleOrderClick, usePopup, sumCurrency } = useCart();
 
   return (
@@ -35,7 +36,7 @@ const CartPage = () => {
         type="submit"
         onClick={handleOrderClick}
         className={"fixed bottom-0 left-0 z-10 h-[50px] w-full rounded-none"}
-        text={`Оплатить ${currencyFormatter(sumCurrency(state.cart))}`}
+        text={`Оплатить ${currencyFormatter(sumCurrency(state.cart) - (orderState.bonus_used ? Math.min(sumCurrency(state.cart), orderState.max_bonus) : 0))}`}
       />
     </>
   );

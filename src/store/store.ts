@@ -17,6 +17,7 @@ import userSlice from "./slices/userSlice.ts";
 import companiesSlice from "./slices/companySlice.ts";
 import managerSlice from "./slices/managerSlice.ts";
 import timerSlice from "./slices/timerSlice.ts";
+import clientOrderSlice from "./slices/clientOrderSlice.ts";
 
 const rootReducer = persistReducer(
   {
@@ -29,7 +30,8 @@ const rootReducer = persistReducer(
     user: userSlice,
     companies: companiesSlice,
     manager: managerSlice,
-    timer: timerSlice
+    timer: timerSlice,
+    clientOrder: clientOrderSlice,
   }),
 );
 

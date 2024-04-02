@@ -40,7 +40,7 @@ const useMainHook = () => {
       })
       .then((data: UserState) => {
         console.log("user ", data);
-        data.kaspi_phone = data.phone;
+        // data.kaspi_phone = data.phone;
         dispatch(setUser(data));
         dispatch(setUserData(data));
       })

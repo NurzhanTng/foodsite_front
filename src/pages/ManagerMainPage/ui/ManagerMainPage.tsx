@@ -1,15 +1,21 @@
 import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
-import { setStatusOpen } from "../../../store/slices/managerSlice.ts";
+import { fetchOrders, setStatusOpen } from "../../../store/slices/managerSlice.ts";
 import ManagerHeader from "../../../features/Headers";
 import OrderCategory from "../../../widget/OrderCategory.tsx";
 import useManager from "../../../hooks/useManager.ts";
 import Notifications from "../../../widget/Notifications";
+import { useEffect } from "react";
 // import { useEffect } from "react";
 
 const ManagerMainPage = () => {
   const manager = useAppSelector((state) => state.manager);
   const dispatch = useAppDispatch();
   const { statuses, statusesTitles } = useManager();
+
+  useEffect(() => {
+    const intervalId = setInterval(() => dispatch(fetchOrders()), 5000);
+    return () => clearInterval(intervalId);
+  }, []);
 
   // useEffect(() => {
   //   const ws = new WebSocket("ws://back.pizzeria-almaty.kz:8001/ws/new_orders/")
