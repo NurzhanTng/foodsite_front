@@ -1,6 +1,6 @@
 import {
   createBrowserRouter,
-  // Navigate,
+  Navigate,
   RouterProvider
 } from "react-router-dom";
 import { TimerProvider } from "./context/TimerContext.tsx";
@@ -57,7 +57,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/active_orders",
-    element: <ActiveOrdersPage />
+    element: <InactiveOrdersPage />
   },
   {
     path: "/history_orders",
@@ -67,10 +67,10 @@ const router = createBrowserRouter([
     path: "/client_order",
     element: <ClientOrderPage />
   },
-  // {
-  //   path: "*",
-  //   element: <Navigate to={"/menu"} replace={true} />
-  // }
+  {
+    path: "*",
+    element: <Navigate to={"/menu"} replace={true} />
+  }
 ]);
 
 function App() {
