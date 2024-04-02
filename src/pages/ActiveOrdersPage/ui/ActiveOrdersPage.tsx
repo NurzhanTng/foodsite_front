@@ -30,52 +30,60 @@ const ActiveOrdersPage = () => {
           acc: {
             [key: number]: boolean;
           },
-          order
+          order,
         ) => {
           acc[order.id] = false;
           return acc;
         },
-        {}
-      )
+        {},
+      ),
     );
   }, [orders]);
 
   const handleRepeatButton = (order: Orders) => {
     console.log("handleRepeatButton", order);
-    dispatch(setCart(order.products.map(order => {
-      const product = getProductById(order.product_id);
-      const additions = product?.additions.filter((addition => order.additions.includes(addition.id)));
-      console.log({
-        product: product,
-        active_modifier: order.active_modifier,
-        additions: additions === undefined ? [] : additions,
-        amount: order.amount,
-        client_comment: order.client_comment
-      });
+    dispatch(
+      setCart(
+        order.products.map((order) => {
+          const product = getProductById(order.product_id);
+          const additions = product?.additions.filter((addition) =>
+            order.additions.includes(addition.id),
+          );
+          console.log({
+            product: product,
+            active_modifier: order.active_modifier,
+            additions: additions === undefined ? [] : additions,
+            amount: order.amount,
+            client_comment: order.client_comment,
+          });
 
-      return {
-        product: product,
-        active_modifier: order.active_modifier,
-        additions: additions === undefined ? [] : additions,
-        amount: order.amount,
-        client_comment: order.client_comment
-      };
-    })));
-    dispatch(setUserData({
-      telegram_id: order.client_id,
-      telegram_fullname: order.user_name,
-      phone: order.phone,
-      kaspi_phone: order.kaspi_phone,
-      bonus: 0,
-      address: order.address,
-      exact_address: order.exact_address
-    }));
+          return {
+            product: product,
+            active_modifier: order.active_modifier,
+            additions: additions === undefined ? [] : additions,
+            amount: order.amount,
+            client_comment: order.client_comment,
+          };
+        }),
+      ),
+    );
+    dispatch(
+      setUserData({
+        telegram_id: order.client_id,
+        telegram_fullname: order.user_name,
+        phone: order.phone,
+        kaspi_phone: order.kaspi_phone,
+        bonus: 0,
+        address: order.address,
+        exact_address: order.exact_address,
+      }),
+    );
     navigate(`/?telegram_id=${order.client_id}`);
   };
 
   const handleOpenButton = (order: Orders) => {
-    dispatch(setClientOrder({ order: order, from: getLink("/active_orders") }))
-    navigate('/client_order')
+    dispatch(setClientOrder({ order: order, from: getLink("/active_orders") }));
+    navigate("/client_order");
   };
 
   return (
@@ -88,14 +96,14 @@ const ActiveOrdersPage = () => {
           return (
             <div
               key={order.id}
-              className={`shadow-card my-5 h-fit w-full rounded-[10px] border border-button p-[20px] text-base font-normal leading-none text-white transition-all`}
+              className={`my-5 h-fit w-full rounded-[10px] border border-button p-[20px] text-base font-normal leading-none text-white shadow-card transition-all`}
             >
               <div
                 onClick={() => {
                   const ordersNewVisible = { ...ordersVisible };
                   ordersNewVisible[order.id] = !ordersNewVisible[order.id];
                   console.log(
-                    `${order.id} order click ${ordersNewVisible[order.id]}`
+                    `${order.id} order click ${ordersNewVisible[order.id]}`,
                   );
                   setOrdersVisible(ordersNewVisible);
                 }}
