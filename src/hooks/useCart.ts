@@ -48,13 +48,10 @@ const useCart = () => {
       body: cartToJson()
     })
       .then((data) => {
-        // console.log(data.status);
-        // console.log(data.json.local());
-
-        if (data.status >= 200 && data.status < 300) {
-          const tg = window.Telegram.WebApp;
-          tg.close();
-        }
+        if (data.status >= 200 && data.status < 300) return
+        dispatch(setCart([]))
+        const tg = window.Telegram.WebApp;
+        tg.close();
       })
       .catch((err) => console.log("Error: " + err));
   };
