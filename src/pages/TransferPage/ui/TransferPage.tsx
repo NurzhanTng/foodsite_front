@@ -1,13 +1,12 @@
 import useMainHook from "../hooks/useMainHook.ts";
 
 const TransferPage = () => {
-  const {user} = useMainHook();
-  // console.log('data/')
+  useMainHook();
 
   return (
-    <div className="flex flex-col gap-5">
-      {JSON.stringify(user)}
-    </div>
+    <div
+      className="left-[calc(50%-25px)] fixed top-[calc(50%-25px)] animate-spin ease-linear rounded-full border-4 border-t-4 border-t-bgColor border-button w-[50px] h-[50px]"
+    />
   );
 };
 
