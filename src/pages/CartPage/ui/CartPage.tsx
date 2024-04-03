@@ -30,6 +30,8 @@ const CartPage = () => {
     }));
   }, []);
 
+  if (state.errors === undefined) return <div />
+
   return (
     <>
       <ErrorPopup />
