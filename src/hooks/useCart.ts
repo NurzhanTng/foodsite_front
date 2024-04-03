@@ -48,7 +48,7 @@ const useCart = () => {
       body: cartToJson()
     })
       .then((data) => {
-        if (data.status >= 200 && data.status < 300) return
+        if (!(data.status >= 200 && data.status < 300)) return
         dispatch(setCart([]))
         const tg = window.Telegram.WebApp;
         tg.close();
