@@ -66,7 +66,7 @@ const orderSlice = createSlice({
       state.client_id = data.telegram_id;
       state.user_name = data.telegram_fullname;
       state.phone = data.phone;
-      state.kaspi_phone = data.phone;
+      state.kaspi_phone = data.kaspi_phone;
       state.max_bonus = data.bonus;
       if (data.address === null || data.exact_address === null) return;
       state.address = data.address;

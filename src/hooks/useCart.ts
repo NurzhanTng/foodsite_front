@@ -178,7 +178,7 @@ const useCart = () => {
   const cartToJson = (cart: OrderProduct[] = []) => {
     if (cart.length == 0) cart = state.cart;
 
-    const cartJSON = JSON.stringify({
+    return JSON.stringify({
       products: cart.map((orderProduct) => {
         if (orderProduct.product === undefined) return null;
         return {
@@ -204,9 +204,6 @@ const useCart = () => {
       delivery_amount: 0,
       actions: []
     });
-
-    console.log(cartJSON)
-    return cartJSON
   };
 
   const deleteCartProducts = () => {

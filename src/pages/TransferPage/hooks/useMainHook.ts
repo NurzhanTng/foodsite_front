@@ -42,6 +42,7 @@ const useMainHook = () => {
         return response.json();
       })
       .then((data: UserState) => {
+        console.log("User: ", data)
         // data.kaspi_phone = data.phone;
         dispatch(fetchCategories());
         dispatch(fetchCompanies());
