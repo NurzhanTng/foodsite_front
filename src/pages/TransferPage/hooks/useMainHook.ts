@@ -49,11 +49,11 @@ const useMainHook = () => {
         dispatch(setUser(data));
         dispatch(setUserData(data));
         if (data.role === "client") {
-          // navigate("/menu");
+          navigate("/menu");
         } else if (data.role === "manager") {
           dispatch(fetchOrders());
           dispatch(fetchDeliveries());
-          // navigate("/orders");
+          navigate("/orders");
         }
       })
       .catch((error) => {
