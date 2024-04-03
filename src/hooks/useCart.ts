@@ -40,23 +40,23 @@ const useCart = () => {
       dispatch(setErrors(errors));
       return
     }
-    // fetch(import.meta.env.VITE_REACT_APP_API_BASE_URL + `food/orders/`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: cartToJson()
-    // })
-    //   .then((data) => {
-    //     // console.log(data.status);
-    //     // console.log(data.json.local());
-    //
-    //     if (data.status >= 200 && data.status < 300) {
-    //       const tg = window.Telegram.WebApp;
-    //       tg.close();
-    //     }
-    //   })
-    //   .catch((err) => console.log("Error: " + err));
+    fetch(import.meta.env.VITE_REACT_APP_API_BASE_URL + `food/orders/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: cartToJson()
+    })
+      .then((data) => {
+        // console.log(data.status);
+        // console.log(data.json.local());
+
+        if (data.status >= 200 && data.status < 300) {
+          const tg = window.Telegram.WebApp;
+          tg.close();
+        }
+      })
+      .catch((err) => console.log("Error: " + err));
   };
 
   const getErrorText = (errors: {
