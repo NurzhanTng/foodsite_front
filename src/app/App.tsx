@@ -20,7 +20,7 @@ import ClientOrderPage from "../pages/ClientOrderPage";
 
 const router = createBrowserRouter([
   {
-    path: "/:telegram_id",
+    path: "/",
     element: <TransferPage />
   },
   {
