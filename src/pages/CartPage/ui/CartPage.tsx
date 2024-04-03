@@ -9,22 +9,39 @@ import CartPrice from "../../../widget/CartPrice.tsx";
 import CartAddressAndTime from "../../../widget/CartAddressAndTime.tsx";
 import { CommentPopup, TimePopup } from "../../../features/Popups";
 import useCart from "../../../hooks/useCart.ts";
-import { useAppSelector } from "../../../store/hooks.ts";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
+import { useEffect } from "react";
+import { setErrors } from "../../../store/slices/mainSlice.ts";
+import ErrorPopup from "./ErrorPopup.tsx";
 
 const CartPage = () => {
   const state = useAppSelector((state) => state.main);
   const orderState = useAppSelector((state) => state.order);
   const { deleteCartProducts, handleOrderClick, usePopup, sumCurrency } = useCart();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setErrors({
+      cart: false,
+      name: false,
+      phone: false,
+      kaspi_phone: false,
+      address: false
+    }));
+  }, []);
 
   return (
     <>
+      <ErrorPopup />
       <CommentPopup show={usePopup.showComment} toggleShow={usePopup.toggleComment} />
       <TimePopup show={usePopup.showTime} toggleShow={usePopup.toggleTime} />
       <CartPageHeader
         elementsInCart={state.cart.length}
         onClear={deleteCartProducts}
       />
-      <form className="my-[90px] flex flex-col gap-12 px-5" onSubmit={(e) => {e.preventDefault()}} autoComplete="off" >
+      <form className="my-[90px] flex flex-col gap-12 px-5" onSubmit={(e) => {
+        e.preventDefault();
+      }} autoComplete="off">
         <Cashback amount={10000} cashback={7} />
         <CartElements />
         <CartAdditions toggleComment={usePopup.toggleComment} />

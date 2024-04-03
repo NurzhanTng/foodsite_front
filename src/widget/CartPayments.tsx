@@ -3,6 +3,7 @@ import Input from "../shared/Input.tsx";
 import { setKaspiPhone } from "../store/slices/orderSlice.ts";
 import formatPhoneNumber from "../utils/formatPhoneNumber.ts";
 import { twMerge } from "tailwind-merge";
+import { setErrors } from "../store/slices/mainSlice.ts";
 
 type CartPaymentsProps = {
   className?: string;
@@ -12,6 +13,7 @@ const CartPayments = ({ className = "" }: CartPaymentsProps) => {
   // const state = useAppSelector((state) => state.main);
   const orderState = useAppSelector((state) => state.order);
   const dispatch = useAppDispatch();
+  const errors = useAppSelector(state => state.main.errors);
 
   return (
     <div className={twMerge("", className)}>
@@ -20,16 +22,18 @@ const CartPayments = ({ className = "" }: CartPaymentsProps) => {
       </h3>
 
       <Input
+        isCorrect={!errors.kaspi_phone}
         label="Введите номер каспи"
         inputMode="tel"
         type="tel"
         onChange={(event) => {
+          dispatch(setErrors({ ...errors, kaspi_phone: false }));
           dispatch(setKaspiPhone(event.target.value.replace(/\D/g, "")));
           if (event.target.value.replace(/\D/g, "").length < 11) return;
 
           event.target.setAttribute("readonly", "readonly");
           event.target.setAttribute("disabled", "true");
-          setTimeout(function () {
+          setTimeout(function() {
             event.target.blur();
             event.target.removeAttribute("readonly");
             event.target.removeAttribute("disabled");

@@ -4,9 +4,11 @@ import React from "react";
 type InputProps =  React.InputHTMLAttributes<HTMLInputElement> & {
   label: string;
   multiline?: boolean;
+  isCorrect?: boolean;
 };
 
 export default function Input({
+  isCorrect = true,
   type,
   className,
   label,
@@ -48,9 +50,17 @@ export default function Input({
           },
           "& label": {
             borderColor: "white",
-            color: "#6A7D91",
+            color: isCorrect ? "#6A7D91" : "#8B3A3A",
             lineHeight: 1,
             marginTop: "-2px",
+            "&.MuiFormLabel-filled": {
+              // color: isCorrect ? "#5288C1" : "#BA4747",
+              marginTop: '2px'
+            },
+            "&.Mui-focused": {
+              color: isCorrect ? "#5288C1" : "#BA4747",
+              marginTop: '2px'
+            },
           },
           "& .MuiOutlinedInput-root": {
             backgroundColor: "#17212B",
@@ -58,26 +68,23 @@ export default function Input({
             "& fieldset": {
               borderRadius: "10px",
               // height: "44px",
-              borderColor: "#232E39",
+              borderColor: isCorrect ? "#232E39" : "#8B3A3A",
               borderWidth: 2,
             },
             "&:hover fieldset": {
               borderRadius: "10px",
               // height: "44px",
-              borderColor: "#5288C1",
+              borderColor: isCorrect ? "#5288C1" : "#BA4747",
             },
             "&Mui-active": {},
             "&.Mui-focused fieldset": {
-              borderColor: "#5288C1",
+              borderColor: isCorrect ? "#5288C1" : "#BA4747",
               // backgroundColor: "#17212B",
               color: "white",
               // height: "44px",
               borderRadius: "10px",
             },
-          },
-          "&.Mui-focused label": {
-            marginTop: "20px",
-          },
+          }
         }}
       />
     </div>

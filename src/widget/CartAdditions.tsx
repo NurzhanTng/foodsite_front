@@ -10,6 +10,7 @@ import { twMerge } from "tailwind-merge";
 import SelectCard from "../entities/SelectCard.tsx";
 import Icon from "../shared/Icon";
 import Switch from "../shared/Switch.tsx";
+import { setErrors } from "../store/slices/mainSlice.ts";
 
 type CartAdditionsProps = {
   className?: string;
@@ -23,6 +24,8 @@ const CartAdditions = ({
   // const state = useAppSelector((state) => state.main);
   const orderState = useAppSelector((state) => state.order);
   const dispatch = useAppDispatch();
+  const errors = useAppSelector(state => state.main.errors)
+  console.log('errors', errors)
 
   return (
     <div className={twMerge("flex flex-col gap-[10px]", className)}>
@@ -31,22 +34,28 @@ const CartAdditions = ({
       </h3>
 
       <Input
+        isCorrect={!errors.name}
         aria-required={true}
         aria-valuemin={3}
         type="text"
         className="mb-2"
         label="Введите ваше имя"
-        onChange={(event) => dispatch(setUserName(event.target.value))}
+        onChange={(event) => {
+          if (errors.name) dispatch(setErrors({...errors, name: false}))
+          dispatch(setUserName(event.target.value));
+        }}
         value={orderState.user_name}
       />
 
       <Input
+        isCorrect={!errors.phone}
         aria-required={true}
         aria-valuemin={10}
         inputMode="tel"
         type="tel"
         label="Введите номер для связи"
         onChange={(event) => {
+          dispatch(setErrors({...errors, phone: false}))
           dispatch(setUserPhone(event.target.value.replace(/\D/g, "")));
           if (event.target.value.replace(/\D/g, "").length < 11) return;
 

@@ -4,7 +4,7 @@ import {
   addOneToOrderProduct,
   addProductToCart,
   removeOneToOrderProduct,
-  setCart,
+  setCart, setErrors, setErrorText,
   setIsParamsCartUpdated
 } from "../store/slices/mainSlice.ts";
 import { useState } from "react";
@@ -24,26 +24,55 @@ const useCart = () => {
   };
 
   const handleOrderClick = () => {
+    console.log(order);
 
-    // if (state.cart.length === 0 || order.phone.length !== 12 || order.kaspi_phone.length !== 12) return;
-    fetch(import.meta.env.VITE_REACT_APP_API_BASE_URL + `food/orders/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: cartToJson()
-    })
-      .then((data) => {
-        // console.log(data.status);
-        // console.log(data.json.local());
+    const errors = {
+      cart: state.cart.length === 0,
+      name: order.user_name.length === 0,
+      phone: order.phone.length !== 11,
+      kaspi_phone: order.kaspi_phone.length !== 11,
+      address: false
+    };
 
-        if (data.status >= 200 && data.status < 300) {
-          const tg = window.Telegram.WebApp;
-          tg.close();
-        }
-      })
-      .catch((err) => console.log("Error: " + err));
+    dispatch(setErrorText(getErrorText(errors)))
+
+    if (errors.name || errors.cart || errors.phone || errors.kaspi_phone || errors.address) {
+      dispatch(setErrors(errors));
+      return
+    }
+    // fetch(import.meta.env.VITE_REACT_APP_API_BASE_URL + `food/orders/`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    //   body: cartToJson()
+    // })
+    //   .then((data) => {
+    //     // console.log(data.status);
+    //     // console.log(data.json.local());
+    //
+    //     if (data.status >= 200 && data.status < 300) {
+    //       const tg = window.Telegram.WebApp;
+    //       tg.close();
+    //     }
+    //   })
+    //   .catch((err) => console.log("Error: " + err));
   };
+
+  const getErrorText = (errors: {
+    cart: boolean,
+    name: boolean,
+    phone: boolean,
+    kaspi_phone: boolean,
+    address: boolean
+  }) => {
+    if (errors.cart) return "Корзина не может быть пустой"
+    if (errors.name) return "Имя не может быть пустым"
+    if (errors.phone) return "Введите корректный номер телефона"
+    if (errors.kaspi_phone) return "Введите корректный номер каспи"
+    if (errors.address) return "Неоюходимо указать адрес"
+    return ""
+  }
 
   const updateCartFromParams = (params: string | null) => {
     if (state.isParamsCartUpdated) return;
@@ -195,7 +224,7 @@ const useCart = () => {
       bonus_used: order.bonus_used,
       user_name: order.user_name,
       address: order.address,
-      company_id: 2,
+      company_id: 3,
       exact_address: order.exactAddress,
       phone: order.phone,
       kaspi_phone: order.kaspi_phone,

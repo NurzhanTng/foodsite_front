@@ -8,13 +8,29 @@ export type MainState = {
   activeCategory: number | null;
   cart: OrderProduct[];
   isParamsCartUpdated: boolean;
+  errors: {
+    cart: boolean,
+    name: boolean,
+    phone: boolean,
+    kaspi_phone: boolean,
+    address: boolean,
+  };
+  errorText: string | null;
 };
 
 const initialState: MainState = {
   categories: [],
   activeCategory: 0,
   cart: [],
-  isParamsCartUpdated: false
+  isParamsCartUpdated: false,
+  errors: {
+    cart: false,
+    name: false,
+    phone: false,
+    kaspi_phone: false,
+    address: false
+  },
+  errorText: null
 };
 
 export const fetchCategories = createAsyncThunk("category", async () => {
@@ -26,11 +42,11 @@ const mainSlice = createSlice({
   initialState,
   reducers: {
     setIsParamsCartUpdated: (state, action: PayloadAction<boolean>) => {
-      state.isParamsCartUpdated = action.payload
+      state.isParamsCartUpdated = action.payload;
     },
 
     setCart: (state, action: PayloadAction<OrderProduct[]>) => {
-      state.cart = action.payload
+      state.cart = action.payload;
     },
 
     setActiveCategory: (state, action: PayloadAction<number>) => {
@@ -53,12 +69,26 @@ const mainSlice = createSlice({
         state.cart[action.payload].amount -= 1;
       }
     },
+
+    setErrors: (state, action: PayloadAction<{
+      cart: boolean,
+      name: boolean,
+      phone: boolean,
+      kaspi_phone: boolean,
+      address: boolean,
+    }>) => {
+      state.errors = action.payload;
+    },
+
+    setErrorText(state, action: PayloadAction<string | null>) {
+      state.errorText = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCategories.fulfilled, (state, action) => {
       state.categories = action.payload;
     });
-  },
+  }
 });
 
 export const {
@@ -68,6 +98,8 @@ export const {
   addProductToCart,
   addOneToOrderProduct,
   removeOneToOrderProduct,
+  setErrors,
+  setErrorText
 } = mainSlice.actions;
 
 export default mainSlice.reducer;
