@@ -1,63 +1,25 @@
-import { useNavigate, useParams } from "react-router-dom";
-import useCart from "../../../hooks/useCart.ts";
-import { useCallback, useEffect, useState } from "react";
-import ProductTag from "../../../shared/ProductTag.tsx";
-import { OrderProduct } from "../../../utils/Types.ts";
+import { TagContainer } from "../../../entities/Dish";
 import currencyFormatter from "../../../utils/currencyFormatter.ts";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
-import { addProductToCart } from "../../../store/slices/mainSlice.ts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import useMainHook from "../hooks/useMainHook.ts";
 
 function DishPage() {
-  const state = useAppSelector((state) => state.main);
-  const dispatch = useAppDispatch();
-  const { dishId } = useParams();
-  const { getProductById, sumOneOrderProduct } = useCart();
-  const navigate = useNavigate();
+  const {
+    product,
+    navigate,
+    orderProduct,
+    setOrderProduct,
+    handleClick,
+    sumOneOrderProduct,
+    state
+  } = useMainHook();
 
-  const product = getProductById(parseInt(dishId !== undefined ? dishId : "0"));
-  const [orderProduct, setOrderProduct] = useState<OrderProduct>({
-    product: product,
-    active_modifier: null,
-    additions: [],
-    amount: 1,
-    client_comment: "",
-  });
-
-  useEffect(() => {
-    if (state.categories && orderProduct.product === undefined) {
-      const timerId = setTimeout(() => {
-        const product = getProductById(
-          parseInt(dishId !== undefined ? dishId : "0"),
-        );
-        setOrderProduct((oldProduct) => {
-          return { ...oldProduct, product: product };
-        });
-      }, 1000); // Adjust the delay time as needed (in milliseconds)
-
-      return () => clearTimeout(timerId); // Clear the timeout on component unmount or dependency change
-    }
-  }, [dishId, getProductById, orderProduct.product, state.categories]);
-
-  const handleClick = useCallback(() => {
-    if (
-      product?.modifiers.length !== 0 &&
-      orderProduct.active_modifier === null
-    )
-      return;
-    dispatch(addProductToCart(orderProduct));
-    navigate("/menu");
-  }, [dispatch, navigate, orderProduct, product?.modifiers.length]);
 
   return (
     <div className="relative mb-[70px] min-h-[calc(100vh-70px)]">
       {/* Абсолютные расположенные теги */}
-      <div className="absolute right-3 top-3 flex flex-col gap-2">
-        {product?.tags.map((tag, index) => (
-          <ProductTag className={"ml-auto px-2"} key={index} tag={tag} />
-        ))}
-      </div>
+      <TagContainer tags={product?.tags ? product?.tags : []} className="absolute right-3 top-3" />
 
       {/* Кнопка назад */}
       <div
@@ -71,7 +33,7 @@ function DishPage() {
       <div
         style={{ backgroundImage: `url(${product?.image_url})` }}
         className="mb-5 h-[300px] bg-transparent bg-cover shadow-image bg-center"
-      ></div>
+      />
 
       {/* Внешний контейнер */}
       <div className="px-3">
@@ -103,7 +65,7 @@ function DishPage() {
                           active_modifier:
                             oldProduct.active_modifier === modifier.id
                               ? null
-                              : modifier.id,
+                              : modifier.id
                         };
                       });
                     }}
@@ -148,11 +110,11 @@ function DishPage() {
                           ...oldProduct,
                           additions: oldProduct.additions.includes(addition)
                             ? [
-                                ...oldProduct.additions.filter(
-                                  (item) => item !== addition,
-                                ),
-                              ]
-                            : [...oldProduct.additions, addition],
+                              ...oldProduct.additions.filter(
+                                (item) => item !== addition
+                              )
+                            ]
+                            : [...oldProduct.additions, addition]
                         };
                       });
                     }}
@@ -196,7 +158,7 @@ function DishPage() {
                           {
                             order.product?.modifiers.find(
                               (modifier) =>
-                                modifier.id == order.active_modifier,
+                                modifier.id == order.active_modifier
                             )?.name
                           }
                         </p>
@@ -212,7 +174,8 @@ function DishPage() {
       </div>
 
       {/* Абсолютное меню добавления */}
-      <div className="fixed bottom-0 flex w-full flex-row justify-between gap-6 border-t-[1px] border-secondary bg-bgColor2 px-3 py-2">
+      <div
+        className="fixed bottom-0 flex w-full flex-row justify-between gap-6 border-t-[1px] border-secondary bg-bgColor2 px-3 py-2">
         <div className="flex flex-1 flex-row gap-3">
           <div
             className="flex-1 rounded-[6px] bg-button p-3 text-center text-xl font-bold leading-[14px] text-white"
@@ -220,7 +183,7 @@ function DishPage() {
               setOrderProduct((oldProduct) => {
                 return {
                   ...oldProduct,
-                  amount: oldProduct.amount > 1 ? oldProduct.amount - 1 : 1,
+                  amount: oldProduct.amount > 1 ? oldProduct.amount - 1 : 1
                 };
               })
             }

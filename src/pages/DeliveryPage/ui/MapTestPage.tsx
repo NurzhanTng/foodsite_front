@@ -1,4 +1,4 @@
-// import { YMaps, Map, Polygon,  } from "@pbe/react-yandex-maps";
+// import { YMaps, MainMap, Polygon,  } from "@pbe/react-yandex-maps";
 // import { useEffect, useState } from "react";
 //
 // const MapTestPage = () => {
@@ -38,7 +38,7 @@
 //     <div className='w-full min-h-[100vh]'>
 //     <div className='shadow-image w-fit mx-auto mt-6'>
 //       <YMaps>
-//         <Map
+//         <MainMap
 //           defaultState={{ center: [43.244077, 76.916799], zoom: 11 }}
 //           onClick={onClick}
 //         >
@@ -65,7 +65,7 @@
 //               />
 //             );
 //           })}
-//         </Map>
+//         </MainMap>
 //       </YMaps>
 //     </div></div>
 //   );
@@ -75,7 +75,7 @@
 
 //
 // import { useState } from 'react';
-// import { YMaps, Map, Placemark, RoutePanel } from '@pbe/react-yandex-maps';
+// import { YMaps, MainMap, Placemark, RoutePanel } from '@pbe/react-yandex-maps';
 //
 // const MapTestPage = () => {
 //   const [routeLength, setRouteLength] = useState(null);
@@ -96,14 +96,14 @@
 //   return (
 //     <YMaps>
 //       <div style={{ width: '100%', height: '400px' }}>
-//         <Map defaultState={{ center: [55.751574, 37.573856], zoom: 10 }}>
+//         <MainMap defaultState={{ center: [55.751574, 37.573856], zoom: 10 }}>
 //           <Placemark geometry={[55.751574, 37.573856]} />
 //           <Placemark geometry={[55.751574, 37.603856]} />
 //           <RoutePanel
 //             options={{ allowSwitch: false, reverseGeocoding: true }}
 //             onRouteChange={handleRouteChange}
 //           />
-//         </Map>
+//         </MainMap>
 //         {routeLength && <p>Длина маршрута: {routeLength}</p>}
 //         {routeTime && <p>Время в пути: {routeTime}</p>}
 //       </div>

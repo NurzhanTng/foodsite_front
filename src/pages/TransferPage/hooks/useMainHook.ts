@@ -58,6 +58,8 @@ const useMainHook = () => {
       })
       .catch((error) => {
         console.error("Error during registration:", error);
+        const tg = window.Telegram.WebApp;
+        tg.close();
       });
   }, [dispatch, navigate, searchParams]);
 

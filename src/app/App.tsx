@@ -10,7 +10,7 @@ import MenuPage from "../pages/MenuPage";
 import DishPage from "../pages/DishPage";
 import CartPage from "../pages/CartPage";
 import CartDishPage from "../pages/CartDishPage";
-import DeliveryPage from "../pages/DeliveryPage";
+import DeliveryPage, { NewDeliveryMap } from "../pages/DeliveryPage";
 import ManagerMainPage from "../pages/ManagerMainPage";
 import OrderPage from "../pages/OrderPage";
 import OrderSearchPage from "../pages/OrderSearchPage";
@@ -66,6 +66,10 @@ const router = createBrowserRouter([
   {
     path: "/client_order",
     element: <ClientOrderPage />
+  },
+  {
+    path: "/map",
+    element: <NewDeliveryMap />
   },
   {
     path: "*",

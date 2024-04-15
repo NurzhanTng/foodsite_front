@@ -1,5 +1,5 @@
 import { Product } from "../utils/Types.ts";
-import ProductTag from "../shared/ProductTag.tsx";
+import ProductTag from "../entities/Dish/ui/ProductTag.tsx";
 import React, { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import useCart from "../hooks/useCart.ts";
