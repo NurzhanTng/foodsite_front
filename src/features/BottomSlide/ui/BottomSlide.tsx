@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 
@@ -16,15 +16,6 @@ const BottomSlide = ({ className, children, setStage }: BottomSlideProps) => {
   const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
     setStartCoords(event.touches[0].clientY);
     setStartHeight(height);
-  };
-
-  const handleTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
-    const deltaY = event.touches[0].clientY - startCoords;
-    const newHeight = startHeight - deltaY;
-    setHeight(Math.min(Math.max(newHeight, minimalHeight), maximumHeight));
-    if (setStage) {
-      setStage(2);
-    }
   };
 
   const handleTouchEnd = () => {
@@ -48,12 +39,27 @@ const BottomSlide = ({ className, children, setStage }: BottomSlideProps) => {
     }
   };
 
+  useEffect(() => {
+    const handleTouchMove = (event: TouchEvent) => {
+      event.preventDefault();
+      const deltaY = event.touches[0].clientY - startCoords;
+      const newHeight = startHeight - deltaY;
+      setHeight(Math.min(Math.max(newHeight, minimalHeight), maximumHeight));
+    };
+
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+
+    return () => {
+      window.removeEventListener("touchmove", handleTouchMove);
+    };
+  }, [startCoords, startHeight]);
+
   return (
     <div
-      className={twMerge(`${startCoords === 0 ? "transition-height duration-300" : ""} fixed bottom-0 left-0 w-full ease-in-out z-10`, className)}
+      className={twMerge(`${startCoords === 0 ? "duration-300" : ""} fixed bottom-0 left-0 w-full ease-in-out z-10 transition-height`, className)}
       style={{ height: `${height}px` }}
       onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
+      // onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
       {children}
