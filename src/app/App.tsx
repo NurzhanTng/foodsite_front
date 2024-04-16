@@ -1,7 +1,7 @@
 import {
   createBrowserRouter,
   Navigate,
-  RouterProvider
+  RouterProvider,
 } from "react-router-dom";
 import { TimerProvider } from "./context/TimerContext.tsx";
 
@@ -10,7 +10,7 @@ import MenuPage from "../pages/MenuPage";
 import DishPage from "../pages/DishPage";
 import CartPage from "../pages/CartPage";
 import CartDishPage from "../pages/CartDishPage";
-import DeliveryPage, { NewDeliveryMap } from "../pages/DeliveryPage";
+import DeliveryPage, { OldDeliveryPage } from "../pages/DeliveryPage";
 import ManagerMainPage from "../pages/ManagerMainPage";
 import OrderPage from "../pages/OrderPage";
 import OrderSearchPage from "../pages/OrderSearchPage";
@@ -21,60 +21,60 @@ import ClientOrderPage from "../pages/ClientOrderPage";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <TransferPage />
+    element: <TransferPage />,
   },
   {
     path: "/menu",
-    element: <MenuPage />
+    element: <MenuPage />,
   },
   {
     path: "/dish/:dishId",
-    element: <DishPage />
+    element: <DishPage />,
   },
   {
     path: "/cart",
-    element: <CartPage />
+    element: <CartPage />,
   },
   {
     path: "/cartProduct/:product_index",
-    element: <CartDishPage />
+    element: <CartDishPage />,
   },
   {
     path: "/delivery",
-    element: <DeliveryPage />
+    element: <DeliveryPage />,
   },
   {
     path: "/orders",
-    element: <ManagerMainPage />
+    element: <ManagerMainPage />,
   },
   {
     path: "/orders/:order_id",
-    element: <OrderPage />
+    element: <OrderPage />,
   },
   {
     path: "/orders/search",
-    element: <OrderSearchPage />
+    element: <OrderSearchPage />,
   },
   {
     path: "/active_orders",
-    element: <ActiveOrdersPage />
+    element: <ActiveOrdersPage />,
   },
   {
     path: "/history_orders",
-    element: <InactiveOrdersPage />
+    element: <InactiveOrdersPage />,
   },
   {
     path: "/client_order",
-    element: <ClientOrderPage />
+    element: <ClientOrderPage />,
   },
   {
-    path: "/map",
-    element: <NewDeliveryMap />
+    path: "/map_test",
+    element: <OldDeliveryPage />,
   },
   {
     path: "*",
-    element: <Navigate to={"/menu"} replace={true} />
-  }
+    element: <Navigate to={"/menu"} replace={true} />,
+  },
 ]);
 
 function App() {
