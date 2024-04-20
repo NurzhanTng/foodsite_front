@@ -4,6 +4,7 @@ import {
   setOrders,
 } from "../store/slices/managerSlice.ts";
 import { useAppDispatch, useAppSelector } from "../store/hooks.ts";
+import { useNavigate } from "react-router-dom";
 
 const statuses: Array<OrderStatuses> = [
   "manager_await",
@@ -34,6 +35,7 @@ const statusesTitles: { [key in OrderStatuses]: string } = {
 
 const useManager = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const managerState = useAppSelector((state) => state.manager);
 
   const handleStatusChange = async (targetOrder: Orders) => {
@@ -65,12 +67,15 @@ const useManager = () => {
     });
 
     dispatch(setOrders(newOrders));
+    navigate("/orders");
   };
 
   const changeDeliveryId = async (order: Orders, delivery_id: number) => {
     const currentOrders = managerState.orders;
-    const index = currentOrders.findIndex((oldOrder) => oldOrder.id === order.id);
-    console.log(index)
+    const index = currentOrders.findIndex(
+      (oldOrder) => oldOrder.id === order.id,
+    );
+    console.log(index);
     if (index === -1) return;
 
     fetch(
@@ -88,18 +93,18 @@ const useManager = () => {
         }),
       },
     )
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
         return response.json();
       })
-      .then(data => {
-        console.log('Success:', data);
+      .then((data) => {
+        console.log("Success:", data);
         // Добавьте здесь код для обработки успешного ответа
       })
-      .catch(error => {
-        console.error('Error:', error);
+      .catch((error) => {
+        console.error("Error:", error);
         // Добавьте здесь код для обработки ошибки
       });
 
@@ -115,7 +120,6 @@ const useManager = () => {
         ),
       ),
     );
-
   };
 
   return {

@@ -8,7 +8,7 @@ const CartElements = () => {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <div id="cart_input">
       <h3 className="text-base font-medium text-textSecondary">Ваш заказ</h3>
 
       {state.cart.map((cartElement, index) => {
@@ -22,17 +22,18 @@ const CartElements = () => {
         );
       })}
 
-      {state.cart.length === 0 && <p className="text-white text-base font-normal pt-3 mb-[20px]">Пусто</p>}
+      {state.cart.length === 0 && (
+        <p className="mb-[20px] pt-3 text-base font-normal text-white">Пусто</p>
+      )}
 
       <Button
         type="submit"
-        onClick={() => navigate('/menu')}
-        className={"h-[50px] mt-[20px] mb-[50px] w-full"}
+        onClick={() => navigate("/menu")}
+        className={"mb-[50px] mt-[20px] h-[50px] w-full"}
         styleType="outline"
         text="Перейти к меню"
       />
     </div>
   );
 };
-
 export default CartElements;

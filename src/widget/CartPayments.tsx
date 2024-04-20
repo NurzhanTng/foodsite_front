@@ -10,10 +10,9 @@ type CartPaymentsProps = {
 };
 
 const CartPayments = ({ className = "" }: CartPaymentsProps) => {
-  // const state = useAppSelector((state) => state.main);
   const orderState = useAppSelector((state) => state.order);
   const dispatch = useAppDispatch();
-  const errors = useAppSelector(state => state.main.errors);
+  const errors = useAppSelector((state) => state.main.errors);
 
   return (
     <div className={twMerge("", className)}>
@@ -22,6 +21,7 @@ const CartPayments = ({ className = "" }: CartPaymentsProps) => {
       </h3>
 
       <Input
+        id="kaspi_input"
         isCorrect={!errors.kaspi_phone}
         label="Введите номер каспи"
         inputMode="tel"
@@ -33,7 +33,7 @@ const CartPayments = ({ className = "" }: CartPaymentsProps) => {
 
           event.target.setAttribute("readonly", "readonly");
           event.target.setAttribute("disabled", "true");
-          setTimeout(function() {
+          setTimeout(function () {
             event.target.blur();
             event.target.removeAttribute("readonly");
             event.target.removeAttribute("disabled");

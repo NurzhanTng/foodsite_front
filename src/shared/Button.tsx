@@ -14,6 +14,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const Button: React.FC<ButtonProps> = ({
+  id,
   styleType = "primary",
   className = "",
   showText = true,
@@ -31,21 +32,27 @@ const Button: React.FC<ButtonProps> = ({
       buttonStyle += " bg-button md:hover:bg-buttonHover active:bg-buttonHover";
       break;
     case "secondary":
-      buttonStyle += " bg-buttonSecondary1 md:hover:bg-buttonHover active:bg-buttonHover";
+      buttonStyle +=
+        " bg-buttonSecondary1 md:hover:bg-buttonHover active:bg-buttonHover";
       break;
     case "inactive":
-      buttonStyle += " bg-buttonInactive md:hover:bg-buttonInactive active:bg-buttonInactive";
+      buttonStyle +=
+        " bg-buttonInactive md:hover:bg-buttonInactive active:bg-buttonInactive";
       break;
     case "outline":
-      buttonStyle += " bg-buttonSecondary2 border border-button md:hover:bg-buttonHover active:bg-buttonHover";
+      buttonStyle +=
+        " bg-buttonSecondary2 border border-button md:hover:bg-buttonHover active:bg-buttonHover";
       break;
   }
 
   return (
-    <button className={twMerge(buttonStyle, className)} {...rest}>
+    <button id={id} className={twMerge(buttonStyle, className)} {...rest}>
       {showText && <p className={textClassName}>{text}</p>}
       {showIcon && !(iconType === undefined) && (
-        <Icon className={twMerge("h-4 w-4 transition-all", iconClassName)} type={iconType} />
+        <Icon
+          className={twMerge("h-4 w-4 transition-all", iconClassName)}
+          type={iconType}
+        />
       )}
       {children}
     </button>

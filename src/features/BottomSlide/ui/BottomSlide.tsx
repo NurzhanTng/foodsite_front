@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
-
 type BottomSlideProps = React.ButtonHTMLAttributes<HTMLDivElement> & {
   setStage?: (stage: 0 | 1 | 2) => void;
-}
+};
+
+const tg = window.Telegram.WebApp;
 
 const BottomSlide = ({ className, children, setStage }: BottomSlideProps) => {
   const minimalHeight = 160;
@@ -23,7 +24,7 @@ const BottomSlide = ({ className, children, setStage }: BottomSlideProps) => {
   const handleTouchEnd = () => {
     setStartCoords(0);
     setActive(false);
-    const scrollPercent = height / window.innerHeight * 100;
+    const scrollPercent = (height / window.innerHeight) * 100;
     if (scrollPercent >= 30 && scrollPercent < 70) {
       setHeight(window.innerHeight / 2);
       if (setStage) {
@@ -46,6 +47,7 @@ const BottomSlide = ({ className, children, setStage }: BottomSlideProps) => {
     const handleTouchMove = (event: TouchEvent) => {
       event.preventDefault();
       if (!active) return;
+      if (!tg.isExpanded) tg.expand;
       const deltaY = event.touches[0].clientY - startCoords;
       const newHeight = startHeight - deltaY;
       setHeight(Math.min(Math.max(newHeight, minimalHeight), maximumHeight));
@@ -60,7 +62,10 @@ const BottomSlide = ({ className, children, setStage }: BottomSlideProps) => {
 
   return (
     <div
-      className={twMerge(`${startCoords === 0 ? "duration-300" : ""} fixed bottom-0 left-0 w-full ease-in-out z-10 transition-height`, className)}
+      className={twMerge(
+        `${startCoords === 0 ? "duration-300" : ""} transition-height fixed bottom-0 left-0 z-10 w-full ease-in-out`,
+        className,
+      )}
       style={{ height: `${height}px` }}
       onTouchStart={handleTouchStart}
       // onTouchMove={handleTouchMove}

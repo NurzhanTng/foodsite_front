@@ -4,10 +4,21 @@ import {
   addOneToOrderProduct,
   addProductToCart,
   removeOneToOrderProduct,
-  setCart, setErrors, setErrorText,
-  setIsParamsCartUpdated
+  setCart,
+  setErrors,
+  setErrorText,
+  setIsParamsCartUpdated,
 } from "../store/slices/mainSlice.ts";
 import { useState } from "react";
+
+// export type InputRefs = {
+//   [p in
+//     | "cart_input"
+//     | "name_input"
+//     | "phone_input"
+//     | "kaspi_input"
+//     | "delivery_input"]: HTMLDivElement | HTMLInputElement | null;
+// };
 
 const useCart = () => {
   const state = useAppSelector((state) => state.main);
@@ -20,36 +31,66 @@ const useCart = () => {
     showComment,
     toggleComment: () => setShowComment((value) => !value),
     showTime,
-    toggleTime: () => setShowTime((value) => !value)
+    toggleTime: () => setShowTime((value) => !value),
+  };
+
+  const scrollByElementId = (id: string) => {
+    const element = document.getElementById(id);
+    if (!element) return;
+    window.scrollTo({ top: element.offsetTop - 100, behavior: "smooth" });
   };
 
   const handleOrderClick = () => {
-    console.log(order);
+    // inputRefs: React.MutableRefObject<CategoryRefs>,
+    // const scrollByElementId = (ref: CategoryRefs) => {
+    //   if (ref.current) {
+    //     window.scrollTo({ top: ref.current.offsetTop, behavior: "smooth" });
+    //   }
+    // };
 
     const errors = {
       cart: state.cart.length === 0,
       name: order.user_name.length === 0,
       phone: order.phone.length !== 11,
       kaspi_phone: order.kaspi_phone.length !== 11,
-      address: false
+      address: false,
     };
 
-    dispatch(setErrorText(getErrorText(errors)))
-
-    if (errors.name || errors.cart || errors.phone || errors.kaspi_phone || errors.address) {
-      dispatch(setErrors(errors));
-      return
+    if (errors.cart) {
+      scrollByElementId("cart_input");
+    } else if (errors.name) {
+      scrollByElementId("name_input");
+    } else if (errors.phone) {
+      scrollByElementId("phone_input");
+    } else if (errors.kaspi_phone) {
+      scrollByElementId("kaspi_input");
+    } else if (errors.address) {
+      scrollByElementId("delivery_input");
     }
+
+    dispatch(setErrorText(getErrorText(errors)));
+
+    if (
+      errors.name ||
+      errors.cart ||
+      errors.phone ||
+      errors.kaspi_phone ||
+      errors.address
+    ) {
+      dispatch(setErrors(errors));
+      return;
+    }
+
     fetch(import.meta.env.VITE_REACT_APP_API_BASE_URL + `food/orders/`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: cartToJson()
+      body: cartToJson(),
     })
       .then((data) => {
-        if (!(data.status >= 200 && data.status < 300)) return
-        dispatch(setCart([]))
+        if (!(data.status >= 200 && data.status < 300)) return;
+        dispatch(setCart([]));
         const tg = window.Telegram.WebApp;
         tg.close();
       })
@@ -57,19 +98,19 @@ const useCart = () => {
   };
 
   const getErrorText = (errors: {
-    cart: boolean,
-    name: boolean,
-    phone: boolean,
-    kaspi_phone: boolean,
-    address: boolean
+    cart: boolean;
+    name: boolean;
+    phone: boolean;
+    kaspi_phone: boolean;
+    address: boolean;
   }) => {
-    if (errors.cart) return "Корзина не может быть пустой"
-    if (errors.name) return "Имя не может быть пустым"
-    if (errors.phone) return "Введите корректный номер телефона"
-    if (errors.kaspi_phone) return "Введите корректный номер каспи"
-    if (errors.address) return "Неоюходимо указать адрес"
-    return ""
-  }
+    if (errors.cart) return "Корзина не может быть пустой";
+    if (errors.name) return "Имя не может быть пустым";
+    if (errors.phone) return "Введите корректный номер телефона";
+    if (errors.kaspi_phone) return "Введите корректный номер каспи";
+    if (errors.address) return "Неоюходимо указать адрес";
+    return "";
+  };
 
   const updateCartFromParams = (params: string | null) => {
     if (state.isParamsCartUpdated) return;
@@ -88,11 +129,11 @@ const useCart = () => {
         active_modifier: cartElement["active_modifier"],
         additions: cartElement["additions"].map((addition_id: string) => {
           return product.additions.find(
-            (addition) => addition.id === parseInt(addition_id)
+            (addition) => addition.id === parseInt(addition_id),
           );
         }),
         amount: cartElement["amount"],
-        client_comment: ""
+        client_comment: "",
       });
     }
 
@@ -117,7 +158,7 @@ const useCart = () => {
       active_modifier: null,
       additions: [],
       amount: 1,
-      client_comment: ""
+      client_comment: "",
     };
 
     if (product.modifiers.length !== 0) {
@@ -135,9 +176,9 @@ const useCart = () => {
     dispatch(
       addOneToOrderProduct(
         state.cart.findIndex(
-          (orderProduct) => orderProduct.product?.id === product.id
-        )
-      )
+          (orderProduct) => orderProduct.product?.id === product.id,
+        ),
+      ),
     );
   };
 
@@ -145,9 +186,9 @@ const useCart = () => {
     dispatch(
       removeOneToOrderProduct(
         state.cart.findIndex(
-          (orderProduct) => orderProduct.product?.id === product.id
-        )
-      )
+          (orderProduct) => orderProduct.product?.id === product.id,
+        ),
+      ),
     );
   };
 
@@ -184,7 +225,7 @@ const useCart = () => {
       if (orderProduct.active_modifier !== null) {
         price =
           orderProduct.product.modifiers.find(
-            (modifier) => modifier.id === orderProduct.active_modifier
+            (modifier) => modifier.id === orderProduct.active_modifier,
           )?.price || 0;
       }
     } else {
@@ -195,8 +236,8 @@ const useCart = () => {
       orderProduct.amount *
       (price +
         orderProduct.additions.reduce(
-          (acc, addition) => (acc += addition.price),
-          0
+          (acc, addition) => acc + addition.price,
+          0,
         ))
     );
   };
@@ -205,18 +246,20 @@ const useCart = () => {
     if (cart.length == 0) cart = state.cart;
 
     return JSON.stringify({
-      products: cart.map((orderProduct) => {
-        if (orderProduct.product === undefined) return null;
-        return {
-          product: getProductById(orderProduct.product.id),
-          amount: orderProduct.amount,
-          client_comment: "",
-          price: sumOneOrderProduct(orderProduct),
-          product_id: orderProduct.product.id,
-          active_modifier: orderProduct.active_modifier,
-          additions: orderProduct.additions.map((addition) => addition.id)
-        };
-      }).filter((orderProduct) => orderProduct !== null),
+      products: cart
+        .map((orderProduct) => {
+          if (orderProduct.product === undefined) return null;
+          return {
+            product: getProductById(orderProduct.product.id),
+            amount: orderProduct.amount,
+            client_comment: "",
+            price: sumOneOrderProduct(orderProduct),
+            product_id: orderProduct.product.id,
+            active_modifier: orderProduct.active_modifier,
+            additions: orderProduct.additions.map((addition) => addition.id),
+          };
+        })
+        .filter((orderProduct) => orderProduct !== null),
       client_id: order.client_id,
       bonus_used: order.bonus_used,
       user_name: order.user_name,
@@ -228,14 +271,13 @@ const useCart = () => {
       client_comment: order.client_comment,
       bonus_amount: Math.min(sumCurrency(state.cart), order.max_bonus),
       delivery_amount: 0,
-      actions: []
+      actions: [],
     });
   };
 
   const deleteCartProducts = () => {
     dispatch(setCart([]));
   };
-
 
   return {
     getProductById,
@@ -250,7 +292,7 @@ const useCart = () => {
     deleteCartProducts,
     handleOrderClick,
 
-    usePopup
+    usePopup,
   };
 };
 

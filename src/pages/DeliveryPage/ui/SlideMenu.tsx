@@ -91,7 +91,7 @@ const SlideMenu = ({
       setErrorText("Необходимо выбрать квартиру/офис");
       return;
     }
-    if (isDelivery && orderState.company_id === -1) {
+    if (!isDelivery && orderState.company_id === -1) {
       setErrorText("Необходимо выбрать точку для самовывоза");
       return;
     }
@@ -159,7 +159,7 @@ const SlideMenu = ({
       )}
 
       {errorText !== "" && (
-        <p className="mb-[30px] mt-[30px] font-medium text-fontSecondary">
+        <p className="mb-[30px] mt-[30px] font-medium text-[#BA4747]">
           {errorText}
         </p>
       )}

@@ -8,7 +8,7 @@ type SelectCardProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   description?: string;
   leftIcon?: iconTypes;
   onClick?: () => void;
-  borderBottom?: boolean,
+  borderBottom?: boolean;
 };
 
 const SelectCard = ({
@@ -18,11 +18,16 @@ const SelectCard = ({
   onClick,
   children,
   borderBottom = false,
-  className
+  className,
+  id,
 }: SelectCardProps) => {
   return (
     <Button
-      className={twMerge(`${borderBottom ? "border-b border-secondary" : ""} py-3 relative flex w-full flex-row justify-between rounded-none px-0 text-left hover:bg-transparent active:bg-transparent`, className)}
+      id={id}
+      className={twMerge(
+        `${borderBottom ? "border-b border-secondary" : ""} relative flex w-full flex-row justify-between rounded-none px-0 py-3 text-left hover:bg-transparent active:bg-transparent`,
+        className,
+      )}
       showText={false}
       styleType="secondary"
       onClick={onClick}

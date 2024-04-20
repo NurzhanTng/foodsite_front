@@ -129,7 +129,7 @@ const OrderPage = () => {
               description={
                 (order?.address?.parsed === undefined
                   ? `${order?.address?.lat} ${order?.address?.long}`
-                  : order?.address?.parsed) + ''
+                  : order?.address?.parsed) + ""
               }
             />
             <OrderOneLine
@@ -253,18 +253,19 @@ const OrderPage = () => {
           />
         )}
 
-        {(order?.address?.lat || order?.address?.parsed) && (
-          <Button
-            className="mt-5 w-full"
-            styleType="outline"
-            text="Назначить доставщика"
-            onClick={() => setShowPopup(true)}
-          />
-        )}
+        {(order?.address?.lat || order?.address?.parsed) &&
+          order?.status !== "inactive" && (
+            <Button
+              className="mt-5 w-full"
+              styleType="outline"
+              text="Назначить доставщика"
+              onClick={() => setShowPopup(true)}
+            />
+          )}
 
         {order?.status !== "inactive" && (
           <Button
-            className="mt-5 w-full mb-[30px]"
+            className="mb-[30px] mt-5 w-full"
             styleType="outline"
             text="Следующий этап"
             onClick={() => order !== undefined && handleStatusChange(order)}

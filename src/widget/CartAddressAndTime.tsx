@@ -23,6 +23,7 @@ const CartAddressAndTime = ({
       </h3>
 
       <SelectCard
+        id="delivery_input"
         leftIcon="delivery"
         borderBottom={true}
         name={

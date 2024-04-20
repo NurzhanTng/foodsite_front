@@ -31,7 +31,7 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
 
   const onNotificationClick = () => {
     if (isNotificationExist !== undefined) {
-      stopTimer(order.id)
+      stopTimer(order.id);
     } else {
       setShowNotificationPopup(true);
     }
@@ -145,14 +145,16 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
         />
       )}
 
-      {(order?.address?.lat || order?.address?.parsed) && open && (
-        <Button
-          className="mt-5 w-full"
-          styleType="outline"
-          text="Назначить доставщика"
-          onClick={() => setShowDeliveryPopup(true)}
-        />
-      )}
+      {(order?.address?.lat || order?.address?.parsed) &&
+        order?.status !== "inactive" &&
+        open && (
+          <Button
+            className="mt-5 w-full"
+            styleType="outline"
+            text="Назначить доставщика"
+            onClick={() => setShowDeliveryPopup(true)}
+          />
+        )}
 
       {order.status !== "inactive" && open && (
         <Button
