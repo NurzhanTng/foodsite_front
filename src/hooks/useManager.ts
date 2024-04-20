@@ -39,6 +39,7 @@ const useManager = () => {
   const managerState = useAppSelector((state) => state.manager);
 
   const handleStatusChange = async (targetOrder: Orders) => {
+    navigate("/orders");
     const newOrders = managerState.orders.map((order) => {
       if (order.id !== targetOrder.id) return order;
       const index = statuses.indexOf(order.status);
@@ -67,7 +68,6 @@ const useManager = () => {
     });
 
     dispatch(setOrders(newOrders));
-    navigate("/orders");
   };
 
   const changeDeliveryId = async (order: Orders, delivery_id: number) => {

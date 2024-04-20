@@ -27,6 +27,8 @@ const OrderPage = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [showNotificationPopup, setShowNotificationPopup] = useState(false);
 
+  console.log(JSON.stringify(order));
+
   useEffect(() => {
     if (order_id === undefined || order === undefined) {
       navigate("/orders");
@@ -81,14 +83,14 @@ const OrderPage = () => {
             className={`relative mb-5 flex w-[calc(100vw-40px)] flex-row justify-between`}
           >
             <h2 className=" leading-non block text-base font-normal text-white">
-              Заказ № {order?.id}
+              Заказ № {order.id}
             </h2>
             <p
               className={`my-auto h-fit pl-4 text-center text-sm font-normal leading-none text-button`}
             >
               {
                 statusesText[
-                  order?.status === undefined ? "manager_await" : order?.status
+                  order.status === undefined ? "manager_await" : order.status
                 ]
               }
             </p>
@@ -98,12 +100,12 @@ const OrderPage = () => {
             <OrderOneLine
               title="Время оформления"
               description={
-                new Date(order?.created_at || "")
+                new Date(order.created_at || "")
                   .getHours()
                   .toString()
                   .padStart(2, "0") +
                 ":" +
-                new Date(order?.created_at || "")
+                new Date(order.created_at || "")
                   .getMinutes()
                   .toString()
                   .padStart(2, "0")
@@ -112,24 +114,24 @@ const OrderPage = () => {
             <OrderOneLine
               title="Время готовности"
               description={
-                order?.done_time === null || order?.done_time === "00:00"
+                order.done_time === null || order.done_time === "00:00"
                   ? "Как можно скорее"
                   : order?.done_time
               }
             />
-            <OrderOneLine title="Номер клиента" description={order?.phone} />
-            {order?.is_delivery && (
+            <OrderOneLine title="Номер клиента" description={order.phone} />
+            {order.is_delivery && (
               <OrderOneLine
                 title="Доставка"
-                description={`${order?.address?.parsed} ${order?.exact_address}`}
+                description={`${order.address?.parsed} ${order.exact_address}`}
               />
             )}
             <OrderOneLine
               title="Адрес"
               description={
-                (order?.address?.parsed === undefined
-                  ? `${order?.address?.lat} ${order?.address?.long}`
-                  : order?.address?.parsed) + ""
+                (order.address?.parsed === undefined
+                  ? `${order.address?.lat} ${order.address?.long}`
+                  : order.address?.parsed) + ""
               }
             />
             <OrderOneLine
@@ -143,7 +145,7 @@ const OrderPage = () => {
             <OrderOneLine
               title="Комментарий"
               description={
-                order?.client_comment === null ? "" : order?.client_comment
+                order.client_comment === null ? "" : order.client_comment
               }
             />
           </div>
@@ -161,11 +163,11 @@ const OrderPage = () => {
           </div>
 
           <div className="flex w-full flex-col gap-2">
-            <OrderOneLine title="Номер каспи" description={order?.phone} />
+            <OrderOneLine title="Номер каспи" description={order.phone} />
 
             <OrderOneLine
               title="Стоимость заказа"
-              description={order?.products.reduce(
+              description={order.products.reduce(
                 (accumulator, currentValue) => {
                   return (
                     accumulator +
@@ -189,7 +191,7 @@ const OrderPage = () => {
             </h2>
           </div>
           <div className="flex w-full flex-col gap-2">
-            {order?.products.map((orderProduct) => {
+            {order.products.map((orderProduct) => {
               const product = getProductById(orderProduct.product_id);
               // if (product === undefined) return <div key={1}></div>;
 
@@ -253,15 +255,14 @@ const OrderPage = () => {
           />
         )}
 
-        {(order?.address?.lat || order?.address?.parsed) &&
-          order?.status !== "inactive" && (
-            <Button
-              className="mt-5 w-full"
-              styleType="outline"
-              text="Назначить доставщика"
-              onClick={() => setShowPopup(true)}
-            />
-          )}
+        {order.address?.lat && order.status !== "inactive" && (
+          <Button
+            className="mt-5 w-full"
+            styleType="outline"
+            text="Назначить доставщика"
+            onClick={() => setShowPopup(true)}
+          />
+        )}
 
         {order?.status !== "inactive" && (
           <Button

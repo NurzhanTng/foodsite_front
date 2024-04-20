@@ -55,7 +55,6 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
           order={order}
         />
       )}
-
       <div
         onClick={() => {
           setOpen(!open);
@@ -74,7 +73,6 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
         {/*  <Icon type={open ? "close" : "list"} className="h-4 w-4" />*/}
         {/*</div>*/}
       </div>
-
       {open && (
         <div
           onClick={() => navigate(`/orders/${order.id}`)}
@@ -131,7 +129,6 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
           />
         </div>
       )}
-
       {order.status !== "inactive" && open && (
         <Button
           className="mt-5 w-full"
@@ -144,18 +141,14 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
           onClick={onNotificationClick}
         />
       )}
-
-      {(order?.address?.lat || order?.address?.parsed) &&
-        order?.status !== "inactive" &&
-        open && (
-          <Button
-            className="mt-5 w-full"
-            styleType="outline"
-            text="Назначить доставщика"
-            onClick={() => setShowDeliveryPopup(true)}
-          />
-        )}
-
+      {order.address?.lat && order?.status !== "inactive" && open && (
+        <Button
+          className="mt-5 w-full"
+          styleType="outline"
+          text="Назначить доставщика"
+          onClick={() => setShowDeliveryPopup(true)}
+        />
+      )}
       {order.status !== "inactive" && open && (
         <Button
           className="mt-5 w-full"
