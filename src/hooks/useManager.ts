@@ -68,6 +68,7 @@ const useManager = () => {
     });
 
     dispatch(setOrders(newOrders));
+    navigate("/orders");
   };
 
   const changeDeliveryId = async (order: Orders, delivery_id: number) => {
