@@ -19,17 +19,17 @@ const useMainHook = () => {
   // const useError;
 
   useEffect(() => {
-    alert(
-      "initDataUnsafe: " +
-        JSON.stringify(window.Telegram.WebApp?.initDataUnsafe),
-    );
-    alert(
-      "user: " + JSON.stringify(window.Telegram.WebApp?.initDataUnsafe?.user),
-    );
-    alert(
-      "user_id: " +
-        JSON.stringify(window.Telegram.WebApp?.initDataUnsafe?.user?.id),
-    );
+    // alert(
+    //   "initDataUnsafe: " +
+    //     JSON.stringify(window.Telegram.WebApp?.initDataUnsafe),
+    // );
+    // alert(
+    //   "user: " + JSON.stringify(window.Telegram.WebApp?.initDataUnsafe?.user),
+    // );
+    // alert(
+    //   "user_id: " +
+    //     JSON.stringify(window.Telegram.WebApp?.initDataUnsafe?.user?.id),
+    // );
     console.log("--- useMainHook ---");
     const bot_id = window.Telegram.WebApp?.initDataUnsafe?.user?.id;
     const params_id = searchParams.get("telegram_id");
@@ -68,7 +68,7 @@ const useMainHook = () => {
         } else if (data.role === "manager") {
           dispatch(fetchOrders());
           dispatch(fetchDeliveries());
-          // navigate("/orders");
+          navigate("/orders");
         }
       })
       .catch((error) => {
