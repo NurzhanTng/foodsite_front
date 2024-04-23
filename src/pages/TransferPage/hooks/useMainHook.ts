@@ -6,16 +6,31 @@ import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
 import { setUserData } from "../../../store/slices/orderSlice.ts";
 import { fetchCategories } from "../../../store/slices/mainSlice.ts";
 import { fetchCompanies } from "../../../store/slices/companySlice.ts";
-import { fetchDeliveries, fetchOrders } from "../../../store/slices/managerSlice.ts";
+import {
+  fetchDeliveries,
+  fetchOrders,
+} from "../../../store/slices/managerSlice.ts";
 
 const useMainHook = () => {
   const user = useAppSelector((state) => state.user);
   const [searchParams] = useSearchParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  // const useError;
 
   useEffect(() => {
-    console.log("--- useMainHook ---")
+    alert(
+      "initDataUnsafe: " +
+        JSON.stringify(window.Telegram.WebApp?.initDataUnsafe),
+    );
+    alert(
+      "user: " + JSON.stringify(window.Telegram.WebApp?.initDataUnsafe?.user),
+    );
+    alert(
+      "user_id: " +
+        JSON.stringify(window.Telegram.WebApp?.initDataUnsafe?.user?.id),
+    );
+    console.log("--- useMainHook ---");
     const bot_id = window.Telegram.WebApp?.initDataUnsafe?.user?.id;
     const params_id = searchParams.get("telegram_id");
     const telegram_id = bot_id ? bot_id : params_id;
@@ -42,7 +57,7 @@ const useMainHook = () => {
         return response.json();
       })
       .then((data: UserState) => {
-        console.log("User: ", data)
+        console.log("User: ", data);
         // data.kaspi_phone = data.phone;
         dispatch(fetchCategories());
         dispatch(fetchCompanies());
@@ -53,7 +68,7 @@ const useMainHook = () => {
         } else if (data.role === "manager") {
           dispatch(fetchOrders());
           dispatch(fetchDeliveries());
-          navigate("/orders");
+          // navigate("/orders");
         }
       })
       .catch((error) => {
@@ -61,7 +76,12 @@ const useMainHook = () => {
         const tg = window.Telegram.WebApp;
         tg.close();
       });
-  }, [dispatch, navigate, searchParams]);
+  }, [
+    dispatch,
+    navigate,
+    searchParams,
+    window.Telegram.WebApp?.initDataUnsafe?.user?.id,
+  ]);
 
   return { user, navigate };
 };
