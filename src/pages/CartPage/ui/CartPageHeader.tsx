@@ -11,7 +11,7 @@ type CartPageHeaderProps = {
 };
 
 const CartPageHeader = ({
-  text = "Pizzeria Almaty",
+  text = "Restopark",
   isMain = true,
   backPage = "/menu",
   onClear = () => {},
@@ -44,7 +44,7 @@ const CartPageHeader = ({
         showIcon={true}
         iconType={"trash"}
       >
-        <div className="h-[15px] w-[15px] bg-blue-500 rounded-[100px] text-center text-[10px] font-bold leading-[15px] text-white absolute left-[4px] top-[4px]">
+        <div className="absolute left-[4px] top-[4px] h-[15px] w-[15px] rounded-[100px] bg-blue-500 text-center text-[10px] font-bold leading-[15px] text-white">
           {elementsInCart}
         </div>
       </Button>

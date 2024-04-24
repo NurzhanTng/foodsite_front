@@ -88,7 +88,7 @@ const ClientOrderPage = () => {
   return (
     <div>
       <Header className="flex h-[50px] flex-row justify-between gap-3 px-5 text-center">
-        <p className="mx-auto my-auto h-fit">Pizzeria Almaty</p>
+        <p className="mx-auto my-auto h-fit">Restopark</p>
       </Header>
 
       <div className="px-5">
@@ -134,33 +134,32 @@ const ClientOrderPage = () => {
                   <div
                     /* Element main */ className="relative flex min-h-[100px] w-full flex-col"
                   >
-                      <h4 /* Element name */
-                        className="line-clamp-2 text-base font-normal text-white"
-                      >
-                        {product?.name}
-                      </h4>
+                    <h4 /* Element name */
+                      className="line-clamp-2 text-base font-normal text-white"
+                    >
+                      {product?.name}
+                    </h4>
 
-                      <p /* Element description */
-                        className="line-clamp-1 text-sm font-medium leading-tight text-textSecondary"
-                      >
-                        {
-                          product?.modifiers.find(
-                            (modifier) =>
-                              modifier.id === element.active_modifier,
-                          )?.name
-                        }
-                      </p>
+                    <p /* Element description */
+                      className="line-clamp-1 text-sm font-medium leading-tight text-textSecondary"
+                    >
+                      {
+                        product?.modifiers.find(
+                          (modifier) => modifier.id === element.active_modifier,
+                        )?.name
+                      }
+                    </p>
 
-                      <p /* Element additions */
-                        className="mb-2 line-clamp-1 text-sm font-medium leading-tight text-textSecondary"
-                      >
-                        {product.additions
-                          .filter((addition) =>
-                            element.additions.includes(addition.id),
-                          )
-                          .map((addition) => addition.name)
-                          .join(", ")}
-                      </p>
+                    <p /* Element additions */
+                      className="mb-2 line-clamp-1 text-sm font-medium leading-tight text-textSecondary"
+                    >
+                      {product.additions
+                        .filter((addition) =>
+                          element.additions.includes(addition.id),
+                        )
+                        .map((addition) => addition.name)
+                        .join(", ")}
+                    </p>
 
                     <div className="flex w-fit flex-col-reverse justify-between gap-2 sm-s:w-full sm-s:flex-row">
                       <p /* Element cost */
