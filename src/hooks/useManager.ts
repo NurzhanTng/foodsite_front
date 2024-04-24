@@ -71,7 +71,7 @@ const useManager = () => {
     navigate("/orders");
   };
 
-  const changeDeliveryId = async (order: Orders, delivery_id: number) => {
+  const changeDeliveryId = async (order: Orders, delivery_id: string) => {
     const currentOrders = managerState.orders;
     const index = currentOrders.findIndex(
       (oldOrder) => oldOrder.id === order.id,

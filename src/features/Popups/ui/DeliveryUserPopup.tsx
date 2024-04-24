@@ -44,7 +44,7 @@ const DeliveryUserPopup = ({
           value={activeDelivery}
           label="Доставщик"
           onChange={(event) => {
-            setActiveDelivery(Number(event.target.value));
+            setActiveDelivery(String(event.target.value));
           }}
           sx={{
             width: "100%",

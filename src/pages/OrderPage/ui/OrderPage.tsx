@@ -54,6 +54,8 @@ const OrderPage = () => {
     }
   };
 
+  // @ts-ignore
+  // @ts-ignore
   return (
     <>
       {showNotificationPopup && (

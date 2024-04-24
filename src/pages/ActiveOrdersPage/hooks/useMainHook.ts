@@ -12,7 +12,7 @@ function isToday(dateString: string) {
   );
 }
 
-const fetchOrders = async (telegram_id: number) => {
+const fetchOrders = async (telegram_id: string) => {
   const response = await fetch(
     import.meta.env.VITE_REACT_APP_API_BASE_URL + "food/orders/",
     {
@@ -49,7 +49,7 @@ const useMainHook = () => {
   useEffect(() => {
     const bot_id = window.Telegram.WebApp?.initDataUnsafe?.user?.id;
     const params_id = searchParams.get("telegram_id");
-    const telegram_id = Number(bot_id ? bot_id : params_id);
+    const telegram_id = String(bot_id ? bot_id : params_id);
     fetchOrders(telegram_id).then((data) => {
       console.log("Orders: ", data);
       console.log("telegram_id: ", telegram_id);

@@ -58,7 +58,7 @@ export type Orders = {
   company_id: number | null; // new
 
   is_delivery: boolean;
-  delivery_id: number | null;
+  delivery_id: string | null;
   delivery_name: string;
   products: Array<OrderProducts>; // change
   status: OrderStatuses;
