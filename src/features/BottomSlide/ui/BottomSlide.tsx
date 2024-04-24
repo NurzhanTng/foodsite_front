@@ -10,7 +10,7 @@ const tg = window.Telegram.WebApp;
 const BottomSlide = ({ className, children, setStage }: BottomSlideProps) => {
   const minimalHeight = 160;
   const maximumHeight = window.innerHeight * 0.9;
-  const [height, setHeight] = useState<number>(minimalHeight);
+  const [height, setHeight] = useState<number>(window.innerHeight / 2);
   const [active, setActive] = useState(false);
   const [startHeight, setStartHeight] = useState(0);
   const [startCoords, setStartCoords] = useState(0);
