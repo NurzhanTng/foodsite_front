@@ -54,7 +54,7 @@ export type OrderStatuses =
 
 export type Orders = {
   id: number;
-  client_id: number;
+  client_id: string;
   company_id: number | null; // new
 
   is_delivery: boolean;
@@ -91,7 +91,7 @@ type OrderProducts = {
 };
 
 type DeliveryUser = {
-  telegram_id: number;
+  telegram_id: string;
   telegram_fullname: string;
 };
 
@@ -143,8 +143,8 @@ export const fetchOrders = createAsyncThunk("orders", async () => {
     .map((order) => {
       return { ...order, delivery_name: "" };
     });
-  console.log(filteredData)
-  return filteredData
+  console.log(filteredData);
+  return filteredData;
 });
 
 export const fetchDeliveries = createAsyncThunk("deliveries", async () => {

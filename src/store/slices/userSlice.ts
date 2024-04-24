@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export type UserState = {
-  telegram_id: number;
+  telegram_id: string;
   telegram_fullname: string;
   phone: string;
   kaspi_phone: string;
@@ -19,7 +19,7 @@ export type UserState = {
 };
 
 const initialState: UserState = {
-  telegram_id: -1,
+  telegram_id: "",
   telegram_fullname: "",
   phone: "",
   kaspi_phone: "",

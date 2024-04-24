@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export type CompanySpot = {
   id: number;
-  manager: number;
+  manager: string;
   delivery_layers: Array<[number, number][]>;
   products_on_stop: Array<number>;
   additions_on_stop: Array<number>;
@@ -13,7 +13,7 @@ export type CompanySpot = {
 
   open_time: string;
   close_time: string;
-}
+};
 
 export type CompanyState = {
   companies: Array<CompanySpot>;
@@ -23,15 +23,14 @@ const initialState: CompanyState = {
   companies: [],
 };
 
-
 export const fetchCompanies = createAsyncThunk("companies", async () => {
-  const response  = await fetch(
+  const response = await fetch(
     import.meta.env.VITE_REACT_APP_API_BASE_URL + "service/company_spots/",
     {
       method: "GET",
     },
   );
-  return response.json()
+  return response.json();
 });
 
 const companySlice = createSlice({

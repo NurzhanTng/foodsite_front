@@ -1,10 +1,11 @@
 import useMainHook from "../hooks/useMainHook.ts";
 import Loading from "./Loading.tsx";
+import Error from "./Error.tsx";
 
 const TransferPage = () => {
-  useMainHook();
+  const data = useMainHook();
 
-  return <Loading />;
+  return data.errorType === null ? <Loading /> : <Error {...data} />;
 };
 
 export default TransferPage;

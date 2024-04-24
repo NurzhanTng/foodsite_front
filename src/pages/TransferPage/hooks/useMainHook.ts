@@ -1,5 +1,5 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { setUser, UserState } from "../../../store/slices/userSlice.ts";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
@@ -16,27 +16,23 @@ const useMainHook = () => {
   const [searchParams] = useSearchParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  // const useError;
+  const [errorType, setErrorType] = useState<
+    "internet" | "unauthorised" | "server" | "bad request" | null
+  >(null);
 
-  useEffect(() => {
-    // alert(
-    //   "initDataUnsafe: " +
-    //     JSON.stringify(window.Telegram.WebApp?.initDataUnsafe),
-    // );
-    // alert(
-    //   "user: " + JSON.stringify(window.Telegram.WebApp?.initDataUnsafe?.user),
-    // );
-    // alert(
-    //   "user_id: " +
-    //     JSON.stringify(window.Telegram.WebApp?.initDataUnsafe?.user?.id),
-    // );
-    console.log("--- useMainHook ---");
+  const fetchData = () => {
+    setErrorType(null);
     const bot_id = window.Telegram.WebApp?.initDataUnsafe?.user?.id;
     const params_id = searchParams.get("telegram_id");
     const telegram_id = bot_id ? bot_id : params_id;
 
+    if (telegram_id === null) {
+      setErrorType("unauthorised");
+      return;
+    }
+
     const postData = {
-      telegram_id: telegram_id,
+      telegram_id: `${telegram_id}`,
       telegram_fullname: "",
       promo: "",
     };
@@ -52,30 +48,37 @@ const useMainHook = () => {
     })
       .then((response) => {
         if (!response.ok) {
+          setErrorType("internet");
           throw new Error("Network response was not ok");
         }
         return response.json();
       })
       .then((data: UserState) => {
-        console.log("User: ", data);
-        // data.kaspi_phone = data.phone;
         dispatch(fetchCategories());
         dispatch(fetchCompanies());
         dispatch(setUser(data));
         dispatch(setUserData(data));
+
         if (data.role === "client") {
           navigate("/menu");
         } else if (data.role === "manager") {
           dispatch(fetchOrders());
           dispatch(fetchDeliveries());
           navigate("/orders");
+        } else {
+          setErrorType("bad request");
         }
       })
       .catch((error) => {
+        if (error === null) setErrorType("server");
         console.error("Error during registration:", error);
-        const tg = window.Telegram.WebApp;
-        tg.close();
+        // const tg = window.Telegram.WebApp;
+        // tg.close();
       });
+  };
+
+  useEffect(() => {
+    fetchData();
   }, [
     dispatch,
     navigate,
@@ -83,7 +86,7 @@ const useMainHook = () => {
     window.Telegram.WebApp?.initDataUnsafe?.user?.id,
   ]);
 
-  return { user, navigate };
+  return { user, navigate, errorType, fetchData };
 };
 
 export default useMainHook;

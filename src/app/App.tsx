@@ -17,6 +17,8 @@ import OrderSearchPage from "../pages/OrderSearchPage";
 import ActiveOrdersPage from "../pages/ActiveOrdersPage";
 import InactiveOrdersPage from "../pages/InactiveOrdersPage";
 import ClientOrderPage from "../pages/ClientOrderPage";
+import PrivacyPolicy from "../pages/PrivacyPolicy/ui/PrivacyPolicy.tsx";
+import OfferPage from "../pages/OfferPage/ui/OfferPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -70,6 +72,14 @@ const router = createBrowserRouter([
   {
     path: "/map_test",
     element: <OldDeliveryPage />,
+  },
+  {
+    path: "/privacy",
+    element: <PrivacyPolicy />,
+  },
+  {
+    path: "/offer",
+    element: <OfferPage />,
   },
   {
     path: "*",

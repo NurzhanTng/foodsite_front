@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export type OrderState = {
-  client_id: number;
+  client_id: string;
   delivery_id: number;
   company_id: number;
   max_bonus: number;
@@ -22,7 +22,7 @@ export type OrderState = {
 };
 
 const initialState: OrderState = {
-  client_id: -1,
+  client_id: "",
   delivery_id: -1,
   company_id: -1,
   max_bonus: 0,
@@ -49,7 +49,7 @@ const orderSlice = createSlice({
     setUserData: (
       state,
       action: PayloadAction<{
-        telegram_id: number;
+        telegram_id: string;
         telegram_fullname: string;
         phone: string;
         kaspi_phone: string;
