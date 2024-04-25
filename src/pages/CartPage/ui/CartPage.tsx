@@ -59,7 +59,7 @@ const CartPage = () => {
         <CartElements />
         <CartAdditions toggleComment={usePopup.toggleComment} />
         <CartAddressAndTime toggleTime={usePopup.toggleTime} />
-        <CartPayments />
+        {/*<CartPayments />*/}
         <CartPrice />
       </form>
       <Footer />
