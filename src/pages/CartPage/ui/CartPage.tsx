@@ -2,7 +2,7 @@ import Cashback from "../../../shared/Cashback.tsx";
 import CartPageHeader from "./CartPageHeader.tsx";
 import CartElements from "../../../widget/CartElements.tsx";
 import CartAdditions from "../../../widget/CartAdditions.tsx";
-import CartPayments from "../../../widget/CartPayments.tsx";
+// import CartPayments from "../../../widget/CartPayments.tsx";
 import Button from "../../../shared/Button.tsx";
 import currencyFormatter from "../../../utils/currencyFormatter.ts";
 import CartPrice from "../../../widget/CartPrice.tsx";
