@@ -6,12 +6,17 @@ import { useAppSelector } from "../../../store/hooks.ts";
 import useScrollEffect from "../../../hooks/useScrollEffect.ts";
 import useCart from "../../../hooks/useCart.ts";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function MenuPage() {
   const state = useAppSelector((state) => state.main);
   const { categoryRefs } = useScrollEffect();
   const { sumCurrency } = useCart();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>

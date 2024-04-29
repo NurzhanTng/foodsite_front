@@ -11,6 +11,7 @@ import SelectCard from "../entities/SelectCard.tsx";
 import Icon from "../shared/Icon";
 import Switch from "../shared/Switch.tsx";
 import { setErrors } from "../store/slices/mainSlice.ts";
+import { useEffect } from "react";
 
 type CartAdditionsProps = {
   className?: string;
@@ -23,9 +24,13 @@ const CartAdditions = ({
 }: CartAdditionsProps) => {
   // const state = useAppSelector((state) => state.main);
   const orderState = useAppSelector((state) => state.order);
+  const userBonus = useAppSelector((state) => state.user.bonus);
   const dispatch = useAppDispatch();
   const errors = useAppSelector((state) => state.main.errors);
-  console.log("errors", errors);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className={twMerge("flex flex-col gap-[10px]", className)}>
@@ -81,7 +86,7 @@ const CartAdditions = ({
       </SelectCard>
 
       <SelectCard
-        name="Использовать бонус"
+        name={`Использовать бонус (${userBonus})`}
         onClick={() => dispatch(setBonusUsed(!orderState.bonus_used))}
       >
         <Switch checked={orderState.bonus_used} onChange={() => {}} />
