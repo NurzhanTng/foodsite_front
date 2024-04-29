@@ -29,7 +29,7 @@ const BackgroundMap = ({
       <Map
         width="100%"
         height="100vh"
-        defaultState={{ center: [43.244077, 76.916799], zoom: 11 }}
+        defaultState={{ center: [43.204077, 76.906799], zoom: 12 }}
         onClick={handleClick}
       >
         {!isDelivery &&
