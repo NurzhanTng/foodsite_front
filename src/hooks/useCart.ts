@@ -41,13 +41,6 @@ const useCart = () => {
   };
 
   const handleOrderClick = () => {
-    // inputRefs: React.MutableRefObject<CategoryRefs>,
-    // const scrollByElementId = (ref: CategoryRefs) => {
-    //   if (ref.current) {
-    //     window.scrollTo({ top: ref.current.offsetTop, behavior: "smooth" });
-    //   }
-    // };
-
     const errors = {
       cart: state.cart.length === 0,
       name: order.user_name.length === 0,
@@ -108,7 +101,7 @@ const useCart = () => {
     if (errors.name) return "Имя не может быть пустым";
     if (errors.phone) return "Введите корректный номер телефона";
     if (errors.kaspi_phone) return "Введите корректный номер каспи";
-    if (errors.address) return "Неоюходимо указать адрес";
+    if (errors.address) return "Необходимо указать адрес";
     return "";
   };
 

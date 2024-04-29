@@ -1,4 +1,4 @@
-import Cashback from "../../../shared/Cashback.tsx";
+// import Cashback from "../../../shared/Cashback.tsx";
 import CartPageHeader from "./CartPageHeader.tsx";
 import CartElements from "../../../widget/CartElements.tsx";
 import CartAdditions from "../../../widget/CartAdditions.tsx";
@@ -55,7 +55,7 @@ const CartPage = () => {
         }}
         autoComplete="off"
       >
-        <Cashback amount={10000} cashback={7} />
+        {/*<Cashback amount={10000} cashback={7} />*/}
         <CartElements />
         <CartAdditions toggleComment={usePopup.toggleComment} />
         <CartAddressAndTime toggleTime={usePopup.toggleTime} />
