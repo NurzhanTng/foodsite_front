@@ -45,7 +45,7 @@ const useCart = () => {
       cart: state.cart.length === 0,
       name: order.user_name.length === 0,
       phone: order.phone.length !== 11,
-      kaspi_phone: order.kaspi_phone.length !== 11,
+      kaspi_phone: false,
       address: false,
     };
 
@@ -55,8 +55,8 @@ const useCart = () => {
       scrollByElementId("name_input");
     } else if (errors.phone) {
       scrollByElementId("phone_input");
-    } else if (errors.kaspi_phone) {
-      scrollByElementId("kaspi_input");
+      // } else if (errors.kaspi_phone) {
+      //   scrollByElementId("kaspi_input");
     } else if (errors.address) {
       scrollByElementId("delivery_input");
     }
