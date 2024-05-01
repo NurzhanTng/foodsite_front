@@ -45,7 +45,7 @@ const useCart = () => {
       cart: state.cart.length === 0,
       name: order.user_name.length === 0,
       phone: order.phone.length !== 11,
-      kaspi_phone: false,
+      kaspi_phone: order.kaspi_phone.length !== 11,
       address: false,
     };
 
