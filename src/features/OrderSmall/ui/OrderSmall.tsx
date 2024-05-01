@@ -110,6 +110,12 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
             description={order?.phone}
           />
 
+          <OrderOneLine
+            className="w-[calc(100vw-80px)] gap-0"
+            title="Номер каспи"
+            description={order?.kaspi_phone}
+          />
+
           {order?.is_delivery && (
             <OrderOneLine
               className="w-[calc(100vw-80px)] gap-0"

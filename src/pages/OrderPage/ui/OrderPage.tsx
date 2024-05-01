@@ -165,7 +165,7 @@ const OrderPage = () => {
           </div>
 
           <div className="flex w-full flex-col gap-2">
-            <OrderOneLine title="Номер каспи" description={order.phone} />
+            <OrderOneLine title="Номер каспи" description={order.kaspi_phone} />
 
             <OrderOneLine
               title="Стоимость заказа"
