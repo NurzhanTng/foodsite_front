@@ -4,6 +4,7 @@ import { setKaspiPhone } from "../store/slices/orderSlice.ts";
 import formatPhoneNumber from "../utils/formatPhoneNumber.ts";
 import { twMerge } from "tailwind-merge";
 import { setErrors } from "../store/slices/mainSlice.ts";
+import kaspi from "../data/img/kaspi.svg";
 
 type CartPaymentsProps = {
   className?: string;
@@ -16,9 +17,12 @@ const CartPayments = ({ className = "" }: CartPaymentsProps) => {
 
   return (
     <div className={twMerge("", className)}>
-      <h3 className="mb-[26px] text-base font-medium text-textSecondary">
-        Оплата
-      </h3>
+      <div className="mb-[26px] flex flex-row gap-[10px]">
+        <img alt={"Kaspi"} src={kaspi} className="w-[30px]" />
+        <h3 className="my-auto text-base font-medium text-textSecondary">
+          Оплата
+        </h3>
+      </div>
 
       <Input
         id="kaspi_input"
