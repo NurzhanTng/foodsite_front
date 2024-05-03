@@ -56,8 +56,15 @@ const SlideMenu = ({
           console.log("Adresses:", data);
           return data;
         })
-        .then((data) => setFetchResult(data));
-    }, 1000);
+        .then((data) => {
+          if (data.length === 1) {
+            handleChooseAddress(data[0]);
+            return;
+          }
+
+          setFetchResult(data);
+        });
+    }, 300);
     setTimerId(newTimerId);
   };
 
