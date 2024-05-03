@@ -20,6 +20,7 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
   const { stopTimer } = useTimer();
   const { statusesText, handleStatusChange } = useManager();
   const navigate = useNavigate();
+  const deliveries = useAppSelector((state) => state.manager.deliveries);
   const [open, setOpen] = useState(false);
   const [showDeliveryPopup, setShowDeliveryPopup] = useState(false);
   const [showNotificationPopup, setShowNotificationPopup] = useState(false);
@@ -151,7 +152,15 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
         <Button
           className="mt-5 w-full"
           styleType="outline"
-          text="Назначить доставщика"
+          text={
+            order.delivery_id === null
+              ? "Назначить доставщика"
+              : `Изменить доставщика (${
+                  deliveries.find(
+                    (user) => user.telegram_id === order.delivery_id,
+                  )?.telegram_fullname
+                })`
+          }
           onClick={() => setShowDeliveryPopup(true)}
         />
       )}

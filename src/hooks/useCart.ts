@@ -10,6 +10,7 @@ import {
   setIsParamsCartUpdated,
 } from "../store/slices/mainSlice.ts";
 import { useState } from "react";
+import checkIsInPolygon from "../utils/checkIsInPolygon.ts";
 
 // export type InputRefs = {
 //   [p in
@@ -23,6 +24,7 @@ import { useState } from "react";
 const useCart = () => {
   const state = useAppSelector((state) => state.main);
   const order = useAppSelector((state) => state.order);
+  const companies = useAppSelector((state) => state.companies.companies);
   const dispatch = useAppDispatch();
   const [showComment, setShowComment] = useState(false);
   const [showTime, setShowTime] = useState(false);
@@ -46,7 +48,10 @@ const useCart = () => {
       name: order.user_name.length === 0,
       phone: order.phone.length !== 11,
       kaspi_phone: order.kaspi_phone.length !== 11,
-      address: false,
+      address: !checkIsInPolygon(companies[0].delivery_layers[0].points, [
+        order.address.long,
+        order.address.lat,
+      ]),
     };
 
     if (errors.cart) {
@@ -55,8 +60,8 @@ const useCart = () => {
       scrollByElementId("name_input");
     } else if (errors.phone) {
       scrollByElementId("phone_input");
-      // } else if (errors.kaspi_phone) {
-      //   scrollByElementId("kaspi_input");
+    } else if (errors.kaspi_phone) {
+      scrollByElementId("kaspi_input");
     } else if (errors.address) {
       scrollByElementId("delivery_input");
     }
@@ -101,7 +106,7 @@ const useCart = () => {
     if (errors.name) return "Имя не может быть пустым";
     if (errors.phone) return "Введите корректный номер телефона";
     if (errors.kaspi_phone) return "Введите корректный номер каспи";
-    if (errors.address) return "Необходимо указать адрес";
+    if (errors.address) return "Необходимо указать правильный адрес";
     return "";
   };
 

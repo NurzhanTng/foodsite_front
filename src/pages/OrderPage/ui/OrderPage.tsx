@@ -261,7 +261,15 @@ const OrderPage = () => {
           <Button
             className="mt-5 w-full"
             styleType="outline"
-            text="Назначить доставщика"
+            text={
+              order.delivery_id === null
+                ? "Назначить доставщика"
+                : `Изменить доставщика (${
+                    deliveries.find(
+                      (user) => user.telegram_id === order.delivery_id,
+                    )?.telegram_fullname
+                  })`
+            }
             onClick={() => setShowPopup(true)}
           />
         )}

@@ -17,6 +17,7 @@ import {
 import getCenterOfPolygon from "../../../utils/getCenterOfPolygon.ts";
 import { useNavigate } from "react-router-dom";
 import { CompanyState } from "../../../store/slices/companySlice.ts";
+import checkIsInPolygon from "../../../utils/checkIsInPolygon.ts";
 
 type SlideMenuProps = {
   errorText: string;
@@ -93,6 +94,15 @@ const SlideMenu = ({
     }
     if (!isDelivery && orderState.company_id === -1) {
       setErrorText("Необходимо выбрать точку для самовывоза");
+      return;
+    }
+    if (
+      !checkIsInPolygon(companyState.companies[0].delivery_layers[0].points, [
+        orderState.address.long,
+        orderState.address.lat,
+      ])
+    ) {
+      setErrorText("Ваш адрес вне зоны доставки");
       return;
     }
 

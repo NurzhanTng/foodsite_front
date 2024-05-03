@@ -1,7 +1,8 @@
-import { Map, Placemark, YMaps } from "@pbe/react-yandex-maps";
+import { Map, Placemark, Polygon, YMaps } from "@pbe/react-yandex-maps";
 import fetchAddressByCoordinates from "../fetch/fetchAddressByCoordinates.ts";
 import { CompanyState } from "../../../store/slices/companySlice.ts";
 import { OrderState } from "../../../store/slices/orderSlice.ts";
+import { useEffect } from "react";
 
 type BackgroundMapProps = {
   isDelivery: boolean;
@@ -24,12 +25,16 @@ const BackgroundMap = ({
     setErrorText("");
   };
 
+  useEffect(() => {
+    console.log("placemark", [orderState.address.lat, orderState.address.long]);
+  }, [companyState]);
+
   return (
     <YMaps>
       <Map
         width="100%"
         height="100vh"
-        defaultState={{ center: [43.204077, 76.906799], zoom: 12 }}
+        defaultState={{ center: [43.174077, 76.906799], zoom: 12 }}
         onClick={handleClick}
       >
         {!isDelivery &&
@@ -43,7 +48,7 @@ const BackgroundMap = ({
                       : "#6A7D91",
                 }}
                 key={index}
-                geometry={[companySpot.address.lat, companySpot.address.long]}
+                geometry={[companySpot.address.long, companySpot.address.lat]}
               />
             );
           })}
@@ -53,9 +58,27 @@ const BackgroundMap = ({
             options={{
               iconColor: "#5288C1",
             }}
-            geometry={[orderState.address.lat, orderState.address.long]}
+            geometry={
+              orderState.address.long < orderState.address.lat
+                ? [orderState.address.long, orderState.address.lat]
+                : [orderState.address.lat, orderState.address.long]
+            }
           />
         )}
+
+        <Polygon
+          geometry={companyState.companies[0].delivery_layers.map((layer) => {
+            console.log("Points:", layer.points);
+            return layer.points;
+          })}
+          options={{
+            fillColor: "#00FF00",
+            strokeColor: "#0000FF",
+            opacity: 0.5,
+            strokeWidth: 5,
+            strokeStyle: "shortdash",
+          }}
+        />
       </Map>
     </YMaps>
   );

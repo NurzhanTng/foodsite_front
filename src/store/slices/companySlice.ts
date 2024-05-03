@@ -1,9 +1,14 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+export type DeliveryLayer = {
+  points: [number, number][];
+  cost: number;
+};
+
 export type CompanySpot = {
   id: number;
   manager: string;
-  delivery_layers: Array<[number, number][]>;
+  delivery_layers: DeliveryLayer[];
   products_on_stop: Array<number>;
   additions_on_stop: Array<number>;
   name: string;
@@ -30,7 +35,9 @@ export const fetchCompanies = createAsyncThunk("companies", async () => {
       method: "GET",
     },
   );
-  return response.json();
+  const data = response.json();
+  console.log(data);
+  return data;
 });
 
 const companySlice = createSlice({
