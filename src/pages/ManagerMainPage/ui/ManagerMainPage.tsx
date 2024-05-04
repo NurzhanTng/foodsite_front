@@ -1,5 +1,8 @@
 import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
-import { fetchOrders, setStatusOpen } from "../../../store/slices/managerSlice.ts";
+import {
+  fetchOrders,
+  setStatusOpen,
+} from "../../../store/slices/managerSlice.ts";
 import ManagerHeader from "../../../features/Headers";
 import OrderCategory from "../../../widget/OrderCategory.tsx";
 import useManager from "../../../hooks/useManager.ts";
@@ -40,7 +43,14 @@ const ManagerMainPage = () => {
       <div className="px-5 pt-[80px]">
         {statuses.map((status) => (
           <OrderCategory
-            orders={manager.orders.filter((order) => order.status === status)}
+            orders={manager.orders
+              .filter((order) => order.status === status)
+              .sort((a, b) => {
+                return (
+                  new Date(b.updated_at).getTime() -
+                  new Date(a.updated_at).getTime()
+                );
+              })}
             key={status}
             open={manager.statusOpen[status]}
             setOpen={(isOpen) =>

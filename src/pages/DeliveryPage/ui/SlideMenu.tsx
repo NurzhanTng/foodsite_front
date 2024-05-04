@@ -51,12 +51,15 @@ const SlideMenu = ({
 
     if (timerId) clearTimeout(timerId);
     const newTimerId = setTimeout(() => {
+      console.log("Поиск адресов");
       fetchAddressesByName(text)
         .then((data) => {
-          console.log("Adresses:", data);
+          console.log("Нашлись адреса");
+          // console.log("Adresses:", data);
           return data;
         })
         .then((data) => {
+          // console.log("data: ", data);
           if (data.length === 1) {
             handleChooseAddress(data[0]);
             return;
@@ -64,7 +67,7 @@ const SlideMenu = ({
 
           setFetchResult(data);
         });
-    }, 300);
+    }, 1000);
     setTimerId(newTimerId);
   };
 
