@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
 import { useEffect } from "react";
 import { setErrors } from "../../../store/slices/mainSlice.ts";
 import ErrorPopup from "./ErrorPopup.tsx";
-import Footer from "./Footer.tsx";
+// import Footer from "./Footer.tsx";
 
 const CartPage = () => {
   const state = useAppSelector((state) => state.main);
@@ -62,7 +62,7 @@ const CartPage = () => {
         <CartPayments />
         <CartPrice />
       </form>
-      <Footer />
+      {/*<Footer />*/}
       <Button
         type="submit"
         onClick={handleOrderClick}
