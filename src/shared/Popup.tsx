@@ -17,7 +17,12 @@ const Popup: React.FC<PopupProps> = ({
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     let target: EventTarget | null = event.target;
     while (target !== null) {
-      if ((target as HTMLElement).id === "click_ignore" || (target as HTMLElement)?.id?.startsWith("menu")) {
+      const targetElement = target as HTMLElement;
+      if (
+        targetElement.id === "click_ignore" ||
+        targetElement.id?.startsWith("menu") ||
+        targetElement?.classList?.contains("MuiDialog-root")
+      ) {
         return; // Ignore clicks on buttons
       }
       target = (target as HTMLElement).parentNode;

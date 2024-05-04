@@ -1,6 +1,6 @@
 import Icon from "../../../shared/Icon";
 import Button from "../../../shared/Button.tsx";
-import { TimeField } from "@mui/x-date-pickers";
+import { TimePicker } from "@mui/x-date-pickers";
 import React from "react";
 import Popup from "../../../shared/Popup.tsx";
 import useNotificationTime from "../hooks/useNotificationTime.ts";
@@ -16,13 +16,8 @@ const NotificationTimePopup = ({
   show,
   toggleShow,
 }: NotificationTimePopupProps) => {
-  const {
-    value,
-    setValue,
-    isValid,
-    errorText,
-    handleStart
-  } = useNotificationTime();
+  const { value, setValue, isValid, errorText, handleStart } =
+    useNotificationTime();
 
   return (
     <Popup show={show} toggleShow={toggleShow}>
@@ -36,7 +31,7 @@ const NotificationTimePopup = ({
         Выберите время для напоминания
       </p>
 
-      <TimeField
+      <TimePicker
         label="Укажите время"
         value={value}
         onChange={(newValue) => {
@@ -94,7 +89,10 @@ const NotificationTimePopup = ({
       )}
 
       <div className="mt-[10px] flex flex-col gap-[10px]">
-        <Button text="Сохранить" onClick={() => handleStart(order_id, toggleShow)} />
+        <Button
+          text="Сохранить"
+          onClick={() => handleStart(order_id, toggleShow)}
+        />
         <Button text="Отмена" onClick={toggleShow} styleType="secondary" />
       </div>
     </Popup>

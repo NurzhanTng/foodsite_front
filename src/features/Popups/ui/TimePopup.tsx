@@ -4,9 +4,9 @@ import Icon from "../../../shared/Icon";
 import { setDoneTime } from "../../../store/slices/orderSlice.ts";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
 import Button from "../../../shared/Button.tsx";
-import { TimeField } from "@mui/x-date-pickers";
+import { TimePicker } from "@mui/x-date-pickers";
 import { Dayjs } from "dayjs";
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 
 type TimePopupProps = React.HTMLProps<HTMLDivElement> & {
   show: boolean;
@@ -23,7 +23,9 @@ const TimePopup = ({ show, toggleShow }: TimePopupProps) => {
   const [value, setValue] = useState<Dayjs | null>(() => {
     const currentDate = new Date();
     currentDate.setMinutes(currentDate.getMinutes() + (isDelivery ? 40 : 20));
-    return dayjs().set('hour', currentDate.getHours()).set('minute', currentDate.getMinutes());
+    return dayjs()
+      .set("hour", currentDate.getHours())
+      .set("minute", currentDate.getMinutes());
   });
   const [isValid, setIsValid] = useState(true);
   const [errorText, setErrorText] = useState("");
@@ -94,13 +96,11 @@ const TimePopup = ({ show, toggleShow }: TimePopupProps) => {
 
       {!isFastest && (
         <>
-          <TimeField
-            label="Укажите время"
-            value={value}
-            onChange={(newValue) => {
-              setValue(newValue);
-            }}
+          <TimePicker
             ampm={false}
+            label="Controlled picker"
+            value={value}
+            onChange={(newValue) => setValue(newValue)}
             sx={{
               width: "100%",
               maxWidth: "400px",
@@ -145,7 +145,7 @@ const TimePopup = ({ show, toggleShow }: TimePopupProps) => {
             }}
           />
           {!isValid && (
-            <p className="mt-[10px] mb-[30px] text-center font-medium text-fontSecondary">
+            <p className="mb-[30px] mt-[10px] text-center font-medium text-fontSecondary">
               {errorText}
             </p>
           )}

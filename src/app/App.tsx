@@ -19,6 +19,7 @@ import InactiveOrdersPage from "../pages/InactiveOrdersPage";
 import ClientOrderPage from "../pages/ClientOrderPage";
 import PrivacyPolicy from "../pages/PrivacyPolicy/ui/PrivacyPolicy.tsx";
 import OfferPage from "../pages/OfferPage/ui/OfferPage.tsx";
+import AppThemeProvider from "./context/ThemeProvider.tsx";
 
 const router = createBrowserRouter([
   {
@@ -89,9 +90,11 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <TimerProvider>
-      <RouterProvider router={router} />
-    </TimerProvider>
+    <AppThemeProvider>
+      <TimerProvider>
+        <RouterProvider router={router} />
+      </TimerProvider>
+    </AppThemeProvider>
   );
 }
 
