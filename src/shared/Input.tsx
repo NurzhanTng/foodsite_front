@@ -18,6 +18,7 @@ const Input = forwardRef(
       onChange,
       multiline = false,
       id,
+      onClick,
     }: InputProps,
     ref: ForwardedRef<HTMLInputElement> | undefined,
   ) => {
@@ -27,6 +28,7 @@ const Input = forwardRef(
           multiline={multiline}
           type={type}
           value={value}
+          onClick={onClick}
           onChange={onChange}
           label={label}
           variant="outlined"

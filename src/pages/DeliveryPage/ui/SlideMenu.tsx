@@ -18,6 +18,8 @@ import getCenterOfPolygon from "../../../utils/getCenterOfPolygon.ts";
 import { useNavigate } from "react-router-dom";
 import { CompanyState } from "../../../store/slices/companySlice.ts";
 import checkIsInPolygon from "../../../utils/checkIsInPolygon.ts";
+import SelectCard from "../../../entities/SelectCard.tsx";
+import Icon from "../../../shared/Icon";
 
 type SlideMenuProps = {
   errorText: string;
@@ -39,6 +41,7 @@ const SlideMenu = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [stage, setStage] = useState<0 | 1 | 2>(1);
+  // const [currentState, setCurrentState] = useState<'new' | 'old' | null>(null);
   const [address, setAddressText] = useState(orderState.address.parsed);
   const [fetchResult, setFetchResult] = useState<Address[] | null>(null);
   const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null);
@@ -51,22 +54,14 @@ const SlideMenu = ({
 
     if (timerId) clearTimeout(timerId);
     const newTimerId = setTimeout(() => {
-      console.log("Поиск адресов");
-      fetchAddressesByName(text)
-        .then((data) => {
-          console.log("Нашлись адреса");
-          // console.log("Adresses:", data);
-          return data;
-        })
-        .then((data) => {
-          // console.log("data: ", data);
-          if (data.length === 1) {
-            handleChooseAddress(data[0]);
-            return;
-          }
+      fetchAddressesByName(text).then((data) => {
+        if (data.length === 1) {
+          handleChooseAddress(data[0]);
+          return;
+        }
 
-          setFetchResult(data);
-        });
+        setFetchResult(data);
+      });
     }, 1000);
     setTimerId(newTimerId);
   };
@@ -122,6 +117,7 @@ const SlideMenu = ({
   return (
     <BottomSlide
       className="z-0 overflow-y-auto bg-bgColor px-[20px] pb-[70px]"
+      stage={stage}
       setStage={setStage}
     >
       <div className="absolute left-[50%] top-[7px] h-[3px] w-[50px] translate-x-[-50%] rounded-[90px] bg-button "></div>
@@ -138,14 +134,14 @@ const SlideMenu = ({
 
       {stage !== 0 && isDelivery && (
         <div className="mt-[20px] flex flex-col gap-5">
-          {/*<SelectCard*/}
-          {/*  className="my-0"*/}
-          {/*  name="Прошлые адреса"*/}
-          {/*  description="Нажмите, чтобы выбрать"*/}
-          {/*  leftIcon="geo"*/}
-          {/*>*/}
-          {/*  <Icon className="h-4 w-4" type="arrowRight" />*/}
-          {/*</SelectCard>*/}
+          <SelectCard
+            className="my-0"
+            name="Прошлые адреса"
+            description="Нажмите, чтобы выбрать"
+            leftIcon="geo"
+          >
+            <Icon className="h-4 w-4" type="arrowRight" />
+          </SelectCard>
 
           <Input
             onChange={handleAddressChange}

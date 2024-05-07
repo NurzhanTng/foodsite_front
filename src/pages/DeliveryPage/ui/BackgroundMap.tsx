@@ -48,7 +48,7 @@ const BackgroundMap = ({
                       : "#6A7D91",
                 }}
                 key={index}
-                geometry={[companySpot.address.long, companySpot.address.lat]}
+                geometry={[companySpot.address.lat, companySpot.address.long]}
               />
             );
           })}

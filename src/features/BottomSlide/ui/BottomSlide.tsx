@@ -2,15 +2,21 @@ import React, { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 type BottomSlideProps = React.ButtonHTMLAttributes<HTMLDivElement> & {
-  setStage?: (stage: 0 | 1 | 2) => void;
+  stage: 0 | 1 | 2;
+  setStage: (stage: 0 | 1 | 2) => void;
 };
+
+const stageHeights = [160, window.innerHeight * 0.5, window.innerHeight * 0.9];
 
 const tg = window.Telegram.WebApp;
 
-const BottomSlide = ({ className, children, setStage }: BottomSlideProps) => {
-  const minimalHeight = 160;
-  const maximumHeight = window.innerHeight * 0.9;
-  const [height, setHeight] = useState<number>(window.innerHeight / 2);
+const BottomSlide = ({
+  className,
+  children,
+  setStage,
+  stage,
+}: BottomSlideProps) => {
+  const [height, setHeight] = useState<number>(stageHeights[stage]);
   const [active, setActive] = useState(false);
   const [startHeight, setStartHeight] = useState(0);
   const [startCoords, setStartCoords] = useState(0);
@@ -21,26 +27,24 @@ const BottomSlide = ({ className, children, setStage }: BottomSlideProps) => {
     setActive(true);
   };
 
+  useEffect(() => {
+    setHeight(stageHeights[stage]);
+  }, [stage]);
+
   const handleTouchEnd = () => {
     setStartCoords(0);
     setActive(false);
     const scrollPercent = (height / window.innerHeight) * 100;
+    let newStage: 0 | 1 | 2 = 0;
     if (scrollPercent >= 30 && scrollPercent < 70) {
-      setHeight(window.innerHeight / 2);
-      if (setStage) {
-        setStage(1);
-      }
+      newStage = 1;
     } else if (scrollPercent >= 60) {
-      setHeight(maximumHeight);
-      if (setStage) {
-        setStage(2);
-      }
+      newStage = 2;
     } else {
-      setHeight(minimalHeight);
-      if (setStage) {
-        setStage(0);
-      }
+      newStage = 0;
     }
+    // setHeight(stageHeights[stage]);
+    setStage(newStage);
   };
 
   useEffect(() => {
@@ -50,7 +54,9 @@ const BottomSlide = ({ className, children, setStage }: BottomSlideProps) => {
       if (!tg.isExpanded) tg.expand;
       const deltaY = event.touches[0].clientY - startCoords;
       const newHeight = startHeight - deltaY;
-      setHeight(Math.min(Math.max(newHeight, minimalHeight), maximumHeight));
+      setHeight(
+        Math.min(Math.max(newHeight, stageHeights[0]), stageHeights[2]),
+      );
     };
 
     window.addEventListener("touchmove", handleTouchMove, { passive: false });
@@ -68,7 +74,6 @@ const BottomSlide = ({ className, children, setStage }: BottomSlideProps) => {
       )}
       style={{ height: `${height}px` }}
       onTouchStart={handleTouchStart}
-      // onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
       {children}
