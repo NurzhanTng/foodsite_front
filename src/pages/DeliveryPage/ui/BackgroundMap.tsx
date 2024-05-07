@@ -2,7 +2,6 @@ import { Map, Placemark, Polygon, YMaps } from "@pbe/react-yandex-maps";
 import fetchAddressByCoordinates from "../fetch/fetchAddressByCoordinates.ts";
 import { CompanyState } from "../../../store/slices/companySlice.ts";
 import { OrderState } from "../../../store/slices/orderSlice.ts";
-import { useEffect } from "react";
 
 type BackgroundMapProps = {
   isDelivery: boolean;
@@ -25,10 +24,6 @@ const BackgroundMap = ({
     setErrorText("");
   };
 
-  useEffect(() => {
-    console.log("placemark", [orderState.address.lat, orderState.address.long]);
-  }, [companyState]);
-
   return (
     <YMaps>
       <Map
@@ -44,7 +39,7 @@ const BackgroundMap = ({
                 options={{
                   iconColor:
                     orderState.company_id === companySpot.id
-                      ? "#5288C1"
+                      ? "#0000FF"
                       : "#6A7D91",
                 }}
                 key={index}
@@ -56,7 +51,7 @@ const BackgroundMap = ({
         {isDelivery && (
           <Placemark
             options={{
-              iconColor: "#5288C1",
+              iconColor: "#0000FF",
             }}
             geometry={
               orderState.address.long < orderState.address.lat
@@ -67,12 +62,11 @@ const BackgroundMap = ({
         )}
 
         <Polygon
-          geometry={companyState.companies[0].delivery_layers.map((layer) => {
-            console.log("Points:", layer.points);
-            return layer.points;
-          })}
+          geometry={companyState.companies[0].delivery_layers.map(
+            (layer) => layer.points,
+          )}
           options={{
-            fillColor: "#00FF00",
+            fillColor: "#4A7AAE",
             strokeColor: "#0000FF",
             opacity: 0.5,
             strokeWidth: 5,
