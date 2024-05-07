@@ -262,7 +262,7 @@ const useCart = () => {
       bonus_used: order.bonus_used,
       user_name: order.user_name,
       address: order.address,
-      company_id: 1,
+      company_id: 2,
       exact_address: order.exactAddress,
       phone: order.phone,
       kaspi_phone: order.kaspi_phone,
