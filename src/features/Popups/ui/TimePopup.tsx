@@ -20,6 +20,8 @@ const TimePopup = ({ show, toggleShow }: TimePopupProps) => {
   const oldTime = useAppSelector((state) => state.order.done_time);
   const dispatch = useAppDispatch();
   const [isFastest, setIsFastest] = useState(oldTime === "00:00");
+  // const [hour, setHour] = useState(new Date().getHours());
+  // const [minute, setMinute] = useState(new Date().getMinutes());
   const [value, setValue] = useState<Dayjs | null>(() => {
     const currentDate = new Date();
     currentDate.setMinutes(currentDate.getMinutes() + (isDelivery ? 40 : 20));

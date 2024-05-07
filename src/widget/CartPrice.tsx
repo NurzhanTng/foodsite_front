@@ -15,13 +15,13 @@ const CartPrice = ({ className = "" }: CartPriceProps) => {
   const orderState = useAppSelector((state) => state.order);
 
   const cartPrice = sumCurrency(state.cart);
-  const bonusAmount = - Math.min(cartPrice, orderState.max_bonus);
+  const bonusAmount = -Math.min(cartPrice, orderState.max_bonus);
 
   // const [cartPrice, setCartPrice] = useState(sumCurrency(state.cart));
   // const [bonusAmount, setBonusAmount] = useState(Math.min(cartPrice, orderState.max_bonus));
 
   return (
-    <div className={twMerge("", className)}>
+    <div className={twMerge("mb-[40px]", className)}>
       <h3 className="mb-[10px] text-base font-medium text-textSecondary">
         Сумма заказа
       </h3>
