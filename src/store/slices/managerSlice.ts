@@ -50,7 +50,8 @@ export type OrderStatuses =
   | "active"
   | "done"
   | "on_delivery"
-  | "inactive";
+  | "inactive"
+  | "rejected";
 
 export type Orders = {
   id: number;
@@ -115,6 +116,7 @@ const initialState: ManagerState = {
     done: false,
     on_delivery: false,
     inactive: false,
+    rejected: false,
   },
   deliveries: [],
   notifications: [],

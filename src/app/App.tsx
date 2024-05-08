@@ -83,6 +83,10 @@ const router = createBrowserRouter([
     element: <OfferPage />,
   },
   {
+    path: "/delivery_order/:order_id",
+    element: <div>Ваш заказ</div>,
+  },
+  {
     path: "*",
     element: <Navigate to={"/menu"} replace={true} />,
   },

@@ -27,9 +27,15 @@ const CartAddressAndTime = ({
         leftIcon="delivery"
         borderBottom={true}
         name={
-          orderState.address.parsed ? orderState.address.parsed : "Ваш адрес"
+          orderState.isDelivery
+            ? orderState.address.parsed
+              ? orderState.address.parsed
+              : "Ваш адрес"
+            : "С собой"
         }
-        description={orderState.address.parsed ? "Ваш адрес" : ""}
+        description={
+          orderState.address.parsed && orderState.isDelivery ? "Ваш адрес" : ""
+        }
         onClick={() => navigate("/delivery")}
       >
         <Icon className="my-auto h-5 w-5" type="arrowRight" />

@@ -22,6 +22,7 @@ const statusesText = {
   done: "Приготовленный заказ",
   on_delivery: "Переданный доставщику",
   inactive: "Завершенный заказы",
+  rejected: ""
 };
 
 const statusesTitles: { [key in OrderStatuses]: string } = {
@@ -31,6 +32,7 @@ const statusesTitles: { [key in OrderStatuses]: string } = {
   done: "Приготовленные заказы",
   on_delivery: "Переданные доставщику",
   inactive: "Завершенные заказы",
+  rejected: ""
 };
 
 const useManager = () => {

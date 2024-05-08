@@ -90,37 +90,41 @@ const SlideMenu = ({
                     {address.address}
                   </div>
                 ))}
+
+                {fetchResult.length === 0 && <p>Адрес не найден</p>}
               </div>
             </>
           )}
 
-          {isSearchActive && fetchResult === null && (
-            <>
-              <h3 className="text-base font-medium text-textSecondary">
-                Старые адреса
-              </h3>
-              <div className="flex flex-col gap-4 rounded-xl bg-bgColor2 px-5 py-4 shadow-option">
-                {oldAddresses?.map((address, index) => (
-                  <div
-                    className="relative"
-                    key={index}
-                    onClick={() => updateAddress(address)}
-                  >
-                    <Icon
-                      className="absolute left-[-2px] w-[24px] text-fontSecondary"
-                      type={"clock"}
-                    />
-                    <p
-                      className={`${index !== oldAddresses.length - 1 ? "border-b pb-3" : ""} border-fontSecondary2 pl-8 text-fontSecondary`}
+          {isSearchActive &&
+            fetchResult === null &&
+            oldAddresses?.length !== 0 && (
+              <>
+                <h3 className="text-base font-medium text-textSecondary">
+                  Старые адреса
+                </h3>
+                <div className="flex flex-col gap-4 rounded-xl bg-bgColor2 px-5 py-4 shadow-option">
+                  {oldAddresses?.map((address, index) => (
+                    <div
+                      className="relative"
+                      key={index}
                       onClick={() => updateAddress(address)}
                     >
-                      {address.parsed}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
+                      <Icon
+                        className="absolute left-[-2px] w-[24px] text-fontSecondary"
+                        type={"clock"}
+                      />
+                      <p
+                        className={`${index !== oldAddresses.length - 1 ? "border-b pb-3" : ""} border-fontSecondary2 pl-8 text-fontSecondary`}
+                        onClick={() => updateAddress(address)}
+                      >
+                        {address.parsed}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
 
           {/*<ul>*/}
           {/*  <h3 className="mb-4 text-base font-medium text-textSecondary">*/}

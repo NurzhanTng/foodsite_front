@@ -1,13 +1,19 @@
 import { useState } from "react";
-import { useAppSelector } from "../../../store/hooks.ts";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
 import { useNavigate } from "react-router-dom";
+import { setIsDelivery as setDelivery } from "../../../store/slices/orderSlice.ts";
 
 const useMainHook = () => {
   const [errorText, setErrorText] = useState("");
-  const [isDelivery, setIsDelivery] = useState(true);
+  const isDelivery = useAppSelector((state) => state.order.isDelivery);
   const companyState = useAppSelector((state) => state.companies);
   const orderState = useAppSelector((state) => state.order);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const setIsDelivery = (isDelivery: boolean) => {
+    dispatch(setDelivery(isDelivery));
+  };
 
   const onClose = () => navigate("/cart");
 
