@@ -6,13 +6,15 @@ import { useNavigate } from "react-router-dom";
 type ManagerHeaderProps = {
   leftIcon?: iconTypes;
   leftIconShow?: boolean;
+  rightButtonShow?: boolean;
   iconOnClick?: () => void;
 };
 
 const ManagerHeader = ({
   leftIcon = "arrowLeft",
   leftIconShow = false,
-  iconOnClick
+  rightButtonShow = true,
+  iconOnClick,
 }: ManagerHeaderProps) => {
   const navigate = useNavigate();
 
@@ -21,11 +23,11 @@ const ManagerHeader = ({
       {leftIconShow && (
         <Button
           showIcon={true}
-          showText ={false}
+          showText={false}
           iconType={leftIcon}
           styleType="secondary"
           onClick={iconOnClick}
-          className="absolute left-5 top-[17px] p-2 rounded-full"
+          className="absolute left-5 top-[17px] rounded-full p-2"
           iconClassName="h-5 w-5"
         />
       )}
@@ -34,15 +36,17 @@ const ManagerHeader = ({
         Заказы
       </p>
 
-      <Button
-        showIcon={true}
-        showText ={false}
-        iconType="magnifier"
-        styleType="secondary"
-        onClick={() => navigate("/orders/search")}
-        className="absolute right-5 top-[15px] p-2 rounded-full"
-        iconClassName="h-6 w-6"
-      />
+      {rightButtonShow && (
+        <Button
+          showIcon={true}
+          showText={false}
+          iconType="magnifier"
+          styleType="secondary"
+          onClick={() => navigate("/orders/search")}
+          className="absolute right-5 top-[15px] rounded-full p-2"
+          iconClassName="h-6 w-6"
+        />
+      )}
     </Header>
   );
 };

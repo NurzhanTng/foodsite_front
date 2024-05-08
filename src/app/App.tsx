@@ -20,6 +20,7 @@ import ClientOrderPage from "../pages/ClientOrderPage";
 import PrivacyPolicy from "../pages/PrivacyPolicy/ui/PrivacyPolicy.tsx";
 import OfferPage from "../pages/OfferPage/ui/OfferPage.tsx";
 import AppThemeProvider from "./context/ThemeProvider.tsx";
+import DeliveryOrderPage from "../pages/DeliveryOrderPage/ui/DeliveryOrderPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -84,7 +85,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/delivery_order/:order_id",
-    element: <div>Ваш заказ</div>,
+    element: <DeliveryOrderPage />,
   },
   {
     path: "*",
