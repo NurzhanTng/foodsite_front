@@ -17,7 +17,9 @@ const useScroll = (offset: number = 0) => {
       const yOffset =
         ref.current.getBoundingClientRect().top -
         window.scrollY +
-        window.innerHeight / 2 -
+        (window.visualViewport
+          ? window.visualViewport.height / 2
+          : window.innerHeight / 2) -
         new_offset;
       setTimeout(
         () => window.scrollTo({ top: yOffset, behavior: "smooth" }),
