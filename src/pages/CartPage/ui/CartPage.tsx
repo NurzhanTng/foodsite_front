@@ -23,6 +23,7 @@ const CartPage = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    alert(window.screen.height);
     dispatch(
       setErrors({
         cart: false,

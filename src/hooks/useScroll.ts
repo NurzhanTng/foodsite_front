@@ -4,6 +4,8 @@ const useScroll = (offset: number = 0) => {
   const ref = useRef<HTMLInputElement>(null);
 
   const scrollToElement = useCallback((new_offset?: number) => {
+    alert(window.screen.height);
+    setTimeout(() => alert(window.screen.height), 2000);
     new_offset = new_offset === undefined ? offset : new_offset;
     if (ref.current) {
       const yOffset =
