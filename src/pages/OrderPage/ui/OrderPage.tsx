@@ -122,28 +122,24 @@ const OrderPage = () => {
               }
             />
             <OrderOneLine title="Номер клиента" description={order.phone} />
-            {order.is_delivery && (
+            <OrderOneLine
+              title="Доставка"
+              description={
+                order?.is_delivery
+                  ? `${order?.address?.parsed} ${order?.exact_address}`
+                  : "Самовывоз"
+              }
+            />
+            {order?.is_delivery && (
               <OrderOneLine
-                title="Доставка"
-                description={`${order.address?.parsed} ${order.exact_address}`}
+                title="Доставщик"
+                description={
+                  deliveries.find(
+                    (user) => user.telegram_id === order.delivery_id,
+                  )?.telegram_fullname
+                }
               />
             )}
-            <OrderOneLine
-              title="Адрес"
-              description={
-                (order.address?.parsed === undefined
-                  ? `${order.address?.lat} ${order.address?.long}`
-                  : order.address?.parsed) + ""
-              }
-            />
-            <OrderOneLine
-              title="Доставщик"
-              description={
-                deliveries.find(
-                  (user) => user.telegram_id === order.delivery_id,
-                )?.telegram_fullname
-              }
-            />
             <OrderOneLine
               title="Комментарий"
               description={
@@ -257,24 +253,26 @@ const OrderPage = () => {
           />
         )}
 
-        {order.address?.lat && order.status !== "inactive" && (
-          <Button
-            className="mt-5 w-full"
-            styleType="outline"
-            text={
-              order.delivery_id === null
-                ? "Назначить доставщика"
-                : `Изменить доставщика (${
-                    deliveries.find(
-                      (user) => user.telegram_id === order.delivery_id,
-                    )?.telegram_fullname
-                  })`
-            }
-            onClick={() => setShowPopup(true)}
-          />
-        )}
+        {order.is_delivery &&
+          order.address?.lat &&
+          ["active", "done"].includes(order?.status) && (
+            <Button
+              className="mt-5 w-full"
+              styleType="outline"
+              text={
+                order.delivery_id === null
+                  ? "Назначить доставщика"
+                  : `Изменить доставщика (${
+                      deliveries.find(
+                        (user) => user.telegram_id === order.delivery_id,
+                      )?.telegram_fullname
+                    })`
+              }
+              onClick={() => setShowPopup(true)}
+            />
+          )}
 
-        {order?.status !== "inactive" && (
+        {!["on_delivery", "inactive"].includes(order.status) && (
           <Button
             className="mb-[30px] mt-5 w-full"
             styleType="outline"

@@ -83,19 +83,9 @@ const DeliveryOrderPage = () => {
             }
           />
           <OrderOneLine title="Номер клиента" description={order.phone} />
-          {order.is_delivery && (
-            <OrderOneLine
-              title="Доставка"
-              description={`${order.address?.parsed} ${order.exact_address}`}
-            />
-          )}
           <OrderOneLine
             title="Адрес"
-            description={
-              (order.address?.parsed === undefined
-                ? `${order.address?.lat} ${order.address?.long}`
-                : order.address?.parsed) + ""
-            }
+            description={`${order.address?.parsed} ${order.exact_address}`}
           />
           <OrderOneLine
             title="Доставщик"

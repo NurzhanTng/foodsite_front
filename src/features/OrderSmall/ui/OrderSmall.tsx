@@ -117,21 +117,13 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
             description={order?.kaspi_phone}
           />
 
-          {order?.is_delivery && (
-            <OrderOneLine
-              className="w-[calc(100vw-80px)] gap-0"
-              title="Доставка"
-              description={`${order?.address?.parsed} ${order?.exact_address}`}
-            />
-          )}
-
           <OrderOneLine
             className="w-[calc(100vw-80px)] gap-0"
-            title="Адрес"
+            title="Доставка"
             description={
-              order?.address?.parsed === undefined
-                ? `${order?.address?.lat} ${order?.address?.long}`
-                : order?.address?.parsed
+              order?.is_delivery
+                ? `${order?.address?.parsed} ${order?.exact_address}`
+                : "Самовывоз"
             }
           />
         </div>
@@ -148,23 +140,26 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
           onClick={onNotificationClick}
         />
       )}
-      {order.address?.lat && order?.status !== "inactive" && open && (
-        <Button
-          className="mt-5 w-full"
-          styleType="outline"
-          text={
-            order.delivery_id === null
-              ? "Назначить доставщика"
-              : `Изменить доставщика (${
-                  deliveries.find(
-                    (user) => user.telegram_id === order.delivery_id,
-                  )?.telegram_fullname
-                })`
-          }
-          onClick={() => setShowDeliveryPopup(true)}
-        />
-      )}
-      {order.status !== "inactive" && open && (
+      {order.is_delivery &&
+        order.address?.lat &&
+        ["active", "done"].includes(order?.status) &&
+        open && (
+          <Button
+            className="mt-5 w-full"
+            styleType="outline"
+            text={
+              order.delivery_id === null
+                ? "Назначить доставщика"
+                : `Изменить доставщика (${
+                    deliveries.find(
+                      (user) => user.telegram_id === order.delivery_id,
+                    )?.telegram_fullname
+                  })`
+            }
+            onClick={() => setShowDeliveryPopup(true)}
+          />
+        )}
+      {!["on_delivery", "inactive"].includes(order.status) && open && (
         <Button
           className="mt-5 w-full"
           styleType="outline"

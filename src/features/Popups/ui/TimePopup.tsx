@@ -1,12 +1,10 @@
 import Popup from "../../../shared/Popup.tsx";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Icon from "../../../shared/Icon";
-import { setDoneTime } from "../../../store/slices/orderSlice.ts";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
 import Button from "../../../shared/Button.tsx";
-import { TimePicker } from "@mui/x-date-pickers";
-import { Dayjs } from "dayjs";
-import dayjs from "dayjs";
+import TimePicker from "../../../shared/TimePicker";
+import { setDoneTime } from "../../../store/slices/orderSlice.ts";
 
 type TimePopupProps = React.HTMLProps<HTMLDivElement> & {
   show: boolean;
@@ -20,50 +18,49 @@ const TimePopup = ({ show, toggleShow }: TimePopupProps) => {
   const oldTime = useAppSelector((state) => state.order.done_time);
   const dispatch = useAppDispatch();
   const [isFastest, setIsFastest] = useState(oldTime === "00:00");
-  // const [hour, setHour] = useState(new Date().getHours());
-  // const [minute, setMinute] = useState(new Date().getMinutes());
-  const [value, setValue] = useState<Dayjs | null>(() => {
-    const currentDate = new Date();
-    currentDate.setMinutes(currentDate.getMinutes() + (isDelivery ? 40 : 20));
-    return dayjs()
-      .set("hour", currentDate.getHours())
-      .set("minute", currentDate.getMinutes());
-  });
   const [isValid, setIsValid] = useState(true);
   const [errorText, setErrorText] = useState("");
 
-  const timeToString = (value: Dayjs) => {
-    return `${value.get("hour")}:${value.get("minute")}`;
+  const [hour, setHour] = useState<number>();
+  const [minute, setMinute] = useState<number>();
+
+  useEffect(() => {
+    const currentDate = new Date();
+    currentDate.setMinutes(currentDate.getMinutes() + (isDelivery ? 40 : 20));
+    setHour(currentDate.getHours());
+    setMinute(currentDate.getMinutes());
+  }, []);
+
+  const onTimeChange = (
+    hour: number | undefined,
+    minute: number | undefined,
+  ) => {
+    setHour(hour);
+    setMinute(minute);
   };
 
-  function isTimeInRange(time: Dayjs): boolean {
-    console.log(time);
+  function isTimeInRange(hour: number, minute: number): boolean {
     // Get current time
     const now = new Date();
     const currentHours = now.getHours();
     const currentMinutes = now.getMinutes();
 
-    // Parse given time string
-    const givenHours = time.get("hour");
-    const givenMinutes = time.get("minute");
-
-    // Calculate time difference in minutes
     const timeDifference =
-      (givenHours - currentHours) * 60 + (givenMinutes - currentMinutes);
+      (hour - currentHours) * 60 + (minute - currentMinutes);
 
     if (timeDifference < 20 && isDelivery) {
       setErrorText("Время ожидания заказа не менее 20 минут");
     } else if (timeDifference < 40) {
       setErrorText("Время ожидания заказа не менее 40 минут");
-    } else if (givenHours < 22) {
+    } else if (hour < 22) {
       setErrorText("Нельзя заказывать после 22");
     } else {
       setErrorText("");
     }
 
     // Check if time difference is greater than 20 minutes and less than 22:00
-    setIsValid(timeDifference > 20 && givenHours < 22);
-    return timeDifference > 20 && givenHours < 22;
+    setIsValid(timeDifference > 20 && hour < 22);
+    return timeDifference > 20 && hour < 22;
   }
 
   return (
@@ -98,54 +95,8 @@ const TimePopup = ({ show, toggleShow }: TimePopupProps) => {
 
       {!isFastest && (
         <>
-          <TimePicker
-            ampm={false}
-            label="Controlled picker"
-            value={value}
-            onChange={(newValue) => setValue(newValue)}
-            sx={{
-              width: "100%",
-              maxWidth: "400px",
-              backgroundColor: "#17212B",
-              borderRadius: "10px",
-              boxShadow: "md",
-              color: "white",
-              "& input": {
-                borderColor: "white",
-                borderRadius: "30px",
-                padding: "10px 20px",
-                fontSize: "16px",
-                color: "white",
-                height: "fit-content",
-              },
-              "& label": {
-                borderColor: "white",
-                color: "#6A7D91",
-                lineHeight: 1,
-                marginTop: "-2px",
-              },
-              "& .MuiOutlinedInput-root": {
-                backgroundColor: "#17212B",
-                borderRadius: "10px",
-                "& fieldset": {
-                  borderRadius: "10px",
-                  borderColor: "#232E39",
-                  borderWidth: 2,
-                },
-                "&:hover fieldset": {
-                  borderRadius: "10px",
-                  borderColor: "#5288C1",
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "#5288C1",
-                  borderRadius: "10px",
-                },
-              },
-              "&.Mui-focused label": {
-                marginTop: "20px",
-              },
-            }}
-          />
+          <TimePicker hour={hour} minute={minute} onChange={onTimeChange} />
+
           {!isValid && (
             <p className="mb-[30px] mt-[10px] text-center font-medium text-fontSecondary">
               {errorText}
@@ -154,16 +105,22 @@ const TimePopup = ({ show, toggleShow }: TimePopupProps) => {
         </>
       )}
 
-      <div className="mt-[10px] flex flex-col gap-[10px]">
+      <div className="mt-[20px] flex flex-col gap-[10px]">
         <Button
           text="Сохранить"
           onClick={() => {
-            if (value === null) {
+            if (hour === undefined || minute === undefined) {
               setErrorText("Укажите время перед сохранением");
               setIsValid(false);
-            } else if (isTimeInRange(value) || isFastest) {
+            } else if (isTimeInRange(hour, minute) || isFastest) {
               toggleShow();
-              dispatch(setDoneTime(isFastest ? "00:00" : timeToString(value)));
+              dispatch(
+                setDoneTime(
+                  isFastest
+                    ? "00:00"
+                    : `${hour < 10 ? "0" + hour : hour}:${minute < 10 ? "0" + minute : minute}`,
+                ),
+              );
             } else {
               setErrorText("В выбранное время мы не принимаем заказы");
               setIsValid(false);

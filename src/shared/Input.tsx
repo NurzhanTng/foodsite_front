@@ -19,6 +19,8 @@ const Input = forwardRef(
       multiline = false,
       id,
       onClick,
+      onFocus,
+      onBlur,
     }: InputProps,
     ref: ForwardedRef<HTMLInputElement> | undefined,
   ) => {
@@ -30,6 +32,8 @@ const Input = forwardRef(
           value={value}
           onClick={onClick}
           onChange={onChange}
+          onFocus={onFocus}
+          onBlur={onBlur}
           label={label}
           variant="outlined"
           sx={{
