@@ -23,9 +23,9 @@ const CartPage = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    alert("Screen height: " + window.screen.height);
-    alert("Window height: " + window.document.documentElement.scrollHeight);
-    alert("Visual viewport height: " + window.visualViewport?.height);
+    // alert("Screen height: " + window.screen.height);
+    // alert("Window height: " + window.document.documentElement.scrollHeight);
+    // alert("Visual viewport height: " + window.visualViewport?.height);
     dispatch(
       setErrors({
         cart: false,
