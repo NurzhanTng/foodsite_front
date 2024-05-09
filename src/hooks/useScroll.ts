@@ -9,8 +9,14 @@ const useScroll = (offset: number = 0) => {
     new_offset = new_offset === undefined ? offset : new_offset;
     if (ref.current) {
       const yOffset =
-        ref.current.getBoundingClientRect().top + window.scrollY - new_offset;
-      window.scrollTo({ top: yOffset, behavior: "smooth" });
+        ref.current.getBoundingClientRect().top -
+        window.scrollY +
+        window.innerHeight / 2 -
+        new_offset;
+      setTimeout(
+        () => window.scrollTo({ top: yOffset, behavior: "smooth" }),
+        2000,
+      );
     }
   }, []);
 
