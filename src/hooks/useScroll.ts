@@ -10,29 +10,24 @@ const useScroll = (offset: number = 0) => {
   }
 
   const scrollToElement = useCallback((new_offset?: number) => {
-    // alertData();
-    // setTimeout(() => alertData(), 1000);
-    new_offset = new_offset === undefined ? offset : new_offset;
-    if (ref.current) {
-      // const yOffset =
-      //   ref.current.getBoundingClientRect().top -
-      //   window.scrollY +
-      //   (window.visualViewport
-      //     ? window.visualViewport.height / 2
-      //     : window.innerHeight / 2) -
-      //   new_offset;
-      alertData();
-      const yOffset =
-        2 * window.scrollY +
-        (window.visualViewport?.height
-          ? window.visualViewport?.height / 2
-          : 300) -
-        ref.current.getBoundingClientRect().top;
-      setTimeout(
-        () => window.scrollTo({ top: yOffset, behavior: "smooth" }),
-        2000,
-      );
+    function scroll(offset: number) {
+      if (ref.current) {
+        alertData();
+        const yOffset =
+          2 * window.scrollY +
+          (window.visualViewport?.height
+            ? window.visualViewport?.height / 2
+            : 300) -
+          ref.current.getBoundingClientRect().top -
+          offset;
+        window.scrollTo({ top: yOffset, behavior: "smooth" });
+      }
     }
+
+    setTimeout(
+      () => scroll(new_offset === undefined ? offset : new_offset),
+      1000,
+    );
   }, []);
 
   return { ref, scrollToElement };
