@@ -11,7 +11,7 @@ const useScroll = (offset: number = 0) => {
 
   const scrollToElement = useCallback((new_offset?: number) => {
     alertData();
-    setTimeout(() => alertData(), 2000);
+    setTimeout(() => alertData(), 1000);
     new_offset = new_offset === undefined ? offset : new_offset;
     // if (ref.current) {
     //   const yOffset =
