@@ -24,6 +24,7 @@ const useScroll = (offset: number = 0) => {
         alertData(ref.current.getBoundingClientRect().top);
         const yOffset =
           2 * window.scrollY +
+          window.innerHeight -
           (window.visualViewport?.height
             ? window.visualViewport?.height / 2
             : 300) -
