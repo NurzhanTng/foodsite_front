@@ -30,7 +30,7 @@ const useScroll = (offset: number = 0) => {
         ref.current.getBoundingClientRect().top;
       setTimeout(
         () => window.scrollTo({ top: yOffset, behavior: "smooth" }),
-        1000,
+        2000,
       );
     }
   }, []);
