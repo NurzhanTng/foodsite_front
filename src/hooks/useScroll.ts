@@ -14,13 +14,19 @@ const useScroll = (offset: number = 0) => {
     // setTimeout(() => alertData(), 1000);
     new_offset = new_offset === undefined ? offset : new_offset;
     if (ref.current) {
+      // const yOffset =
+      //   ref.current.getBoundingClientRect().top -
+      //   window.scrollY +
+      //   (window.visualViewport
+      //     ? window.visualViewport.height / 2
+      //     : window.innerHeight / 2) -
+      //   new_offset;
       const yOffset =
-        ref.current.getBoundingClientRect().top -
-        window.scrollY +
+        2 * window.scrollY +
         (window.visualViewport
           ? window.visualViewport.height / 2
           : window.innerHeight / 2) -
-        new_offset;
+        ref.current.getBoundingClientRect().top;
       setTimeout(
         () => window.scrollTo({ top: yOffset, behavior: "smooth" }),
         1000,
