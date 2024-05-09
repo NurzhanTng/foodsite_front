@@ -3,19 +3,15 @@ import { useCallback, useRef } from "react";
 const useScroll = (offset: number = 0) => {
   const ref = useRef<HTMLInputElement>(null);
 
-  const scrollToElement = useCallback((new_offset?: number) => {
+  function alertData() {
     alert("Screen height: " + window.screen.height);
     alert("Window height: " + window.document.documentElement.scrollHeight);
     alert("Visual viewport height: " + window.visualViewport?.height);
-    setTimeout(() => alert("Screen height: " + window.screen.height), 2000);
-    setTimeout(
-      () =>
-        alert("Window height: " + window.document.documentElement.scrollHeight),
-      2000,
-    );
-    setTimeout(() =>
-      alert("Visual viewport height: " + window.visualViewport?.height),
-    );
+  }
+
+  const scrollToElement = useCallback((new_offset?: number) => {
+    alertData();
+    setTimeout(() => alertData(), 2000);
     new_offset = new_offset === undefined ? offset : new_offset;
     // if (ref.current) {
     //   const yOffset =
