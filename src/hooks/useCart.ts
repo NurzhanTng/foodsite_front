@@ -79,6 +79,10 @@ const useCart = () => {
       return;
     }
 
+    console.log(
+      `POST request ${import.meta.env.VITE_REACT_APP_API_BASE_URL}food/orders/`,
+    );
+    console.log(JSON.parse(cartToJson()));
     fetch(import.meta.env.VITE_REACT_APP_API_BASE_URL + `food/orders/`, {
       method: "POST",
       headers: {
@@ -266,7 +270,7 @@ const useCart = () => {
       exact_address: order.exactAddress,
       phone: order.phone,
       kaspi_phone: order.kaspi_phone,
-      isDelivery: order.isDelivery,
+      is_delivery: order.isDelivery,
       client_comment: order.client_comment,
       bonus_amount: Math.min(sumCurrency(state.cart), order.max_bonus),
       delivery_amount: 0,

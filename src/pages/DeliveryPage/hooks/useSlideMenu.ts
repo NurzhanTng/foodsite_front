@@ -13,6 +13,7 @@ import {
 import checkIsInPolygon from "../../../utils/checkIsInPolygon.ts";
 import { CompanyState } from "../../../store/slices/companySlice.ts";
 import { useAppSelector } from "../../../store/hooks.ts";
+import useScroll from "../../../hooks/useScroll.ts";
 
 type useSlideMenuProps = {
   setErrorText: (text: string) => void;
@@ -42,6 +43,7 @@ const useSlideMenu = ({
   const [fetchResult, setFetchResult] = useState<Address[] | null>(null);
   const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null);
   const [oldAddresses, setOldAddresses] = useState<OrderAddress[] | null>(null);
+  const { ref, scrollToElement } = useScroll();
 
   useEffect(() => {
     fetch(
@@ -143,9 +145,11 @@ const useSlideMenu = ({
   const handleSearchAddress = () => {
     setStage(2);
     setIsSearchActive(true);
+    scrollToElement();
   };
 
   return {
+    ref,
     stage,
     setStage,
     isSearchActive,

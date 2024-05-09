@@ -26,6 +26,7 @@ const SlideMenu = ({
   orderState,
 }: SlideMenuProps) => {
   const {
+    ref,
     stage,
     setStage,
     isSearchActive,
@@ -68,6 +69,7 @@ const SlideMenu = ({
       {stage !== 0 && isDelivery && (
         <div className="mt-[20px] flex flex-col gap-5">
           <Input
+            ref={ref}
             onClick={handleSearchAddress}
             onChange={handleAddressChange}
             value={address}

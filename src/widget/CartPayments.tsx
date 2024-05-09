@@ -5,6 +5,7 @@ import formatPhoneNumber from "../utils/formatPhoneNumber.ts";
 import { twMerge } from "tailwind-merge";
 import { setErrors } from "../store/slices/mainSlice.ts";
 import kaspi from "../data/img/kaspi.svg";
+import useScroll from "../hooks/useScroll.ts";
 
 type CartPaymentsProps = {
   className?: string;
@@ -14,6 +15,7 @@ const CartPayments = ({ className = "" }: CartPaymentsProps) => {
   const orderState = useAppSelector((state) => state.order);
   const dispatch = useAppDispatch();
   const errors = useAppSelector((state) => state.main.errors);
+  const { ref, scrollToElement } = useScroll(100);
 
   return (
     <div className={twMerge("", className)}>
@@ -26,6 +28,8 @@ const CartPayments = ({ className = "" }: CartPaymentsProps) => {
 
       <Input
         id="kaspi_input"
+        ref={ref}
+        onClick={() => scrollToElement()}
         isCorrect={!errors.kaspi_phone}
         label="Введите номер каспи"
         inputMode="tel"

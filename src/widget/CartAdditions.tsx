@@ -12,6 +12,7 @@ import Icon from "../shared/Icon";
 import Switch from "../shared/Switch.tsx";
 import { setErrors } from "../store/slices/mainSlice.ts";
 import { useEffect } from "react";
+import useScroll from "../hooks/useScroll.ts";
 
 type CartAdditionsProps = {
   className?: string;
@@ -27,6 +28,8 @@ const CartAdditions = ({
   const userBonus = useAppSelector((state) => state.user.bonus);
   const dispatch = useAppDispatch();
   const errors = useAppSelector((state) => state.main.errors);
+  const nameScroll = useScroll(100);
+  const phoneScroll = useScroll(100);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -40,6 +43,8 @@ const CartAdditions = ({
 
       <Input
         id="name_input"
+        ref={nameScroll.ref}
+        onClick={() => nameScroll.scrollToElement()}
         isCorrect={!errors.name}
         aria-required={true}
         aria-valuemin={3}
@@ -55,6 +60,8 @@ const CartAdditions = ({
 
       <Input
         id="phone_input"
+        ref={phoneScroll.ref}
+        onClick={() => phoneScroll.scrollToElement()}
         isCorrect={!errors.phone}
         aria-required={true}
         aria-valuemin={10}
