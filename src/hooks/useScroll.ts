@@ -20,6 +20,7 @@ const useScroll = (offset: number = 0) => {
 
   const scrollToElement = useCallback((new_offset?: number) => {
     function scroll(offset: number) {
+      console.log(offset);
       if (ref.current) {
         alertData(ref.current.getBoundingClientRect().top);
         const yOffset =
@@ -28,9 +29,9 @@ const useScroll = (offset: number = 0) => {
           (window.visualViewport?.height
             ? window.visualViewport?.height / 2
             : 300) -
-          ref.current.getBoundingClientRect().top -
-          offset;
-        window.scrollTo({ top: -1 * yOffset, behavior: "smooth" });
+          ref.current.getBoundingClientRect().top;
+        // offset;
+        window.scrollTo({ top: yOffset, behavior: "smooth" });
       }
     }
 
