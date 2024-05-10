@@ -63,6 +63,7 @@ export type Orders = {
   delivery_name: string;
   products: Array<OrderProducts>; // change
   status: OrderStatuses;
+  rejected_text: string;
   bonus_used: boolean;
   done_time: string; // new
   user_name: string;

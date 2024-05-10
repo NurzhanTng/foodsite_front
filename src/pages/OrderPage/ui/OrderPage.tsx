@@ -12,6 +12,7 @@ import { NotificationTimePopup } from "../../../features/Popups";
 import { useTimer } from "../../../app/context/TimerContext.tsx";
 import timestampToTime from "../../../utils/timestampToTime.ts";
 import Notifications from "../../../widget/Notifications";
+import RejectedTextPopup from "../../../features/Popups/ui/RejectedTextPopup.tsx";
 
 const OrderPage = () => {
   const timers = useAppSelector((state) => state.timer.timers);
@@ -26,6 +27,14 @@ const OrderPage = () => {
   const { getProductById } = useCart();
   const [showPopup, setShowPopup] = useState(false);
   const [showNotificationPopup, setShowNotificationPopup] = useState(false);
+
+  const [showRejectedPopup, setShowRejectedPopup] = useState<{
+    isShow: boolean;
+    order_id: number | null;
+  }>({
+    isShow: false,
+    order_id: null,
+  });
 
   console.log(JSON.stringify(order));
 
@@ -63,6 +72,21 @@ const OrderPage = () => {
           order_id={order.id}
           show={showNotificationPopup}
           toggleShow={() => setShowNotificationPopup(!showNotificationPopup)}
+        />
+      )}
+
+      {showRejectedPopup.isShow && (
+        <RejectedTextPopup
+          order_id={showRejectedPopup.order_id}
+          show={showRejectedPopup.isShow}
+          toggleShow={() =>
+            setShowRejectedPopup((value) => {
+              return {
+                isShow: !value.isShow,
+                order_id: value.order_id,
+              };
+            })
+          }
         />
       )}
       <Notifications />
@@ -250,6 +274,28 @@ const OrderPage = () => {
                 : `Удалить напоминание в ${timestampToTime(isNotificationExist.endTimestamp)}`
             }
             onClick={onNotificationClick}
+          />
+        )}
+
+        {order.status !== "inactive" && (
+          <Button
+            className="mt-5 w-full"
+            styleType="outline"
+            text={
+              order.rejected_text === null
+                ? "Указать проблему"
+                : `Отклонить заказ: ${order.rejected_text}`
+            }
+            onClick={() => {
+              if (
+                typeof order.rejected_text === "string" &&
+                order.rejected_text !== ""
+              ) {
+                handleStatusChange(order, "rejected");
+              } else {
+                setShowRejectedPopup({ isShow: true, order_id: order.id });
+              }
+            }}
           />
         )}
 

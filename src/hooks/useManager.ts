@@ -22,7 +22,7 @@ const statusesText = {
   done: "Приготовленный заказ",
   on_delivery: "Переданный доставщику",
   inactive: "Завершенный заказы",
-  rejected: ""
+  rejected: "",
 };
 
 const statusesTitles: { [key in OrderStatuses]: string } = {
@@ -32,7 +32,7 @@ const statusesTitles: { [key in OrderStatuses]: string } = {
   done: "Приготовленные заказы",
   on_delivery: "Переданные доставщику",
   inactive: "Завершенные заказы",
-  rejected: ""
+  rejected: "",
 };
 
 const useManager = () => {
@@ -40,12 +40,20 @@ const useManager = () => {
   const navigate = useNavigate();
   const managerState = useAppSelector((state) => state.manager);
 
-  const handleStatusChange = async (targetOrder: Orders) => {
+  const handleStatusChange = async (
+    targetOrder: Orders,
+    changeStatus: OrderStatuses | undefined = undefined,
+  ) => {
     navigate("/orders");
     const newOrders = managerState.orders.map((order) => {
       if (order.id !== targetOrder.id) return order;
       const index = statuses.indexOf(order.status);
-      const newStatus = statuses.at(index + 1);
+      let newStatus;
+      if (order.status === "done" && !order.is_delivery) {
+        newStatus = statuses.at(index + 2);
+      } else {
+        newStatus = statuses.at(index + 1);
+      }
 
       if (newStatus === undefined) return order;
       const newOrder = { ...order, status: newStatus };
@@ -59,7 +67,7 @@ const useManager = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            status: statuses[index + 1],
+            status: changeStatus ? changeStatus : statuses[index + 1],
             user_name: order.user_name,
             phone: order.phone,
             client_id: order.client_id,
@@ -70,7 +78,37 @@ const useManager = () => {
     });
 
     dispatch(setOrders(newOrders));
-    navigate("/orders");
+  };
+
+  const changeRejectedText = (text: string, order_id: number) => {
+    const newOrders = managerState.orders.map((order) => {
+      if (order.id !== order_id) return order;
+      return { ...order, rejected_text: text };
+    });
+
+    const order = managerState.orders.find((order) => order.id === order_id);
+    if (order === undefined) return;
+
+    fetch(
+      import.meta.env.VITE_REACT_APP_API_BASE_URL + `food/orders/${order.id}/`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          status: order.status,
+          rejected_text: text,
+          user_name: order.user_name,
+          phone: order.phone,
+          client_id: order.client_id,
+        }),
+      },
+    )
+      .then((data) => data.json())
+      .then(console.log)
+      .then(() => dispatch(setOrders(newOrders)))
+      .catch((e) => console.log("error", e));
   };
 
   const changeDeliveryId = async (order: Orders, delivery_id: string) => {
@@ -128,6 +166,7 @@ const useManager = () => {
   return {
     handleStatusChange,
     changeDeliveryId,
+    changeRejectedText,
     statuses,
     statusesText,
     statusesTitles,

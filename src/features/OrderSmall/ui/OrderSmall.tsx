@@ -9,6 +9,7 @@ import { NotificationTimePopup } from "../../Popups";
 import { useAppSelector } from "../../../store/hooks.ts";
 import timestampToTime from "../../../utils/timestampToTime.ts";
 import { useTimer } from "../../../app/context/TimerContext.tsx";
+import RejectedTextPopup from "../../Popups/ui/RejectedTextPopup.tsx";
 
 type OrderSmallProps = {
   order: Orders;
@@ -24,6 +25,13 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
   const [open, setOpen] = useState(false);
   const [showDeliveryPopup, setShowDeliveryPopup] = useState(false);
   const [showNotificationPopup, setShowNotificationPopup] = useState(false);
+  const [showRejectedPopup, setShowRejectedPopup] = useState<{
+    isShow: boolean;
+    order_id: number | null;
+  }>({
+    isShow: false,
+    order_id: null,
+  });
 
   const isNotificationExist = useMemo(
     () => timers.find((timer) => timer.id === order.id),
@@ -47,6 +55,20 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
           order_id={order.id}
           show={showNotificationPopup}
           toggleShow={() => setShowNotificationPopup(!showNotificationPopup)}
+        />
+      )}
+      {showRejectedPopup.isShow && (
+        <RejectedTextPopup
+          order_id={showRejectedPopup.order_id}
+          show={showRejectedPopup.isShow}
+          toggleShow={() =>
+            setShowRejectedPopup((value) => {
+              return {
+                isShow: !value.isShow,
+                order_id: value.order_id,
+              };
+            })
+          }
         />
       )}
       {showDeliveryPopup && (
@@ -138,6 +160,27 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
               : `Удалить напоминание в ${timestampToTime(isNotificationExist.endTimestamp)}`
           }
           onClick={onNotificationClick}
+        />
+      )}
+      {order.status !== "inactive" && open && (
+        <Button
+          className="mt-5 w-full"
+          styleType="outline"
+          text={
+            order.rejected_text === null
+              ? "Указать проблему"
+              : `Отклонить заказ: ${order.rejected_text}`
+          }
+          onClick={() => {
+            if (
+              typeof order.rejected_text === "string" &&
+              order.rejected_text !== ""
+            ) {
+              handleStatusChange(order, "rejected");
+            } else {
+              setShowRejectedPopup({ isShow: true, order_id: order.id });
+            }
+          }}
         />
       )}
       {order.is_delivery &&
