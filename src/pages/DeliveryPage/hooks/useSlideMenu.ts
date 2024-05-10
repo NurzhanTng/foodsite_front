@@ -43,7 +43,7 @@ const useSlideMenu = ({
   const [fetchResult, setFetchResult] = useState<Address[] | null>(null);
   const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null);
   const [oldAddresses, setOldAddresses] = useState<OrderAddress[] | null>(null);
-  const { ref, scrollToElement } = useScroll();
+  const { ref, scrollToElement } = useScroll(100);
 
   useEffect(() => {
     fetch(
