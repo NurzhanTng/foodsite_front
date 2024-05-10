@@ -1,7 +1,5 @@
 import { useCallback, useRef } from "react";
 
-let it = 0;
-
 const useScroll = (offset: number = 0) => {
   const ref = useRef<HTMLInputElement>(null);
 
@@ -17,14 +15,12 @@ const useScroll = (offset: number = 0) => {
         const yOffset = input + (direction * height) / 2 + offset;
 
         window.scrollTo({ top: start + yOffset, behavior: "smooth" });
-        setTimeout(() => alert(200 + (it - 1) * 50), 500);
-        it = it + 1;
       }
     }
 
     setTimeout(
       () => scroll(new_offset === undefined ? offset : new_offset),
-      200 + it * 50,
+      420,
     );
   }, []);
 

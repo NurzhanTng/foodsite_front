@@ -52,8 +52,7 @@ const CartPage = () => {
         onClear={deleteCartProducts}
       />
       <form
-        // className="mb-[40px] mt-[90px] flex flex-col gap-12 px-5"
-        className="my-[1000px] flex flex-col gap-12 px-5"
+        className="mb-[40px] mt-[90px] flex flex-col gap-12 px-5"
         onSubmit={(e) => {
           e.preventDefault();
         }}
