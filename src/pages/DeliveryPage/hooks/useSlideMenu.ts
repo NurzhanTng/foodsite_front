@@ -147,7 +147,7 @@ const useSlideMenu = ({
     setTimeout(() => {
       setStage(1);
       setTimeout(() => setStage(2), 100);
-    }, 280);
+    }, 580);
   };
 
   return {
