@@ -50,7 +50,10 @@ const useScroll = (offset: number = 0) => {
       }
     }
 
-    setTimeout(() => scroll(new_offset === undefined ? offset : new_offset), 0);
+    setTimeout(
+      () => scroll(new_offset === undefined ? offset : new_offset),
+      1000,
+    );
   }, []);
 
   return { ref, scrollToElement };
