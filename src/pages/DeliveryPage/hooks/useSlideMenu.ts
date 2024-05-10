@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import fetchAddressesByName, {
   Address,
 } from "../fetch/fetchAddressesByName.ts";
@@ -13,7 +13,6 @@ import {
 import checkIsInPolygon from "../../../utils/checkIsInPolygon.ts";
 import { CompanyState } from "../../../store/slices/companySlice.ts";
 import { useAppSelector } from "../../../store/hooks.ts";
-import useScroll from "../../../hooks/useScroll.ts";
 
 type useSlideMenuProps = {
   setErrorText: (text: string) => void;
@@ -43,7 +42,7 @@ const useSlideMenu = ({
   const [fetchResult, setFetchResult] = useState<Address[] | null>(null);
   const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null);
   const [oldAddresses, setOldAddresses] = useState<OrderAddress[] | null>(null);
-  const { ref, scrollToElement } = useScroll(100);
+  const ref = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     fetch(
@@ -145,7 +144,10 @@ const useSlideMenu = ({
   const handleSearchAddress = () => {
     setStage(2);
     setIsSearchActive(true);
-    scrollToElement();
+    setTimeout(() => {
+      setStage(1);
+      setStage(2);
+    }, 1000);
   };
 
   return {
