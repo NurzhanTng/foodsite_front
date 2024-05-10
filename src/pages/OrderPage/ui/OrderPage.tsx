@@ -320,10 +320,21 @@ const OrderPage = () => {
 
         {!["on_delivery", "inactive"].includes(order.status) && (
           <Button
-            className="mb-[30px] mt-5 w-full"
-            styleType="outline"
+            disabled={
+              order.is_delivery &&
+              order.delivery_id === null &&
+              order.status === "done"
+            }
+            className="mt-5 w-full"
+            styleType={
+              order.is_delivery &&
+              order.delivery_id === null &&
+              order.status === "done"
+                ? "secondary"
+                : "outline"
+            }
             text="Следующий этап"
-            onClick={() => order !== undefined && handleStatusChange(order)}
+            onClick={() => handleStatusChange(order)}
           />
         )}
       </div>

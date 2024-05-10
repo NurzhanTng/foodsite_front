@@ -204,8 +204,19 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
         )}
       {!["on_delivery", "inactive"].includes(order.status) && open && (
         <Button
+          disabled={
+            order.is_delivery &&
+            order.delivery_id === null &&
+            order.status === "done"
+          }
           className="mt-5 w-full"
-          styleType="outline"
+          styleType={
+            order.is_delivery &&
+            order.delivery_id === null &&
+            order.status === "done"
+              ? "secondary"
+              : "outline"
+          }
           text="Следующий этап"
           onClick={() => handleStatusChange(order)}
         />

@@ -50,13 +50,23 @@ const useManager = () => {
       const index = statuses.indexOf(order.status);
       let newStatus;
       if (order.status === "done" && !order.is_delivery) {
+        console.log(1);
         newStatus = statuses.at(index + 2);
+        console.log(newStatus);
       } else {
+        console.log(2);
         newStatus = statuses.at(index + 1);
+        console.log(newStatus);
       }
 
       if (newStatus === undefined) return order;
       const newOrder = { ...order, status: newStatus };
+      console.log({
+        status: changeStatus ? changeStatus : newStatus,
+        user_name: order.user_name,
+        phone: order.phone,
+        client_id: order.client_id,
+      });
 
       fetch(
         import.meta.env.VITE_REACT_APP_API_BASE_URL +
@@ -67,7 +77,7 @@ const useManager = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            status: changeStatus ? changeStatus : statuses[index + 1],
+            status: changeStatus ? changeStatus : newStatus,
             user_name: order.user_name,
             phone: order.phone,
             client_id: order.client_id,
