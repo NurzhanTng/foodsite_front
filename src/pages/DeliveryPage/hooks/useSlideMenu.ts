@@ -145,15 +145,12 @@ const useSlideMenu = ({
   const handleSearchAddress = () => {
     setStage(2);
     setIsSearchActive(true);
-    setTimeout(
-      () => {
-        setStage(1);
-        setTimeout(() => setStage(2), 0);
-        setTimeout(() => alert("duration: " + (300 + iteration * 50)), 1000);
-        setIteration((it) => it + 1);
-      },
-      300 + iteration * 50,
-    );
+    setTimeout(() => {
+      setStage(1);
+      setTimeout(() => setStage(2), 0);
+      setTimeout(() => alert("duration: " + iteration * 50), 1000);
+      setIteration((it) => it + 1);
+    }, iteration * 50);
   };
 
   return {
