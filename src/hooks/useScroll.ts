@@ -33,7 +33,7 @@ const useScroll = (offset: number = 0) => {
         // const difference = input - currentCenter;
         // const newScroll = start - difference;
         const direction = input > center ? 1 : -1;
-        const newScroll2 = input + (direction * height) / 2 + 200;
+        const newScroll2 = input + (direction * height) / 2 + offset;
 
         console.log(input, start, height, center, direction, newScroll2);
 

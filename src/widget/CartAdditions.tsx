@@ -28,8 +28,8 @@ const CartAdditions = ({
   const userBonus = useAppSelector((state) => state.user.bonus);
   const dispatch = useAppDispatch();
   const errors = useAppSelector((state) => state.main.errors);
-  const nameScroll = useScroll(100);
-  const phoneScroll = useScroll(100);
+  const nameScroll = useScroll(200);
+  const phoneScroll = useScroll(200);
 
   useEffect(() => {
     window.scrollTo(0, 0);
