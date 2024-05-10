@@ -15,7 +15,7 @@ const useScroll = (offset: number = 0) => {
         const yOffset = input + (direction * height) / 2 + offset;
 
         alert(start + yOffset);
-        // window.scrollTo({ top: start + yOffset, behavior: "smooth" });
+        window.scrollTo({ top: start + yOffset, behavior: "smooth" });
       }
     }
 
