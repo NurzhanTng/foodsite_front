@@ -146,7 +146,7 @@ const useSlideMenu = ({
     setIsSearchActive(true);
     setTimeout(() => {
       setStage(1);
-      setStage(2);
+      setTimeout(() => setStage(2), 0);
     }, 1000);
   };
 

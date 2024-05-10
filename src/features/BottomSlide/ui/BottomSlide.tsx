@@ -19,6 +19,10 @@ const BottomSlide = ({
   const [startHeight, setStartHeight] = useState(0);
   const [startCoords, setStartCoords] = useState(0);
 
+  useEffect(() => {
+    console.log(stage);
+  }, [stage]);
+
   function getHeight(stage: 0 | 1 | 2) {
     const windowHeight = window.visualViewport?.height
       ? window.visualViewport.height

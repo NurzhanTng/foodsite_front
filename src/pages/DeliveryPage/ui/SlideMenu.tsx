@@ -71,6 +71,11 @@ const SlideMenu = ({
           <Input
             ref={ref}
             onClick={handleSearchAddress}
+            onBlur={() => {
+              const oldStage = stage;
+              setStage(0);
+              setStage(oldStage);
+            }}
             onChange={handleAddressChange}
             value={address}
             label="Введите адрес доставки"
@@ -127,21 +132,6 @@ const SlideMenu = ({
                 </div>
               </>
             )}
-
-          {/*<ul>*/}
-          {/*  <h3 className="mb-4 text-base font-medium text-textSecondary">*/}
-          {/*    Выберите адрес*/}
-          {/*  </h3>*/}
-          {/*  {fetchResult.map((item, index) => (*/}
-          {/*    <li*/}
-          {/*      className="pb-2 pl-4 text-sm text-fontSecondary transition active:text-button"*/}
-          {/*      key={index}*/}
-          {/*      onClick={() => handleChooseAddress(item)}*/}
-          {/*    >*/}
-          {/*      {item.address}*/}
-          {/*    </li>*/}
-          {/*  ))}*/}
-          {/*</ul>*/}
 
           {!isSearchActive && (
             <Input
