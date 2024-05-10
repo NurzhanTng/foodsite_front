@@ -36,7 +36,6 @@ const useSlideMenu = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [stage, setStage] = useState<0 | 1 | 2>(1);
-  const [iteration, setIteration] = useState(0);
   const [isSearchActive, setIsSearchActive] = useState(false);
   const user_id = useAppSelector((state) => state.user.telegram_id);
   const [address, setAddressText] = useState(orderState.address.parsed);
@@ -148,9 +147,7 @@ const useSlideMenu = ({
     setTimeout(() => {
       setStage(1);
       setTimeout(() => setStage(2), 0);
-      setTimeout(() => alert("duration: " + iteration * 50), 1000);
-      setIteration((it) => it + 1);
-    }, iteration * 50);
+    }, 280);
   };
 
   return {
