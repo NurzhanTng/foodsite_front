@@ -149,10 +149,10 @@ const useSlideMenu = ({
       () => {
         setStage(1);
         setTimeout(() => setStage(2), 0);
-        setTimeout(() => alert("duration: " + (500 + iteration * 100)), 1000);
+        setTimeout(() => alert("duration: " + (300 + iteration * 50)), 1000);
         setIteration((it) => it + 1);
       },
-      500 + iteration * 100,
+      300 + iteration * 50,
     );
   };
 
