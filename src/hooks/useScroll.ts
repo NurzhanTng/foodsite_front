@@ -11,7 +11,8 @@ const useScroll = (offset: number = 0) => {
         const height = window.visualViewport?.height
           ? window.visualViewport.height
           : window.innerHeight;
-        const direction = input > start + height / 2 + offset ? 1 : -1;
+        // const direction = input > start + height / 2 + offset ? 1 : -1;
+        const direction = -1;
         const yOffset = input + (direction * height) / 2 + offset;
 
         alert(start + yOffset);
