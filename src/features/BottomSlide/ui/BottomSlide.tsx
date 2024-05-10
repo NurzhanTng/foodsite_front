@@ -6,8 +6,6 @@ type BottomSlideProps = React.ButtonHTMLAttributes<HTMLDivElement> & {
   setStage: (stage: 0 | 1 | 2) => void;
 };
 
-const stageHeights = [160, window.innerHeight * 0.5, window.innerHeight * 0.9];
-
 const tg = window.Telegram.WebApp;
 
 const BottomSlide = ({
@@ -16,10 +14,17 @@ const BottomSlide = ({
   setStage,
   stage,
 }: BottomSlideProps) => {
-  const [height, setHeight] = useState<number>(stageHeights[stage]);
+  const [height, setHeight] = useState<number>(getHeight(stage));
   const [active, setActive] = useState(false);
   const [startHeight, setStartHeight] = useState(0);
   const [startCoords, setStartCoords] = useState(0);
+
+  function getHeight(stage: 0 | 1 | 2) {
+    const windowHeight = window.visualViewport?.height
+      ? window.visualViewport.height
+      : window.innerHeight;
+    return [160, windowHeight * 0.5, windowHeight * 0.9][stage];
+  }
 
   const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
     setStartCoords(event.touches[0].clientY);
@@ -28,13 +33,16 @@ const BottomSlide = ({
   };
 
   useEffect(() => {
-    setHeight(stageHeights[stage]);
+    setHeight(getHeight(stage));
   }, [stage]);
 
   const handleTouchEnd = () => {
     setStartCoords(0);
     setActive(false);
-    const scrollPercent = (height / window.innerHeight) * 100;
+    const windowHeight = window.visualViewport?.height
+      ? window.visualViewport.height
+      : window.innerHeight;
+    const scrollPercent = (height / windowHeight) * 100;
     let newStage: 0 | 1 | 2 = 0;
     if (scrollPercent >= 30 && scrollPercent < 70) {
       newStage = 1;
@@ -54,9 +62,7 @@ const BottomSlide = ({
       if (!tg.isExpanded) tg.expand;
       const deltaY = event.touches[0].clientY - startCoords;
       const newHeight = startHeight - deltaY;
-      setHeight(
-        Math.min(Math.max(newHeight, stageHeights[0]), stageHeights[2]),
-      );
+      setHeight(Math.min(Math.max(newHeight, getHeight(0)), getHeight(2)));
     };
 
     window.addEventListener("touchmove", handleTouchMove, { passive: false });
