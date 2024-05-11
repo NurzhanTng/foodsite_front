@@ -48,7 +48,7 @@ const RejectedTextPopup = ({
         label=""
         multiline={true}
         onChange={(event) => setText(event.target.value)}
-        value={text}
+        value={typeof text !== "string" ? undefined : text}
       />
 
       <div className="flex flex-col gap-[10px]">
