@@ -5,7 +5,7 @@ import ManagerHeader from "../../../features/Headers";
 import OrderOneLine from "../../OrderPage/ui/OrderOneLine.tsx";
 import currencyFormatter from "../../../utils/currencyFormatter.ts";
 import useManager from "../../../hooks/useManager.ts";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks/hooks.ts";
 import useCart from "../../../hooks/useCart.ts";
 import { fetchCategories } from "../../../store/slices/mainSlice.ts";
 

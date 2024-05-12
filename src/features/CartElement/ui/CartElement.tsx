@@ -2,7 +2,7 @@ import React from "react";
 import { OrderProduct } from "../../../utils/Types.ts";
 import { twMerge } from "tailwind-merge";
 import ElementCounter from "./ElementCounter.tsx";
-import { useAppDispatch } from "../../../store/hooks.ts";
+import { useAppDispatch } from "../../../store/hooks/hooks.ts";
 import currencyFormatter from "../../../utils/currencyFormatter.ts";
 import useCart from "../../../hooks/useCart.ts";
 import { useNavigate } from "react-router-dom";
@@ -27,7 +27,7 @@ const CartElement = ({ className, element, index }: CartElementProps) => {
   ) => {
     let target: EventTarget | null = event.target;
     while (target !== null) {
-      if ((target as HTMLElement).id === 'click_ignore') {
+      if ((target as HTMLElement).id === "click_ignore") {
         return; // Ignore clicks on buttons
       }
       target = (target as HTMLElement).parentNode;
@@ -76,20 +76,19 @@ const CartElement = ({ className, element, index }: CartElementProps) => {
           </p>
         </div>
 
-        <div className="flex-col-reverse w-fit flex justify-between gap-2 sm-s:flex-row sm-s:w-full">
+        <div className="flex w-fit flex-col-reverse justify-between gap-2 sm-s:w-full sm-s:flex-row">
+          <ElementCounter
+            id="click_ignore"
+            onIncrease={() => dispatch(addOneToOrderProduct(index))}
+            onDecrease={() => dispatch(removeOneToOrderProduct(index))}
+            count={element.amount}
+          />
 
-        <ElementCounter
-          id="click_ignore"
-          onIncrease={() => dispatch(addOneToOrderProduct(index))}
-          onDecrease={() => dispatch(removeOneToOrderProduct(index))}
-          count={element.amount}
-        />
-
-        <p /* Element cost */
-          className="text-base text-button my-auto w-fit "
-        >
-          {currencyFormatter(sumOneOrderProduct(element))}
-        </p>
+          <p /* Element cost */
+            className="my-auto w-fit text-base text-button "
+          >
+            {currencyFormatter(sumOneOrderProduct(element))}
+          </p>
         </div>
       </div>
     </div>

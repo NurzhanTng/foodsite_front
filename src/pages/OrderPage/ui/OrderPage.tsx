@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useAppSelector } from "../../../store/hooks.ts";
+import { useAppSelector } from "../../../store/hooks/hooks.ts";
 import ManagerHeader from "../../../features/Headers";
 import { useEffect, useMemo, useState } from "react";
 import Button from "../../../shared/Button.tsx";

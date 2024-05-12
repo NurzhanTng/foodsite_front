@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks/hooks.ts";
 import {
   fetchOrders,
   setStatusOpen,

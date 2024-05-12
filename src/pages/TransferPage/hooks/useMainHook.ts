@@ -2,7 +2,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import { setUser, UserState } from "../../../store/slices/userSlice.ts";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks/hooks.ts";
 import { setUserData } from "../../../store/slices/orderSlice.ts";
 import {
   fetchCategories,

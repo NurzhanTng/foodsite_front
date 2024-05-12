@@ -12,7 +12,7 @@ import {
 } from "../../../store/slices/orderSlice.ts";
 import checkIsInPolygon from "../../../utils/checkIsInPolygon.ts";
 import { CompanyState } from "../../../store/slices/companySlice.ts";
-import { useAppSelector } from "../../../store/hooks.ts";
+import { useAppSelector } from "../../../store/hooks/hooks.ts";
 
 type useSlideMenuProps = {
   setErrorText: (text: string) => void;
@@ -129,6 +129,7 @@ const useSlideMenu = ({
       return;
     }
     if (
+      isDelivery &&
       !checkIsInPolygon(companyState.companies[0].delivery_layers[0].points, [
         orderState.address.long,
         orderState.address.lat,

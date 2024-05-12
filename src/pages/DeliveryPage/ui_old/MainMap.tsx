@@ -1,16 +1,21 @@
 import { Map, Placemark, YMaps } from "@pbe/react-yandex-maps";
 import { OrderState, setAddress } from "../../../store/slices/orderSlice.ts";
 import { CompanyState } from "../../../store/slices/companySlice.ts";
-import { useAppDispatch } from "../../../store/hooks.ts";
+import { useAppDispatch } from "../../../store/hooks/hooks.ts";
 
 type MainMapProps = {
   isDelivery: boolean;
   companyState: CompanyState;
   orderState: OrderState;
   setErrorText: (text: string) => void;
-}
+};
 
-const MainMap = ({setErrorText, isDelivery, companyState, orderState}: MainMapProps) => {
+const MainMap = ({
+  setErrorText,
+  isDelivery,
+  companyState,
+  orderState,
+}: MainMapProps) => {
   const dispatch = useAppDispatch();
 
   const onMapClick = (props: any) => {
@@ -27,7 +32,6 @@ const MainMap = ({setErrorText, isDelivery, companyState, orderState}: MainMapPr
         defaultState={{ center: [43.244077, 76.916799], zoom: 11 }}
         onClick={onMapClick}
       >
-
         {!isDelivery &&
           companyState.companies.map((companySpot, index) => {
             return (
@@ -36,13 +40,10 @@ const MainMap = ({setErrorText, isDelivery, companyState, orderState}: MainMapPr
                   iconColor:
                     orderState.company_id === companySpot.id
                       ? "#5288C1"
-                      : "#6A7D91"
+                      : "#6A7D91",
                 }}
                 key={index}
-                geometry={[
-                  companySpot.address.lat,
-                  companySpot.address.long
-                ]}
+                geometry={[companySpot.address.lat, companySpot.address.long]}
               />
             );
           })}
@@ -50,7 +51,7 @@ const MainMap = ({setErrorText, isDelivery, companyState, orderState}: MainMapPr
         {isDelivery && (
           <Placemark
             options={{
-              iconColor: "#5288C1"
+              iconColor: "#5288C1",
             }}
             geometry={[orderState.address.lat, orderState.address.long]}
           />

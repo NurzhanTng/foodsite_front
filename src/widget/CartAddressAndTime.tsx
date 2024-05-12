@@ -1,7 +1,7 @@
 import { twMerge } from "tailwind-merge";
 import SelectCard from "../entities/SelectCard.tsx";
 import Icon from "../shared/Icon";
-import { useAppSelector } from "../store/hooks.ts";
+import { useAppSelector } from "../store/hooks/hooks.ts";
 import { useNavigate } from "react-router-dom";
 
 type CartAddressAndTimeProps = {

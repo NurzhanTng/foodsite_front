@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Icon from "../../../shared/Icon";
 import Input from "../../../shared/Input.tsx";
 import { setClientComment } from "../../../store/slices/orderSlice.ts";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks/hooks.ts";
 import Button from "../../../shared/Button.tsx";
 
 type CommentPopupProps = React.HTMLProps<HTMLDivElement> & {

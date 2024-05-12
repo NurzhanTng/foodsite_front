@@ -47,6 +47,9 @@ const companySlice = createSlice({
     setCompanies: (state, action: PayloadAction<Array<CompanySpot>>) => {
       state.companies = action.payload;
     },
+    clearState: (state) => {
+      state.companies = initialState.companies;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCompanies.fulfilled, (state, action) => {
@@ -55,6 +58,6 @@ const companySlice = createSlice({
   },
 });
 
-export const { setCompanies } = companySlice.actions;
+export const { setCompanies, clearState } = companySlice.actions;
 
 export default companySlice.reducer;

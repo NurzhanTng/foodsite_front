@@ -1,4 +1,4 @@
-import { useAppSelector } from "../store/hooks.ts";
+import { useAppSelector } from "../store/hooks/hooks.ts";
 import { twMerge } from "tailwind-merge";
 import SelectCard from "../entities/SelectCard.tsx";
 import currencyFormatter from "../utils/currencyFormatter.ts";

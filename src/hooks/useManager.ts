@@ -3,7 +3,7 @@ import {
   OrderStatuses,
   setOrders,
 } from "../store/slices/managerSlice.ts";
-import { useAppDispatch, useAppSelector } from "../store/hooks.ts";
+import { useAppDispatch, useAppSelector } from "../store/hooks/hooks.ts";
 import { useNavigate } from "react-router-dom";
 
 const statuses: Array<OrderStatuses> = [

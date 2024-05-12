@@ -107,6 +107,22 @@ const orderSlice = createSlice({
     setDoneTime: (state, action: PayloadAction<string>) => {
       state.done_time = action.payload;
     },
+    clearState: (state) => {
+      state.client_id = initialState.client_id;
+      state.delivery_id = initialState.delivery_id;
+      state.company_id = initialState.company_id;
+      state.max_bonus = initialState.max_bonus;
+      state.bonus_used = initialState.bonus_used;
+      state.done_time = initialState.done_time;
+      state.user_name = initialState.user_name;
+      state.address = initialState.address;
+      state.isDelivery = initialState.isDelivery;
+      state.exactAddress = initialState.exactAddress;
+      state.phone = initialState.phone;
+      state.kaspi_phone = initialState.kaspi_phone;
+      state.client_comment = initialState.client_comment;
+      state.actions = initialState.actions;
+    },
   },
 });
 
@@ -122,6 +138,7 @@ export const {
   setBonusUsed,
   setCompanyId,
   setDoneTime,
+  clearState,
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

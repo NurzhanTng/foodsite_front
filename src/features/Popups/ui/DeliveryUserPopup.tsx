@@ -1,7 +1,7 @@
 import Popup from "../../../shared/Popup.tsx";
 import React, { useState } from "react";
 import Button from "../../../shared/Button.tsx";
-import { useAppSelector } from "../../../store/hooks.ts";
+import { useAppSelector } from "../../../store/hooks/hooks.ts";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import Icon from "../../../shared/Icon";
 import { Orders } from "../../../store/slices/managerSlice.ts";

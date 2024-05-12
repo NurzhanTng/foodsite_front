@@ -1,4 +1,4 @@
-import { useAppSelector } from "../store/hooks.ts";
+import { useAppSelector } from "../store/hooks/hooks.ts";
 import CartElement from "../features/CartElement";
 import Button from "../shared/Button.tsx";
 import { useNavigate } from "react-router-dom";

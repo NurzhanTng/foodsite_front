@@ -2,7 +2,7 @@ import currencyFormatter from "../../../utils/currencyFormatter.ts";
 import Button from "../../../shared/Button.tsx";
 import MenuPageHeader from "../../../features/MenuPageHeader";
 import MenuCategories from "../../../widget/MenuCategories.tsx";
-import { useAppSelector } from "../../../store/hooks.ts";
+import { useAppSelector } from "../../../store/hooks/hooks.ts";
 import useScrollEffect from "../../../hooks/useScrollEffect.ts";
 import useCart from "../../../hooks/useCart.ts";
 import { useNavigate } from "react-router-dom";

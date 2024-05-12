@@ -9,7 +9,7 @@ import CartPrice from "../../../widget/CartPrice.tsx";
 import CartAddressAndTime from "../../../widget/CartAddressAndTime.tsx";
 import { CommentPopup, TimePopup } from "../../../features/Popups";
 import useCart from "../../../hooks/useCart.ts";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks/hooks.ts";
 import { useEffect } from "react";
 import { setErrors } from "../../../store/slices/mainSlice.ts";
 import ErrorPopup from "./ErrorPopup.tsx";

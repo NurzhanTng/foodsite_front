@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks/hooks.ts";
 import { useNavigate } from "react-router-dom";
 import { setIsDelivery as setDelivery } from "../../../store/slices/orderSlice.ts";
 

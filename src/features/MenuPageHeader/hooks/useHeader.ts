@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Category } from "../../../utils/Types.ts";
-import { useAppSelector } from "../../../store/hooks.ts";
-
+import { useAppSelector } from "../../../store/hooks/hooks.ts";
 
 const useHeader = () => {
   const state = useAppSelector((state) => state.main);

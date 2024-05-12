@@ -184,6 +184,12 @@ const managerSlice = createSlice({
     setNotifications: (state, action: PayloadAction<Notification[]>) => {
       state.notifications = action.payload;
     },
+    clearState: (state) => {
+      state.notifications = initialState.notifications;
+      state.orders = initialState.orders;
+      state.statusOpen = initialState.statusOpen;
+      state.deliveries = initialState.deliveries;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchOrders.fulfilled, (state, action) => {
@@ -197,7 +203,7 @@ const managerSlice = createSlice({
   },
 });
 
-export const { setOrders, setStatusOpen, setNotifications } =
+export const { setOrders, setStatusOpen, setNotifications, clearState } =
   managerSlice.actions;
 
 export default managerSlice.reducer;

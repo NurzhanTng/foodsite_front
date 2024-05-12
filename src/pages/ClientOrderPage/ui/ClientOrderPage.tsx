@@ -1,4 +1,4 @@
-import { useAppSelector } from "../../../store/hooks.ts";
+import { useAppSelector } from "../../../store/hooks/hooks.ts";
 import { useNavigate } from "react-router-dom";
 import Header from "../../../entities/Header.tsx";
 import OrderOneLine from "../../OrderPage/ui/OrderOneLine.tsx";

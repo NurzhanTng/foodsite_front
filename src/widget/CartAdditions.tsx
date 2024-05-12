@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "../store/hooks.ts";
+import { useAppDispatch, useAppSelector } from "../store/hooks/hooks.ts";
 import Input from "../shared/Input.tsx";
 import {
   setBonusUsed,

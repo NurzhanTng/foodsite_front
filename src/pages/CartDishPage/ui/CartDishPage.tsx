@@ -3,7 +3,7 @@ import useCart from "../../../hooks/useCart.ts";
 import { useCallback, useState } from "react";
 import ProductTag from "../../../entities/Dish/ui/ProductTag.tsx";
 import currencyFormatter from "../../../utils/currencyFormatter.ts";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks/hooks.ts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { OrderProduct } from "../../../utils/Types.ts";
@@ -36,7 +36,7 @@ function CartDishPage() {
         oldOrderProduct.product?.price === null
       );
     });
-    console.log(same_product)
+    console.log(same_product);
 
     dispatch(
       setCart(
@@ -83,7 +83,7 @@ function CartDishPage() {
       {/* Картинка блюда */}
       <div
         style={{ backgroundImage: `url(${orderProduct.product?.image_url})` }}
-        className="mb-5 h-[300px] bg-transparent bg-cover shadow-image bg-center"
+        className="mb-5 h-[300px] bg-transparent bg-cover bg-center shadow-image"
       />
 
       {/* Внешний контейнер */}

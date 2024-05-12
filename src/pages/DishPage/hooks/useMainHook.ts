@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks/hooks.ts";
 import { useNavigate, useParams } from "react-router-dom";
 import useCart from "../../../hooks/useCart.ts";
 import { useCallback, useEffect, useState } from "react";
@@ -18,14 +18,14 @@ const useMainHook = () => {
     active_modifier: null,
     additions: [],
     amount: 1,
-    client_comment: ""
+    client_comment: "",
   });
 
   useEffect(() => {
     if (state.categories && orderProduct.product === undefined) {
       const timerId = setTimeout(() => {
         const product = getProductById(
-          parseInt(dishId !== undefined ? dishId : "0")
+          parseInt(dishId !== undefined ? dishId : "0"),
         );
         setOrderProduct((oldProduct) => {
           return { ...oldProduct, product: product };
@@ -46,7 +46,15 @@ const useMainHook = () => {
     navigate("/menu");
   }, [dispatch, navigate, orderProduct, product?.modifiers.length]);
 
-  return { product, navigate, orderProduct, setOrderProduct, handleClick, sumOneOrderProduct, state };
+  return {
+    product,
+    navigate,
+    orderProduct,
+    setOrderProduct,
+    handleClick,
+    sumOneOrderProduct,
+    state,
+  };
 };
 
 export default useMainHook;

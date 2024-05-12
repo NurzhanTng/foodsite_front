@@ -1,5 +1,5 @@
 import { useTimer } from "../../../app/context/TimerContext.tsx";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks/hooks.ts";
 import { useState } from "react";
 import { setNotifications } from "../../../store/slices/managerSlice.ts";
 

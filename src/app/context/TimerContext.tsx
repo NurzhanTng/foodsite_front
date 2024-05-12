@@ -6,7 +6,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks.ts";
+import { useAppDispatch, useAppSelector } from "../../store/hooks/hooks.ts";
 import {
   deleteAllTimers,
   setTimers as mainSetTimers,

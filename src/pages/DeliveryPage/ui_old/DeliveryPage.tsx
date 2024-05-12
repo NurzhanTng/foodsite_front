@@ -1,11 +1,11 @@
-import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks/hooks.ts";
 import React, { useState } from "react";
 import Button from "../../../shared/Button.tsx";
 import CompanyCards from "../../../widget/CompanyCards.tsx";
 import Input from "../../../shared/Input.tsx";
 import {
   setAddress,
-  setExactAddress
+  setExactAddress,
 } from "../../../store/slices/orderSlice.ts";
 import { useNavigate } from "react-router-dom";
 import MainMap from "./MainMap.tsx";
@@ -23,20 +23,20 @@ const DeliveryPage = () => {
   const emptyAddressParsed = "Адрес указан на карте";
 
   const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     let pattern = event.target.value;
     pattern = pattern.replace(emptyAddressParsed, "");
     pattern = pattern.replace(
       emptyAddressParsed.slice(0, emptyAddressParsed.length - 1),
-      ""
+      "",
     );
     dispatch(
       setAddress({
         long: -1,
         lat: -1,
-        parsed: pattern
-      })
+        parsed: pattern,
+      }),
     );
     setErrorText("");
   };
@@ -47,7 +47,7 @@ const DeliveryPage = () => {
       orderState.address.parsed === ""
     ) {
       setErrorText(
-        "Выберите адрес на карте или введите адрес перед сохранением"
+        "Выберите адрес на карте или введите адрес перед сохранением",
       );
     } else {
       navigate("/cart");
@@ -57,11 +57,19 @@ const DeliveryPage = () => {
   return (
     <div className="relative flex min-h-[100vh] flex-col justify-between">
       <div>
-        <MainMap setErrorText={setErrorText} isDelivery={isDelivery} companyState={companyState}
-                 orderState={orderState} />
+        <MainMap
+          setErrorText={setErrorText}
+          isDelivery={isDelivery}
+          companyState={companyState}
+          orderState={orderState}
+        />
 
         <div className="mx-5 mb-[30px]">
-          <DeliverySwitch className="my-[30px]" isDelivery={isDelivery} setIsDelivery={setIsDelivery} />
+          <DeliverySwitch
+            className="my-[30px]"
+            isDelivery={isDelivery}
+            setIsDelivery={setIsDelivery}
+          />
 
           {!isDelivery && (
             <CompanyCards companySpots={companyState.companies} />

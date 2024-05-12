@@ -1,7 +1,7 @@
 import Popup from "../../../shared/Popup.tsx";
 import React, { useEffect, useState } from "react";
 import Icon from "../../../shared/Icon";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks/hooks.ts";
 import Button from "../../../shared/Button.tsx";
 import TimePicker from "../../../shared/TimePicker";
 import { setDoneTime } from "../../../store/slices/orderSlice.ts";

@@ -7,8 +7,8 @@ export type ClientOrderState = {
 };
 
 const initialState: ClientOrderState = {
-  from: '',
-  order: null
+  from: "",
+  order: null,
 };
 
 const clientOrderSlice = createSlice({
@@ -17,11 +17,15 @@ const clientOrderSlice = createSlice({
   reducers: {
     setClientOrder: (state, action: PayloadAction<ClientOrderState>) => {
       state.from = action.payload.from;
-      state.order = action.payload.order
+      state.order = action.payload.order;
+    },
+    clearState: (state) => {
+      state.from = initialState.from;
+      state.order = initialState.order;
     },
   },
 });
 
-export const { setClientOrder } = clientOrderSlice.actions;
+export const { setClientOrder, clearState } = clientOrderSlice.actions;
 
 export default clientOrderSlice.reducer;

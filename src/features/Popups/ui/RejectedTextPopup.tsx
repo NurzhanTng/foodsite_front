@@ -2,7 +2,7 @@ import Popup from "../../../shared/Popup.tsx";
 import React, { useEffect, useState } from "react";
 import Icon from "../../../shared/Icon";
 import Input from "../../../shared/Input.tsx";
-import { useAppSelector } from "../../../store/hooks.ts";
+import { useAppSelector } from "../../../store/hooks/hooks.ts";
 import Button from "../../../shared/Button.tsx";
 import useManager from "../../../hooks/useManager.ts";
 

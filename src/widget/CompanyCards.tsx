@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "../store/hooks.ts";
+import { useAppDispatch, useAppSelector } from "../store/hooks/hooks.ts";
 import { twMerge } from "tailwind-merge";
 import Button from "../shared/Button.tsx";
 import { setCompanyId } from "../store/slices/orderSlice.ts";
@@ -27,15 +27,15 @@ const CompanyCards = ({ className = "", companySpots }: CompanyCardsProps) => {
             onClick={() => dispatch(setCompanyId(companySpot.id))}
             styleType="outline"
             showText={false}
-            className={
-              `${companySpot.id === orderState.company_id? "" : "bg-bgColor"} relative flex w-full flex-col gap-1 px-5 py-[14px] text-left`
-            }
+            className={`${companySpot.id === orderState.company_id ? "" : "bg-bgColor"} relative flex w-full flex-col gap-1 px-5 py-[14px] text-left`}
           >
             <h3 className="line-clamp-1 text-base font-normal leading-none text-white">
               {companySpot.name}
             </h3>
             <p className="line-clamp-2 text-sm font-medium leading-tight text-textSecondary">
-              {companySpot.address.parsed === "" ? "Адрес загружается" : companySpot.address.parsed}
+              {companySpot.address.parsed === ""
+                ? "Адрес загружается"
+                : companySpot.address.parsed}
             </p>
             <p className="line-clamp-1 text-sm font-medium leading-tight text-textSecondary">
               {companySpot.open_time} - {companySpot.close_time}

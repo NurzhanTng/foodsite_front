@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import useManager from "../../../hooks/useManager.ts";
 import Button from "../../../shared/Button.tsx";
 import { Orders } from "../../../store/slices/managerSlice.ts";
-import { useAppDispatch } from "../../../store/hooks.ts";
+import { useAppDispatch } from "../../../store/hooks/hooks.ts";
 import { fetchCategories, setCart } from "../../../store/slices/mainSlice.ts";
 import { fetchCompanies } from "../../../store/slices/companySlice.ts";
 import useCart from "../../../hooks/useCart.ts";

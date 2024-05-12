@@ -6,7 +6,7 @@ import useManager from "../../../hooks/useManager.ts";
 import OrderOneLine from "../../../pages/OrderPage/ui/OrderOneLine.tsx";
 import DeliveryUserPopup from "../../Popups/ui/DeliveryUserPopup.tsx";
 import { NotificationTimePopup } from "../../Popups";
-import { useAppSelector } from "../../../store/hooks.ts";
+import { useAppSelector } from "../../../store/hooks/hooks.ts";
 import timestampToTime from "../../../utils/timestampToTime.ts";
 import { useTimer } from "../../../app/context/TimerContext.tsx";
 import RejectedTextPopup from "../../Popups/ui/RejectedTextPopup.tsx";

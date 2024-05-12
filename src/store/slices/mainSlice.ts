@@ -95,6 +95,16 @@ const mainSlice = createSlice({
     setErrorText(state, action: PayloadAction<string | null>) {
       state.errorText = action.payload;
     },
+
+    clearState: (state) => {
+      state.lastLogin = initialState.lastLogin;
+      state.categories = initialState.categories;
+      state.activeCategory = initialState.activeCategory;
+      state.cart = initialState.cart;
+      state.isParamsCartUpdated = initialState.isParamsCartUpdated;
+      state.errors = initialState.errors;
+      state.errorText = initialState.errorText;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCategories.fulfilled, (state, action) => {
@@ -113,6 +123,7 @@ export const {
   removeOneToOrderProduct,
   setErrors,
   setErrorText,
+  clearState,
 } = mainSlice.actions;
 
 export default mainSlice.reducer;

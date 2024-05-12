@@ -54,9 +54,22 @@ const userSlice = createSlice({
       state.blocked = data.blocked;
       state.jwt_token = data.jwt_token;
     },
+    clearState: (state) => {
+      state.telegram_id = initialState.telegram_id;
+      state.telegram_fullname = initialState.telegram_fullname;
+      state.phone = initialState.phone;
+      state.kaspi_phone = initialState.kaspi_phone;
+      state.promo = initialState.promo;
+      state.address = initialState.address;
+      state.exact_address = initialState.exact_address;
+      state.bonus = initialState.bonus;
+      state.role = initialState.role;
+      state.blocked = initialState.blocked;
+      state.jwt_token = initialState.jwt_token;
+    },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, clearState } = userSlice.actions;
 
 export default userSlice.reducer;

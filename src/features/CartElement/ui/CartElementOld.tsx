@@ -1,7 +1,7 @@
 import { OrderProduct } from "../../../utils/Types.ts";
 import useCart from "../../../hooks/useCart.ts";
 import currencyFormatter from "../../../utils/currencyFormatter.ts";
-import { useAppDispatch } from "../../../store/hooks.ts";
+import { useAppDispatch } from "../../../store/hooks/hooks.ts";
 import {
   addOneToOrderProduct,
   removeOneToOrderProduct,
@@ -48,11 +48,14 @@ const CartElementOld = ({ element, index }: CartElementProps) => {
       <div className="flex flex-row justify-between">
         <div
           onClick={() => navigate(`/cartProduct/${index}`)}
-          className="rounded-[6px] px-2 py-[7px] text-button">Изменить</div>
-        <p className="flex-1 my-auto h-fit text-center">
+          className="rounded-[6px] px-2 py-[7px] text-button"
+        >
+          Изменить
+        </div>
+        <p className="my-auto h-fit flex-1 text-center">
           {currencyFormatter(sumOneOrderProduct(element))}
         </p>
-        <div className="flex-1 my-auto flex w-[150px] flex-row justify-between gap-2 text-center text-sm leading-[14px] text-white">
+        <div className="my-auto flex w-[150px] flex-1 flex-row justify-between gap-2 text-center text-sm leading-[14px] text-white">
           <div
             className="h-fit min-w-[30px] flex-1 rounded-[6px] bg-button py-3"
             onClick={() => dispatch(removeOneToOrderProduct(index))}

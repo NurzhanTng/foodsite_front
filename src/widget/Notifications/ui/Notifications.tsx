@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks/hooks.ts";
 import Notification from "./Notification.tsx";
 import { useNavigate } from "react-router-dom";
 import { setNotifications } from "../../../store/slices/managerSlice.ts";

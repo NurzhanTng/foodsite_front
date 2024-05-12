@@ -1,8 +1,9 @@
-import { useAppDispatch, useAppSelector } from "../store/hooks.ts";
+import { useAppDispatch, useAppSelector } from "../store/hooks/hooks.ts";
 import { Product, OrderProduct } from "../utils/Types.ts";
 import {
   addOneToOrderProduct,
   addProductToCart,
+  clearState as mainSliceClear,
   removeOneToOrderProduct,
   setCart,
   setErrors,
@@ -11,6 +12,12 @@ import {
 } from "../store/slices/mainSlice.ts";
 import { useState } from "react";
 import checkIsInPolygon from "../utils/checkIsInPolygon.ts";
+import { clearState as companySliceClear } from "../store/slices/companySlice.ts";
+import { clearState as clientOrderSliceClear } from "../store/slices/clientOrderSlice.ts";
+import { clearState as managerSliceClear } from "../store/slices/managerSlice.ts";
+import { clearState as orderSliceClear } from "../store/slices/orderSlice.ts";
+import { deleteAllTimers as timerSliceClear } from "../store/slices/timerSlice.ts";
+import { clearState as userSliceClear } from "../store/slices/userSlice.ts";
 
 // export type InputRefs = {
 //   [p in
@@ -90,9 +97,19 @@ const useCart = () => {
       },
       body: cartToJson(),
     })
-      .then((data) => {
+      .then(async (data) => {
         if (!(data.status >= 200 && data.status < 300)) return;
-        dispatch(setCart([]));
+
+        localStorage.setItem("persist:root", "");
+        dispatch(mainSliceClear());
+        dispatch(companySliceClear());
+        dispatch(clientOrderSliceClear());
+        dispatch(managerSliceClear());
+        dispatch(orderSliceClear());
+        dispatch(timerSliceClear());
+        dispatch(userSliceClear());
+      })
+      .then(() => {
         const tg = window.Telegram.WebApp;
         tg.close();
       })
@@ -265,7 +282,7 @@ const useCart = () => {
       client_id: order.client_id,
       bonus_used: order.bonus_used,
       user_name: order.user_name,
-      address: order.address,
+      address: { ...order.address, exact_address: order.exactAddress },
       company_id: 2,
       exact_address: order.exactAddress,
       phone: order.phone,

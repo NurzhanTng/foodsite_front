@@ -6,7 +6,7 @@ import {
   // setOrders,
 } from "../../../store/slices/managerSlice";
 import SearchOrderHeader from "../../../features/Headers/ui/SearchOrderHeader.tsx";
-import { useAppSelector } from "../../../store/hooks.ts";
+import { useAppSelector } from "../../../store/hooks/hooks.ts";
 import OrderSmall from "../../../features/OrderSmall";
 import FilterPopup from "../../../features/Popups/ui/FilterPopup.tsx";
 import Notifications from "../../../widget/Notifications";
