@@ -63,7 +63,13 @@ const SlideMenu = ({
       )}
 
       {stage !== 0 && !isDelivery && (
-        <CompanyCards companySpots={companyState.companies} />
+        <>
+          <CompanyCards companySpots={companyState.companies} />
+
+          {errorText !== "" && (
+            <p className="my-[30px] font-medium text-[#BA4747]">{errorText}</p>
+          )}
+        </>
       )}
 
       {stage !== 0 && isDelivery && (

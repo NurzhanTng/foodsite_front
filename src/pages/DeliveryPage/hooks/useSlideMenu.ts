@@ -101,6 +101,10 @@ const useSlideMenu = ({
       long: long,
       parsed: address.address,
     });
+    setTimeout(() => {
+      setStage(1);
+      setTimeout(() => setStage(2), 0);
+    }, 580);
   };
 
   const updateAddress = (address: OrderAddress) => {
@@ -113,6 +117,10 @@ const useSlideMenu = ({
     setErrorText(
       getErrorText("updateAddress", address.parsed, address.long, address.lat),
     );
+    setTimeout(() => {
+      setStage(1);
+      setTimeout(() => setStage(2), 0);
+    }, 580);
   };
 
   const handleExactAddressChange = (

@@ -38,7 +38,7 @@ const Input = forwardRef(
           variant="outlined"
           sx={{
             width: "100%",
-            maxWidth: "400px",
+            // maxWidth: "400px",
             // height: "44px",
             backgroundColor: "#17212B",
             borderRadius: "10px",
