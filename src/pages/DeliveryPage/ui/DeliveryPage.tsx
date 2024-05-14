@@ -3,9 +3,14 @@ import SlideMenu from "./SlideMenu.tsx";
 import useMainHook from "../hooks/useMainHook.ts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { useEffect } from "react";
 
 const DeliveryPage = () => {
   const state = useMainHook();
+
+  useEffect(() => {
+    alert("testing page");
+  }, []);
 
   return (
     <div className="h-[100vh]">

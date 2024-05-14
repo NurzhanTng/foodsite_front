@@ -4,6 +4,7 @@ import { twMerge } from "tailwind-merge";
 type BottomSlideProps = React.ButtonHTMLAttributes<HTMLDivElement> & {
   stage: 0 | 1 | 2;
   setStage: (stage: 0 | 1 | 2) => void;
+  update: boolean;
 };
 
 const tg = window.Telegram.WebApp;
@@ -13,6 +14,7 @@ const BottomSlide = ({
   children,
   setStage,
   stage,
+  update,
 }: BottomSlideProps) => {
   const [height, setHeight] = useState<number>(getHeight(stage));
   const [margin, setMargin] = useState<number>(getTopMargin(stage));
@@ -24,6 +26,11 @@ const BottomSlide = ({
   useEffect(() => {
     console.log(stage);
   }, [stage]);
+
+  useEffect(() => {
+    setHeight(getHeight(stage));
+    setMargin(getTopMargin(stage));
+  }, [update]);
 
   useEffect(() => {
     setHeight(getHeight(stage));
@@ -133,7 +140,7 @@ const BottomSlide = ({
   return (
     <div
       className={twMerge(
-        `${startCoords === 0 ? "duration-300" : ""} transition-height fixed left-0 z-10 w-full ease-in-out`,
+        `${startCoords === 0 ? "duration-300" : ""} transition-height fixed left-0 z-10 w-full transition ease-in-out`,
         className,
       )}
       style={{ height: `${height}px`, top: `${margin}px` }}
