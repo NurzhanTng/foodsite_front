@@ -4,6 +4,7 @@ import { twMerge } from "tailwind-merge";
 type BottomSlideProps = React.ButtonHTMLAttributes<HTMLDivElement> & {
   stage: 0 | 1 | 2;
   setStage: (stage: 0 | 1 | 2) => void;
+  isAnimating: boolean;
 };
 
 const tg = window.Telegram.WebApp;
@@ -13,15 +14,26 @@ const BottomSlide = ({
   children,
   setStage,
   stage,
+  isAnimating,
 }: BottomSlideProps) => {
   const [height, setHeight] = useState<number>(getHeight(stage));
   const [active, setActive] = useState(false);
   const [startHeight, setStartHeight] = useState(0);
+  const [topMargin, setTopMargin] = useState(0);
   const [startCoords, setStartCoords] = useState(0);
 
   useEffect(() => {
     console.log(stage);
   }, [stage]);
+
+  useEffect(() => {
+    const windowHeight = window.visualViewport?.height
+      ? window.visualViewport.height
+      : window.innerHeight;
+    setTopMargin(
+      [windowHeight - 160, windowHeight * 0.5, windowHeight * 0.1][stage],
+    );
+  }, [isAnimating]);
 
   useEffect(() => {
     setHeight(getHeight(stage));
@@ -87,7 +99,11 @@ const BottomSlide = ({
         `${startCoords === 0 ? "duration-300" : ""} transition-height fixed bottom-0 left-0 z-10 w-full transition ease-in-out`,
         className,
       )}
-      style={{ height: `${height}px` }}
+      style={
+        isAnimating
+          ? { height: `${height}px`, top: `${topMargin}px` }
+          : { height: `${height}px`, bottom: 0 }
+      }
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >

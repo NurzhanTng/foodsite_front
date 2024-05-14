@@ -35,7 +35,7 @@ const useSlideMenu = ({
 }: useSlideMenuProps) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [update, setUpdate] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
   const [stage, setStage] = useState<0 | 1 | 2>(1);
   const [isSearchActive, setIsSearchActive] = useState(false);
   const user_id = useAppSelector((state) => state.user.telegram_id);
@@ -103,10 +103,11 @@ const useSlideMenu = ({
       parsed: address.address,
     });
     setStage(2);
-    setTimeout(() => {
-      setStage(2);
-      setUpdate((value) => value);
-    }, 580);
+    setIsAnimating(false);
+    // setTimeout(() => {
+    //   setStage(2);
+    //   setUpdate((value) => value);
+    // }, 580);
   };
 
   const updateAddress = (address: OrderAddress) => {
@@ -115,14 +116,15 @@ const useSlideMenu = ({
     setFetchResult(null);
     setStage(2);
     setIsSearchActive(false);
+    setIsAnimating(false);
     dispatch(setAddress(address));
     setErrorText(
       getErrorText("updateAddress", address.parsed, address.long, address.lat),
     );
-    setTimeout(() => {
-      setUpdate((value) => value);
-      // setTimeout(() => setStage(2), 0);
-    }, 580);
+    // setTimeout(() => {
+    //   setUpdate((value) => value);
+    //   // setTimeout(() => setStage(2), 0);
+    // }, 580);
   };
 
   const handleExactAddressChange = (
@@ -212,19 +214,15 @@ const useSlideMenu = ({
   };
 
   const handleSearchAddress = () => {
-    // setStage(2);
+    if (isSearchActive) return;
     setStage(2);
+    setIsAnimating(true);
     setIsSearchActive(true);
-    setTimeout(() => {
-      setStage(2);
-      setUpdate((value) => value);
-      // setTimeout(() => setStage(2), 0);
-    }, 580);
   };
 
   return {
     ref,
-    update,
+    isAnimating,
     stage,
     setStage,
     isSearchActive,

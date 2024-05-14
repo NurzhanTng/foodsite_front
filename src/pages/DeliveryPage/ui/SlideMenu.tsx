@@ -28,6 +28,7 @@ const SlideMenu = ({
   const {
     ref,
     stage,
+    isAnimating,
     setStage,
     isSearchActive,
     address,
@@ -51,6 +52,7 @@ const SlideMenu = ({
       className="z-0 overflow-y-auto bg-bgColor px-[20px] pb-[70px]"
       stage={stage}
       setStage={setStage}
+      isAnimating={isAnimating}
     >
       <div className="absolute left-[50%] top-[7px] h-[3px] w-[50px] translate-x-[-50%] rounded-[90px] bg-button "></div>
 
