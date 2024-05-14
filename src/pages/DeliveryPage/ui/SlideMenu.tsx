@@ -72,6 +72,7 @@ const SlideMenu = ({
             ref={ref}
             onClick={handleSearchAddress}
             onBlur={() => {
+              console.log("blur");
               const oldStage = stage;
               setStage(0);
               setStage(oldStage);
@@ -81,6 +82,18 @@ const SlideMenu = ({
             label="Введите адрес доставки"
             className={`${isSearchActive ? "mb-[20px] mt-[30px]" : ""}`}
           />
+
+          {!isSearchActive && (
+            <Input
+              onChange={handleExactAddressChange}
+              value={orderState.exactAddress}
+              label="Введите номер квартиры / офиса"
+            />
+          )}
+
+          {errorText !== "" && (
+            <p className="my-[10px] font-medium text-[#BA4747]">{errorText}</p>
+          )}
 
           {isSearchActive && fetchResult !== null && (
             <>
@@ -132,21 +145,7 @@ const SlideMenu = ({
                 </div>
               </>
             )}
-
-          {!isSearchActive && (
-            <Input
-              onChange={handleExactAddressChange}
-              value={orderState.exactAddress}
-              label="Введите номер квартиры / офиса"
-            />
-          )}
         </div>
-      )}
-
-      {errorText !== "" && (
-        <p className="mb-[30px] mt-[30px] font-medium text-[#BA4747]">
-          {errorText}
-        </p>
       )}
 
       <Button

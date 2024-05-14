@@ -83,8 +83,10 @@ const useSlideMenu = ({
       fetchAddressesByName(text).then((data) => {
         if (data.length === 1) {
           handleChooseAddress(data[0]);
+          setErrorText("");
           return;
         }
+        setErrorText("");
 
         setFetchResult(data);
       });
@@ -102,44 +104,101 @@ const useSlideMenu = ({
   };
 
   const updateAddress = (address: OrderAddress) => {
+    console.log("update address: ", address);
     setAddressText(address.parsed);
     setFetchResult(null);
     setIsSearchActive(false);
-    setStage(1);
+    setStage(2);
     dispatch(setAddress(address));
+    setErrorText(
+      getErrorText("updateAddress", address.parsed, address.long, address.lat),
+    );
   };
 
   const handleExactAddressChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     dispatch(setExactAddress(event.target.value));
+    setErrorText(
+      getErrorText(
+        "handleExactAddressChange",
+        null,
+        null,
+        null,
+        event.target.value,
+      ),
+    );
   };
 
-  const handleSaveButton = () => {
-    if (isDelivery && orderState.address.parsed === "") {
-      setErrorText("Необходимо выбрать адрес для доставки");
-      return;
-    }
-    if (isDelivery && orderState.exactAddress === "") {
-      setErrorText("Необходимо выбрать квартиру/офис");
-      return;
+  const getErrorText = (
+    from: string = "",
+    parsed: string | null = null,
+    long: number | null = null,
+    lat: number | null = null,
+    exact: string | null = null,
+  ) => {
+    console.log(`-- getErrorText [${from}]--`, {
+      addressParsed: parsed === null ? orderState.address.parsed : parsed,
+      addressLong: long === null ? orderState.address.long : long,
+      addressLat: lat === null ? orderState.address.lat : lat,
+      exactAddress: orderState.exactAddress,
+      company_id: orderState.company_id,
+      checkInPolygon: checkIsInPolygon(
+        companyState.companies[0].delivery_layers[0].points,
+        [orderState.address.long, orderState.address.lat],
+      ),
+      isSearchActive: isSearchActive,
+    });
+    if (
+      isDelivery && parsed === null
+        ? orderState.address.parsed === ""
+        : parsed === ""
+    ) {
+      console.log("Необходимо выбрать адрес для доставки");
+      return "Необходимо выбрать адрес для доставки";
     }
     if (!isDelivery && orderState.company_id === -1) {
-      setErrorText("Необходимо выбрать точку для самовывоза");
-      return;
+      console.log("Необходимо выбрать точку для самовывоза");
+      return "Необходимо выбрать точку для самовывоза";
     }
     if (
       isDelivery &&
       !checkIsInPolygon(companyState.companies[0].delivery_layers[0].points, [
-        orderState.address.long,
-        orderState.address.lat,
+        long === null ? orderState.address.long : long,
+        lat === null ? orderState.address.lat : lat,
       ])
     ) {
-      setErrorText("Ваш адрес вне зоны доставки");
-      return;
+      console.log("Ваш адрес вне зоны доставки");
+      return "Ваш адрес вне зоны доставки";
     }
+    if (
+      isDelivery && exact === null
+        ? orderState.exactAddress === ""
+        : exact === ""
+    ) {
+      console.log("Необходимо выбрать квартиру/офис");
+      return "Необходимо выбрать квартиру/офис";
+    }
+    if (
+      parsed === null &&
+      long === null &&
+      lat === null &&
+      exact === null &&
+      isSearchActive
+    ) {
+      console.log("Необходимо выбрать новый адрес перед сохранением");
+      return "Необходимо выбрать новый адрес перед сохранением";
+    }
+    console.log("");
+    return "";
+  };
 
-    navigate("/cart");
+  const handleSaveButton = () => {
+    const error = getErrorText("handleSaveButton");
+    setErrorText(error);
+    if (error === "") {
+      navigate("/cart");
+    }
   };
 
   const handleSearchAddress = () => {
@@ -147,7 +206,7 @@ const useSlideMenu = ({
     setIsSearchActive(true);
     setTimeout(() => {
       setStage(1);
-      setTimeout(() => setStage(2), 100);
+      setTimeout(() => setStage(2), 0);
     }, 580);
   };
 
