@@ -80,10 +80,12 @@ const SlideMenu = ({
             ref={ref}
             onClick={handleSearchAddress}
             onBlur={() => {
-              console.log("blur");
-              const oldStage = stage;
-              setStage(0);
-              setStage(oldStage);
+
+              setTimeout(() => {
+                console.log("blur");
+                const oldStage = stage;
+                setStage(0);
+                setStage(oldStage);}, 1000)
             }}
             onChange={handleAddressChange}
             value={address}

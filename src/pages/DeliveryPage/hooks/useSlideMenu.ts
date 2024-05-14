@@ -121,10 +121,6 @@ const useSlideMenu = ({
     setErrorText(
       getErrorText("updateAddress", address.parsed, address.long, address.lat),
     );
-    // setTimeout(() => {
-    //   setUpdate((value) => value);
-    //   // setTimeout(() => setStage(2), 0);
-    // }, 580);
   };
 
   const handleExactAddressChange = (
@@ -218,6 +214,9 @@ const useSlideMenu = ({
     setStage(2);
     setIsAnimating(true);
     setIsSearchActive(true);
+    setTimeout(() => {
+      setIsAnimating(false);
+    }, 580);
   };
 
   return {

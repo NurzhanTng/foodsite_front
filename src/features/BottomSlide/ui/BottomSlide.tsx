@@ -22,23 +22,6 @@ const BottomSlide = ({
   const [topMargin, setTopMargin] = useState(0);
   const [startCoords, setStartCoords] = useState(0);
 
-  useEffect(() => {
-    console.log(stage);
-  }, [stage]);
-
-  useEffect(() => {
-    const windowHeight = window.visualViewport?.height
-      ? window.visualViewport.height
-      : window.innerHeight;
-    setTopMargin(
-      [windowHeight - 160, windowHeight * 0.5, windowHeight * 0.1][stage],
-    );
-  }, [isAnimating]);
-
-  useEffect(() => {
-    setHeight(getHeight(stage));
-  }, [window.visualViewport?.height]);
-
   function getHeight(stage: 0 | 1 | 2) {
     const windowHeight = window.visualViewport?.height
       ? window.visualViewport.height
@@ -72,6 +55,37 @@ const BottomSlide = ({
     // setHeight(stageHeights[stage]);
     setStage(newStage);
   };
+
+  // useEffect(() => {
+  //   console.log(stage);
+  // }, [stage]);
+
+  useEffect(() => {
+    const windowHeight = window.visualViewport?.height
+      ? window.visualViewport.height
+      : window.innerHeight;
+    setTopMargin(
+      [windowHeight - 160, windowHeight * 0.5, windowHeight * 0.1][stage],
+    );
+
+    let intervalId: NodeJS.Timeout;
+
+    if (isAnimating) {
+      intervalId = setInterval(() => {
+        console.log("Running function every 50ms...");
+        console.log("Height:", getHeight(stage));
+        setHeight(getHeight(stage));
+      }, 50);
+    }
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [isAnimating]);
+
+  useEffect(() => {
+    setHeight(getHeight(stage));
+  }, [window.visualViewport?.height]);
 
   useEffect(() => {
     setHeight(getHeight(stage));
