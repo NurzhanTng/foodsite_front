@@ -7,6 +7,8 @@ import { TimerProvider } from "./context/TimerContext.tsx";
 
 import TransferPage from "../pages/TransferPage";
 import AviataMain from "../pages/AviataMain";
+import CityPage from "../pages/CityPage";
+import SightSeeingPage from "../pages/SightSeeingPage";
 // import MenuPage from "../pages/MenuPage";
 // import DishPage from "../pages/DishPage";
 // import CartPage from "../pages/CartPage";
@@ -27,6 +29,14 @@ const router = createBrowserRouter([
   {
     path: "/main",
     element: <AviataMain />,
+  },
+  {
+    path: "/city/:city_id",
+    element: <CityPage />,
+  },
+  {
+    path: "/sightseeing/:sightseeing_id",
+    element: <SightSeeingPage />,
   },
   // {
   //   path: "/menu",

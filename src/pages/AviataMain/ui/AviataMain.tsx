@@ -12,6 +12,8 @@ import {
   fetchTickets,
   fetchVoyages,
 } from "../../../store/slices/AviataSlice.ts";
+import Cities from "./Cities.tsx";
+import SightSeeing from "./SightSeeing.tsx";
 
 const AviataMain = () => {
   const dispatch = useAppDispatch();
@@ -28,12 +30,12 @@ const AviataMain = () => {
   }, []);
 
   return (
-    <div className="bg-gray3">
+    <div className="mb-[100px] bg-gray3">
       <Header />
       <TicketPicker />
 
-      {/*<Cities />*/}
-      {/*<SightSeeing />*/}
+      <Cities />
+      <SightSeeing />
     </div>
   );
 };
