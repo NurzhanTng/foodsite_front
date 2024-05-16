@@ -18,6 +18,14 @@ export default {
         subtitle_text_color: "var(--tg-theme-subtitle-text-color)",
         destructive_text_color: "var(--tg-theme-destructive-text-color)",
 
+        green1: "#126E58",
+        green2: "#52B788",
+        green3: "#D8F3DC",
+        gray1: "#4C4C4C",
+        gray2: "#6D6E76",
+        gray3: "#F4F4F4",
+        yellow1: "#FBF6EA",
+
         bgColor: "#17212B",
         bgColor2: "#141C25",
         secondary: "#232E39",
@@ -29,7 +37,7 @@ export default {
         buttonInactive: "#141C25",
 
         fontSecondary: "#708499",
-        fontSecondary2: '#495868',
+        fontSecondary2: "#495868",
         textSecondary: "#6A7D91",
         textMain: "#ffffff",
       },
@@ -39,12 +47,12 @@ export default {
         image: "0 3px 10px 0 rgba(0, 0, 0, 0.7)",
       },
       flex: {
-        '2': '2 2 0%',
-        '3': '3 3 0%'
+        2: "2 2 0%",
+        3: "3 3 0%",
       },
       screens: {
-        'sm-s': '350px'
-      }
+        "sm-s": "350px",
+      },
     },
   },
   plugins: [],
