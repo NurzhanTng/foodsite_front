@@ -210,10 +210,9 @@ const useSlideMenu = ({
   };
 
   const handleSearchAddress = () => {
-    if (isSearchActive) return;
-    setStage(2);
     setIsAnimating(true);
     setIsSearchActive(true);
+    setStage(2);
     setTimeout(() => {
       setIsAnimating(false);
     }, 580);

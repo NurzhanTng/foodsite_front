@@ -29,6 +29,13 @@ const BottomSlide = ({
     return [160, windowHeight * 0.5, windowHeight * 0.9][stage];
   }
 
+  function getMargin(stage: 0 | 1 | 2) {
+    const windowHeight = window.visualViewport?.height
+      ? window.visualViewport.height
+      : window.innerHeight;
+    return [windowHeight - 160, windowHeight * 0.5, windowHeight * 0.1][stage];
+  }
+
   const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
     console.log("touch start");
     setStartCoords(event.touches[0].clientY);
@@ -44,7 +51,7 @@ const BottomSlide = ({
       ? window.visualViewport.height
       : window.innerHeight;
     const scrollPercent = (height / windowHeight) * 100;
-    let newStage: 0 | 1 | 2 = 0;
+    let newStage: 0 | 1 | 2;
     if (scrollPercent >= 30 && scrollPercent < 70) {
       newStage = 1;
     } else if (scrollPercent >= 60) {
@@ -52,21 +59,18 @@ const BottomSlide = ({
     } else {
       newStage = 0;
     }
-    // setHeight(stageHeights[stage]);
+    console.log(newStage);
+    setHeight(getHeight(stage));
     setStage(newStage);
   };
 
-  // useEffect(() => {
-  //   console.log(stage);
-  // }, [stage]);
+  useEffect(() => {
+    // console.log(stage);
+    setTopMargin(getMargin(stage));
+  }, [stage]);
 
   useEffect(() => {
-    const windowHeight = window.visualViewport?.height
-      ? window.visualViewport.height
-      : window.innerHeight;
-    setTopMargin(
-      [windowHeight - 160, windowHeight * 0.5, windowHeight * 0.1][stage],
-    );
+    setTopMargin(getMargin(stage));
 
     let intervalId: NodeJS.Timeout;
 
@@ -84,6 +88,7 @@ const BottomSlide = ({
   }, [isAnimating]);
 
   useEffect(() => {
+    console.log("height", getHeight(stage));
     setHeight(getHeight(stage));
   }, [window.visualViewport?.height]);
 
@@ -94,7 +99,7 @@ const BottomSlide = ({
   useEffect(() => {
     const handleTouchMove = (event: TouchEvent) => {
       event.preventDefault();
-      if (!active) return;
+      if (!active || isAnimating) return;
       if (!tg.isExpanded) tg.expand;
       const deltaY = event.touches[0].clientY - startCoords;
       const newHeight = startHeight - deltaY;
@@ -105,12 +110,12 @@ const BottomSlide = ({
     return () => {
       window.removeEventListener("touchmove", handleTouchMove);
     };
-  }, [startCoords, startHeight]);
+  }, [startCoords, startHeight, isAnimating]);
 
   return (
     <div
       className={twMerge(
-        `${startCoords === 0 ? "duration-300" : ""} transition-height fixed bottom-0 left-0 z-10 w-full transition ease-in-out`,
+        `${startCoords === 0 ? "duration-300" : ""} transition-height transition-top fixed bottom-0 left-0 z-10 w-full transition ease-in-out`,
         className,
       )}
       style={
