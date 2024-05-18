@@ -229,7 +229,7 @@ const SlideMenu = ({
         кликни
       </button>
       <div
-        className="transition-height fixed bottom-0 w-full overflow-y-auto bg-bgColor p-4 text-white duration-500"
+        className="transition-height fixed bottom-0 w-full overflow-y-auto bg-bgColor p-4 pb-[80px] text-white duration-500"
         style={{ height: `${height}px` }}
       >
         <div className="absolute left-[50%] top-[7px] h-[3px] w-[50px] translate-x-[-50%] rounded-[90px] bg-button "></div>
