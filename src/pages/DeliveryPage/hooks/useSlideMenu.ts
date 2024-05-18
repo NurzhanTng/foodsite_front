@@ -25,6 +25,7 @@ export type OrderAddress = {
   long: number;
   lat: number;
   parsed: string;
+  exact_address: string;
 };
 
 const tg = window.Telegram.WebApp;
@@ -37,6 +38,7 @@ const useSlideMenu = ({
 }: useSlideMenuProps) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const exactAddress = useAppSelector((state) => state.order.exactAddress);
   const user_id = useAppSelector((state) => state.user.telegram_id);
   const [stage, setStage] = useState<0 | 1 | 2>(1);
   const [height, setHeight] = useState(getHeight(stage));
@@ -146,6 +148,7 @@ const useSlideMenu = ({
       lat: lat,
       long: long,
       parsed: address.address,
+      exact_address: exactAddress,
     });
   };
 
@@ -154,6 +157,7 @@ const useSlideMenu = ({
     setFetchResult(null);
     setIsSearchActive(false);
     dispatch(setAddress(address));
+    dispatch(setExactAddress(address.exact_address));
     setErrorText(
       getErrorText("updateAddress", address.parsed, address.long, address.lat),
     );
