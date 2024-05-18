@@ -1,6 +1,6 @@
 import { CompanyState } from "../../../store/slices/companySlice.ts";
 import { OrderState } from "../../../store/slices/orderSlice.ts";
-import DeliverySwitch from "../ui_old/DeliverySwitch.tsx";
+import DeliverySwitch from "./DeliverySwitch.tsx";
 import CompanyCards from "../../../widget/CompanyCards.tsx";
 import Input from "../../../shared/Input.tsx";
 import FetchAddresses from "./FetchAddreses.tsx";
