@@ -14,6 +14,7 @@ const CartAddressAndTime = ({
   toggleTime,
 }: CartAddressAndTimeProps) => {
   const orderState = useAppSelector((state) => state.order);
+  const errors = useAppSelector((state) => state.main.errors);
   const navigate = useNavigate();
 
   return (
@@ -24,6 +25,7 @@ const CartAddressAndTime = ({
 
       <SelectCard
         id="delivery_input"
+        isError={errors.address}
         leftIcon="delivery"
         borderBottom={true}
         name={
@@ -42,14 +44,16 @@ const CartAddressAndTime = ({
       </SelectCard>
 
       <SelectCard
+        id="time_input"
         leftIcon="clock"
         name={
-          orderState.done_time !== ""
-            ? orderState.done_time !== "00:00"
-              ? orderState.done_time
-              : "Как можно скорее"
-            : "Время" + " приготовления"
+          orderState.done_time === null || orderState.done_time === ""
+            ? "Время приготовления"
+            : orderState.done_time === "00:00"
+              ? "Как можно скорее"
+              : orderState.done_time
         }
+        isError={errors.time}
         description={orderState.done_time ? "Время приготовления" : ""}
         onClick={toggleTime}
       >

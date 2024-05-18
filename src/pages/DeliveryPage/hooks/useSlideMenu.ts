@@ -160,7 +160,13 @@ const useSlideMenu = ({
     dispatch(setAddress(address));
     dispatch(setExactAddress(address.exact_address));
     setErrorText(
-      getErrorText("updateAddress", address.parsed, address.long, address.lat),
+      getErrorText(
+        "updateAddress",
+        address.parsed,
+        address.long,
+        address.lat,
+        address.exact_address,
+      ),
     );
   };
 

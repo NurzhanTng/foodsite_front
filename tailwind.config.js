@@ -22,6 +22,9 @@ export default {
         bgColor2: "#141C25",
         secondary: "#232E39",
 
+        error: "#BA4747",
+        error2: "#8B3A3A",
+
         button: "#5288C1",
         buttonHover: "#4A7AAE",
         buttonSecondary1: "#17212B",
@@ -29,7 +32,7 @@ export default {
         buttonInactive: "#141C25",
 
         fontSecondary: "#708499",
-        fontSecondary2: '#495868',
+        fontSecondary2: "#495868",
         textSecondary: "#6A7D91",
         textMain: "#ffffff",
       },
@@ -39,12 +42,12 @@ export default {
         image: "0 3px 10px 0 rgba(0, 0, 0, 0.7)",
       },
       flex: {
-        '2': '2 2 0%',
-        '3': '3 3 0%'
+        2: "2 2 0%",
+        3: "3 3 0%",
       },
       screens: {
-        'sm-s': '350px'
-      }
+        "sm-s": "350px",
+      },
     },
   },
   plugins: [],

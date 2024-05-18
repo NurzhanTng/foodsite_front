@@ -11,7 +11,6 @@ import {
   setIsParamsCartUpdated,
 } from "../store/slices/mainSlice.ts";
 import { useState } from "react";
-import checkIsInPolygon from "../utils/checkIsInPolygon.ts";
 import { clearState as companySliceClear } from "../store/slices/companySlice.ts";
 import { clearState as clientOrderSliceClear } from "../store/slices/clientOrderSlice.ts";
 import { clearState as managerSliceClear } from "../store/slices/managerSlice.ts";
@@ -19,19 +18,9 @@ import { clearState as orderSliceClear } from "../store/slices/orderSlice.ts";
 import { deleteAllTimers as timerSliceClear } from "../store/slices/timerSlice.ts";
 import { clearState as userSliceClear } from "../store/slices/userSlice.ts";
 
-// export type InputRefs = {
-//   [p in
-//     | "cart_input"
-//     | "name_input"
-//     | "phone_input"
-//     | "kaspi_input"
-//     | "delivery_input"]: HTMLDivElement | HTMLInputElement | null;
-// };
-
 const useCart = () => {
   const state = useAppSelector((state) => state.main);
   const order = useAppSelector((state) => state.order);
-  const companies = useAppSelector((state) => state.companies.companies);
   const dispatch = useAppDispatch();
   const [showComment, setShowComment] = useState(false);
   const [showTime, setShowTime] = useState(false);
@@ -55,10 +44,16 @@ const useCart = () => {
       name: order.user_name.length === 0,
       phone: order.phone.length !== 11,
       kaspi_phone: order.kaspi_phone.length !== 11,
-      address: !checkIsInPolygon(companies[0].delivery_layers[0].points, [
-        order.address.long,
-        order.address.lat,
-      ]),
+      // address: !checkIsInPolygon(companies[0].delivery_layers[0].points, [
+      //   order.address.long,
+      //   order.address.lat,
+      // ]),
+      address: order.isDelivery
+        ? order.address.long > 0 &&
+          order.address.lat > 0 &&
+          order.address.parsed !== ""
+        : !!order.company_id,
+      time: order.done_time === "" || order.done_time === null,
     };
 
     if (errors.cart) {
@@ -71,6 +66,8 @@ const useCart = () => {
       scrollByElementId("kaspi_input");
     } else if (errors.address) {
       scrollByElementId("delivery_input");
+    } else if (errors.time) {
+      scrollByElementId("time_input");
     }
 
     dispatch(setErrorText(getErrorText(errors)));
@@ -80,7 +77,8 @@ const useCart = () => {
       errors.cart ||
       errors.phone ||
       errors.kaspi_phone ||
-      errors.address
+      errors.address ||
+      errors.time
     ) {
       dispatch(setErrors(errors));
       return;
@@ -122,12 +120,14 @@ const useCart = () => {
     phone: boolean;
     kaspi_phone: boolean;
     address: boolean;
+    time: boolean;
   }) => {
     if (errors.cart) return "Корзина не может быть пустой";
     if (errors.name) return "Имя не может быть пустым";
     if (errors.phone) return "Введите корректный номер телефона";
     if (errors.kaspi_phone) return "Введите корректный номер каспи";
     if (errors.address) return "Необходимо указать правильный адрес";
+    if (errors.address) return "Необходимо указать время";
     return "";
   };
 

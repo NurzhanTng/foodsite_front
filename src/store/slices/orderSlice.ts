@@ -6,7 +6,7 @@ export type OrderState = {
   company_id: number;
   max_bonus: number;
   bonus_used: boolean;
-  done_time: string;
+  done_time: string | null;
   user_name: string;
   address: {
     long: number;
@@ -28,7 +28,7 @@ const initialState: OrderState = {
   company_id: -1,
   max_bonus: 0,
   bonus_used: false,
-  done_time: "00:00",
+  done_time: null,
   user_name: "",
   address: {
     long: 0,
@@ -70,9 +70,6 @@ const orderSlice = createSlice({
       state.phone = data.phone;
       state.kaspi_phone = data.kaspi_phone;
       state.max_bonus = data.bonus;
-      if (data.address === null || data.exact_address === null) return;
-      state.address = data.address;
-      state.exactAddress = data.exact_address;
     },
     setUserName: (state, action: PayloadAction<string>) => {
       state.user_name = action.payload;

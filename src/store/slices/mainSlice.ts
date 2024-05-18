@@ -15,6 +15,7 @@ export type MainState = {
     phone: boolean;
     kaspi_phone: boolean;
     address: boolean;
+    time: boolean;
   };
   errorText: string | null;
 };
@@ -31,6 +32,7 @@ const initialState: MainState = {
     phone: false,
     kaspi_phone: false,
     address: false,
+    time: false,
   },
   errorText: null,
 };
@@ -87,6 +89,7 @@ const mainSlice = createSlice({
         phone: boolean;
         kaspi_phone: boolean;
         address: boolean;
+        time: boolean;
       }>,
     ) => {
       state.errors = action.payload;
