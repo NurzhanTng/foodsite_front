@@ -15,6 +15,7 @@ import getCenterOfPolygon from "../../../utils/getCenterOfPolygon.ts";
 import { useDispatch } from "react-redux";
 import checkIsInPolygon from "../../../utils/checkIsInPolygon.ts";
 import { useAppSelector } from "../../../store/hooks/hooks.ts";
+import { useNavigate } from "react-router-dom";
 // import useSlideMenu from "../hooks/useSlideMenu.ts";
 
 type SlideMenuProps = {
@@ -35,6 +36,7 @@ const SlideMenu = ({
   orderState,
 }: SlideMenuProps) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user_id = useAppSelector((state) => state.user.telegram_id);
   const [stage, setStage] = useState<0 | 1 | 2>(1);
   const [height, setHeight] = useState(getHeight(stage));
@@ -73,6 +75,7 @@ const SlideMenu = ({
   }, []);
 
   useEffect(() => {
+    if (height === window.innerHeight - 300 && isSearchActive) return;
     setHeight(getHeight(stage));
   }, [stage]);
 
@@ -144,7 +147,13 @@ const SlideMenu = ({
       getErrorText("updateAddress", address.parsed, address.long, address.lat),
     );
   };
-  const handleSaveButton = () => {};
+  const handleSaveButton = () => {
+    const error = getErrorText("handleSaveButton");
+    setErrorText(error);
+    if (error === "") {
+      navigate("/cart");
+    }
+  };
 
   const handleExactAddressChange = () => {};
 
@@ -279,6 +288,7 @@ const SlideMenu = ({
 
             {isSearchActive &&
               fetchResult === null &&
+              oldAddresses !== null &&
               oldAddresses?.length !== 0 && (
                 <OldAddressesDiv
                   oldAddresses={oldAddresses}

@@ -11,7 +11,7 @@ type CartPageHeaderProps = {
 };
 
 const CartPageHeader = ({
-  text = "Restopark",
+  text = "Mono Pizza",
   isMain = true,
   backPage = "/menu",
   onClear = () => {},
