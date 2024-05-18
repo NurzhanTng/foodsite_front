@@ -7,11 +7,13 @@ interface HistoryWrapperProps {
 }
 
 const HistoryWrapper: React.FC<HistoryWrapperProps> = ({ children }) => {
+  alert("popstate");
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
     const handleBackButton = (event: PopStateEvent) => {
+      alert("back button");
       event.preventDefault();
       navigate(-1);
     };
