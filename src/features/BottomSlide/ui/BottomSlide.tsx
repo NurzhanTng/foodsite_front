@@ -24,10 +24,12 @@ const BottomSlide = ({
   const [viewportHeight, setViewportHeight] = useState(
     window.visualViewport?.height,
   );
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     console.log(viewportHeight);
     setViewportHeight(window.visualViewport?.height);
+    setCount((c) => c + 1);
   }, [window.visualViewport?.height]);
 
   function getHeight(stage: 0 | 1 | 2) {
@@ -134,7 +136,9 @@ const BottomSlide = ({
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      <p className="mt-[40px] w-full text-center">{viewportHeight}</p>
+      <p className="mt-[40px] w-full text-center">
+        {viewportHeight} {count}
+      </p>
       {children}
     </div>
   );
