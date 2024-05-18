@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import React, { useEffect, useRef, useState } from "react";
+import { useAppSelector } from "../../../store/hooks/hooks.ts";
+import React, { useEffect, useState } from "react";
 import fetchAddressesByName, {
   Address,
 } from "../fetch/fetchAddressesByName.ts";
@@ -12,7 +13,6 @@ import {
 } from "../../../store/slices/orderSlice.ts";
 import checkIsInPolygon from "../../../utils/checkIsInPolygon.ts";
 import { CompanyState } from "../../../store/slices/companySlice.ts";
-import { useAppSelector } from "../../../store/hooks/hooks.ts";
 
 type useSlideMenuProps = {
   setErrorText: (text: string) => void;
@@ -37,27 +37,18 @@ const useSlideMenu = ({
 }: useSlideMenuProps) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [stage, setStage] = useState<0 | 1 | 2>(1);
-  const [isSearchActive, setIsSearchActive] = useState(false);
   const user_id = useAppSelector((state) => state.user.telegram_id);
+  const [stage, setStage] = useState<0 | 1 | 2>(1);
+  const [height, setHeight] = useState(getHeight(stage));
+
+  const [isSearchActive, setIsSearchActive] = useState(false);
   const [address, setAddressText] = useState(orderState.address.parsed);
   const [fetchResult, setFetchResult] = useState<Address[] | null>(null);
-  const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null);
   const [oldAddresses, setOldAddresses] = useState<OrderAddress[] | null>(null);
-  const ref = useRef<HTMLInputElement>(null);
-  const [height, setHeight] = useState<number>(getHeight(stage));
-  const [active, setActive] = useState(false);
+  const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null);
   const [startHeight, setStartHeight] = useState(0);
-  // const [topMargin, setTopMargin] = useState(0);
   const [startCoords, setStartCoords] = useState(0);
-  const [viewportHeight, setViewportHeight] = useState(
-    window.visualViewport?.height,
-  );
-
-  useEffect(() => {
-    console.log(height);
-  }, [height]);
+  const [active, setActive] = useState(false);
 
   useEffect(() => {
     fetch(
@@ -86,6 +77,46 @@ const useSlideMenu = ({
       }
     };
   }, []);
+
+  useEffect(() => {
+    if (height === window.innerHeight - 300 && isSearchActive) return;
+    setHeight(getHeight(stage));
+  }, [stage]);
+
+  useEffect(() => {
+    const handleTouchMove = (event: TouchEvent) => {
+      event.preventDefault();
+      if (!active) return;
+      if (!tg.isExpanded) tg.expand;
+      const deltaY = event.touches[0].clientY - startCoords;
+      const newHeight = startHeight - deltaY;
+      setHeight(Math.min(Math.max(newHeight, getHeight(0)), getHeight(2)));
+    };
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+
+    return () => {
+      window.removeEventListener("touchmove", handleTouchMove);
+    };
+  }, [startCoords, startHeight]);
+
+  function getHeight(stage: 0 | 1 | 2) {
+    const windowHeight = window.visualViewport?.height
+      ? window.visualViewport.height
+      : window.innerHeight;
+    return [160, windowHeight * 0.5, windowHeight - 100][stage];
+  }
+
+  const handleSearchAddress = () => {
+    setIsSearchActive(true);
+    setStage(2);
+    setHeight(window.innerHeight - 300);
+  };
+
+  const handleSearchBlur = () => {
+    // setIsSearchActive(false);
+    setStage(2);
+    setHeight(window.innerHeight - 100);
+  };
 
   const handleAddressChange: React.ChangeEventHandler<HTMLInputElement> = (
     event,
@@ -116,25 +147,24 @@ const useSlideMenu = ({
       long: long,
       parsed: address.address,
     });
-    setStage(2);
-    setIsAnimating(false);
-    // setTimeout(() => {
-    //   setStage(2);
-    //   setUpdate((value) => value);
-    // }, 580);
   };
 
   const updateAddress = (address: OrderAddress) => {
-    console.log("update address: ", address);
     setAddressText(address.parsed);
     setFetchResult(null);
-    setStage(2);
     setIsSearchActive(false);
-    setIsAnimating(false);
     dispatch(setAddress(address));
     setErrorText(
       getErrorText("updateAddress", address.parsed, address.long, address.lat),
     );
+  };
+
+  const handleSaveButton = () => {
+    const error = getErrorText("handleSaveButton");
+    setErrorText(error);
+    if (error === "") {
+      navigate("/cart");
+    }
   };
 
   const handleExactAddressChange = (
@@ -215,50 +245,7 @@ const useSlideMenu = ({
     return "";
   };
 
-  const handleSaveButton = () => {
-    const error = getErrorText("handleSaveButton");
-    setErrorText(error);
-    if (error === "") {
-      navigate("/cart");
-    }
-  };
-
-  const handleSearchAddress = () => {
-    setIsAnimating(true);
-    setIsSearchActive(true);
-    setStage(2);
-    setHeight(window.innerHeight - 300);
-    setTimeout(() => {
-      setIsAnimating(false);
-    }, 580);
-  };
-
-  const handleSearchBlur = () => {
-    setIsSearchActive(false);
-    setHeight(window.innerHeight - 100);
-  };
-
-  useEffect(() => {
-    console.log(viewportHeight);
-    setViewportHeight(window.visualViewport?.height);
-  }, [window.visualViewport?.height]);
-
-  function getHeight(stage: 0 | 1 | 2) {
-    const windowHeight = window.visualViewport?.height
-      ? window.visualViewport.height
-      : window.innerHeight;
-    return [160, windowHeight * 0.5, windowHeight - 100][stage];
-  }
-
-  // function getMargin(stage: 0 | 1 | 2) {
-  //   const windowHeight = window.visualViewport?.height
-  //     ? window.visualViewport.height
-  //     : window.innerHeight;
-  //   return [windowHeight - 160, windowHeight * 0.5, 100][stage];
-  // }
-
   const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
-    // console.log("touch start");
     setStartCoords(event.touches[0].clientY);
     setStartHeight(height);
     setActive(true);
@@ -286,74 +273,24 @@ const useSlideMenu = ({
     setStage(newStage);
   };
 
-  // useEffect(() => {
-  //   // console.log(stage);
-  //   setTopMargin(getMargin(stage));
-  // }, [stage]);
-  //
-  // useEffect(() => {
-  //   setTopMargin(getMargin(stage));
-  //
-  //   let intervalId: NodeJS.Timeout;
-  //
-  //   if (isAnimating) {
-  //     intervalId = setInterval(() => {
-  //       console.log("Running function every 50ms...");
-  //       console.log("Height:", getHeight(stage));
-  //       setHeight(getHeight(stage));
-  //     }, 50);
-  //   }
-  //
-  //   return () => {
-  //     clearInterval(intervalId);
-  //   };
-  // }, [isAnimating]);
-
-  useEffect(() => {
-    // console.log("height", getHeight(stage));
-    setHeight(getHeight(stage));
-  }, [window.visualViewport?.height]);
-
-  useEffect(() => {
-    setHeight(getHeight(stage));
-  }, [stage]);
-
-  useEffect(() => {
-    const handleTouchMove = (event: TouchEvent) => {
-      event.preventDefault();
-      if (!active || isAnimating) return;
-      if (!tg.isExpanded) tg.expand;
-      const deltaY = event.touches[0].clientY - startCoords;
-      const newHeight = startHeight - deltaY;
-      setHeight(Math.min(Math.max(newHeight, getHeight(0)), getHeight(2)));
-    };
-    window.addEventListener("touchmove", handleTouchMove, { passive: false });
-
-    return () => {
-      window.removeEventListener("touchmove", handleTouchMove);
-    };
-  }, [startCoords, startHeight, isAnimating]);
-
   return {
-    ref,
-    isAnimating,
+    active,
+    height,
     stage,
-    setStage,
     isSearchActive,
-    handleSearchBlur,
     address,
     fetchResult,
     oldAddresses,
-    startCoords,
-    height,
+
+    handleSearchAddress,
+    handleSearchBlur,
+    handleAddressChange,
+    handleChooseAddress,
+    updateAddress,
+    handleSaveButton,
+    handleExactAddressChange,
     handleTouchStart,
     handleTouchEnd,
-    updateAddress,
-    handleExactAddressChange,
-    handleChooseAddress,
-    handleAddressChange,
-    handleSaveButton,
-    handleSearchAddress,
   };
 };
 
