@@ -78,14 +78,22 @@ const SlideMenu = ({
         <div className="mt-[20px] flex flex-col gap-5">
           <Input
             ref={ref}
-            onClick={handleSearchAddress}
+            onClick={() => {
+              console.log("on click");
+              handleSearchAddress();
+            }}
+            onFocus={() => {
+              console.log("focus");
+            }}
             onBlur={() => {
+              console.log("on blur");
 
               setTimeout(() => {
                 console.log("blur");
                 const oldStage = stage;
                 setStage(0);
-                setStage(oldStage);}, 1000)
+                setStage(oldStage);
+              }, 1000);
             }}
             onChange={handleAddressChange}
             value={address}

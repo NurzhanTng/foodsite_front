@@ -21,6 +21,14 @@ const BottomSlide = ({
   const [startHeight, setStartHeight] = useState(0);
   const [topMargin, setTopMargin] = useState(0);
   const [startCoords, setStartCoords] = useState(0);
+  const [viewportHeight, setViewportHeight] = useState(
+    window.visualViewport?.height,
+  );
+
+  useEffect(() => {
+    console.log(viewportHeight);
+    setViewportHeight(window.visualViewport?.height);
+  }, [window.visualViewport?.height]);
 
   function getHeight(stage: 0 | 1 | 2) {
     const windowHeight = window.visualViewport?.height
@@ -37,14 +45,14 @@ const BottomSlide = ({
   }
 
   const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
-    console.log("touch start");
+    // console.log("touch start");
     setStartCoords(event.touches[0].clientY);
     setStartHeight(height);
     setActive(true);
   };
 
   const handleTouchEnd = () => {
-    console.log("touch end");
+    // console.log("touch end");
     setStartCoords(0);
     setActive(false);
     const windowHeight = window.visualViewport?.height
@@ -59,7 +67,7 @@ const BottomSlide = ({
     } else {
       newStage = 0;
     }
-    console.log(newStage);
+    // console.log(newStage);
     setHeight(getHeight(stage));
     setStage(newStage);
   };
@@ -76,8 +84,8 @@ const BottomSlide = ({
 
     if (isAnimating) {
       intervalId = setInterval(() => {
-        console.log("Running function every 50ms...");
-        console.log("Height:", getHeight(stage));
+        // console.log("Running function every 50ms...");
+        // console.log("Height:", getHeight(stage));
         setHeight(getHeight(stage));
       }, 50);
     }
@@ -88,7 +96,7 @@ const BottomSlide = ({
   }, [isAnimating]);
 
   useEffect(() => {
-    console.log("height", getHeight(stage));
+    // console.log("height", getHeight(stage));
     setHeight(getHeight(stage));
   }, [window.visualViewport?.height]);
 
@@ -126,6 +134,7 @@ const BottomSlide = ({
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
+      <p className="mt-[40px] w-full text-center">{viewportHeight}</p>
       {children}
     </div>
   );
