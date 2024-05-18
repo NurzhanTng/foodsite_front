@@ -7,6 +7,7 @@ import FetchAddresses from "./FetchAddreses.tsx";
 import OldAddressesDiv from "./OldAddressesDiv.tsx";
 import Button from "../../../shared/Button.tsx";
 import useSlideMenu from "../hooks/useSlideMenu.ts";
+import GeoLocationButton from "./GeoLocationButton.tsx";
 
 type SlideMenuProps = {
   errorText: string;
@@ -59,6 +60,8 @@ const SlideMenu = ({
         onTouchEnd={handleTouchEnd}
       >
         <div className="absolute left-[50%] top-[7px] h-[3px] w-[50px] translate-x-[-50%] rounded-[90px] bg-button "></div>
+
+        <GeoLocationButton />
 
         {!isSearchActive && (
           <DeliverySwitch
