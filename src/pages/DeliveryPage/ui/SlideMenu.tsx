@@ -29,14 +29,13 @@ const SlideMenu = ({
   const {
     ref,
     stage,
-    isAnimating,
     isSearchActive,
     address,
     fetchResult,
     oldAddresses,
     startCoords,
     height,
-    topMargin,
+    handleSearchBlur,
     handleTouchStart,
     handleTouchEnd,
     updateAddress,
@@ -58,11 +57,12 @@ const SlideMenu = ({
         `${startCoords === 0 ? "duration-300" : ""} transition-height transition-top fixed bottom-0 left-0 z-10 w-full transition ease-in-out`,
         "z-0 overflow-y-auto bg-bgColor px-[20px] pb-[70px]",
       )}
-      style={
-        isAnimating
-          ? { height: `${height}px`, top: `${topMargin}px` }
-          : { height: `${height}px`, bottom: 0 }
-      }
+      // style={
+      //   isAnimating
+      //     ? { height: `${height}px`, top: `${topMargin}px` }
+      //     : { height: `${height}px`, bottom: 0 }
+      // }
+      style={{ height: `${height}px`, bottom: 0 }}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
@@ -91,16 +91,7 @@ const SlideMenu = ({
           <Input
             ref={ref}
             onFocus={handleSearchAddress}
-            onBlur={() => {
-              // console.log("on blur");
-              //
-              // setTimeout(() => {
-              //   console.log("blur");
-              //   const oldStage = stage;
-              //   setStage(0);
-              //   setStage(oldStage);
-              // }, 1000);
-            }}
+            onBlur={handleSearchBlur}
             onChange={handleAddressChange}
             value={address}
             label="Введите адрес доставки"

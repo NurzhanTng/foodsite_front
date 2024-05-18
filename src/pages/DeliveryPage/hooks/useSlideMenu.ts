@@ -49,7 +49,7 @@ const useSlideMenu = ({
   const [height, setHeight] = useState<number>(getHeight(stage));
   const [active, setActive] = useState(false);
   const [startHeight, setStartHeight] = useState(0);
-  const [topMargin, setTopMargin] = useState(0);
+  // const [topMargin, setTopMargin] = useState(0);
   const [startCoords, setStartCoords] = useState(0);
   const [viewportHeight, setViewportHeight] = useState(
     window.visualViewport?.height,
@@ -223,9 +223,15 @@ const useSlideMenu = ({
     setIsAnimating(true);
     setIsSearchActive(true);
     setStage(2);
+    setHeight(window.innerHeight - 300);
     setTimeout(() => {
       setIsAnimating(false);
     }, 580);
+  };
+
+  const handleSearchBlur = () => {
+    setIsSearchActive(false);
+    setHeight(window.innerHeight - 100);
   };
 
   useEffect(() => {
@@ -240,12 +246,12 @@ const useSlideMenu = ({
     return [160, windowHeight * 0.5, windowHeight - 100][stage];
   }
 
-  function getMargin(stage: 0 | 1 | 2) {
-    const windowHeight = window.visualViewport?.height
-      ? window.visualViewport.height
-      : window.innerHeight;
-    return [windowHeight - 160, windowHeight * 0.5, 100][stage];
-  }
+  // function getMargin(stage: 0 | 1 | 2) {
+  //   const windowHeight = window.visualViewport?.height
+  //     ? window.visualViewport.height
+  //     : window.innerHeight;
+  //   return [windowHeight - 160, windowHeight * 0.5, 100][stage];
+  // }
 
   const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
     // console.log("touch start");
@@ -275,28 +281,28 @@ const useSlideMenu = ({
     setStage(newStage);
   };
 
-  useEffect(() => {
-    // console.log(stage);
-    setTopMargin(getMargin(stage));
-  }, [stage]);
-
-  useEffect(() => {
-    setTopMargin(getMargin(stage));
-
-    let intervalId: NodeJS.Timeout;
-
-    if (isAnimating) {
-      intervalId = setInterval(() => {
-        console.log("Running function every 50ms...");
-        console.log("Height:", getHeight(stage));
-        setHeight(getHeight(stage));
-      }, 50);
-    }
-
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [isAnimating]);
+  // useEffect(() => {
+  //   // console.log(stage);
+  //   setTopMargin(getMargin(stage));
+  // }, [stage]);
+  //
+  // useEffect(() => {
+  //   setTopMargin(getMargin(stage));
+  //
+  //   let intervalId: NodeJS.Timeout;
+  //
+  //   if (isAnimating) {
+  //     intervalId = setInterval(() => {
+  //       console.log("Running function every 50ms...");
+  //       console.log("Height:", getHeight(stage));
+  //       setHeight(getHeight(stage));
+  //     }, 50);
+  //   }
+  //
+  //   return () => {
+  //     clearInterval(intervalId);
+  //   };
+  // }, [isAnimating]);
 
   useEffect(() => {
     // console.log("height", getHeight(stage));
@@ -329,12 +335,12 @@ const useSlideMenu = ({
     stage,
     setStage,
     isSearchActive,
+    handleSearchBlur,
     address,
     fetchResult,
     oldAddresses,
     startCoords,
     height,
-    topMargin,
     handleTouchStart,
     handleTouchEnd,
     updateAddress,

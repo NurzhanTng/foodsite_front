@@ -7,13 +7,13 @@ interface HistoryWrapperProps {
 }
 
 const HistoryWrapper: React.FC<HistoryWrapperProps> = ({ children }) => {
-  alert("hashchange");
+  // alert("hashchange");
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
     const handleBackButton = (event: HashChangeEvent) => {
-      alert("back button");
+      // alert("back button");
       event.preventDefault();
       navigate(-1);
     };
