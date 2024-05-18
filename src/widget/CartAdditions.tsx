@@ -1,31 +1,19 @@
 import { useAppDispatch, useAppSelector } from "../store/hooks/hooks.ts";
 import Input from "../shared/Input.tsx";
-import {
-  setBonusUsed,
-  setUserName,
-  setUserPhone,
-} from "../store/slices/orderSlice.ts";
+import { setUserName, setUserPhone } from "../store/slices/orderSlice.ts";
 import formatPhoneNumber from "../utils/formatPhoneNumber.ts";
 import { twMerge } from "tailwind-merge";
-import SelectCard from "../entities/SelectCard.tsx";
-import Icon from "../shared/Icon";
-import Switch from "../shared/Switch.tsx";
 import { setErrors } from "../store/slices/mainSlice.ts";
 import { useEffect } from "react";
 import useScroll from "../hooks/useScroll.ts";
 
 type CartAdditionsProps = {
   className?: string;
-  toggleComment: () => void;
 };
 
-const CartAdditions = ({
-  className = "",
-  toggleComment,
-}: CartAdditionsProps) => {
+const CartAdditions = ({ className = "" }: CartAdditionsProps) => {
   // const state = useAppSelector((state) => state.main);
   const orderState = useAppSelector((state) => state.order);
-  const userBonus = useAppSelector((state) => state.user.bonus);
   const dispatch = useAppDispatch();
   const errors = useAppSelector((state) => state.main.errors);
   const nameScroll = useScroll(100);
@@ -83,21 +71,6 @@ const CartAdditions = ({
         }}
         value={formatPhoneNumber(orderState.phone)}
       />
-
-      <SelectCard
-        borderBottom={true}
-        name="Комментарий к заказу"
-        onClick={() => toggleComment()}
-      >
-        <Icon className="my-auto h-5 w-5" type="arrowRight" />
-      </SelectCard>
-
-      <SelectCard
-        name={`Использовать бонус (${userBonus})`}
-        onClick={() => dispatch(setBonusUsed(!orderState.bonus_used))}
-      >
-        <Switch checked={orderState.bonus_used} onChange={() => {}} />
-      </SelectCard>
     </div>
   );
 };

@@ -52,15 +52,15 @@ const CartPage = () => {
         onClear={deleteCartProducts}
       />
       <form
-        className="mb-[40px] mt-[90px] flex flex-col gap-12 px-5"
+        className="mb-[40px] mt-[90px] flex flex-col gap-[70px] px-5"
         onSubmit={(e) => {
           e.preventDefault();
         }}
         autoComplete="off"
       >
         {/*<Cashback amount={10000} cashback={7} />*/}
-        <CartElements />
-        <CartAdditions toggleComment={usePopup.toggleComment} />
+        <CartElements toggleComment={usePopup.toggleComment} />
+        <CartAdditions />
         <CartAddressAndTime toggleTime={usePopup.toggleTime} />
         <CartPayments />
         <CartPrice />

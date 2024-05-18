@@ -1,11 +1,13 @@
 import { useAppDispatch, useAppSelector } from "../store/hooks/hooks.ts";
 import Input from "../shared/Input.tsx";
-import { setKaspiPhone } from "../store/slices/orderSlice.ts";
+import { setBonusUsed, setKaspiPhone } from "../store/slices/orderSlice.ts";
 import formatPhoneNumber from "../utils/formatPhoneNumber.ts";
 import { twMerge } from "tailwind-merge";
 import { setErrors } from "../store/slices/mainSlice.ts";
 import kaspi from "../data/img/kaspi.svg";
 import useScroll from "../hooks/useScroll.ts";
+import SelectCard from "../entities/SelectCard.tsx";
+import Switch from "../shared/Switch.tsx";
 
 type CartPaymentsProps = {
   className?: string;
@@ -13,6 +15,7 @@ type CartPaymentsProps = {
 
 const CartPayments = ({ className = "" }: CartPaymentsProps) => {
   const orderState = useAppSelector((state) => state.order);
+  const userBonus = useAppSelector((state) => state.user.bonus);
   const dispatch = useAppDispatch();
   const errors = useAppSelector((state) => state.main.errors);
   const { ref, scrollToElement } = useScroll(100);
@@ -25,6 +28,14 @@ const CartPayments = ({ className = "" }: CartPaymentsProps) => {
           Оплата
         </h3>
       </div>
+
+      <SelectCard
+        name={`Использовать бонус (${userBonus})`}
+        onClick={() => dispatch(setBonusUsed(!orderState.bonus_used))}
+        className="mb-[20px]"
+      >
+        <Switch checked={orderState.bonus_used} onChange={() => {}} />
+      </SelectCard>
 
       <Input
         id="kaspi_input"
