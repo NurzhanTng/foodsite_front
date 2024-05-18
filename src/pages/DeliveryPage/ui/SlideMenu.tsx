@@ -90,9 +90,7 @@ const SlideMenu = ({
         <div className="mt-[20px] flex flex-col gap-5">
           <Input
             ref={ref}
-            onFocus={() => {
-              handleSearchAddress();
-            }}
+            onFocus={handleSearchAddress}
             onBlur={() => {
               // console.log("on blur");
               //
