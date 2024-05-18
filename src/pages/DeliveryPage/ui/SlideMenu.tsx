@@ -1,5 +1,9 @@
 import { CompanyState } from "../../../store/slices/companySlice.ts";
-import { OrderState, setAddress } from "../../../store/slices/orderSlice.ts";
+import {
+  OrderState,
+  setAddress,
+  setExactAddress,
+} from "../../../store/slices/orderSlice.ts";
 import React, { useEffect, useState } from "react";
 import DeliverySwitch from "../ui_old/DeliverySwitch.tsx";
 import CompanyCards from "../../../widget/CompanyCards.tsx";
@@ -27,6 +31,8 @@ type SlideMenuProps = {
   orderState: OrderState;
 };
 
+const tg = window.Telegram.WebApp;
+
 const SlideMenu = ({
   errorText,
   setErrorText,
@@ -45,6 +51,10 @@ const SlideMenu = ({
   const [address, setAddressText] = useState(orderState.address.parsed);
   const [fetchResult, setFetchResult] = useState<Address[] | null>(null);
   const [oldAddresses, setOldAddresses] = useState<OrderAddress[] | null>(null);
+  const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null);
+  const [startHeight, setStartHeight] = useState(0);
+  const [startCoords, setStartCoords] = useState(0);
+  const [active, setActive] = useState(false);
 
   useEffect(() => {
     fetch(
@@ -101,12 +111,11 @@ const SlideMenu = ({
   };
 
   const handleSearchBlur = () => {
-    setIsSearchActive(false);
+    // setIsSearchActive(false);
     setStage(2);
     setHeight(window.innerHeight - 100);
   };
 
-  const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null);
   const handleAddressChange: React.ChangeEventHandler<HTMLInputElement> = (
     event,
   ) => {
@@ -117,7 +126,7 @@ const SlideMenu = ({
     const newTimerId = setTimeout(() => {
       fetchAddressesByName(text).then((data) => {
         if (data.length === 1) {
-          // handleChooseAddress(data[0]);
+          handleChooseAddress(data[0]);
           setErrorText("");
           return;
         }
@@ -147,6 +156,7 @@ const SlideMenu = ({
       getErrorText("updateAddress", address.parsed, address.long, address.lat),
     );
   };
+
   const handleSaveButton = () => {
     const error = getErrorText("handleSaveButton");
     setErrorText(error);
@@ -155,7 +165,20 @@ const SlideMenu = ({
     }
   };
 
-  const handleExactAddressChange = () => {};
+  const handleExactAddressChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    dispatch(setExactAddress(event.target.value));
+    setErrorText(
+      getErrorText(
+        "handleExactAddressChange",
+        null,
+        null,
+        null,
+        event.target.value,
+      ),
+    );
+  };
 
   const getErrorText = (
     from: string = "",
@@ -220,6 +243,50 @@ const SlideMenu = ({
     return "";
   };
 
+  const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
+    setStartCoords(event.touches[0].clientY);
+    setStartHeight(height);
+    setActive(true);
+  };
+
+  const handleTouchEnd = () => {
+    // console.log("touch end");
+    setStartCoords(0);
+    setActive(false);
+    const windowHeight = window.visualViewport?.height
+      ? window.visualViewport.height
+      : window.innerHeight;
+    const scrollPercent = (height / windowHeight) * 100;
+    let newStage: 0 | 1 | 2;
+    if (scrollPercent >= 30 && scrollPercent < 70) {
+      newStage = 1;
+    } else if (scrollPercent >= 60) {
+      newStage = 2;
+    } else {
+      newStage = 0;
+    }
+    console.log("handleTouchEnd:", scrollPercent, newStage);
+    // console.log(newStage);
+    setHeight(getHeight(newStage));
+    setStage(newStage);
+  };
+
+  useEffect(() => {
+    const handleTouchMove = (event: TouchEvent) => {
+      event.preventDefault();
+      if (!active) return;
+      if (!tg.isExpanded) tg.expand;
+      const deltaY = event.touches[0].clientY - startCoords;
+      const newHeight = startHeight - deltaY;
+      setHeight(Math.min(Math.max(newHeight, getHeight(0)), getHeight(2)));
+    };
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+
+    return () => {
+      window.removeEventListener("touchmove", handleTouchMove);
+    };
+  }, [startCoords, startHeight]);
+
   return (
     <>
       <button
@@ -229,8 +296,10 @@ const SlideMenu = ({
         кликни
       </button>
       <div
-        className="transition-height fixed bottom-0 w-full overflow-y-auto bg-bgColor p-4 pb-[80px] text-white duration-500"
+        className={`${active ? "duration-0" : "duration-500"} transition-height fixed bottom-0 w-full overflow-y-auto bg-bgColor p-4 pb-[80px] text-white`}
         style={{ height: `${height}px` }}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
       >
         <div className="absolute left-[50%] top-[7px] h-[3px] w-[50px] translate-x-[-50%] rounded-[90px] bg-button "></div>
 
