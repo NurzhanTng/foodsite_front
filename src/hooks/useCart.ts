@@ -49,10 +49,12 @@ const useCart = () => {
       //   order.address.lat,
       // ]),
       address: order.isDelivery
-        ? order.address.long > 0 &&
-          order.address.lat > 0 &&
-          order.address.parsed !== ""
-        : !!order.company_id,
+        ? !(
+            order.address.long > 0 &&
+            order.address.lat > 0 &&
+            order.address.parsed !== ""
+          )
+        : !order.company_id,
       time: order.done_time === "" || order.done_time === null,
     };
 

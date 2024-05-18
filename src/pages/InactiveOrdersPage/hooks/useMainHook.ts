@@ -29,8 +29,9 @@ const fetchOrders = async (telegram_id: string) => {
         isToday(order.created_at);
       console.log(
         value,
-        order.status !== "inactive",
+        order.status === "inactive",
         order.client_id === telegram_id,
+        isToday(order.created_at),
         order,
       );
       return value;

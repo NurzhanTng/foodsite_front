@@ -78,7 +78,7 @@ const InactiveOrdersPage = () => {
         exact_address: order.exact_address,
       }),
     );
-    navigate(`cart/?telegram_id=${order.client_id}`);
+    navigate(`/cart/?telegram_id=${order.client_id}`);
   };
 
   const handleOpenButton = (order: Orders) => {
