@@ -5,8 +5,9 @@ import Button from "../../../shared/Button.tsx";
 import { OrderState } from "../../../store/slices/orderSlice.ts";
 import { CompanyState } from "../../../store/slices/companySlice.ts";
 import useSlideMenu from "../hooks/useSlideMenu.ts";
-import Icon from "../../../shared/Icon";
 import { twMerge } from "tailwind-merge";
+import OldAddressesDiv from "./OldAddressesDiv.tsx";
+import FetchAddreses from "./FetchAddreses.tsx";
 
 type SlideMenuProps = {
   errorText: string;
@@ -29,7 +30,6 @@ const SlideMenu = ({
     ref,
     stage,
     isAnimating,
-    setStage,
     isSearchActive,
     address,
     fetchResult,
@@ -90,22 +90,18 @@ const SlideMenu = ({
         <div className="mt-[20px] flex flex-col gap-5">
           <Input
             ref={ref}
-            onClick={() => {
-              console.log("on click");
+            onFocus={() => {
               handleSearchAddress();
             }}
-            onFocus={() => {
-              console.log("focus");
-            }}
             onBlur={() => {
-              console.log("on blur");
-
-              setTimeout(() => {
-                console.log("blur");
-                const oldStage = stage;
-                setStage(0);
-                setStage(oldStage);
-              }, 1000);
+              // console.log("on blur");
+              //
+              // setTimeout(() => {
+              //   console.log("blur");
+              //   const oldStage = stage;
+              //   setStage(0);
+              //   setStage(oldStage);
+              // }, 1000);
             }}
             onChange={handleAddressChange}
             value={address}
@@ -126,54 +122,19 @@ const SlideMenu = ({
           )}
 
           {isSearchActive && fetchResult !== null && (
-            <>
-              <h3 className="text-base font-medium text-textSecondary">
-                Результат поиска
-              </h3>
-              <div className="flex flex-col gap-4 rounded-xl bg-bgColor2 px-5 py-4 shadow-option">
-                {fetchResult.map((address, index) => (
-                  <div
-                    key={index}
-                    onClick={() => handleChooseAddress(address)}
-                    className={`${index !== fetchResult.length - 1 ? "border-b pb-3" : ""} border-fontSecondary2  text-fontSecondary`}
-                  >
-                    {address.address}
-                  </div>
-                ))}
-
-                {fetchResult.length === 0 && <p>Адрес не найден</p>}
-              </div>
-            </>
+            <FetchAddreses
+              fetchResult={fetchResult}
+              handleChooseAddress={handleChooseAddress}
+            />
           )}
 
           {isSearchActive &&
             fetchResult === null &&
             oldAddresses?.length !== 0 && (
-              <>
-                <h3 className="text-base font-medium text-textSecondary">
-                  Старые адреса
-                </h3>
-                <div className="flex flex-col gap-4 rounded-xl bg-bgColor2 px-5 py-4 shadow-option">
-                  {oldAddresses?.map((address, index) => (
-                    <div
-                      className="relative"
-                      key={index}
-                      onClick={() => updateAddress(address)}
-                    >
-                      <Icon
-                        className="absolute left-[-2px] w-[24px] text-fontSecondary"
-                        type={"clock"}
-                      />
-                      <p
-                        className={`${index !== oldAddresses.length - 1 ? "border-b pb-3" : ""} border-fontSecondary2 pl-8 text-fontSecondary`}
-                        onClick={() => updateAddress(address)}
-                      >
-                        {address.parsed}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </>
+              <OldAddressesDiv
+                oldAddresses={oldAddresses}
+                updateAddress={updateAddress}
+              />
             )}
         </div>
       )}

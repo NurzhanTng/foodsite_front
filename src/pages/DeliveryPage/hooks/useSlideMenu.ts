@@ -21,7 +21,7 @@ type useSlideMenuProps = {
   orderState: OrderState;
 };
 
-type OrderAddress = {
+export type OrderAddress = {
   long: number;
   lat: number;
   parsed: string;
@@ -271,7 +271,7 @@ const useSlideMenu = ({
       newStage = 0;
     }
     // console.log(newStage);
-    setHeight(getHeight(stage));
+    // setHeight(getHeight(stage));
     setStage(newStage);
   };
 
