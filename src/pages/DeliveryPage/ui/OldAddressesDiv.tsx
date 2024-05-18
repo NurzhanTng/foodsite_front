@@ -1,5 +1,5 @@
 import Icon from "../../../shared/Icon";
-import { OrderAddress } from "../ui_old/useSlideMenu.ts";
+import { OrderAddress } from "../hooks/useSlideMenu.ts";
 
 type OldAddressesDivProps = {
   oldAddresses: OrderAddress[];
