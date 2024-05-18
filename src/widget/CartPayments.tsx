@@ -24,9 +24,7 @@ const CartPayments = ({ className = "" }: CartPaymentsProps) => {
     <div className={twMerge("", className)}>
       <div className="mb-[26px] flex flex-row gap-[10px]">
         <img alt={"Kaspi"} src={kaspi} className="w-[30px]" />
-        <h3 className="my-auto text-base font-medium text-textSecondary">
-          Оплата
-        </h3>
+        <h3 className="text- my-auto font-medium text-textSecondary">Оплата</h3>
       </div>
 
       <SelectCard

@@ -1,4 +1,4 @@
-const getCenterOfPolygon = (points: [number, number][]) => {
+const getCenterOfPolygon = (points: [number, number][]): [number, number] => {
   if (points.length === 0) {
     throw new Error("Cannot calculate center of an empty list of points");
   }

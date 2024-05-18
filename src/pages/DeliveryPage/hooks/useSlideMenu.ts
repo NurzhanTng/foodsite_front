@@ -39,6 +39,7 @@ const useSlideMenu = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const exactAddress = useAppSelector((state) => state.order.exactAddress);
+  const company = useAppSelector((state) => state.companies.companies[0]);
   const user_id = useAppSelector((state) => state.user.telegram_id);
   const [stage, setStage] = useState<0 | 1 | 2>(1);
   const [height, setHeight] = useState(getHeight(stage));
@@ -128,7 +129,7 @@ const useSlideMenu = ({
 
     if (timerId) clearTimeout(timerId);
     const newTimerId = setTimeout(() => {
-      fetchAddressesByName(text).then((data) => {
+      fetchAddressesByName(text, company).then((data) => {
         if (data.length === 1) {
           handleChooseAddress(data[0]);
           setErrorText("");

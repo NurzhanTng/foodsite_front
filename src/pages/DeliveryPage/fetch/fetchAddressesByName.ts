@@ -1,3 +1,7 @@
+import checkIsInPolygon from "../../../utils/checkIsInPolygon.ts";
+import { CompanySpot } from "../../../store/slices/companySlice.ts";
+import getCenterOfPolygon from "../../../utils/getCenterOfPolygon.ts";
+
 export type Address = {
   address: string;
   building: string;
@@ -16,6 +20,7 @@ type UnparsedAddress = {
 
 const fetchAddressesByName = async (
   searchString: string,
+  company?: CompanySpot,
 ): Promise<Address[]> => {
   const url =
     import.meta.env.VITE_REACT_APP_API_BASE_URL + "service/get_addresses/";
@@ -34,10 +39,22 @@ const fetchAddressesByName = async (
     }
 
     const raw_data: UnparsedAddress[] = await response.json();
-    return raw_data.map((address) => ({
-      ...address,
-      coordinates: JSON.parse(address.coordinates),
-    }));
+    const addresses = raw_data
+      .map((address) => ({
+        ...address,
+        coordinates: JSON.parse(address.coordinates),
+      }))
+      .filter((address) => !(typeof address.coordinates === "number"));
+    if (company) {
+      return addresses.filter((address) =>
+        checkIsInPolygon(
+          company.delivery_layers[0].points,
+          getCenterOfPolygon(address.coordinates),
+        ),
+      );
+    } else {
+      return addresses;
+    }
   } catch (error) {
     console.error("Error:", error);
     throw error;
