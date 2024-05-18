@@ -10,7 +10,7 @@ import MenuPage from "../pages/MenuPage";
 import DishPage from "../pages/DishPage";
 import CartPage from "../pages/CartPage";
 import CartDishPage from "../pages/CartDishPage";
-import DeliveryPage, { OldDeliveryPage } from "../pages/DeliveryPage";
+import DeliveryPage from "../pages/DeliveryPage";
 import ManagerMainPage from "../pages/ManagerMainPage";
 import OrderPage from "../pages/OrderPage";
 import OrderSearchPage from "../pages/OrderSearchPage";
@@ -117,14 +117,6 @@ const router = createBrowserRouter([
     element: (
       <HistoryWrapper>
         <ClientOrderPage />
-      </HistoryWrapper>
-    ),
-  },
-  {
-    path: "/map_test",
-    element: (
-      <HistoryWrapper>
-        <OldDeliveryPage />
       </HistoryWrapper>
     ),
   },
