@@ -3,7 +3,7 @@ import { OrderAddress } from "../hooks/useSlideMenu.ts";
 
 type OldAddressesDivProps = {
   oldAddresses: OrderAddress[] | null;
-  updateAddress: (address: OrderAddress) => void;
+  updateAddress?: (address: OrderAddress) => void;
 };
 
 const OldAddressesDiv = ({
@@ -20,7 +20,7 @@ const OldAddressesDiv = ({
           <div
             className="relative"
             key={index}
-            onClick={() => updateAddress(address)}
+            onClick={() => (updateAddress ? updateAddress(address) : "")}
           >
             <Icon
               className="absolute left-[-2px] w-[24px] text-fontSecondary"

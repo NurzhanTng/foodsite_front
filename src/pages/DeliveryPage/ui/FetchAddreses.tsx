@@ -2,7 +2,7 @@ import { Address } from "../fetch/fetchAddressesByName.ts";
 
 type FetchAddressesProps = {
   fetchResult: Address[];
-  handleChooseAddress: (address: Address) => void;
+  handleChooseAddress?: (address: Address) => void;
 };
 
 const FetchAddresses = ({
@@ -18,7 +18,9 @@ const FetchAddresses = ({
         {fetchResult.map((address, index) => (
           <div
             key={index}
-            onClick={() => handleChooseAddress(address)}
+            onClick={() =>
+              handleChooseAddress ? handleChooseAddress(address) : ""
+            }
             className={`${index !== fetchResult.length - 1 ? "border-b pb-3" : ""} border-fontSecondary2  text-fontSecondary`}
           >
             {address.address}

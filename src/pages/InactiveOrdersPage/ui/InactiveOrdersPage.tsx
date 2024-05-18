@@ -91,7 +91,7 @@ const InactiveOrdersPage = () => {
   return (
     <div>
       <Header className="flex h-[50px] flex-row justify-between gap-3 px-5 text-center">
-        <p className="mx-auto my-auto h-fit">Restopark</p>
+        <p className="mx-auto my-auto h-fit">MonoPizza</p>
       </Header>
       <div className="mt-[80px] px-[20px]">
         {orders.map((order) => {

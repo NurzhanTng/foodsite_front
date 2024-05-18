@@ -56,6 +56,10 @@ const useSlideMenu = ({
   );
 
   useEffect(() => {
+    console.log(height);
+  }, [height]);
+
+  useEffect(() => {
     fetch(
       `${import.meta.env.VITE_REACT_APP_API_BASE_URL}service/addresses/${user_id}/`,
     )
@@ -276,8 +280,9 @@ const useSlideMenu = ({
     } else {
       newStage = 0;
     }
+    console.log("handleTouchEnd:", scrollPercent, newStage);
     // console.log(newStage);
-    // setHeight(getHeight(stage));
+    setHeight(getHeight(newStage));
     setStage(newStage);
   };
 
