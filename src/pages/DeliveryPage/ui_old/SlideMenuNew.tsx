@@ -114,6 +114,7 @@ const SlideMenuNew = ({
 
           {isSearchActive &&
             fetchResult === null &&
+            oldAddresses &&
             oldAddresses?.length !== 0 && (
               <OldAddressesDiv
                 oldAddresses={oldAddresses}
