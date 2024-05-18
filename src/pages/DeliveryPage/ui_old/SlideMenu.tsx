@@ -1,4 +1,5 @@
-import DeliverySwitch from "../ui_old/DeliverySwitch.tsx";
+import DeliverySwitch from "./DeliverySwitch.tsx";
+import BottomSlide from "../../../features/BottomSlide";
 import CompanyCards from "../../../widget/CompanyCards.tsx";
 import Input from "../../../shared/Input.tsx";
 import Button from "../../../shared/Button.tsx";
@@ -6,7 +7,6 @@ import { OrderState } from "../../../store/slices/orderSlice.ts";
 import { CompanyState } from "../../../store/slices/companySlice.ts";
 import useSlideMenu from "../hooks/useSlideMenu.ts";
 import Icon from "../../../shared/Icon";
-import { twMerge } from "tailwind-merge";
 
 type SlideMenuProps = {
   errorText: string;
@@ -34,11 +34,6 @@ const SlideMenu = ({
     address,
     fetchResult,
     oldAddresses,
-    startCoords,
-    height,
-    topMargin,
-    handleTouchStart,
-    handleTouchEnd,
     updateAddress,
     handleExactAddressChange,
     handleChooseAddress,
@@ -53,18 +48,11 @@ const SlideMenu = ({
   });
 
   return (
-    <div
-      className={twMerge(
-        `${startCoords === 0 ? "duration-300" : ""} transition-height transition-top fixed bottom-0 left-0 z-10 w-full transition ease-in-out`,
-        "z-0 overflow-y-auto bg-bgColor px-[20px] pb-[70px]",
-      )}
-      style={
-        isAnimating
-          ? { height: `${height}px`, top: `${topMargin}px` }
-          : { height: `${height}px`, bottom: 0 }
-      }
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
+    <BottomSlide
+      className="z-0 overflow-y-auto bg-bgColor px-[20px] pb-[70px]"
+      stage={stage}
+      setStage={setStage}
+      isAnimating={isAnimating}
     >
       <div className="absolute left-[50%] top-[7px] h-[3px] w-[50px] translate-x-[-50%] rounded-[90px] bg-button "></div>
 
@@ -183,7 +171,7 @@ const SlideMenu = ({
         onClick={handleSaveButton}
         text="Сохранить"
       />
-    </div>
+    </BottomSlide>
   );
 };
 
