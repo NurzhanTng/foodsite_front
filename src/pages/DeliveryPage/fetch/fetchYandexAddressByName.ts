@@ -75,10 +75,11 @@ export type YandexAddresses = {
 
 const fetchAddressesByName = async (
   searchString: string,
+  bbox?: string,
 ): Promise<YandexAddresses> => {
   try {
     const response = await fetch(
-      `https://geocode-maps.yandex.ru/1.x/?apikey=${import.meta.env.VITE_REACT_APP_API_YANDEX_TOKEN}&geocode=Казахстан, Алматы, ${searchString}&format=json`,
+      `https://geocode-maps.yandex.ru/1.x/?apikey=${import.meta.env.VITE_REACT_APP_API_YANDEX_TOKEN}&geocode=Казахстан, Алматы, ${searchString}&format=json${bbox ? "&" + bbox : ""}`,
     );
 
     if (!response.ok) {

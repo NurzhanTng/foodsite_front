@@ -10,7 +10,7 @@ import {
 import checkIsInPolygon from "../../../utils/checkIsInPolygon.ts";
 import { CompanyState } from "../../../store/slices/companySlice.ts";
 import fetchYandexAddressByName, {
-  Component,
+  // Component,
   GeoObject,
 } from "../fetch/fetchYandexAddressByName.ts";
 
@@ -39,7 +39,7 @@ const useSlideMenu = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const exactAddress = useAppSelector((state) => state.order.exactAddress);
-  // const company = useAppSelector((state) => state.companies.companies[0]);
+  const company = useAppSelector((state) => state.companies.companies[0]);
   const user_id = useAppSelector((state) => state.user.telegram_id);
   const [stage, setStage] = useState<0 | 1 | 2>(1);
   const [height, setHeight] = useState(getHeight(stage));
@@ -129,6 +129,10 @@ const useSlideMenu = ({
 
     if (timerId) clearTimeout(timerId);
     const newTimerId = setTimeout(() => {
+      const bbox = company.delivery_layers[0].points
+        .map((point) => `${Math.max(...point)},${Math.min(...point)}`)
+        .join("~");
+      console.log("box", bbox);
       fetchYandexAddressByName(text).then((data) => {
         if (data.response.GeoObjectCollection.featureMember.length === 1) {
           handleChooseAddress(
@@ -168,24 +172,25 @@ const useSlideMenu = ({
   };
 
   const getTextFromComponents = (address: GeoObject): string => {
-    const MetaData = address.GeoObject.metaDataProperty.GeocoderMetaData;
-    const Components: Component[] = MetaData.Address.Components;
-    if (MetaData.precision === "other") return "";
-
-    if (MetaData.precision === "street") {
-      const street_name = Components.find(
-        (component) => component.kind === "street",
-      )?.name;
-      return street_name ? street_name : "";
-    } else {
-      const street_name = Components.find(
-        (component) => component.kind === "street",
-      )?.name;
-      const house_name = Components.find(
-        (component) => component.kind === "house",
-      )?.name;
-      return `${street_name ? street_name : ""}, ${house_name ? house_name : ""}`;
-    }
+    return address.GeoObject.name;
+    // const MetaData = address.GeoObject.metaDataProperty.GeocoderMetaData;
+    // const Components: Component[] = MetaData.Address.Components;
+    // if (MetaData.precision === "other")
+    //
+    // if (MetaData.precision === "street") {
+    //   const street_name = Components.find(
+    //     (component) => component.kind === "street",
+    //   )?.name;
+    //   return street_name ? street_name : "";
+    // } else {
+    //   const street_name = Components.find(
+    //     (component) => component.kind === "street",
+    //   )?.name;
+    //   const house_name = Components.find(
+    //     (component) => component.kind === "house",
+    //   )?.name;
+    //   return `${street_name ? street_name : ""}, ${house_name ? house_name : ""}`;
+    // }
   };
 
   const updateAddress = (address: OrderAddress) => {
