@@ -152,7 +152,7 @@ const useSlideMenu = ({
     if (
       address.GeoObject.metaDataProperty.GeocoderMetaData.precision === "other"
     )
-      return;
+      setAddressText(getTextFromComponents(address));
     if (
       address.GeoObject.metaDataProperty.GeocoderMetaData.precision === "street"
     ) {
