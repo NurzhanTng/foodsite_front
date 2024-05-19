@@ -23,6 +23,7 @@ import AppThemeProvider from "./context/ThemeProvider.tsx";
 import DeliveryOrderPage from "../pages/DeliveryOrderPage/ui/DeliveryOrderPage.tsx";
 import HistoryWrapper from "./context/HistoryWrapper.tsx";
 import PhotoPage from "../pages/PhotoPage";
+import SearchTestPage from "../pages/SearchTestPage";
 
 const router = createBrowserRouter([
   {
@@ -150,6 +151,14 @@ const router = createBrowserRouter([
     element: (
       <HistoryWrapper>
         <PhotoPage />
+      </HistoryWrapper>
+    ),
+  },
+  {
+    path: "/search_test",
+    element: (
+      <HistoryWrapper>
+        <SearchTestPage />
       </HistoryWrapper>
     ),
   },

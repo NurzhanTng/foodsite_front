@@ -35,11 +35,12 @@ const SlideMenu = ({
     fetchResult,
     oldAddresses,
 
+    getTextFromComponents,
+    updateAddress,
+    handleAddressChange,
     handleSearchAddress,
     handleSearchBlur,
-    handleAddressChange,
     handleChooseAddress,
-    updateAddress,
     handleSaveButton,
     handleExactAddressChange,
     handleTouchStart,
@@ -112,6 +113,7 @@ const SlideMenu = ({
               <FetchAddresses
                 fetchResult={fetchResult}
                 handleChooseAddress={handleChooseAddress}
+                getTextFromComponents={getTextFromComponents}
               />
             )}
 

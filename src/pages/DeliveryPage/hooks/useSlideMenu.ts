@@ -2,10 +2,6 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../../store/hooks/hooks.ts";
 import React, { useEffect, useState } from "react";
-import fetchAddressesByName, {
-  Address,
-} from "../fetch/fetchAddressesByName.ts";
-import getCenterOfPolygon from "../../../utils/getCenterOfPolygon.ts";
 import {
   OrderState,
   setAddress,
@@ -13,6 +9,10 @@ import {
 } from "../../../store/slices/orderSlice.ts";
 import checkIsInPolygon from "../../../utils/checkIsInPolygon.ts";
 import { CompanyState } from "../../../store/slices/companySlice.ts";
+import fetchYandexAddressByName, {
+  Component,
+  GeoObject,
+} from "../fetch/fetchYandexAddressByName.ts";
 
 type useSlideMenuProps = {
   setErrorText: (text: string) => void;
@@ -39,14 +39,14 @@ const useSlideMenu = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const exactAddress = useAppSelector((state) => state.order.exactAddress);
-  const company = useAppSelector((state) => state.companies.companies[0]);
+  // const company = useAppSelector((state) => state.companies.companies[0]);
   const user_id = useAppSelector((state) => state.user.telegram_id);
   const [stage, setStage] = useState<0 | 1 | 2>(1);
   const [height, setHeight] = useState(getHeight(stage));
 
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [address, setAddressText] = useState(orderState.address.parsed);
-  const [fetchResult, setFetchResult] = useState<Address[] | null>(null);
+  const [fetchResult, setFetchResult] = useState<GeoObject[] | null>(null);
   const [oldAddresses, setOldAddresses] = useState<OrderAddress[] | null>(null);
   const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null);
   const [startHeight, setStartHeight] = useState(0);
@@ -129,28 +129,63 @@ const useSlideMenu = ({
 
     if (timerId) clearTimeout(timerId);
     const newTimerId = setTimeout(() => {
-      fetchAddressesByName(text, company).then((data) => {
-        if (data.length === 1) {
-          handleChooseAddress(data[0]);
+      fetchYandexAddressByName(text).then((data) => {
+        if (data.response.GeoObjectCollection.featureMember.length === 1) {
+          handleChooseAddress(
+            data.response.GeoObjectCollection.featureMember[0],
+          );
           setErrorText("");
           return;
         }
         setErrorText("");
-
-        setFetchResult(data);
+        setFetchResult(data.response.GeoObjectCollection.featureMember);
       });
     }, 800);
     setTimerId(newTimerId);
   };
 
-  const handleChooseAddress = (address: Address) => {
-    const [lat, long] = getCenterOfPolygon(address.coordinates);
-    updateAddress({
-      lat: lat,
-      long: long,
-      parsed: address.address,
-      exact_address: exactAddress,
-    });
+  const handleChooseAddress = (address: GeoObject) => {
+    if (
+      address.GeoObject.metaDataProperty.GeocoderMetaData.precision === "other"
+    )
+      return;
+    if (
+      address.GeoObject.metaDataProperty.GeocoderMetaData.precision === "street"
+    ) {
+      setAddressText(getTextFromComponents(address));
+    } else {
+      const [lat, long] = address.GeoObject.Point.pos
+        .split(" ")
+        .slice(0, 2)
+        .map((el) => parseFloat(el));
+      updateAddress({
+        lat: lat,
+        long: long,
+        parsed: getTextFromComponents(address),
+        exact_address: exactAddress,
+      });
+    }
+  };
+
+  const getTextFromComponents = (address: GeoObject): string => {
+    const MetaData = address.GeoObject.metaDataProperty.GeocoderMetaData;
+    const Components: Component[] = MetaData.Address.Components;
+    if (MetaData.precision === "other") return "";
+
+    if (MetaData.precision === "street") {
+      const street_name = Components.find(
+        (component) => component.kind === "street",
+      )?.name;
+      return street_name ? street_name : "";
+    } else {
+      const street_name = Components.find(
+        (component) => component.kind === "street",
+      )?.name;
+      const house_name = Components.find(
+        (component) => component.kind === "house",
+      )?.name;
+      return `${street_name ? street_name : ""}, ${house_name ? house_name : ""}`;
+    }
   };
 
   const updateAddress = (address: OrderAddress) => {
@@ -293,11 +328,12 @@ const useSlideMenu = ({
     fetchResult,
     oldAddresses,
 
+    getTextFromComponents,
+    updateAddress,
     handleSearchAddress,
     handleSearchBlur,
     handleAddressChange,
     handleChooseAddress,
-    updateAddress,
     handleSaveButton,
     handleExactAddressChange,
     handleTouchStart,

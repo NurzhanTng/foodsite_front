@@ -1,13 +1,15 @@
-import { Address } from "../fetch/fetchAddressesByName.ts";
+import { GeoObject } from "../fetch/fetchYandexAddressByName.ts";
 
 type FetchAddressesProps = {
-  fetchResult: Address[];
-  handleChooseAddress?: (address: Address) => void;
+  fetchResult: GeoObject[];
+  handleChooseAddress?: (address: GeoObject) => void;
+  getTextFromComponents: (address: GeoObject) => string;
 };
 
 const FetchAddresses = ({
   fetchResult,
   handleChooseAddress,
+  getTextFromComponents,
 }: FetchAddressesProps) => {
   return (
     <div>
@@ -23,7 +25,7 @@ const FetchAddresses = ({
             }
             className={`${index !== fetchResult.length - 1 ? "border-b pb-3" : ""} border-fontSecondary2  text-fontSecondary`}
           >
-            {address.address}
+            {getTextFromComponents(address)}
           </div>
         ))}
 
