@@ -10,7 +10,7 @@ const PhotoPage: React.FC = () => {
     const initCamera = async () => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: true,
+          video: { facingMode: "user" },
         });
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
