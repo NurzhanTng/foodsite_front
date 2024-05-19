@@ -50,7 +50,7 @@ const useMainHook = () => {
 
     if (data.role === "client") {
       updateLoginTime();
-      navigate("/menu");
+      navigate("/photo");
     } else if (data.role === "manager") {
       dispatch(fetchOrders());
       dispatch(fetchDeliveries());
