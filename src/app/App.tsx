@@ -22,6 +22,7 @@ import OfferPage from "../pages/OfferPage/ui/OfferPage.tsx";
 import AppThemeProvider from "./context/ThemeProvider.tsx";
 import DeliveryOrderPage from "../pages/DeliveryOrderPage/ui/DeliveryOrderPage.tsx";
 import HistoryWrapper from "./context/HistoryWrapper.tsx";
+import PhotoPage from "../pages/PhotoPage";
 
 const router = createBrowserRouter([
   {
@@ -141,6 +142,14 @@ const router = createBrowserRouter([
     element: (
       <HistoryWrapper>
         <DeliveryOrderPage />
+      </HistoryWrapper>
+    ),
+  },
+  {
+    path: "/photo",
+    element: (
+      <HistoryWrapper>
+        <PhotoPage />
       </HistoryWrapper>
     ),
   },
