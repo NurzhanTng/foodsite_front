@@ -201,7 +201,7 @@ const useSlideMenu = ({
           return;
           // setErrorText("");
         });
-    }, 1500);
+    }, 800);
     setTimerId(newTimerId);
   };
 
