@@ -115,10 +115,11 @@ const useSlideMenu = ({
   }
 
   function getTop(stage: 0 | 1 | 2) {
-    return (
-      [window.innerHeight - 160, window.innerHeight * 0.5, 80][stage] +
-      window.scrollY
-    );
+    return [window.innerHeight - 160, window.innerHeight * 0.5, 80][stage] +
+      window.scrollY ===
+      0
+      ? 200
+      : window.scrollY;
   }
 
   const handleScroll = () => {
