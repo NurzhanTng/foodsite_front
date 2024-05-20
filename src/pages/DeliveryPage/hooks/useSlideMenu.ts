@@ -184,7 +184,15 @@ const useSlideMenu = ({
             }
           }
 
-          if (data.response.GeoObjectCollection.featureMember.length === 1) {
+          if (
+            data.response.GeoObjectCollection.featureMember.length === 1 &&
+            compareTwoStrings(
+              text,
+              getTextFromComponents(
+                data.response.GeoObjectCollection.featureMember[0],
+              ),
+            ) > 0.7
+          ) {
             handleChooseAddress(
               data.response.GeoObjectCollection.featureMember[0],
             );
@@ -196,7 +204,7 @@ const useSlideMenu = ({
           return;
           // setErrorText("");
         });
-    }, 800);
+    }, 1500);
     setTimerId(newTimerId);
   };
 
