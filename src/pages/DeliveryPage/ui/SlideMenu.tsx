@@ -75,9 +75,9 @@ const SlideMenu = ({
   return (
     <>
       <div
-        className={`${active ? "duration-0" : "duration-500"} absolute h-full w-full overflow-y-auto bg-bgColor p-4 pb-[80px] text-white transition-all`}
+        className={`${active ? "duration-0" : "duration-500"} absolute top-[50%] h-full w-full overflow-y-auto bg-bgColor p-4 pb-[80px] text-white transition-all`}
         // style={{ height: `${height}px` }}
-        style={{ top: stage === 0 ? `80%` : stage === 1 ? `50%` : `10%` }}
+        style={{ top: stage === 0 ? `80%` : stage === 1 ? `50%` : `20%` }}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
