@@ -55,6 +55,7 @@ const useSlideMenu = ({
   const [active, setActive] = useState(false);
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
     fetch(
       `${import.meta.env.VITE_REACT_APP_API_BASE_URL}service/addresses/${user_id}/`,
     )
@@ -114,7 +115,7 @@ const useSlideMenu = ({
   }
 
   function getTop(stage: 0 | 1 | 2) {
-    return [window.innerHeight - 160, window.innerHeight * 0.5, 100][stage];
+    return [window.innerHeight - 160, window.innerHeight * 0.5, 80][stage];
   }
 
   const handleScroll = () => {

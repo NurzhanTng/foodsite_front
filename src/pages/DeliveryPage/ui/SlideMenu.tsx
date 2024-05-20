@@ -92,14 +92,14 @@ const SlideMenu = ({
         )}
 
         {stage !== 0 && isDelivery && (
-          <div className="mt-[20px] flex flex-col gap-5">
+          <div className={`mt-[20px] flex flex-col gap-5`}>
             <Input
               onFocus={handleSearchAddress}
               onBlur={handleSearchBlur}
               onChange={handleAddressChange}
               value={address}
               label="Введите адрес доставки"
-              className={`${isSearchActive ? "mb-[20px] mt-[30px]" : ""}`}
+              className={`${isSearchActive ? "mb-[0px] mt-[10px]" : ""}`}
             />
 
             {!isSearchActive && (
