@@ -115,22 +115,25 @@ const useSlideMenu = ({
   }
 
   function getTop(stage: 0 | 1 | 2) {
-    return [window.innerHeight - 160, window.innerHeight * 0.5, 80][stage];
+    return (
+      [window.innerHeight - 160, window.innerHeight * 0.5, 80][stage] +
+      window.scrollY
+    );
   }
 
   const handleScroll = () => {
-    const interval = 50; // Interval in milliseconds
-    const duration = 1000; // Duration in milliseconds
-    const calls = duration / interval; // Number of times to call the function
-
-    let count = 0;
-    const intervalId = setInterval(() => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      count++;
-      if (count >= calls) {
-        clearInterval(intervalId);
-      }
-    }, interval);
+    // const interval = 50; // Interval in milliseconds
+    // const duration = 1000; // Duration in milliseconds
+    // const calls = duration / interval; // Number of times to call the function
+    //
+    // let count = 0;
+    // const intervalId = setInterval(() => {
+    //   window.scrollTo({ top: 0, behavior: "smooth" });
+    //   count++;
+    //   if (count >= calls) {
+    //     clearInterval(intervalId);
+    //   }
+    // }, interval);
   };
 
   const handleSearchAddress = () => {

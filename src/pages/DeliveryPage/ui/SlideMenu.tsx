@@ -58,7 +58,7 @@ const SlideMenu = ({
   return (
     <>
       <div
-        className={`${active ? "duration-0" : "duration-500"} absolute top-[50%] h-full w-full overflow-y-scroll bg-bgColor p-4 pb-[80px] text-white transition-all`}
+        className={`${active ? "duration-0" : "duration-500"} absolute top-[50%] h-full w-full overflow-y-scroll rounded-t-[15px] bg-bgColor p-4 pb-[80px] text-white transition-all`}
         // style={{ height: `${height}px` }}
         style={{
           top: getTop(stage),
@@ -92,14 +92,16 @@ const SlideMenu = ({
         )}
 
         {stage !== 0 && isDelivery && (
-          <div className={`mt-[20px] flex flex-col gap-5`}>
+          <div
+            className={`${isSearchActive ? "" : "mt-[20px]"} flex flex-col gap-5`}
+          >
             <Input
               onFocus={handleSearchAddress}
               onBlur={handleSearchBlur}
               onChange={handleAddressChange}
               value={address}
               label="Введите адрес доставки"
-              className={`${isSearchActive ? "mb-[0px] mt-[10px]" : ""}`}
+              className={`${isSearchActive ? "mb-[0px] mt-[15px]" : ""}`}
             />
 
             {!isSearchActive && (

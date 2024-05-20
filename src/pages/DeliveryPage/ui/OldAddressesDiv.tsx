@@ -12,7 +12,7 @@ const OldAddressesDiv = ({
 }: OldAddressesDivProps) => {
   return (
     <>
-      <h3 className="text-base font-medium text-textSecondary">
+      <h3 className="mb-1 ml-4 text-base font-medium text-textSecondary">
         Старые адреса
       </h3>
       <div className="flex flex-col gap-4 rounded-xl bg-bgColor2 px-5 py-4 shadow-option">
