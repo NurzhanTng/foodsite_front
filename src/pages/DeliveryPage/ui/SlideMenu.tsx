@@ -62,7 +62,7 @@ const SlideMenu = ({
         // style={{ height: `${height}px` }}
         style={{
           top: getTop(stage),
-          height: window.innerHeight - getTop(stage),
+          // height: window.innerHeight - getTop(stage),
         }}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
