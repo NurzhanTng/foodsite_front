@@ -118,29 +118,12 @@ const useSlideMenu = ({
     return [window.innerHeight - 160, window.innerHeight * 0.5, 80][stage];
   }
 
-  const handleScroll = () => {
-    // const interval = 50; // Interval in milliseconds
-    // const duration = 1000; // Duration in milliseconds
-    // const calls = duration / interval; // Number of times to call the function
-    //
-    // let count = 0;
-    // const intervalId = setInterval(() => {
-    //   window.scrollTo({ top: 0, behavior: "smooth" });
-    //   count++;
-    //   if (count >= calls) {
-    //     clearInterval(intervalId);
-    //   }
-    // }, interval);
-  };
-
   const handleSearchAddress = () => {
     setIsSearchActive(true);
-    handleScroll();
     setStage(2);
   };
 
   const handleExactAddress = () => {
-    handleScroll();
     setStage(2);
   };
 
@@ -222,10 +205,12 @@ const useSlideMenu = ({
   };
 
   const handleChooseAddress = (address: GeoObject) => {
-    if (
-      address.GeoObject.metaDataProperty.GeocoderMetaData.precision in
-      ["other", "street"]
-    ) {
+    const houseName =
+      address.GeoObject.metaDataProperty.GeocoderMetaData.Address.Components.find(
+        (component) => component.kind === "house",
+      )?.name;
+
+    if (houseName === undefined) {
       setAddressText(getTextFromComponents(address));
     } else {
       const [lat, long] = address.GeoObject.Point.pos
