@@ -38,7 +38,7 @@ const useCart = () => {
     window.scrollTo({ top: element.offsetTop - 100, behavior: "smooth" });
   };
 
-  const handleOrderClick = () => {
+  const handleErrors = () => {
     const errors = {
       cart: state.cart.length === 0,
       name: order.user_name.length === 0,
@@ -54,7 +54,7 @@ const useCart = () => {
             order.address.lat > 0 &&
             order.address.parsed !== ""
           )
-        : !order.company_id,
+        : order.company_id === -1,
       time: order.done_time === "" || order.done_time === null,
     };
 
@@ -73,6 +73,11 @@ const useCart = () => {
     }
 
     dispatch(setErrorText(getErrorText(errors)));
+    return errors;
+  };
+
+  const handleOrderClick = () => {
+    const errors = handleErrors();
 
     if (
       errors.name ||
@@ -86,10 +91,6 @@ const useCart = () => {
       return;
     }
 
-    console.log(
-      `POST request ${import.meta.env.VITE_REACT_APP_API_BASE_URL}food/orders/`,
-    );
-    console.log(JSON.parse(cartToJson()));
     fetch(import.meta.env.VITE_REACT_APP_API_BASE_URL + `food/orders/`, {
       method: "POST",
       headers: {

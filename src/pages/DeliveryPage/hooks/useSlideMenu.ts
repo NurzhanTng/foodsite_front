@@ -61,7 +61,10 @@ const useSlideMenu = ({
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-        return response.json();
+        return response.json().then((data) => {
+          console.log("Old addresses", data);
+          return data;
+        });
       })
       .then((data: { address: OrderAddress }[]) =>
         setOldAddresses(data.map((address) => address.address)),
@@ -112,13 +115,13 @@ const useSlideMenu = ({
   const handleSearchAddress = () => {
     setIsSearchActive(true);
     setStage(2);
-    setHeight(window.innerHeight - 300);
+    // setHeight(window.innerHeight - 300);
   };
 
   const handleSearchBlur = () => {
     // setIsSearchActive(false);
     setStage(2);
-    setHeight(window.innerHeight - 100);
+    // setHeight(window.innerHeight - 100);
   };
 
   const handleAddressChange: React.ChangeEventHandler<HTMLInputElement> = (
@@ -134,15 +137,13 @@ const useSlideMenu = ({
         .join("~");
       console.log("box", bbox);
       fetchYandexAddressByName(text).then((data) => {
-        if (data.response.GeoObjectCollection.featureMember.length === 1) {
-          handleChooseAddress(
-            data.response.GeoObjectCollection.featureMember[0],
-          );
-          setErrorText("");
-          return;
-        }
+        // if (data.response.GeoObjectCollection.featureMember.length === 1) {
+        // }
+        handleChooseAddress(data.response.GeoObjectCollection.featureMember[0]);
         setErrorText("");
-        setFetchResult(data.response.GeoObjectCollection.featureMember);
+        return;
+        // setErrorText("");
+        // setFetchResult(data.response.GeoObjectCollection.featureMember);
       });
     }, 800);
     setTimerId(newTimerId);

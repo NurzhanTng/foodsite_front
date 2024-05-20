@@ -3,7 +3,7 @@ import { OrderState } from "../../../store/slices/orderSlice.ts";
 import DeliverySwitch from "./DeliverySwitch.tsx";
 import CompanyCards from "../../../widget/CompanyCards.tsx";
 import Input from "../../../shared/Input.tsx";
-import FetchAddresses from "./FetchAddreses.tsx";
+// import FetchAddresses from "./FetchAddreses.tsx";
 import OldAddressesDiv from "./OldAddressesDiv.tsx";
 import Button from "../../../shared/Button.tsx";
 import useSlideMenu from "../hooks/useSlideMenu.ts";
@@ -26,21 +26,41 @@ const SlideMenu = ({
   companyState,
   orderState,
 }: SlideMenuProps) => {
+  // const [isTop10, setIsTop10] = useState(true);
+  //
+  // const togglePosition = () => {
+  //   setIsTop10(!isTop10);
+  // };
+
+  // return (
+  //   <div className="relative flex h-screen flex-col items-center justify-center">
+  //     <button
+  //       onClick={togglePosition}
+  //       className=" mb-4 rounded bg-blue-500 px-4 py-2 text-white"
+  //     >
+  //       Toggle Position
+  //     </button>
+  //     <div
+  //       className="absolute h-24 w-24 bg-blue-500 transition-all duration-500"
+  //       style={{ top: isTop10 ? "10%" : "50%" }}
+  //     ></div>
+  //   </div>
+  // );
   const {
     active,
-    height,
+    // height,
     stage,
     isSearchActive,
     address,
     fetchResult,
     oldAddresses,
 
-    getTextFromComponents,
+    // getTextFromComponents,
     updateAddress,
     handleAddressChange,
     handleSearchAddress,
     handleSearchBlur,
-    handleChooseAddress,
+    // handleChooseAddress,
     handleSaveButton,
     handleExactAddressChange,
     handleTouchStart,
@@ -55,8 +75,9 @@ const SlideMenu = ({
   return (
     <>
       <div
-        className={`${active ? "duration-0" : "duration-500"} transition-height fixed bottom-0 w-full overflow-y-auto bg-bgColor p-4 pb-[80px] text-white`}
-        style={{ height: `${height}px` }}
+        className={`${active ? "duration-0" : "duration-500"} absolute h-full w-full overflow-y-auto bg-bgColor p-4 pb-[80px] text-white transition-all`}
+        // style={{ height: `${height}px` }}
+        style={{ top: stage === 0 ? `80%` : stage === 1 ? `50%` : `10%` }}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
@@ -64,13 +85,13 @@ const SlideMenu = ({
 
         {/*<GeoLocationButton />*/}
 
-        {!isSearchActive && (
-          <DeliverySwitch
-            className="my-[30px]"
-            isDelivery={isDelivery}
-            setIsDelivery={setIsDelivery}
-          />
-        )}
+        {/*{!isSearchActive && (*/}
+        <DeliverySwitch
+          className="my-[30px]"
+          isDelivery={isDelivery}
+          setIsDelivery={setIsDelivery}
+        />
+        {/*)}*/}
 
         {stage !== 0 && !isDelivery && (
           <>
@@ -95,13 +116,15 @@ const SlideMenu = ({
               className={`${isSearchActive ? "mb-[20px] mt-[30px]" : ""}`}
             />
 
-            {!isSearchActive && (
-              <Input
-                onChange={handleExactAddressChange}
-                value={orderState.exactAddress}
-                label="Введите номер квартиры / офиса"
-              />
-            )}
+            {/*{!isSearchActive && (*/}
+            <Input
+              onFocus={handleSearchAddress}
+              onBlur={handleSearchBlur}
+              onChange={handleExactAddressChange}
+              value={orderState.exactAddress}
+              label="Введите номер квартиры / офиса"
+            />
+            {/*)}*/}
 
             {errorText !== "" && (
               <p className="my-[10px] font-medium text-[#BA4747]">
@@ -109,13 +132,13 @@ const SlideMenu = ({
               </p>
             )}
 
-            {isSearchActive && fetchResult !== null && (
-              <FetchAddresses
-                fetchResult={fetchResult}
-                handleChooseAddress={handleChooseAddress}
-                getTextFromComponents={getTextFromComponents}
-              />
-            )}
+            {/*{isSearchActive && fetchResult !== null && (*/}
+            {/*  <FetchAddresses*/}
+            {/*    fetchResult={fetchResult}*/}
+            {/*    handleChooseAddress={handleChooseAddress}*/}
+            {/*    getTextFromComponents={getTextFromComponents}*/}
+            {/*  />*/}
+            {/*)}*/}
 
             {isSearchActive &&
               fetchResult === null &&
