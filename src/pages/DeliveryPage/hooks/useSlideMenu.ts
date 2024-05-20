@@ -112,6 +112,10 @@ const useSlideMenu = ({
     return [160, windowHeight * 0.5, windowHeight - 100][stage];
   }
 
+  function getTop(stage: 0 | 1 | 2) {
+    return [window.innerHeight - 160, window.innerHeight * 0.5, 100][stage];
+  }
+
   const handleSearchAddress = () => {
     setIsSearchActive(true);
     setStage(2);
@@ -334,6 +338,7 @@ const useSlideMenu = ({
     fetchResult,
     oldAddresses,
 
+    getTop,
     getTextFromComponents,
     updateAddress,
     handleSearchAddress,

@@ -26,26 +26,6 @@ const SlideMenu = ({
   companyState,
   orderState,
 }: SlideMenuProps) => {
-  // const [isTop10, setIsTop10] = useState(true);
-  //
-  // const togglePosition = () => {
-  //   setIsTop10(!isTop10);
-  // };
-
-  // return (
-  //   <div className="relative flex h-screen flex-col items-center justify-center">
-  //     <button
-  //       onClick={togglePosition}
-  //       className=" mb-4 rounded bg-blue-500 px-4 py-2 text-white"
-  //     >
-  //       Toggle Position
-  //     </button>
-  //     <div
-  //       className="absolute h-24 w-24 bg-blue-500 transition-all duration-500"
-  //       style={{ top: isTop10 ? "10%" : "50%" }}
-  //     ></div>
-  //   </div>
-  // );
   const {
     active,
     // height,
@@ -56,6 +36,7 @@ const SlideMenu = ({
     oldAddresses,
 
     // getTextFromComponents,
+    getTop,
     updateAddress,
     handleAddressChange,
     handleSearchAddress,
@@ -77,7 +58,7 @@ const SlideMenu = ({
       <div
         className={`${active ? "duration-0" : "duration-500"} absolute top-[50%] h-full w-full overflow-y-auto bg-bgColor p-4 pb-[80px] text-white transition-all`}
         // style={{ height: `${height}px` }}
-        style={{ top: stage === 0 ? `80%` : stage === 1 ? `50%` : `20%` }}
+        style={{ top: getTop(stage) }}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
