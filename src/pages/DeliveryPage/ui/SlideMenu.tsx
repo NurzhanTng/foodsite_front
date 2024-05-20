@@ -58,7 +58,7 @@ const SlideMenu = ({
   return (
     <>
       <div
-        className={`${active ? "duration-0" : "duration-500"} absolute top-[50%] h-full w-full overflow-y-scroll rounded-t-[15px] bg-bgColor p-4 pb-[80px] text-white transition-all`}
+        className={`${active ? "duration-0" : "duration-500"} fixed top-[50%] h-full w-full overflow-y-scroll rounded-t-[15px] bg-bgColor p-4 pb-[80px] text-white transition-all`}
         // style={{ height: `${height}px` }}
         style={{
           top: getTop(stage),
