@@ -8,7 +8,7 @@ const DeliveryPage = () => {
   const state = useMainHook();
 
   return (
-    <div className="h-[100vh] overflow-y-hidden">
+    <div className="max-h-[100vh] overflow-y-hidden">
       <div
         onClick={state.onClose}
         className="fixed left-[20px] top-[15px] z-20 rounded-full px-[16px] py-[11px] text-xl backdrop-blur backdrop-filter"
