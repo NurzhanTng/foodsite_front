@@ -58,7 +58,7 @@ const SlideMenu = ({
   });
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "instant" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
     alert(`${getTop(stage)}, ${window.scrollY}`);
   }, [stage]);
 
