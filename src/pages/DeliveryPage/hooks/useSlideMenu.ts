@@ -117,16 +117,23 @@ const useSlideMenu = ({
     return [window.innerHeight - 160, window.innerHeight * 0.5, 100][stage];
   }
 
+  const handleScroll = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const handleSearchAddress = () => {
     setIsSearchActive(true);
+    handleScroll();
     setStage(2);
-    // setHeight(window.innerHeight - 300);
+  };
+
+  const handleExactAddress = () => {
+    handleScroll();
+    setStage(2);
   };
 
   const handleSearchBlur = () => {
-    // setIsSearchActive(false);
     setStage(2);
-    // setHeight(window.innerHeight - 100);
   };
 
   const handleAddressChange: React.ChangeEventHandler<HTMLInputElement> = (
@@ -388,6 +395,7 @@ const useSlideMenu = ({
     updateAddress,
     setStage,
     handleSearchAddress,
+    handleExactAddress,
     handleSearchBlur,
     handleAddressChange,
     handleChooseAddress,
