@@ -71,13 +71,13 @@ const SlideMenu = ({
 
         {/*<GeoLocationButton />*/}
 
-        {/*{!isSearchActive && (*/}
-        <DeliverySwitch
-          className="my-[30px]"
-          isDelivery={isDelivery}
-          setIsDelivery={setIsDelivery}
-        />
-        {/*)}*/}
+        {!isSearchActive && (
+          <DeliverySwitch
+            className="my-[30px]"
+            isDelivery={isDelivery}
+            setIsDelivery={setIsDelivery}
+          />
+        )}
 
         {stage !== 0 && !isDelivery && (
           <>
