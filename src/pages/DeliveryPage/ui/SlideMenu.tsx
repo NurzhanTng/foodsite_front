@@ -58,7 +58,7 @@ const SlideMenu = ({
   });
 
   useEffect(() => {
-    alert(getTop(stage));
+    alert(`${getTop(stage)}, ${window.scrollY}`);
   }, [stage]);
 
   return (
