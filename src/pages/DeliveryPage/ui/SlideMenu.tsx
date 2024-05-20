@@ -3,10 +3,12 @@ import { OrderState } from "../../../store/slices/orderSlice.ts";
 import DeliverySwitch from "./DeliverySwitch.tsx";
 import CompanyCards from "../../../widget/CompanyCards.tsx";
 import Input from "../../../shared/Input.tsx";
-// import FetchAddresses from "./FetchAddreses.tsx";
+import FetchAddresses from "./FetchAddreses.tsx";
 import OldAddressesDiv from "./OldAddressesDiv.tsx";
 import Button from "../../../shared/Button.tsx";
 import useSlideMenu from "../hooks/useSlideMenu.ts";
+// import { Autocomplete, TextField } from "@mui/material";
+// import React from "react";
 // import GeoLocationButton from "./GeoLocationButton.tsx";
 
 type SlideMenuProps = {
@@ -35,13 +37,14 @@ const SlideMenu = ({
     fetchResult,
     oldAddresses,
 
-    // getTextFromComponents,
+    getTextFromComponents,
     getTop,
     updateAddress,
+    setStage,
     handleAddressChange,
     handleSearchAddress,
     handleSearchBlur,
-    // handleChooseAddress,
+    handleChooseAddress,
     handleSaveButton,
     handleExactAddressChange,
     handleTouchStart,
@@ -56,7 +59,7 @@ const SlideMenu = ({
   return (
     <>
       <div
-        className={`${active ? "duration-0" : "duration-500"} absolute top-[50%] h-full w-full overflow-y-auto bg-bgColor p-4 pb-[80px] text-white transition-all`}
+        className={`${active ? "duration-0" : "duration-500"} absolute top-[50%] h-full w-full overflow-y-scroll bg-bgColor p-4 pb-[80px] text-white transition-all`}
         // style={{ height: `${height}px` }}
         style={{ top: getTop(stage) }}
         onTouchStart={handleTouchStart}
@@ -97,29 +100,29 @@ const SlideMenu = ({
               className={`${isSearchActive ? "mb-[20px] mt-[30px]" : ""}`}
             />
 
-            {/*{!isSearchActive && (*/}
-            <Input
-              onFocus={handleSearchAddress}
-              onBlur={handleSearchBlur}
-              onChange={handleExactAddressChange}
-              value={orderState.exactAddress}
-              label="Введите номер квартиры / офиса"
-            />
-            {/*)}*/}
+            {!isSearchActive && (
+              <Input
+                onFocus={() => setStage(2)}
+                onBlur={() => setStage(2)}
+                onChange={handleExactAddressChange}
+                value={orderState.exactAddress}
+                label="Введите номер квартиры / офиса"
+              />
+            )}
+
+            {isSearchActive && fetchResult !== null && (
+              <FetchAddresses
+                fetchResult={fetchResult}
+                handleChooseAddress={handleChooseAddress}
+                getTextFromComponents={getTextFromComponents}
+              />
+            )}
 
             {errorText !== "" && (
               <p className="my-[10px] font-medium text-[#BA4747]">
                 {errorText}
               </p>
             )}
-
-            {/*{isSearchActive && fetchResult !== null && (*/}
-            {/*  <FetchAddresses*/}
-            {/*    fetchResult={fetchResult}*/}
-            {/*    handleChooseAddress={handleChooseAddress}*/}
-            {/*    getTextFromComponents={getTextFromComponents}*/}
-            {/*  />*/}
-            {/*)}*/}
 
             {isSearchActive &&
               fetchResult === null &&

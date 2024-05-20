@@ -10,9 +10,10 @@ import {
 import checkIsInPolygon from "../../../utils/checkIsInPolygon.ts";
 import { CompanyState } from "../../../store/slices/companySlice.ts";
 import fetchYandexAddressByName, {
-  // Component,
+  Component,
   GeoObject,
 } from "../fetch/fetchYandexAddressByName.ts";
+import { compareTwoStrings } from "string-similarity";
 
 type useSlideMenuProps = {
   setErrorText: (text: string) => void;
@@ -135,31 +136,67 @@ const useSlideMenu = ({
     setAddressText(text);
 
     if (timerId) clearTimeout(timerId);
+    if (text === "") {
+      setFetchResult([]);
+      return;
+    }
     const newTimerId = setTimeout(() => {
       const bbox = company.delivery_layers[0].points
         .map((point) => `${Math.max(...point)},${Math.min(...point)}`)
         .join("~");
       console.log("box", bbox);
-      fetchYandexAddressByName(text).then((data) => {
-        // if (data.response.GeoObjectCollection.featureMember.length === 1) {
-        // }
-        handleChooseAddress(data.response.GeoObjectCollection.featureMember[0]);
-        setErrorText("");
-        return;
-        // setErrorText("");
-        // setFetchResult(data.response.GeoObjectCollection.featureMember);
-      });
+      fetchYandexAddressByName(text)
+        .then((data) => {
+          data.response.GeoObjectCollection.featureMember =
+            data.response.GeoObjectCollection.featureMember.filter((object) => {
+              const components =
+                object.GeoObject.metaDataProperty.GeocoderMetaData.Address
+                  .Components;
+              let isCorrect = false;
+              for (const component of components) {
+                if (
+                  component.kind === "house" ||
+                  component.kind === "district" ||
+                  component.kind === "street"
+                )
+                  isCorrect = true;
+              }
+              return isCorrect;
+            });
+          return data;
+        })
+        .then((data) => {
+          for (const geoObject of data.response.GeoObjectCollection
+            .featureMember) {
+            if (
+              compareTwoStrings(text, getTextFromComponents(geoObject)) > 0.7
+            ) {
+              handleChooseAddress(geoObject);
+              setErrorText("");
+              return;
+            }
+          }
+
+          if (data.response.GeoObjectCollection.featureMember.length === 1) {
+            handleChooseAddress(
+              data.response.GeoObjectCollection.featureMember[0],
+            );
+            setErrorText("");
+          }
+          // handleChooseAddress(data.response.GeoObjectCollection.featureMember[0]);
+          setFetchResult(data.response.GeoObjectCollection.featureMember);
+          setErrorText("");
+          return;
+          // setErrorText("");
+        });
     }, 800);
     setTimerId(newTimerId);
   };
 
   const handleChooseAddress = (address: GeoObject) => {
     if (
-      address.GeoObject.metaDataProperty.GeocoderMetaData.precision === "other"
-    )
-      setAddressText(getTextFromComponents(address));
-    if (
-      address.GeoObject.metaDataProperty.GeocoderMetaData.precision === "street"
+      address.GeoObject.metaDataProperty.GeocoderMetaData.precision in
+      ["other", "street"]
     ) {
       setAddressText(getTextFromComponents(address));
     } else {
@@ -177,25 +214,33 @@ const useSlideMenu = ({
   };
 
   const getTextFromComponents = (address: GeoObject): string => {
-    return address.GeoObject.name;
-    // const MetaData = address.GeoObject.metaDataProperty.GeocoderMetaData;
-    // const Components: Component[] = MetaData.Address.Components;
-    // if (MetaData.precision === "other")
-    //
-    // if (MetaData.precision === "street") {
-    //   const street_name = Components.find(
-    //     (component) => component.kind === "street",
-    //   )?.name;
-    //   return street_name ? street_name : "";
-    // } else {
-    //   const street_name = Components.find(
-    //     (component) => component.kind === "street",
-    //   )?.name;
-    //   const house_name = Components.find(
-    //     (component) => component.kind === "house",
-    //   )?.name;
-    //   return `${street_name ? street_name : ""}, ${house_name ? house_name : ""}`;
-    // }
+    // return address.GeoObject.name;
+    const MetaData = address.GeoObject.metaDataProperty.GeocoderMetaData;
+    const Components: Component[] = MetaData.Address.Components;
+    if (
+      MetaData.precision === "other" &&
+      Components.find((component) => component.kind === "street") === undefined
+    ) {
+      const street_name = Components.find(
+        (component) => component.kind === "district",
+      )?.name;
+      return street_name ? street_name : "";
+    }
+
+    if (MetaData.precision === "street") {
+      const street_name = Components.find(
+        (component) => component.kind === "street",
+      )?.name;
+      return street_name ? street_name : "";
+    } else {
+      const street_name = Components.find(
+        (component) => component.kind === "street",
+      )?.name;
+      const house_name = Components.find(
+        (component) => component.kind === "house",
+      )?.name;
+      return `${street_name ? street_name : ""}, ${house_name ? house_name : ""}`;
+    }
   };
 
   const updateAddress = (address: OrderAddress) => {
@@ -341,6 +386,7 @@ const useSlideMenu = ({
     getTop,
     getTextFromComponents,
     updateAddress,
+    setStage,
     handleSearchAddress,
     handleSearchBlur,
     handleAddressChange,

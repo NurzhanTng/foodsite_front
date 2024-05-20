@@ -18,6 +18,15 @@ import { clearState as orderSliceClear } from "../store/slices/orderSlice.ts";
 import { deleteAllTimers as timerSliceClear } from "../store/slices/timerSlice.ts";
 import { clearState as userSliceClear } from "../store/slices/userSlice.ts";
 
+type CartErrors = {
+  cart: boolean;
+  name: boolean;
+  phone: boolean;
+  kaspi_phone: boolean;
+  address: boolean;
+  time: boolean;
+};
+
 const useCart = () => {
   const state = useAppSelector((state) => state.main);
   const order = useAppSelector((state) => state.order);
@@ -117,14 +126,7 @@ const useCart = () => {
       .catch((err) => console.log("Error: " + err));
   };
 
-  const getErrorText = (errors: {
-    cart: boolean;
-    name: boolean;
-    phone: boolean;
-    kaspi_phone: boolean;
-    address: boolean;
-    time: boolean;
-  }) => {
+  const getErrorText = (errors: CartErrors) => {
     if (errors.cart) return "Корзина не может быть пустой";
     if (errors.name) return "Имя не может быть пустым";
     if (errors.phone) return "Введите корректный номер телефона";
