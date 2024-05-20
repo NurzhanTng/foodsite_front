@@ -118,7 +118,7 @@ const useSlideMenu = ({
     return [
       window.innerHeight - 160,
       window.innerHeight * 0.5,
-      80 + (window.scrollY === 0 ? 200 : window.scrollY),
+      80 + (window.scrollY === 0 ? 50 : window.scrollY),
     ][stage];
   }
 
