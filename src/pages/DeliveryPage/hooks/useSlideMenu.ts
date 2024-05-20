@@ -150,6 +150,7 @@ const useSlideMenu = ({
   const handleAddressChange: React.ChangeEventHandler<HTMLInputElement> = (
     event,
   ) => {
+    setIsSearchActive(true);
     const text = event.target.value;
     setAddressText(text);
 
