@@ -118,7 +118,18 @@ const useSlideMenu = ({
   }
 
   const handleScroll = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    const interval = 50; // Interval in milliseconds
+    const duration = 1000; // Duration in milliseconds
+    const calls = duration / interval; // Number of times to call the function
+
+    let count = 0;
+    const intervalId = setInterval(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      count++;
+      if (count >= calls) {
+        clearInterval(intervalId);
+      }
+    }, interval);
   };
 
   const handleSearchAddress = () => {
@@ -229,33 +240,24 @@ const useSlideMenu = ({
   };
 
   const getTextFromComponents = (address: GeoObject): string => {
-    // return address.GeoObject.name;
     const MetaData = address.GeoObject.metaDataProperty.GeocoderMetaData;
     const Components: Component[] = MetaData.Address.Components;
-    if (
-      MetaData.precision === "other" &&
-      Components.find((component) => component.kind === "street") === undefined
-    ) {
-      const street_name = Components.find(
-        (component) => component.kind === "district",
-      )?.name;
-      return street_name ? street_name : "";
-    }
 
-    if (MetaData.precision === "street") {
-      const street_name = Components.find(
-        (component) => component.kind === "street",
-      )?.name;
-      return street_name ? street_name : "";
-    } else {
-      const street_name = Components.find(
-        (component) => component.kind === "street",
-      )?.name;
-      const house_name = Components.find(
-        (component) => component.kind === "house",
-      )?.name;
-      return `${street_name ? street_name : ""}, ${house_name ? house_name : ""}`;
-    }
+    const disctictName = Components.find(
+      (component) => component.kind === "district",
+    )?.name;
+
+    const streetName = Components.find(
+      (component) => component.kind === "street",
+    )?.name;
+
+    const houseName = Components.find(
+      (component) => component.kind === "house",
+    )?.name;
+
+    return [disctictName, streetName, houseName]
+      .filter((d) => d !== undefined)
+      .join(", ");
   };
 
   const updateAddress = (address: OrderAddress) => {
