@@ -7,6 +7,7 @@ import FetchAddresses from "./FetchAddreses.tsx";
 import OldAddressesDiv from "./OldAddressesDiv.tsx";
 import Button from "../../../shared/Button.tsx";
 import useSlideMenu from "../hooks/useSlideMenu.ts";
+import { useEffect } from "react";
 // import { Autocomplete, TextField } from "@mui/material";
 // import React from "react";
 // import GeoLocationButton from "./GeoLocationButton.tsx";
@@ -55,6 +56,10 @@ const SlideMenu = ({
     companyState,
     orderState,
   });
+
+  useEffect(() => {
+    alert(getTop(stage));
+  }, [stage]);
 
   return (
     <>
