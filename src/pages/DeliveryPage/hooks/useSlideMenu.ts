@@ -124,6 +124,7 @@ const useSlideMenu = ({
   };
 
   const handleExactAddress = () => {
+    // setIsSearchActive(true);
     setStage(2);
   };
 

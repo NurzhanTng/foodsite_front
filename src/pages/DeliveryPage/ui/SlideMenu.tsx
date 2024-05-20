@@ -106,8 +106,8 @@ const SlideMenu = ({
 
             {!isSearchActive && (
               <Input
-                onFocus={() => handleExactAddress}
-                onBlur={() => handleSearchBlur}
+                onFocus={handleExactAddress}
+                onBlur={handleSearchBlur}
                 onChange={handleExactAddressChange}
                 value={orderState.exactAddress}
                 label="Введите номер квартиры / офиса"
