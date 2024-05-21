@@ -14,6 +14,7 @@ import fetchYandexAddressByName, {
   GeoObject,
 } from "../fetch/fetchYandexAddressByName.ts";
 import { compareTwoStrings } from "string-similarity";
+import { setErrors } from "../../../store/slices/mainSlice.ts";
 
 type useSlideMenuProps = {
   setErrorText: (text: string) => void;
@@ -41,6 +42,7 @@ const useSlideMenu = ({
   const navigate = useNavigate();
   const exactAddress = useAppSelector((state) => state.order.exactAddress);
   const company = useAppSelector((state) => state.companies.companies[0]);
+  const errors = useAppSelector((state) => state.main.errors);
   const user_id = useAppSelector((state) => state.user.telegram_id);
   const [stage, setStage] = useState<0 | 1 | 2>(1);
   const [height, setHeight] = useState(getHeight(stage));
@@ -270,6 +272,12 @@ const useSlideMenu = ({
     setErrorText(error);
     if (error === "") {
       navigate("/cart");
+      dispatch(
+        setErrors({
+          ...errors,
+          address: false,
+        }),
+      );
     }
   };
 

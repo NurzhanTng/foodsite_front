@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../../store/hooks/hooks.ts";
 import Button from "../../../shared/Button.tsx";
 import TimePicker from "../../../shared/TimePicker";
 import { setDoneTime } from "../../../store/slices/orderSlice.ts";
+import { setErrors } from "../../../store/slices/mainSlice.ts";
 
 type TimePopupProps = React.HTMLProps<HTMLDivElement> & {
   show: boolean;
@@ -12,9 +13,8 @@ type TimePopupProps = React.HTMLProps<HTMLDivElement> & {
 };
 
 const TimePopup = ({ show, toggleShow }: TimePopupProps) => {
-  const isDelivery = useAppSelector(
-    (state) => state.order.address.parsed !== "",
-  );
+  const isDelivery = useAppSelector((state) => state.order.isDelivery);
+  const errors = useAppSelector((state) => state.main.errors);
   const oldTime = useAppSelector((state) => state.order.done_time);
   const dispatch = useAppDispatch();
   const [isFastest, setIsFastest] = useState(oldTime === "00:00");
@@ -48,19 +48,23 @@ const TimePopup = ({ show, toggleShow }: TimePopupProps) => {
     const timeDifference =
       (hour - currentHours) * 60 + (minute - currentMinutes);
 
-    if (timeDifference < 20 && isDelivery) {
+    console.log(timeDifference);
+    let isValid = false;
+    if (hour >= 23) {
+      setErrorText("Нельзя заказывать после 23");
+    } else if (hour < 10) {
+      setErrorText("Нельзя заказывать до 10");
+    } else if (timeDifference < 20 && !isDelivery) {
       setErrorText("Время ожидания заказа не менее 20 минут");
-    } else if (timeDifference < 40) {
+    } else if (timeDifference < 40 && isDelivery) {
       setErrorText("Время ожидания заказа не менее 40 минут");
-    } else if (hour < 22) {
-      setErrorText("Нельзя заказывать после 22");
     } else {
       setErrorText("");
+      isValid = true;
     }
 
-    // Check if time difference is greater than 20 minutes and less than 22:00
-    setIsValid(timeDifference > 20 && hour < 22);
-    return timeDifference > 20 && hour < 22;
+    setIsValid(isValid);
+    return isValid;
   }
 
   return (
@@ -121,9 +125,12 @@ const TimePopup = ({ show, toggleShow }: TimePopupProps) => {
                     : `${hour < 10 ? "0" + hour : hour}:${minute < 10 ? "0" + minute : minute}`,
                 ),
               );
-            } else {
-              setErrorText("В выбранное время мы не принимаем заказы");
-              setIsValid(false);
+              dispatch(
+                setErrors({
+                  ...errors,
+                  time: false,
+                }),
+              );
             }
           }}
         />

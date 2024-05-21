@@ -34,6 +34,17 @@ const useCart = () => {
   const [showComment, setShowComment] = useState(false);
   const [showTime, setShowTime] = useState(false);
 
+  // useEffect(() => {
+  //   localStorage.setItem("persist:root", "");
+  //   dispatch(mainSliceClear());
+  //   dispatch(companySliceClear());
+  //   dispatch(clientOrderSliceClear());
+  //   dispatch(managerSliceClear());
+  //   dispatch(orderSliceClear());
+  //   dispatch(timerSliceClear());
+  //   dispatch(userSliceClear());
+  // }, []);
+
   const usePopup = {
     showComment,
     toggleComment: () => setShowComment((value) => !value),
