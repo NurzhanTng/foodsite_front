@@ -261,55 +261,55 @@ const OrderPage = () => {
                 </div>
               );
             })}
+          </div>
+        </div>
 
-            <div
-              className={`my-5 h-fit w-full text-base font-normal leading-none text-white transition-all`}
-            >
-              <div
-                className={`relative mb-5 flex w-[calc(100vw-40px)] flex-row justify-between`}
-              >
-                <h2 className=" leading-non block text-base font-normal text-white">
-                  Оплата
-                </h2>
-              </div>
-              <div className="flex w-full flex-col gap-2">
-                <OrderOneLine
-                  title={"Сумма заказа"}
-                  description={currencyFormatter(
-                    order.products.reduce(
-                      (accumulatedPrice, product) =>
-                        accumulatedPrice +
-                        (product.price === null ? 0 : product.price),
-                      0,
-                    ),
-                  )}
-                  descriptionClassName="text-button"
-                />
+        <div
+          className={`my-5 h-fit w-full text-base font-normal leading-none text-white transition-all`}
+        >
+          <div
+            className={`relative mb-5 flex w-[calc(100vw-40px)] flex-row justify-between`}
+          >
+            <h2 className=" leading-non block text-base font-normal text-white">
+              Оплата
+            </h2>
+          </div>
+          <div className="flex w-full flex-col gap-2">
+            <OrderOneLine
+              title={"Сумма заказа"}
+              description={currencyFormatter(
+                order.products.reduce(
+                  (accumulatedPrice, product) =>
+                    accumulatedPrice +
+                    (product.price === null ? 0 : product.price),
+                  0,
+                ),
+              )}
+              descriptionClassName="text-button"
+            />
 
-                <OrderOneLine
-                  title={"Бонус"}
-                  description={
-                    order.bonus_used && order.bonus_amount !== 0
-                      ? currencyFormatter(order.bonus_amount)
-                      : "Бонусы не использовались"
-                  }
-                  descriptionClassName="text-button"
-                />
+            <OrderOneLine
+              title={"Бонус"}
+              description={
+                order.bonus_used && order.bonus_amount !== 0
+                  ? currencyFormatter(order.bonus_amount)
+                  : "Бонусы не использовались"
+              }
+              descriptionClassName="text-button"
+            />
 
-                <OrderOneLine
-                  title={"Итого к оплате"}
-                  description={currencyFormatter(
-                    order.products.reduce(
-                      (accumulatedPrice, product) =>
-                        accumulatedPrice +
-                        (product.price === null ? 0 : product.price),
-                      0,
-                    ) - order.bonus_amount,
-                  )}
-                  descriptionClassName="text-button"
-                />
-              </div>
-            </div>
+            <OrderOneLine
+              title={"Итого к оплате"}
+              description={currencyFormatter(
+                order.products.reduce(
+                  (accumulatedPrice, product) =>
+                    accumulatedPrice +
+                    (product.price === null ? 0 : product.price),
+                  0,
+                ) - order.bonus_amount,
+              )}
+              descriptionClassName="text-button"
+            />
           </div>
         </div>
 
