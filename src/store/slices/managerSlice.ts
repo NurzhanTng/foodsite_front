@@ -65,6 +65,8 @@ export type Orders = {
   status: OrderStatuses;
   rejected_text: string;
   bonus_used: boolean;
+  bonus_amount: number;
+  delivery_price: number;
   done_time: string; // new
   user_name: string;
   address: { long: number; lat: number; parsed: string } | null;

@@ -21,146 +21,78 @@ import PrivacyPolicy from "../pages/PrivacyPolicy/ui/PrivacyPolicy.tsx";
 import OfferPage from "../pages/OfferPage/ui/OfferPage.tsx";
 import AppThemeProvider from "./context/ThemeProvider.tsx";
 import DeliveryOrderPage from "../pages/DeliveryOrderPage/ui/DeliveryOrderPage.tsx";
-import HistoryWrapper from "./context/HistoryWrapper.tsx";
+// import HistoryWrapper from "./context/HistoryWrapper.tsx";
 import PhotoPage from "../pages/PhotoPage";
 import SearchTestPage from "../pages/SearchTestPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <HistoryWrapper>
-        <TransferPage />
-      </HistoryWrapper>
-    ),
+    element: <TransferPage />,
   },
   {
     path: "/menu",
-    element: (
-      <HistoryWrapper>
-        <MenuPage />
-      </HistoryWrapper>
-    ),
+    element: <MenuPage />,
   },
   {
     path: "/dish/:dishId",
-    element: (
-      <HistoryWrapper>
-        <DishPage />
-      </HistoryWrapper>
-    ),
+    element: <DishPage />,
   },
   {
     path: "/cart",
-    element: (
-      <HistoryWrapper>
-        <CartPage />
-      </HistoryWrapper>
-    ),
+    element: <CartPage />,
   },
   {
     path: "/cartProduct/:product_index",
-    element: (
-      <HistoryWrapper>
-        <CartDishPage />
-      </HistoryWrapper>
-    ),
+    element: <CartDishPage />,
   },
   {
     path: "/delivery",
-    element: (
-      <HistoryWrapper>
-        <DeliveryPage />
-      </HistoryWrapper>
-    ),
+    element: <DeliveryPage />,
   },
   {
     path: "/orders",
-    element: (
-      <HistoryWrapper>
-        <ManagerMainPage />
-      </HistoryWrapper>
-    ),
+    element: <ManagerMainPage />,
   },
   {
     path: "/orders/:order_id",
-    element: (
-      <HistoryWrapper>
-        <OrderPage />
-      </HistoryWrapper>
-    ),
+    element: <OrderPage />,
   },
   {
     path: "/orders/search",
-    element: (
-      <HistoryWrapper>
-        <OrderSearchPage />
-      </HistoryWrapper>
-    ),
+    element: <OrderSearchPage />,
   },
   {
     path: "/active_orders",
-    element: (
-      <HistoryWrapper>
-        <ActiveOrdersPage />
-      </HistoryWrapper>
-    ),
+    element: <ActiveOrdersPage />,
   },
   {
     path: "/history_orders",
-    element: (
-      <HistoryWrapper>
-        <InactiveOrdersPage />
-      </HistoryWrapper>
-    ),
+    element: <InactiveOrdersPage />,
   },
   {
     path: "/client_order",
-    element: (
-      <HistoryWrapper>
-        <ClientOrderPage />
-      </HistoryWrapper>
-    ),
+    element: <ClientOrderPage />,
   },
   {
     path: "/privacy",
-    element: (
-      <HistoryWrapper>
-        <PrivacyPolicy />
-      </HistoryWrapper>
-    ),
+    element: <PrivacyPolicy />,
   },
   {
     path: "/offer",
-    element: (
-      <HistoryWrapper>
-        <OfferPage />
-      </HistoryWrapper>
-    ),
+    element: <OfferPage />,
   },
   {
     path: "/delivery_order/:order_id",
-    element: (
-      <HistoryWrapper>
-        <DeliveryOrderPage />
-      </HistoryWrapper>
-    ),
+    element: <DeliveryOrderPage />,
   },
   {
     path: "/photo",
-    element: (
-      <HistoryWrapper>
-        <PhotoPage />
-      </HistoryWrapper>
-    ),
+    element: <PhotoPage />,
   },
   {
     path: "/search_test",
-    element: (
-      <HistoryWrapper>
-        <SearchTestPage />
-      </HistoryWrapper>
-    ),
+    element: <SearchTestPage />,
   },
   {
     path: "*",
