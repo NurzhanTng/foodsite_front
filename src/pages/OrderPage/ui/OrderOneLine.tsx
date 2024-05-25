@@ -16,14 +16,19 @@ const OrderOneLine = ({
   return (
     <div
       className={twMerge(
-        "flex w-[calc(100vw-40px)] flex-row gap-3 justify-between mb-3",
+        "mb-3 flex w-[calc(100vw-40px)] flex-row justify-between gap-3",
         className,
       )}
     >
       <p className="w-full text-sm font-normal leading-none text-fontSecondary">
         {title}
       </p>
-      <p className={twMerge("min-w-[150px] text-right text-sm font-normal leading-none text-fontSecondary", descriptionClassName)}>
+      <p
+        className={twMerge(
+          "min-w-[180px] text-right text-sm font-normal leading-none text-fontSecondary",
+          descriptionClassName,
+        )}
+      >
         {description}
       </p>
     </div>
