@@ -367,7 +367,7 @@ const OrderPage = () => {
             />
           )}
 
-        {!["on_delivery", "inactive"].includes(order.status) && (
+        {!["inactive"].includes(order.status) && (
           <Button
             disabled={
               order.is_delivery &&

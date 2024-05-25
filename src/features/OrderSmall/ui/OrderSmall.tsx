@@ -202,7 +202,7 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
             onClick={() => setShowDeliveryPopup(true)}
           />
         )}
-      {!["on_delivery", "inactive"].includes(order.status) && open && (
+      {!["inactive"].includes(order.status) && open && (
         <Button
           disabled={
             order.is_delivery &&
