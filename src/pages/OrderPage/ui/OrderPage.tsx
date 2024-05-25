@@ -306,7 +306,7 @@ const OrderPage = () => {
                     accumulatedPrice +
                     (product.price === null ? 0 : product.price),
                   0,
-                ) - order.bonus_amount,
+                ) - (order.bonus_used ? order.bonus_amount : 0),
               )}
               descriptionClassName="text-button"
             />
