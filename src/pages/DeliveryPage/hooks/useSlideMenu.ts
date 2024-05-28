@@ -214,7 +214,7 @@ const useSlideMenu = ({
       )?.name;
 
     if (houseName === undefined) {
-      setAddressText(getTextFromComponents(address));
+      setAddressText(getTextFromComponents(address) + " ");
     } else {
       const [lat, long] = address.GeoObject.Point.pos
         .split(" ")
