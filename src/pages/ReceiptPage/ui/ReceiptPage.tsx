@@ -22,7 +22,7 @@ const ReceiptPage = () => {
   const [needed, setNeeded] = useState<number | "">(0);
   const [have, setHave] = useState<number | "">(0);
   const [proportions, setProportions] = useState<Receipt | null>(null);
-  const [error, setError] = useState<string>("asdfas");
+  const [error, setError] = useState<string>("");
 
   const handleNeededInput = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value === "") setNeeded("");
