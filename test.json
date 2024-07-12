@@ -1,0 +1,259 @@
+{
+  "products": [
+    {
+      "product": {
+        "id": 1,
+        "category_id": 1,
+        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/margarita.JPG",
+        "name": "Маргарита",
+        "description": "Пицца Маргарита - это классическая пицца с томатным соусом, моцареллой и базиликом",
+        "price": 2990,
+        "currency": "KZT",
+        "modifiers": [],
+        "additions": [
+          {
+            "id": 7,
+            "price": 590,
+            "currency": "KZT",
+            "name": "Пармезан",
+            "on_stop": false
+          }
+        ],
+        "tags": [],
+        "on_stop": false
+      },
+      "amount": 1,
+      "client_comment": "",
+      "price": 2990,
+      "product_id": 1,
+      "active_modifier": null,
+      "additions": []
+    },
+    {
+      "product": {
+        "id": 2,
+        "category_id": 1,
+        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/peperoni.JPG/",
+        "name": "Пепперони",
+        "description": "Пицца Пепперони - это простая и ароматная пицца с острой колбаской и сыром.",
+        "price": 3990,
+        "currency": "KZT",
+        "modifiers": [],
+        "additions": [
+          {
+            "id": 7,
+            "price": 590,
+            "currency": "KZT",
+            "name": "Пармезан",
+            "on_stop": false
+          }
+        ],
+        "tags": [],
+        "on_stop": false
+      },
+      "amount": 1,
+      "client_comment": "",
+      "price": 3990,
+      "product_id": 2,
+      "active_modifier": null,
+      "additions": []
+    },
+    {
+      "product": {
+        "id": 10,
+        "category_id": 2,
+        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/arabiata.JPEG/",
+        "name": "Арабьята острая",
+        "description": "",
+        "price": 2000,
+        "currency": "KZT",
+        "modifiers": [
+          {
+            "id": 1,
+            "price": 2000,
+            "currency": "KZT",
+            "name": "Фетучини",
+            "on_stop": false
+          },
+          {
+            "id": 2,
+            "price": 2000,
+            "currency": "KZT",
+            "name": "Спагетти",
+            "on_stop": false
+          },
+          {
+            "id": 3,
+            "price": 2000,
+            "currency": "KZT",
+            "name": "Фузилли",
+            "on_stop": false
+          }
+        ],
+        "additions": [
+          {
+            "id": 1,
+            "price": 500,
+            "currency": "KZT",
+            "name": "много пармезана",
+            "on_stop": false
+          },
+          {
+            "id": 2,
+            "price": 150,
+            "currency": "KZT",
+            "name": "нарубить чили",
+            "on_stop": false
+          },
+          {
+            "id": 3,
+            "price": 250,
+            "currency": "KZT",
+            "name": "полить прекрасным маслом",
+            "on_stop": false
+          },
+          {
+            "id": 4,
+            "price": 1000,
+            "currency": "KZT",
+            "name": "добавить курицу",
+            "on_stop": false
+          },
+          {
+            "id": 5,
+            "price": 1500,
+            "currency": "KZT",
+            "name": "добавить трюфель",
+            "on_stop": false
+          }
+        ],
+        "tags": [],
+        "on_stop": false
+      },
+      "amount": 1,
+      "client_comment": "",
+      "price": 2000,
+      "product_id": 10,
+      "active_modifier": 1,
+      "additions": []
+    },
+    {
+      "product": {
+        "id": 11,
+        "category_id": 2,
+        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/carbonara.JPEG/",
+        "name": "Карбонара",
+        "description": "",
+        "price": 3400,
+        "currency": "KZT",
+        "modifiers": [
+          {
+            "id": 4,
+            "price": 3400,
+            "currency": "KZT",
+            "name": "Фетучини",
+            "on_stop": false
+          },
+          {
+            "id": 5,
+            "price": 3400,
+            "currency": "KZT",
+            "name": "Спагетти",
+            "on_stop": false
+          },
+          {
+            "id": 6,
+            "price": 3400,
+            "currency": "KZT",
+            "name": "Фузилли",
+            "on_stop": false
+          }
+        ],
+        "additions": [
+          {
+            "id": 1,
+            "price": 500,
+            "currency": "KZT",
+            "name": "много пармезана",
+            "on_stop": false
+          },
+          {
+            "id": 2,
+            "price": 150,
+            "currency": "KZT",
+            "name": "нарубить чили",
+            "on_stop": false
+          },
+          {
+            "id": 3,
+            "price": 250,
+            "currency": "KZT",
+            "name": "полить прекрасным маслом",
+            "on_stop": false
+          },
+          {
+            "id": 4,
+            "price": 1000,
+            "currency": "KZT",
+            "name": "добавить курицу",
+            "on_stop": false
+          },
+          {
+            "id": 5,
+            "price": 1500,
+            "currency": "KZT",
+            "name": "добавить трюфель",
+            "on_stop": false
+          }
+        ],
+        "tags": [],
+        "on_stop": false
+      },
+      "amount": 1,
+      "client_comment": "",
+      "price": 3400,
+      "product_id": 11,
+      "active_modifier": 4,
+      "additions": []
+    },
+    {
+      "product": {
+        "id": 21,
+        "category_id": 3,
+        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/sanpelegrino_limonata.avif",
+        "name": "San Pellegrino Limonata 330 мл",
+        "description": "",
+        "price": 1500,
+        "currency": "KZT",
+        "modifiers": [],
+        "additions": [],
+        "tags": [],
+        "on_stop": false
+      },
+      "amount": 1,
+      "client_comment": "",
+      "price": 1500,
+      "product_id": 21,
+      "active_modifier": null,
+      "additions": []
+    }
+  ],
+  "client_id": "1234249296",
+  "bonus_used": false,
+  "user_name": "Nurzhan",
+  "address": {
+    "lat": 76.876214,
+    "long": 43.218921,
+    "parsed": "улица Жандосова, 49",
+    "exact_address": "94 квартира"
+  },
+  "company_id": 2,
+  "exact_address": "94 квартира",
+  "phone": "77074862447",
+  "kaspi_phone": "77074862447",
+  "is_delivery": true,
+  "client_comment": "",
+  "bonus_amount": 3270,
+  "delivery_amount": 0,
+  "actions": []
+}

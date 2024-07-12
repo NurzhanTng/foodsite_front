@@ -30,7 +30,7 @@ export type OrderAddress = {
   exact_address: string;
 };
 
-const tg = window.Telegram.WebApp;
+const tg = window?.Telegram?.WebApp;
 
 const useSlideMenu = ({
   setErrorText,
