@@ -306,7 +306,7 @@ const useCart = () => {
       is_delivery: order.isDelivery,
       client_comment: order.client_comment,
       bonus_amount: Math.min(sumCurrency(state.cart), order.max_bonus),
-      delivery_amount: 0,
+      delivery_amount: order.delivery_amount,
       actions: [],
     });
   };

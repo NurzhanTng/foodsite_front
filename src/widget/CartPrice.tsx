@@ -36,6 +36,12 @@ const CartPrice = ({ className = "" }: CartPriceProps) => {
         </SelectCard>
       )}
 
+      {orderState.isDelivery && (
+        <SelectCard borderBottom={true} name="Цена доставки">
+          {currencyFormatter(orderState.delivery_amount)}
+        </SelectCard>
+      )}
+
       <SelectCard name="Сумма оплаты">
         {currencyFormatter(
           cartPrice + (orderState.bonus_used ? bonusAmount : 0),

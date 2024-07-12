@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import {
   OrderState,
   setAddress,
+  setDeliveryAmount,
   setExactAddress,
 } from "../../../store/slices/orderSlice.ts";
 import checkIsInPolygon from "../../../utils/checkIsInPolygon.ts";
@@ -256,6 +257,9 @@ const useSlideMenu = ({
     setIsSearchActive(false);
     dispatch(setAddress(address));
     dispatch(setExactAddress(address.exact_address));
+    dispatch(
+      setDeliveryAmount(companyState.companies[0].delivery_layers[0].cost),
+    );
     setErrorText(
       getErrorText(
         "updateAddress",
@@ -320,11 +324,11 @@ const useSlideMenu = ({
         ? orderState.address.parsed === ""
         : parsed === ""
     ) {
-      console.log("Необходимо выбрать адрес для доставки");
+      // console.log("Необходимо выбрать адрес для доставки");
       return "Необходимо выбрать адрес для доставки";
     }
     if (!isDelivery && orderState.company_id === -1) {
-      console.log("Необходимо выбрать точку для самовывоза");
+      // console.log("Необходимо выбрать точку для самовывоза");
       return "Необходимо выбрать точку для самовывоза";
     }
     if (

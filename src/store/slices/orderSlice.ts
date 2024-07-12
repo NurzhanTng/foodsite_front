@@ -14,6 +14,7 @@ export type OrderState = {
     parsed: string;
   };
   isDelivery: boolean;
+  delivery_amount: number;
   exactAddress: string;
   phone: string;
   kaspi_phone: string;
@@ -36,6 +37,7 @@ const initialState: OrderState = {
     parsed: "",
   },
   isDelivery: false,
+  delivery_amount: 0,
   exactAddress: "",
   phone: "",
   kaspi_phone: "",
@@ -89,6 +91,9 @@ const orderSlice = createSlice({
     setIsDelivery: (state, action: PayloadAction<boolean>) => {
       state.isDelivery = action.payload;
     },
+    setDeliveryAmount: (state, action: PayloadAction<number>) => {
+      state.delivery_amount = action.payload;
+    },
     setKaspiPhone: (state, action: PayloadAction<string>) => {
       state.kaspi_phone = action.payload;
     },
@@ -128,6 +133,7 @@ export const {
   setUserPhone,
   setKaspiPhone,
   setIsDelivery,
+  setDeliveryAmount,
   setUserName,
   setAddress,
   setExactAddress,
