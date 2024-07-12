@@ -16,6 +16,9 @@ const CartPrice = ({ className = "" }: CartPriceProps) => {
 
   const cartPrice = sumCurrency(state.cart);
   const bonusAmount = -Math.min(cartPrice, orderState.max_bonus);
+  const deliveryAmount = orderState.delivery_amount
+    ? orderState.delivery_amount
+    : 0;
 
   // const [cartPrice, setCartPrice] = useState(sumCurrency(state.cart));
   // const [bonusAmount, setBonusAmount] = useState(Math.min(cartPrice, orderState.max_bonus));
@@ -38,13 +41,15 @@ const CartPrice = ({ className = "" }: CartPriceProps) => {
 
       {orderState.isDelivery && (
         <SelectCard borderBottom={true} name="Цена доставки">
-          {currencyFormatter(orderState.delivery_amount)}
+          {currencyFormatter(deliveryAmount)}
         </SelectCard>
       )}
 
       <SelectCard name="Сумма оплаты">
         {currencyFormatter(
-          cartPrice + (orderState.bonus_used ? bonusAmount : 0),
+          cartPrice +
+            (orderState.bonus_used ? bonusAmount : 0) +
+            deliveryAmount,
         )}
       </SelectCard>
     </div>
