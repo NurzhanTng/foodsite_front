@@ -1,1186 +1,1165 @@
 [
   {
     "id": 1,
-    "name": "🍕 Пицца",
-    "description": "Погрузитесь в мир ароматной и сочной пиццы! Наши пиццы готовятся из свежих ингредиентов и тщательно подобранных специй. От классических вариантов до оригинальных рецептов, у нас есть пицца для каждого вкуса.",
-    "products": [
+    "category_id": 1,
+    "image_url": "https://pizza.pizzeria-almaty.kz/media/images/margarita.JPEG",
+    "name": "Маргарита",
+    "description": "Пицца Маргарита - это классическая пицца с томатным соусом, моцареллой и базиликом",
+    "price": 2500,
+    "currency": "KZT",
+    "modifiers": [],
+    "additions": [
       {
         "id": 1,
-        "category_id": 1,
-        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/margarita.JPEG",
-        "name": "Маргарита",
-        "description": "Пицца Маргарита - это классическая пицца с томатным соусом, моцареллой и базиликом",
-        "price": 2500,
+        "price": 500,
         "currency": "KZT",
-        "modifiers": [],
-        "additions": [
-          {
-            "id": 1,
-            "price": 500,
-            "currency": "KZT",
-            "name": "много пармезана",
-            "on_stop": false
-          },
-          {
-            "id": 2,
-            "price": 150,
-            "currency": "KZT",
-            "name": "нарубить чили",
-            "on_stop": false
-          },
-          {
-            "id": 3,
-            "price": 250,
-            "currency": "KZT",
-            "name": "полить прекрасным маслом",
-            "on_stop": false
-          },
-          {
-            "id": 4,
-            "price": 1000,
-            "currency": "KZT",
-            "name": "добавить курицу",
-            "on_stop": false
-          },
-          {
-            "id": 5,
-            "price": 1500,
-            "currency": "KZT",
-            "name": "добавить трюфель",
-            "on_stop": false
-          },
-          {
-            "id": 6,
-            "price": 500,
-            "currency": "KZT",
-            "name": "двойной сыр",
-            "on_stop": false
-          }
-        ],
-        "tags": [],
+        "name": "много пармезана",
         "on_stop": false
       },
       {
         "id": 2,
-        "category_id": 1,
-        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/pepperoni.JPEG/",
-        "name": "Пепперони",
-        "description": "Пицца Пепперони - это простая и ароматная пицца с острой колбаской и сыром.",
-        "price": 2900,
+        "price": 150,
         "currency": "KZT",
-        "modifiers": [],
-        "additions": [
-          {
-            "id": 1,
-            "price": 500,
-            "currency": "KZT",
-            "name": "много пармезана",
-            "on_stop": false
-          },
-          {
-            "id": 2,
-            "price": 150,
-            "currency": "KZT",
-            "name": "нарубить чили",
-            "on_stop": false
-          },
-          {
-            "id": 3,
-            "price": 250,
-            "currency": "KZT",
-            "name": "полить прекрасным маслом",
-            "on_stop": false
-          },
-          {
-            "id": 4,
-            "price": 1000,
-            "currency": "KZT",
-            "name": "добавить курицу",
-            "on_stop": false
-          },
-          {
-            "id": 5,
-            "price": 1500,
-            "currency": "KZT",
-            "name": "добавить трюфель",
-            "on_stop": false
-          },
-          {
-            "id": 6,
-            "price": 500,
-            "currency": "KZT",
-            "name": "двойной сыр",
-            "on_stop": false
-          }
-        ],
-        "tags": [],
+        "name": "нарубить чили",
         "on_stop": false
       },
       {
         "id": 3,
-        "category_id": 1,
-        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/cheese%20pizza.JPEG/",
-        "name": "Сырная Пицца",
-        "description": "Пицца Сырная - это сочетание различных видов сыра на тонком тесте.",
-        "price": 3500,
+        "price": 250,
         "currency": "KZT",
-        "modifiers": [],
-        "additions": [
-          {
-            "id": 1,
-            "price": 500,
-            "currency": "KZT",
-            "name": "много пармезана",
-            "on_stop": false
-          },
-          {
-            "id": 2,
-            "price": 150,
-            "currency": "KZT",
-            "name": "нарубить чили",
-            "on_stop": false
-          },
-          {
-            "id": 3,
-            "price": 250,
-            "currency": "KZT",
-            "name": "полить прекрасным маслом",
-            "on_stop": false
-          },
-          {
-            "id": 4,
-            "price": 1000,
-            "currency": "KZT",
-            "name": "добавить курицу",
-            "on_stop": false
-          },
-          {
-            "id": 5,
-            "price": 1500,
-            "currency": "KZT",
-            "name": "добавить трюфель",
-            "on_stop": false
-          },
-          {
-            "id": 6,
-            "price": 500,
-            "currency": "KZT",
-            "name": "двойной сыр",
-            "on_stop": false
-          }
-        ],
-        "tags": [],
+        "name": "полить прекрасным маслом",
         "on_stop": false
       },
       {
         "id": 4,
-        "category_id": 1,
-        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/ham%20mushrooms.JPEG/",
-        "name": "Ветчина Грибы",
-        "description": "",
-        "price": 3000,
+        "price": 1000,
         "currency": "KZT",
-        "modifiers": [],
-        "additions": [
-          {
-            "id": 1,
-            "price": 500,
-            "currency": "KZT",
-            "name": "много пармезана",
-            "on_stop": false
-          },
-          {
-            "id": 2,
-            "price": 150,
-            "currency": "KZT",
-            "name": "нарубить чили",
-            "on_stop": false
-          },
-          {
-            "id": 3,
-            "price": 250,
-            "currency": "KZT",
-            "name": "полить прекрасным маслом",
-            "on_stop": false
-          },
-          {
-            "id": 4,
-            "price": 1000,
-            "currency": "KZT",
-            "name": "добавить курицу",
-            "on_stop": false
-          },
-          {
-            "id": 5,
-            "price": 1500,
-            "currency": "KZT",
-            "name": "добавить трюфель",
-            "on_stop": false
-          },
-          {
-            "id": 6,
-            "price": 500,
-            "currency": "KZT",
-            "name": "двойной сыр",
-            "on_stop": false
-          }
-        ],
-        "tags": [],
+        "name": "добавить курицу",
         "on_stop": false
       },
       {
         "id": 5,
-        "category_id": 1,
-        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/americano.JPEG/",
-        "name": "Американо",
-        "description": "Пышная, поджаристая, с необычными начинками – всё это пицца Американо",
-        "price": 3500,
+        "price": 1500,
         "currency": "KZT",
-        "modifiers": [],
-        "additions": [
-          {
-            "id": 1,
-            "price": 500,
-            "currency": "KZT",
-            "name": "много пармезана",
-            "on_stop": false
-          },
-          {
-            "id": 2,
-            "price": 150,
-            "currency": "KZT",
-            "name": "нарубить чили",
-            "on_stop": false
-          },
-          {
-            "id": 3,
-            "price": 250,
-            "currency": "KZT",
-            "name": "полить прекрасным маслом",
-            "on_stop": false
-          },
-          {
-            "id": 4,
-            "price": 1000,
-            "currency": "KZT",
-            "name": "добавить курицу",
-            "on_stop": false
-          },
-          {
-            "id": 5,
-            "price": 1500,
-            "currency": "KZT",
-            "name": "добавить трюфель",
-            "on_stop": false
-          },
-          {
-            "id": 6,
-            "price": 500,
-            "currency": "KZT",
-            "name": "двойной сыр",
-            "on_stop": false
-          }
-        ],
-        "tags": [],
+        "name": "добавить трюфель",
         "on_stop": false
       },
       {
         "id": 6,
-        "category_id": 1,
-        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/bolognes.JPEG/",
-        "name": "Пицца Болоньезе",
-        "description": "Пицца Болоньезе - это простая и ароматная пицца с мясным соусом и сыром.",
-        "price": 3500,
+        "price": 500,
         "currency": "KZT",
-        "modifiers": [],
-        "additions": [
-          {
-            "id": 1,
-            "price": 500,
-            "currency": "KZT",
-            "name": "много пармезана",
-            "on_stop": false
-          },
-          {
-            "id": 2,
-            "price": 150,
-            "currency": "KZT",
-            "name": "нарубить чили",
-            "on_stop": false
-          },
-          {
-            "id": 3,
-            "price": 250,
-            "currency": "KZT",
-            "name": "полить прекрасным маслом",
-            "on_stop": false
-          },
-          {
-            "id": 4,
-            "price": 1000,
-            "currency": "KZT",
-            "name": "добавить курицу",
-            "on_stop": false
-          },
-          {
-            "id": 5,
-            "price": 1500,
-            "currency": "KZT",
-            "name": "добавить трюфель",
-            "on_stop": false
-          },
-          {
-            "id": 6,
-            "price": 500,
-            "currency": "KZT",
-            "name": "двойной сыр",
-            "on_stop": false
-          }
-        ],
-        "tags": [],
+        "name": "двойной сыр",
+        "on_stop": false
+      }
+    ],
+    "tags": [],
+    "on_stop": false
+  },
+  {
+    "id": 2,
+    "category_id": 1,
+    "image_url": "https://pizza.pizzeria-almaty.kz/media/images/pepperoni.JPEG/",
+    "name": "Пепперони",
+    "description": "Пицца Пепперони - это простая и ароматная пицца с острой колбаской и сыром.",
+    "price": 2900,
+    "currency": "KZT",
+    "modifiers": [],
+    "additions": [
+      {
+        "id": 1,
+        "price": 500,
+        "currency": "KZT",
+        "name": "много пармезана",
         "on_stop": false
       },
       {
-        "id": 7,
-        "category_id": 1,
-        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/chicken.JPEG/",
-        "name": "Пицца с Курицей",
-        "description": "",
-        "price": 2800,
+        "id": 2,
+        "price": 150,
         "currency": "KZT",
-        "modifiers": [],
-        "additions": [
-          {
-            "id": 1,
-            "price": 500,
-            "currency": "KZT",
-            "name": "много пармезана",
-            "on_stop": false
-          },
-          {
-            "id": 2,
-            "price": 150,
-            "currency": "KZT",
-            "name": "нарубить чили",
-            "on_stop": false
-          },
-          {
-            "id": 3,
-            "price": 250,
-            "currency": "KZT",
-            "name": "полить прекрасным маслом",
-            "on_stop": false
-          },
-          {
-            "id": 4,
-            "price": 1000,
-            "currency": "KZT",
-            "name": "добавить курицу",
-            "on_stop": false
-          },
-          {
-            "id": 5,
-            "price": 1500,
-            "currency": "KZT",
-            "name": "добавить трюфель",
-            "on_stop": false
-          },
-          {
-            "id": 6,
-            "price": 500,
-            "currency": "KZT",
-            "name": "двойной сыр",
-            "on_stop": false
-          }
-        ],
-        "tags": [],
+        "name": "нарубить чили",
+        "on_stop": false
+      },
+      {
+        "id": 3,
+        "price": 250,
+        "currency": "KZT",
+        "name": "полить прекрасным маслом",
+        "on_stop": false
+      },
+      {
+        "id": 4,
+        "price": 1000,
+        "currency": "KZT",
+        "name": "добавить курицу",
+        "on_stop": false
+      },
+      {
+        "id": 5,
+        "price": 1500,
+        "currency": "KZT",
+        "name": "добавить трюфель",
+        "on_stop": false
+      },
+      {
+        "id": 6,
+        "price": 500,
+        "currency": "KZT",
+        "name": "двойной сыр",
+        "on_stop": false
+      }
+    ],
+    "tags": [],
+    "on_stop": false
+  },
+  {
+    "id": 3,
+    "category_id": 1,
+    "image_url": "https://pizza.pizzeria-almaty.kz/media/images/cheese%20pizza.JPEG/",
+    "name": "Сырная Пицца",
+    "description": "Пицца Сырная - это сочетание различных видов сыра на тонком тесте.",
+    "price": 3500,
+    "currency": "KZT",
+    "modifiers": [],
+    "additions": [
+      {
+        "id": 1,
+        "price": 500,
+        "currency": "KZT",
+        "name": "много пармезана",
+        "on_stop": false
+      },
+      {
+        "id": 2,
+        "price": 150,
+        "currency": "KZT",
+        "name": "нарубить чили",
+        "on_stop": false
+      },
+      {
+        "id": 3,
+        "price": 250,
+        "currency": "KZT",
+        "name": "полить прекрасным маслом",
+        "on_stop": false
+      },
+      {
+        "id": 4,
+        "price": 1000,
+        "currency": "KZT",
+        "name": "добавить курицу",
+        "on_stop": false
+      },
+      {
+        "id": 5,
+        "price": 1500,
+        "currency": "KZT",
+        "name": "добавить трюфель",
+        "on_stop": false
+      },
+      {
+        "id": 6,
+        "price": 500,
+        "currency": "KZT",
+        "name": "двойной сыр",
+        "on_stop": false
+      }
+    ],
+    "tags": [],
+    "on_stop": false
+  },
+  {
+    "id": 4,
+    "category_id": 1,
+    "image_url": "https://pizza.pizzeria-almaty.kz/media/images/ham%20mushrooms.JPEG/",
+    "name": "Ветчина Грибы",
+    "description": "",
+    "price": 3000,
+    "currency": "KZT",
+    "modifiers": [],
+    "additions": [
+      {
+        "id": 1,
+        "price": 500,
+        "currency": "KZT",
+        "name": "много пармезана",
+        "on_stop": false
+      },
+      {
+        "id": 2,
+        "price": 150,
+        "currency": "KZT",
+        "name": "нарубить чили",
+        "on_stop": false
+      },
+      {
+        "id": 3,
+        "price": 250,
+        "currency": "KZT",
+        "name": "полить прекрасным маслом",
+        "on_stop": false
+      },
+      {
+        "id": 4,
+        "price": 1000,
+        "currency": "KZT",
+        "name": "добавить курицу",
+        "on_stop": false
+      },
+      {
+        "id": 5,
+        "price": 1500,
+        "currency": "KZT",
+        "name": "добавить трюфель",
+        "on_stop": false
+      },
+      {
+        "id": 6,
+        "price": 500,
+        "currency": "KZT",
+        "name": "двойной сыр",
+        "on_stop": false
+      }
+    ],
+    "tags": [],
+    "on_stop": false
+  },
+  {
+    "id": 5,
+    "category_id": 1,
+    "image_url": "https://pizza.pizzeria-almaty.kz/media/images/americano.JPEG/",
+    "name": "Американо",
+    "description": "Пышная, поджаристая, с необычными начинками – всё это пицца Американо",
+    "price": 3500,
+    "currency": "KZT",
+    "modifiers": [],
+    "additions": [
+      {
+        "id": 1,
+        "price": 500,
+        "currency": "KZT",
+        "name": "много пармезана",
+        "on_stop": false
+      },
+      {
+        "id": 2,
+        "price": 150,
+        "currency": "KZT",
+        "name": "нарубить чили",
+        "on_stop": false
+      },
+      {
+        "id": 3,
+        "price": 250,
+        "currency": "KZT",
+        "name": "полить прекрасным маслом",
+        "on_stop": false
+      },
+      {
+        "id": 4,
+        "price": 1000,
+        "currency": "KZT",
+        "name": "добавить курицу",
+        "on_stop": false
+      },
+      {
+        "id": 5,
+        "price": 1500,
+        "currency": "KZT",
+        "name": "добавить трюфель",
+        "on_stop": false
+      },
+      {
+        "id": 6,
+        "price": 500,
+        "currency": "KZT",
+        "name": "двойной сыр",
+        "on_stop": false
+      }
+    ],
+    "tags": [],
+    "on_stop": false
+  },
+  {
+    "id": 6,
+    "category_id": 1,
+    "image_url": "https://pizza.pizzeria-almaty.kz/media/images/bolognes.JPEG/",
+    "name": "Пицца Болоньезе",
+    "description": "Пицца Болоньезе - это простая и ароматная пицца с мясным соусом и сыром.",
+    "price": 3500,
+    "currency": "KZT",
+    "modifiers": [],
+    "additions": [
+      {
+        "id": 1,
+        "price": 500,
+        "currency": "KZT",
+        "name": "много пармезана",
+        "on_stop": false
+      },
+      {
+        "id": 2,
+        "price": 150,
+        "currency": "KZT",
+        "name": "нарубить чили",
+        "on_stop": false
+      },
+      {
+        "id": 3,
+        "price": 250,
+        "currency": "KZT",
+        "name": "полить прекрасным маслом",
+        "on_stop": false
+      },
+      {
+        "id": 4,
+        "price": 1000,
+        "currency": "KZT",
+        "name": "добавить курицу",
+        "on_stop": false
+      },
+      {
+        "id": 5,
+        "price": 1500,
+        "currency": "KZT",
+        "name": "добавить трюфель",
+        "on_stop": false
+      },
+      {
+        "id": 6,
+        "price": 500,
+        "currency": "KZT",
+        "name": "двойной сыр",
+        "on_stop": false
+      }
+    ],
+    "tags": [],
+    "on_stop": false
+  },
+  {
+    "id": 7,
+    "category_id": 1,
+    "image_url": "https://pizza.pizzeria-almaty.kz/media/images/chicken.JPEG/",
+    "name": "Пицца с Курицей",
+    "description": "",
+    "price": 2800,
+    "currency": "KZT",
+    "modifiers": [],
+    "additions": [
+      {
+        "id": 1,
+        "price": 500,
+        "currency": "KZT",
+        "name": "много пармезана",
+        "on_stop": false
+      },
+      {
+        "id": 2,
+        "price": 150,
+        "currency": "KZT",
+        "name": "нарубить чили",
+        "on_stop": false
+      },
+      {
+        "id": 3,
+        "price": 250,
+        "currency": "KZT",
+        "name": "полить прекрасным маслом",
+        "on_stop": false
+      },
+      {
+        "id": 4,
+        "price": 1000,
+        "currency": "KZT",
+        "name": "добавить курицу",
+        "on_stop": false
+      },
+      {
+        "id": 5,
+        "price": 1500,
+        "currency": "KZT",
+        "name": "добавить трюфель",
+        "on_stop": false
+      },
+      {
+        "id": 6,
+        "price": 500,
+        "currency": "KZT",
+        "name": "двойной сыр",
+        "on_stop": false
+      }
+    ],
+    "tags": [],
+    "on_stop": false
+  },
+  {
+    "id": 8,
+    "category_id": 1,
+    "image_url": "https://pizza.pizzeria-almaty.kz/media/images/pear.JPEG/",
+    "name": "Груша Горгондзола",
+    "description": "Нежный сливочный соус, сыр моцарелла, сыр горгонзола и груша с грецким орехом и медом.",
+    "price": 4500,
+    "currency": "KZT",
+    "modifiers": [],
+    "additions": [
+      {
+        "id": 1,
+        "price": 500,
+        "currency": "KZT",
+        "name": "много пармезана",
+        "on_stop": false
+      },
+      {
+        "id": 2,
+        "price": 150,
+        "currency": "KZT",
+        "name": "нарубить чили",
+        "on_stop": false
+      },
+      {
+        "id": 3,
+        "price": 250,
+        "currency": "KZT",
+        "name": "полить прекрасным маслом",
+        "on_stop": false
+      },
+      {
+        "id": 4,
+        "price": 1000,
+        "currency": "KZT",
+        "name": "добавить курицу",
+        "on_stop": false
+      },
+      {
+        "id": 5,
+        "price": 1500,
+        "currency": "KZT",
+        "name": "добавить трюфель",
+        "on_stop": false
+      },
+      {
+        "id": 6,
+        "price": 500,
+        "currency": "KZT",
+        "name": "двойной сыр",
+        "on_stop": false
+      }
+    ],
+    "tags": [],
+    "on_stop": false
+  },
+  {
+    "id": 9,
+    "category_id": 1,
+    "image_url": "https://pizza.pizzeria-almaty.kz/media/images/truffle%20mushrooms.JPEG/",
+    "name": "Грибы Трюфель",
+    "description": "Пицца Грибы Трюфель - грибное удовольствие, украшенное изысканным трюфельным маслом для тонкого вкуса.",
+    "price": 4500,
+    "currency": "KZT",
+    "modifiers": [],
+    "additions": [
+      {
+        "id": 1,
+        "price": 500,
+        "currency": "KZT",
+        "name": "много пармезана",
+        "on_stop": false
+      },
+      {
+        "id": 2,
+        "price": 150,
+        "currency": "KZT",
+        "name": "нарубить чили",
+        "on_stop": false
+      },
+      {
+        "id": 3,
+        "price": 250,
+        "currency": "KZT",
+        "name": "полить прекрасным маслом",
+        "on_stop": false
+      },
+      {
+        "id": 4,
+        "price": 1000,
+        "currency": "KZT",
+        "name": "добавить курицу",
+        "on_stop": false
+      },
+      {
+        "id": 5,
+        "price": 1500,
+        "currency": "KZT",
+        "name": "добавить трюфель",
+        "on_stop": false
+      },
+      {
+        "id": 6,
+        "price": 500,
+        "currency": "KZT",
+        "name": "двойной сыр",
+        "on_stop": false
+      }
+    ],
+    "tags": [],
+    "on_stop": false
+  },
+  {
+    "id": 10,
+    "category_id": 2,
+    "image_url": "https://pizza.pizzeria-almaty.kz/media/images/arabiata.JPEG/",
+    "name": "Арабьята острая",
+    "description": "",
+    "price": 2000,
+    "currency": "KZT",
+    "modifiers": [
+      {
+        "id": 1,
+        "price": 2000,
+        "currency": "KZT",
+        "name": "Фетучини",
+        "on_stop": false
+      },
+      {
+        "id": 2,
+        "price": 2000,
+        "currency": "KZT",
+        "name": "Спагетти",
+        "on_stop": false
+      },
+      {
+        "id": 3,
+        "price": 2000,
+        "currency": "KZT",
+        "name": "Фузилли",
+        "on_stop": false
+      }
+    ],
+    "additions": [
+      {
+        "id": 1,
+        "price": 500,
+        "currency": "KZT",
+        "name": "много пармезана",
+        "on_stop": false
+      },
+      {
+        "id": 2,
+        "price": 150,
+        "currency": "KZT",
+        "name": "нарубить чили",
+        "on_stop": false
+      },
+      {
+        "id": 3,
+        "price": 250,
+        "currency": "KZT",
+        "name": "полить прекрасным маслом",
+        "on_stop": false
+      },
+      {
+        "id": 4,
+        "price": 1000,
+        "currency": "KZT",
+        "name": "добавить курицу",
+        "on_stop": false
+      },
+      {
+        "id": 5,
+        "price": 1500,
+        "currency": "KZT",
+        "name": "добавить трюфель",
+        "on_stop": false
+      }
+    ],
+    "tags": [],
+    "on_stop": false
+  },
+  {
+    "id": 11,
+    "category_id": 2,
+    "image_url": "https://pizza.pizzeria-almaty.kz/media/images/carbonara.JPEG/",
+    "name": "Карбонара",
+    "description": "",
+    "price": 3400,
+    "currency": "KZT",
+    "modifiers": [
+      {
+        "id": 4,
+        "price": 3400,
+        "currency": "KZT",
+        "name": "Фетучини",
+        "on_stop": false
+      },
+      {
+        "id": 5,
+        "price": 3400,
+        "currency": "KZT",
+        "name": "Спагетти",
+        "on_stop": false
+      },
+      {
+        "id": 6,
+        "price": 3400,
+        "currency": "KZT",
+        "name": "Фузилли",
+        "on_stop": false
+      }
+    ],
+    "additions": [
+      {
+        "id": 1,
+        "price": 500,
+        "currency": "KZT",
+        "name": "много пармезана",
+        "on_stop": false
+      },
+      {
+        "id": 2,
+        "price": 150,
+        "currency": "KZT",
+        "name": "нарубить чили",
+        "on_stop": false
+      },
+      {
+        "id": 3,
+        "price": 250,
+        "currency": "KZT",
+        "name": "полить прекрасным маслом",
+        "on_stop": false
+      },
+      {
+        "id": 4,
+        "price": 1000,
+        "currency": "KZT",
+        "name": "добавить курицу",
+        "on_stop": false
+      },
+      {
+        "id": 5,
+        "price": 1500,
+        "currency": "KZT",
+        "name": "добавить трюфель",
+        "on_stop": false
+      }
+    ],
+    "tags": [],
+    "on_stop": false
+  },
+  {
+    "id": 12,
+    "category_id": 2,
+    "image_url": "https://pizza.pizzeria-almaty.kz/media/images/bolognese.JPEG",
+    "name": "Болоньезе",
+    "description": "",
+    "price": 3400,
+    "currency": "KZT",
+    "modifiers": [
+      {
+        "id": 7,
+        "price": 3400,
+        "currency": "KZT",
+        "name": "Фузилли",
         "on_stop": false
       },
       {
         "id": 8,
-        "category_id": 1,
-        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/pear.JPEG/",
-        "name": "Груша Горгондзола",
-        "description": "Нежный сливочный соус, сыр моцарелла, сыр горгонзола и груша с грецким орехом и медом.",
-        "price": 4500,
+        "price": 3400,
         "currency": "KZT",
-        "modifiers": [],
-        "additions": [
-          {
-            "id": 1,
-            "price": 500,
-            "currency": "KZT",
-            "name": "много пармезана",
-            "on_stop": false
-          },
-          {
-            "id": 2,
-            "price": 150,
-            "currency": "KZT",
-            "name": "нарубить чили",
-            "on_stop": false
-          },
-          {
-            "id": 3,
-            "price": 250,
-            "currency": "KZT",
-            "name": "полить прекрасным маслом",
-            "on_stop": false
-          },
-          {
-            "id": 4,
-            "price": 1000,
-            "currency": "KZT",
-            "name": "добавить курицу",
-            "on_stop": false
-          },
-          {
-            "id": 5,
-            "price": 1500,
-            "currency": "KZT",
-            "name": "добавить трюфель",
-            "on_stop": false
-          },
-          {
-            "id": 6,
-            "price": 500,
-            "currency": "KZT",
-            "name": "двойной сыр",
-            "on_stop": false
-          }
-        ],
-        "tags": [],
+        "name": "Фетучини",
         "on_stop": false
       },
       {
         "id": 9,
-        "category_id": 1,
-        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/truffle%20mushrooms.JPEG/",
-        "name": "Грибы Трюфель",
-        "description": "Пицца Грибы Трюфель - грибное удовольствие, украшенное изысканным трюфельным маслом для тонкого вкуса.",
-        "price": 4500,
+        "price": 3400,
         "currency": "KZT",
-        "modifiers": [],
-        "additions": [
-          {
-            "id": 1,
-            "price": 500,
-            "currency": "KZT",
-            "name": "много пармезана",
-            "on_stop": false
-          },
-          {
-            "id": 2,
-            "price": 150,
-            "currency": "KZT",
-            "name": "нарубить чили",
-            "on_stop": false
-          },
-          {
-            "id": 3,
-            "price": 250,
-            "currency": "KZT",
-            "name": "полить прекрасным маслом",
-            "on_stop": false
-          },
-          {
-            "id": 4,
-            "price": 1000,
-            "currency": "KZT",
-            "name": "добавить курицу",
-            "on_stop": false
-          },
-          {
-            "id": 5,
-            "price": 1500,
-            "currency": "KZT",
-            "name": "добавить трюфель",
-            "on_stop": false
-          },
-          {
-            "id": 6,
-            "price": 500,
-            "currency": "KZT",
-            "name": "двойной сыр",
-            "on_stop": false
-          }
-        ],
-        "tags": [],
+        "name": "Спагетти",
         "on_stop": false
       }
-    ]
+    ],
+    "additions": [
+      {
+        "id": 1,
+        "price": 500,
+        "currency": "KZT",
+        "name": "много пармезана",
+        "on_stop": false
+      },
+      {
+        "id": 2,
+        "price": 150,
+        "currency": "KZT",
+        "name": "нарубить чили",
+        "on_stop": false
+      },
+      {
+        "id": 3,
+        "price": 250,
+        "currency": "KZT",
+        "name": "полить прекрасным маслом",
+        "on_stop": false
+      },
+      {
+        "id": 4,
+        "price": 1000,
+        "currency": "KZT",
+        "name": "добавить курицу",
+        "on_stop": false
+      },
+      {
+        "id": 5,
+        "price": 1500,
+        "currency": "KZT",
+        "name": "добавить трюфель",
+        "on_stop": false
+      }
+    ],
+    "tags": [],
+    "on_stop": false
   },
   {
-    "id": 2,
-    "name": "🍝 Паста",
-    "description": "Наслаждайтесь неповторимым вкусом итальянской пасты в нашем уютном кафе. От классических рецептов до эксклюзивных сочетаний ингредиентов, каждое блюдо готовится с любовью и вниманием к деталям, чтобы порадовать ваш вкусовой рецептор.",
-    "products": [
+    "id": 13,
+    "category_id": 2,
+    "image_url": "https://pizza.pizzeria-almaty.kz/media/images/with%20shrimp.JPEG/",
+    "name": "С креветками",
+    "description": "в сливочно-томатном соусе",
+    "price": 3500,
+    "currency": "KZT",
+    "modifiers": [
       {
         "id": 10,
-        "category_id": 2,
-        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/arabiata.JPEG/",
-        "name": "Арабьята острая",
-        "description": "",
-        "price": 2000,
+        "price": 3500,
         "currency": "KZT",
-        "modifiers": [
-          {
-            "id": 1,
-            "price": 2000,
-            "currency": "KZT",
-            "name": "Фетучини",
-            "on_stop": false
-          },
-          {
-            "id": 2,
-            "price": 2000,
-            "currency": "KZT",
-            "name": "Спагетти",
-            "on_stop": false
-          },
-          {
-            "id": 3,
-            "price": 2000,
-            "currency": "KZT",
-            "name": "Фузилли",
-            "on_stop": false
-          }
-        ],
-        "additions": [
-          {
-            "id": 1,
-            "price": 500,
-            "currency": "KZT",
-            "name": "много пармезана",
-            "on_stop": false
-          },
-          {
-            "id": 2,
-            "price": 150,
-            "currency": "KZT",
-            "name": "нарубить чили",
-            "on_stop": false
-          },
-          {
-            "id": 3,
-            "price": 250,
-            "currency": "KZT",
-            "name": "полить прекрасным маслом",
-            "on_stop": false
-          },
-          {
-            "id": 4,
-            "price": 1000,
-            "currency": "KZT",
-            "name": "добавить курицу",
-            "on_stop": false
-          },
-          {
-            "id": 5,
-            "price": 1500,
-            "currency": "KZT",
-            "name": "добавить трюфель",
-            "on_stop": false
-          }
-        ],
-        "tags": [],
+        "name": "Фузилли",
         "on_stop": false
       },
       {
         "id": 11,
-        "category_id": 2,
-        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/carbonara.JPEG/",
-        "name": "Карбонара",
-        "description": "",
-        "price": 3400,
+        "price": 3500,
         "currency": "KZT",
-        "modifiers": [
-          {
-            "id": 4,
-            "price": 3400,
-            "currency": "KZT",
-            "name": "Фетучини",
-            "on_stop": false
-          },
-          {
-            "id": 5,
-            "price": 3400,
-            "currency": "KZT",
-            "name": "Спагетти",
-            "on_stop": false
-          },
-          {
-            "id": 6,
-            "price": 3400,
-            "currency": "KZT",
-            "name": "Фузилли",
-            "on_stop": false
-          }
-        ],
-        "additions": [
-          {
-            "id": 1,
-            "price": 500,
-            "currency": "KZT",
-            "name": "много пармезана",
-            "on_stop": false
-          },
-          {
-            "id": 2,
-            "price": 150,
-            "currency": "KZT",
-            "name": "нарубить чили",
-            "on_stop": false
-          },
-          {
-            "id": 3,
-            "price": 250,
-            "currency": "KZT",
-            "name": "полить прекрасным маслом",
-            "on_stop": false
-          },
-          {
-            "id": 4,
-            "price": 1000,
-            "currency": "KZT",
-            "name": "добавить курицу",
-            "on_stop": false
-          },
-          {
-            "id": 5,
-            "price": 1500,
-            "currency": "KZT",
-            "name": "добавить трюфель",
-            "on_stop": false
-          }
-        ],
-        "tags": [],
+        "name": "Фетучини",
         "on_stop": false
       },
       {
         "id": 12,
-        "category_id": 2,
-        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/bolognese.JPEG",
-        "name": "Болоньезе",
-        "description": "",
-        "price": 3400,
+        "price": 3500,
         "currency": "KZT",
-        "modifiers": [
-          {
-            "id": 7,
-            "price": 3400,
-            "currency": "KZT",
-            "name": "Фузилли",
-            "on_stop": false
-          },
-          {
-            "id": 8,
-            "price": 3400,
-            "currency": "KZT",
-            "name": "Фетучини",
-            "on_stop": false
-          },
-          {
-            "id": 9,
-            "price": 3400,
-            "currency": "KZT",
-            "name": "Спагетти",
-            "on_stop": false
-          }
-        ],
-        "additions": [
-          {
-            "id": 1,
-            "price": 500,
-            "currency": "KZT",
-            "name": "много пармезана",
-            "on_stop": false
-          },
-          {
-            "id": 2,
-            "price": 150,
-            "currency": "KZT",
-            "name": "нарубить чили",
-            "on_stop": false
-          },
-          {
-            "id": 3,
-            "price": 250,
-            "currency": "KZT",
-            "name": "полить прекрасным маслом",
-            "on_stop": false
-          },
-          {
-            "id": 4,
-            "price": 1000,
-            "currency": "KZT",
-            "name": "добавить курицу",
-            "on_stop": false
-          },
-          {
-            "id": 5,
-            "price": 1500,
-            "currency": "KZT",
-            "name": "добавить трюфель",
-            "on_stop": false
-          }
-        ],
-        "tags": [],
+        "name": "Спагетти",
+        "on_stop": false
+      }
+    ],
+    "additions": [
+      {
+        "id": 1,
+        "price": 500,
+        "currency": "KZT",
+        "name": "много пармезана",
         "on_stop": false
       },
       {
-        "id": 13,
-        "category_id": 2,
-        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/with%20shrimp.JPEG/",
-        "name": "С креветками",
-        "description": "в сливочно-томатном соусе",
-        "price": 3500,
+        "id": 2,
+        "price": 150,
         "currency": "KZT",
-        "modifiers": [
-          {
-            "id": 10,
-            "price": 3500,
-            "currency": "KZT",
-            "name": "Фузилли",
-            "on_stop": false
-          },
-          {
-            "id": 11,
-            "price": 3500,
-            "currency": "KZT",
-            "name": "Фетучини",
-            "on_stop": false
-          },
-          {
-            "id": 12,
-            "price": 3500,
-            "currency": "KZT",
-            "name": "Спагетти",
-            "on_stop": false
-          }
-        ],
-        "additions": [
-          {
-            "id": 1,
-            "price": 500,
-            "currency": "KZT",
-            "name": "много пармезана",
-            "on_stop": false
-          },
-          {
-            "id": 2,
-            "price": 150,
-            "currency": "KZT",
-            "name": "нарубить чили",
-            "on_stop": false
-          },
-          {
-            "id": 3,
-            "price": 250,
-            "currency": "KZT",
-            "name": "полить прекрасным маслом",
-            "on_stop": false
-          },
-          {
-            "id": 4,
-            "price": 1000,
-            "currency": "KZT",
-            "name": "добавить курицу",
-            "on_stop": false
-          },
-          {
-            "id": 5,
-            "price": 1500,
-            "currency": "KZT",
-            "name": "добавить трюфель",
-            "on_stop": false
-          }
-        ],
-        "tags": [],
+        "name": "нарубить чили",
+        "on_stop": false
+      },
+      {
+        "id": 3,
+        "price": 250,
+        "currency": "KZT",
+        "name": "полить прекрасным маслом",
+        "on_stop": false
+      },
+      {
+        "id": 4,
+        "price": 1000,
+        "currency": "KZT",
+        "name": "добавить курицу",
+        "on_stop": false
+      },
+      {
+        "id": 5,
+        "price": 1500,
+        "currency": "KZT",
+        "name": "добавить трюфель",
+        "on_stop": false
+      }
+    ],
+    "tags": [],
+    "on_stop": false
+  },
+  {
+    "id": 14,
+    "category_id": 2,
+    "image_url": "https://pizza.pizzeria-almaty.kz/media/images/alfredo.JPEG",
+    "name": "Альфредо",
+    "description": "",
+    "price": 3000,
+    "currency": "KZT",
+    "modifiers": [
+      {
+        "id": 13,
+        "price": 3000,
+        "currency": "KZT",
+        "name": "Фузилли",
         "on_stop": false
       },
       {
         "id": 14,
-        "category_id": 2,
-        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/alfredo.JPEG",
-        "name": "Альфредо",
-        "description": "",
         "price": 3000,
         "currency": "KZT",
-        "modifiers": [
-          {
-            "id": 13,
-            "price": 3000,
-            "currency": "KZT",
-            "name": "Фузилли",
-            "on_stop": false
-          },
-          {
-            "id": 14,
-            "price": 3000,
-            "currency": "KZT",
-            "name": "Фетучини",
-            "on_stop": false
-          },
-          {
-            "id": 15,
-            "price": 3000,
-            "currency": "KZT",
-            "name": "Спагетти",
-            "on_stop": false
-          }
-        ],
-        "additions": [
-          {
-            "id": 1,
-            "price": 500,
-            "currency": "KZT",
-            "name": "много пармезана",
-            "on_stop": false
-          },
-          {
-            "id": 2,
-            "price": 150,
-            "currency": "KZT",
-            "name": "нарубить чили",
-            "on_stop": false
-          },
-          {
-            "id": 3,
-            "price": 250,
-            "currency": "KZT",
-            "name": "полить прекрасным маслом",
-            "on_stop": false
-          },
-          {
-            "id": 4,
-            "price": 1000,
-            "currency": "KZT",
-            "name": "добавить курицу",
-            "on_stop": false
-          },
-          {
-            "id": 5,
-            "price": 1500,
-            "currency": "KZT",
-            "name": "добавить трюфель",
-            "on_stop": false
-          }
-        ],
-        "tags": [],
+        "name": "Фетучини",
         "on_stop": false
       },
       {
         "id": 15,
-        "category_id": 2,
-        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/pesto.JPEG",
-        "name": "Песто",
-        "description": "",
-        "price": 2900,
+        "price": 3000,
         "currency": "KZT",
-        "modifiers": [
-          {
-            "id": 16,
-            "price": 2900,
-            "currency": "KZT",
-            "name": "Фузилли",
-            "on_stop": false
-          },
-          {
-            "id": 17,
-            "price": 2900,
-            "currency": "KZT",
-            "name": "Фетучини",
-            "on_stop": false
-          },
-          {
-            "id": 18,
-            "price": 2900,
-            "currency": "KZT",
-            "name": "Спагетти",
-            "on_stop": false
-          }
-        ],
-        "additions": [
-          {
-            "id": 1,
-            "price": 500,
-            "currency": "KZT",
-            "name": "много пармезана",
-            "on_stop": false
-          },
-          {
-            "id": 2,
-            "price": 150,
-            "currency": "KZT",
-            "name": "нарубить чили",
-            "on_stop": false
-          },
-          {
-            "id": 3,
-            "price": 250,
-            "currency": "KZT",
-            "name": "полить прекрасным маслом",
-            "on_stop": false
-          },
-          {
-            "id": 4,
-            "price": 1000,
-            "currency": "KZT",
-            "name": "добавить курицу",
-            "on_stop": false
-          },
-          {
-            "id": 5,
-            "price": 1500,
-            "currency": "KZT",
-            "name": "добавить трюфель",
-            "on_stop": false
-          }
-        ],
-        "tags": [],
+        "name": "Спагетти",
+        "on_stop": false
+      }
+    ],
+    "additions": [
+      {
+        "id": 1,
+        "price": 500,
+        "currency": "KZT",
+        "name": "много пармезана",
         "on_stop": false
       },
       {
-        "id": 16,
-        "category_id": 2,
-        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/salmon.jpeg",
-        "name": "С семгой",
-        "description": "",
-        "price": 4500,
+        "id": 2,
+        "price": 150,
         "currency": "KZT",
-        "modifiers": [
-          {
-            "id": 19,
-            "price": 4500,
-            "currency": "KZT",
-            "name": "Фузилли",
-            "on_stop": false
-          },
-          {
-            "id": 20,
-            "price": 4500,
-            "currency": "KZT",
-            "name": "Фетучини",
-            "on_stop": false
-          },
-          {
-            "id": 21,
-            "price": 4500,
-            "currency": "KZT",
-            "name": "Спагетти",
-            "on_stop": false
-          }
-        ],
-        "additions": [
-          {
-            "id": 1,
-            "price": 500,
-            "currency": "KZT",
-            "name": "много пармезана",
-            "on_stop": false
-          },
-          {
-            "id": 2,
-            "price": 150,
-            "currency": "KZT",
-            "name": "нарубить чили",
-            "on_stop": false
-          },
-          {
-            "id": 3,
-            "price": 250,
-            "currency": "KZT",
-            "name": "полить прекрасным маслом",
-            "on_stop": false
-          },
-          {
-            "id": 4,
-            "price": 1000,
-            "currency": "KZT",
-            "name": "добавить курицу",
-            "on_stop": false
-          },
-          {
-            "id": 5,
-            "price": 1500,
-            "currency": "KZT",
-            "name": "добавить трюфель",
-            "on_stop": false
-          }
-        ],
-        "tags": [],
+        "name": "нарубить чили",
+        "on_stop": false
+      },
+      {
+        "id": 3,
+        "price": 250,
+        "currency": "KZT",
+        "name": "полить прекрасным маслом",
+        "on_stop": false
+      },
+      {
+        "id": 4,
+        "price": 1000,
+        "currency": "KZT",
+        "name": "добавить курицу",
+        "on_stop": false
+      },
+      {
+        "id": 5,
+        "price": 1500,
+        "currency": "KZT",
+        "name": "добавить трюфель",
+        "on_stop": false
+      }
+    ],
+    "tags": [],
+    "on_stop": false
+  },
+  {
+    "id": 15,
+    "category_id": 2,
+    "image_url": "https://pizza.pizzeria-almaty.kz/media/images/pesto.JPEG",
+    "name": "Песто",
+    "description": "",
+    "price": 2900,
+    "currency": "KZT",
+    "modifiers": [
+      {
+        "id": 16,
+        "price": 2900,
+        "currency": "KZT",
+        "name": "Фузилли",
         "on_stop": false
       },
       {
         "id": 17,
-        "category_id": 2,
-        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/cheesy.JPEG",
-        "name": "Сырная",
-        "description": "",
-        "price": 2600,
+        "price": 2900,
         "currency": "KZT",
-        "modifiers": [
-          {
-            "id": 22,
-            "price": 2600,
-            "currency": "KZT",
-            "name": "Спагетти",
-            "on_stop": false
-          },
-          {
-            "id": 23,
-            "price": 2600,
-            "currency": "KZT",
-            "name": "Фузилли",
-            "on_stop": false
-          },
-          {
-            "id": 24,
-            "price": 2600,
-            "currency": "KZT",
-            "name": "Спагетти",
-            "on_stop": false
-          }
-        ],
-        "additions": [
-          {
-            "id": 1,
-            "price": 500,
-            "currency": "KZT",
-            "name": "много пармезана",
-            "on_stop": false
-          },
-          {
-            "id": 2,
-            "price": 150,
-            "currency": "KZT",
-            "name": "нарубить чили",
-            "on_stop": false
-          },
-          {
-            "id": 3,
-            "price": 250,
-            "currency": "KZT",
-            "name": "полить прекрасным маслом",
-            "on_stop": false
-          },
-          {
-            "id": 4,
-            "price": 1000,
-            "currency": "KZT",
-            "name": "добавить курицу",
-            "on_stop": false
-          },
-          {
-            "id": 5,
-            "price": 1500,
-            "currency": "KZT",
-            "name": "добавить трюфель",
-            "on_stop": false
-          }
-        ],
-        "tags": [],
-        "on_stop": false
-      }
-    ]
-  },
-  {
-    "id": 3,
-    "name": "Напитки🥤",
-    "description": "Напитки🥤",
-    "products": [
-      {
-        "id": 18,
-        "category_id": 3,
-        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/cola.avif",
-        "name": "Coca-Cola, 250 мл",
-        "description": "В стеклянной бутылке",
-        "price": 800,
-        "currency": "KZT",
-        "modifiers": [],
-        "additions": [],
-        "tags": [],
+        "name": "Фетучини",
         "on_stop": false
       },
       {
-        "id": 19,
-        "category_id": 3,
-        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/fanta.avif",
-        "name": "Fanta, 250 мл",
-        "description": "\"В стеклянной бутылке\"",
-        "price": 800,
+        "id": 18,
+        "price": 2900,
         "currency": "KZT",
-        "modifiers": [],
-        "additions": [],
-        "tags": [],
+        "name": "Спагетти",
+        "on_stop": false
+      }
+    ],
+    "additions": [
+      {
+        "id": 1,
+        "price": 500,
+        "currency": "KZT",
+        "name": "много пармезана",
+        "on_stop": false
+      },
+      {
+        "id": 2,
+        "price": 150,
+        "currency": "KZT",
+        "name": "нарубить чили",
+        "on_stop": false
+      },
+      {
+        "id": 3,
+        "price": 250,
+        "currency": "KZT",
+        "name": "полить прекрасным маслом",
+        "on_stop": false
+      },
+      {
+        "id": 4,
+        "price": 1000,
+        "currency": "KZT",
+        "name": "добавить курицу",
+        "on_stop": false
+      },
+      {
+        "id": 5,
+        "price": 1500,
+        "currency": "KZT",
+        "name": "добавить трюфель",
+        "on_stop": false
+      }
+    ],
+    "tags": [],
+    "on_stop": false
+  },
+  {
+    "id": 16,
+    "category_id": 2,
+    "image_url": "https://pizza.pizzeria-almaty.kz/media/images/salmon.jpeg",
+    "name": "С семгой",
+    "description": "",
+    "price": 4500,
+    "currency": "KZT",
+    "modifiers": [
+      {
+        "id": 19,
+        "price": 4500,
+        "currency": "KZT",
+        "name": "Фузилли",
         "on_stop": false
       },
       {
         "id": 20,
-        "category_id": 3,
-        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/sprite.avif",
-        "name": "Sprite, 250 мл",
-        "description": "В стеклянной бутылке",
-        "price": 800,
+        "price": 4500,
         "currency": "KZT",
-        "modifiers": [],
-        "additions": [],
-        "tags": [],
+        "name": "Фетучини",
         "on_stop": false
       },
       {
         "id": 21,
-        "category_id": 3,
-        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/sanpelegrino_limonata.avif",
-        "name": "San Pellegrino Limonata 330 мл",
-        "description": "",
-        "price": 1500,
+        "price": 4500,
         "currency": "KZT",
-        "modifiers": [],
-        "additions": [],
-        "tags": [],
+        "name": "Спагетти",
+        "on_stop": false
+      }
+    ],
+    "additions": [
+      {
+        "id": 1,
+        "price": 500,
+        "currency": "KZT",
+        "name": "много пармезана",
         "on_stop": false
       },
       {
-        "id": 22,
-        "category_id": 3,
-        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/sanpelegrino_aranciata.avif",
-        "name": "San Pellegrino Aranciata 330 мл",
-        "description": "",
+        "id": 2,
+        "price": 150,
+        "currency": "KZT",
+        "name": "нарубить чили",
+        "on_stop": false
+      },
+      {
+        "id": 3,
+        "price": 250,
+        "currency": "KZT",
+        "name": "полить прекрасным маслом",
+        "on_stop": false
+      },
+      {
+        "id": 4,
+        "price": 1000,
+        "currency": "KZT",
+        "name": "добавить курицу",
+        "on_stop": false
+      },
+      {
+        "id": 5,
         "price": 1500,
         "currency": "KZT",
-        "modifiers": [],
-        "additions": [],
-        "tags": [],
+        "name": "добавить трюфель",
+        "on_stop": false
+      }
+    ],
+    "tags": [],
+    "on_stop": false
+  },
+  {
+    "id": 17,
+    "category_id": 2,
+    "image_url": "https://pizza.pizzeria-almaty.kz/media/images/cheesy.JPEG",
+    "name": "Сырная",
+    "description": "",
+    "price": 2600,
+    "currency": "KZT",
+    "modifiers": [
+      {
+        "id": 22,
+        "price": 2600,
+        "currency": "KZT",
+        "name": "Спагетти",
         "on_stop": false
       },
       {
         "id": 23,
-        "category_id": 3,
-        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/sanpelegrino_aranciata_rossa.avif",
-        "name": "San Pellegrino Aranciata Rossa 330 мл",
-        "description": "",
-        "price": 1500,
+        "price": 2600,
         "currency": "KZT",
-        "modifiers": [],
-        "additions": [],
-        "tags": [],
+        "name": "Фузилли",
         "on_stop": false
       },
       {
         "id": 24,
-        "category_id": 3,
-        "image_url": "https://pizza.pizzeria-almaty.kz/media/images/sanpelegrino_melograno_arancia.avif",
-        "name": "San Pellegrino Melograno & Arancia 330 мл",
-        "description": "",
-        "price": 1500,
+        "price": 2600,
         "currency": "KZT",
-        "modifiers": [],
-        "additions": [],
-        "tags": [],
+        "name": "Спагетти",
         "on_stop": false
       }
-    ]
+    ],
+    "additions": [
+      {
+        "id": 1,
+        "price": 500,
+        "currency": "KZT",
+        "name": "много пармезана",
+        "on_stop": false
+      },
+      {
+        "id": 2,
+        "price": 150,
+        "currency": "KZT",
+        "name": "нарубить чили",
+        "on_stop": false
+      },
+      {
+        "id": 3,
+        "price": 250,
+        "currency": "KZT",
+        "name": "полить прекрасным маслом",
+        "on_stop": false
+      },
+      {
+        "id": 4,
+        "price": 1000,
+        "currency": "KZT",
+        "name": "добавить курицу",
+        "on_stop": false
+      },
+      {
+        "id": 5,
+        "price": 1500,
+        "currency": "KZT",
+        "name": "добавить трюфель",
+        "on_stop": false
+      }
+    ],
+    "tags": [],
+    "on_stop": false
+  },
+  {
+    "id": 18,
+    "category_id": 3,
+    "image_url": "https://pizza.pizzeria-almaty.kz/media/images/cola.avif",
+    "name": "Coca-Cola, 250 мл",
+    "description": "В стеклянной бутылке",
+    "price": 800,
+    "currency": "KZT",
+    "modifiers": [],
+    "additions": [],
+    "tags": [],
+    "on_stop": false
+  },
+  {
+    "id": 19,
+    "category_id": 3,
+    "image_url": "https://pizza.pizzeria-almaty.kz/media/images/fanta.avif",
+    "name": "Fanta, 250 мл",
+    "description": "\"В стеклянной бутылке\"",
+    "price": 800,
+    "currency": "KZT",
+    "modifiers": [],
+    "additions": [],
+    "tags": [],
+    "on_stop": false
+  },
+  {
+    "id": 20,
+    "category_id": 3,
+    "image_url": "https://pizza.pizzeria-almaty.kz/media/images/sprite.avif",
+    "name": "Sprite, 250 мл",
+    "description": "В стеклянной бутылке",
+    "price": 800,
+    "currency": "KZT",
+    "modifiers": [],
+    "additions": [],
+    "tags": [],
+    "on_stop": false
+  },
+  {
+    "id": 21,
+    "category_id": 3,
+    "image_url": "https://pizza.pizzeria-almaty.kz/media/images/sanpelegrino_limonata.avif",
+    "name": "San Pellegrino Limonata 330 мл",
+    "description": "",
+    "price": 1500,
+    "currency": "KZT",
+    "modifiers": [],
+    "additions": [],
+    "tags": [],
+    "on_stop": false
+  },
+  {
+    "id": 22,
+    "category_id": 3,
+    "image_url": "https://pizza.pizzeria-almaty.kz/media/images/sanpelegrino_aranciata.avif",
+    "name": "San Pellegrino Aranciata 330 мл",
+    "description": "",
+    "price": 1500,
+    "currency": "KZT",
+    "modifiers": [],
+    "additions": [],
+    "tags": [],
+    "on_stop": false
+  },
+  {
+    "id": 23,
+    "category_id": 3,
+    "image_url": "https://pizza.pizzeria-almaty.kz/media/images/sanpelegrino_aranciata_rossa.avif",
+    "name": "San Pellegrino Aranciata Rossa 330 мл",
+    "description": "",
+    "price": 1500,
+    "currency": "KZT",
+    "modifiers": [],
+    "additions": [],
+    "tags": [],
+    "on_stop": false
+  },
+  {
+    "id": 24,
+    "category_id": 3,
+    "image_url": "https://pizza.pizzeria-almaty.kz/media/images/sanpelegrino_melograno_arancia.avif",
+    "name": "San Pellegrino Melograno & Arancia 330 мл",
+    "description": "",
+    "price": 1500,
+    "currency": "KZT",
+    "modifiers": [],
+    "additions": [],
+    "tags": [],
+    "on_stop": false
   }
 ]

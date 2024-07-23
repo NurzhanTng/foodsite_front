@@ -13,6 +13,7 @@ import { useTimer } from "../../../app/context/TimerContext.tsx";
 import timestampToTime from "../../../utils/timestampToTime.ts";
 import Notifications from "../../../widget/Notifications";
 import RejectedTextPopup from "../../../features/Popups/ui/RejectedTextPopup.tsx";
+import Loading from "../../TransferPage/ui/Loading.tsx";
 
 const OrderPage = () => {
   const timers = useAppSelector((state) => state.timer.timers);
@@ -27,6 +28,7 @@ const OrderPage = () => {
   const { getProductById } = useCart();
   const [showPopup, setShowPopup] = useState(false);
   const [showNotificationPopup, setShowNotificationPopup] = useState(false);
+  const [shouldNavigate, setShouldNavigate] = useState(false);
 
   const [showRejectedPopup, setShowRejectedPopup] = useState<{
     isShow: boolean;
@@ -36,6 +38,19 @@ const OrderPage = () => {
     order_id: null,
   });
 
+  useEffect(() => {
+    let timeout: NodeJS.Timeout | undefined;
+
+    if (order_id === undefined || order === undefined) {
+      timeout = setTimeout(() => {
+        setShouldNavigate(true);
+      }, 10_000);
+    } else {
+      clearTimeout(timeout);
+      setShouldNavigate(false);
+    }
+  }, [navigate, order, order_id]);
+
   console.log(JSON.stringify(order));
 
   useEffect(() => {
@@ -43,11 +58,10 @@ const OrderPage = () => {
       navigate("/orders");
       return;
     }
-  }, [navigate, order, order_id]);
+  }, [shouldNavigate, navigate]);
 
   if (order_id === undefined || order === undefined) {
-    navigate("/orders");
-    return;
+    return <Loading />;
   }
 
   const isNotificationExist = useMemo(
@@ -298,6 +312,14 @@ const OrderPage = () => {
               descriptionClassName="text-button"
             />
 
+            {order.is_delivery && (
+              <OrderOneLine
+                title={"Цена доставки"}
+                description={currencyFormatter(order.delivery_price)}
+                descriptionClassName="text-button"
+              />
+            )}
+
             <OrderOneLine
               title={"Итого к оплате"}
               description={currencyFormatter(
@@ -306,7 +328,9 @@ const OrderPage = () => {
                     accumulatedPrice +
                     (product.price === null ? 0 : product.price),
                   0,
-                ) - (order.bonus_used ? order.bonus_amount : 0),
+                ) -
+                  (order.bonus_used ? order.bonus_amount : 0) +
+                  (order.is_delivery ? Number(order.delivery_price) : 0),
               )}
               descriptionClassName="text-button"
             />

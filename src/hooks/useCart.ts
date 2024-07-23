@@ -33,6 +33,7 @@ const useCart = () => {
   const dispatch = useAppDispatch();
   const [showComment, setShowComment] = useState(false);
   const [showTime, setShowTime] = useState(false);
+  const [isButtonInactive, setIsButtonInactive] = useState(false);
 
   // useEffect(() => {
   //   localStorage.setItem("persist:root", "");
@@ -97,6 +98,8 @@ const useCart = () => {
   };
 
   const handleOrderClick = () => {
+    if (isButtonInactive) return;
+
     const errors = handleErrors();
 
     if (
@@ -111,6 +114,11 @@ const useCart = () => {
       return;
     }
 
+    // console.log(cartToJson());
+    setIsButtonInactive(true);
+    setTimeout(() => {
+      setIsButtonInactive(false);
+    }, 20000);
     fetch(import.meta.env.VITE_REACT_APP_API_BASE_URL + `food/orders/`, {
       method: "POST",
       headers: {
@@ -299,14 +307,14 @@ const useCart = () => {
       bonus_used: order.bonus_used,
       user_name: order.user_name,
       address: { ...order.address, exact_address: order.exactAddress },
-      company_id: 2,
+      company_id: 3,
       exact_address: order.exactAddress,
       phone: order.phone,
       kaspi_phone: order.kaspi_phone,
       is_delivery: order.isDelivery,
       client_comment: order.client_comment,
       bonus_amount: Math.min(sumCurrency(state.cart), order.max_bonus),
-      delivery_amount: order.delivery_amount,
+      delivery_price: order.delivery_amount,
       actions: [],
     });
   };
@@ -328,6 +336,7 @@ const useCart = () => {
     deleteCartProducts,
     handleOrderClick,
 
+    isButtonInactive,
     usePopup,
   };
 };

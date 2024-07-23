@@ -18,8 +18,13 @@ import ErrorPopup from "./ErrorPopup.tsx";
 const CartPage = () => {
   const state = useAppSelector((state) => state.main);
   const orderState = useAppSelector((state) => state.order);
-  const { deleteCartProducts, handleOrderClick, usePopup, sumCurrency } =
-    useCart();
+  const {
+    isButtonInactive,
+    deleteCartProducts,
+    handleOrderClick,
+    usePopup,
+    sumCurrency,
+  } = useCart();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -67,6 +72,8 @@ const CartPage = () => {
       <Button
         type="submit"
         onClick={handleOrderClick}
+        disabled={isButtonInactive}
+        styleType={isButtonInactive ? "inactive" : "primary"}
         className={"fixed bottom-0 left-0 z-10 h-[50px] w-full rounded-none"}
         text={`Оплатить ${currencyFormatter(sumCurrency(state.cart) - (orderState.bonus_used ? Math.min(sumCurrency(state.cart), orderState.max_bonus) : 0) + (orderState.delivery_amount ? orderState.delivery_amount : 0))}`}
       />

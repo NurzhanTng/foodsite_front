@@ -1,0 +1,3593 @@
+[
+  {
+    "actions": [
+      {
+        "id": 13,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 11,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                4,
+                [
+                  15,
+                  16,
+                  17
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 1,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 4,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 15,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true
+    ],
+    "description": "Тест для комбо акции 'Пицца и напиток' с продуктами [1, 2, 3], 4, [15, 16, 17]]"
+  },
+  {
+    "actions": [
+      {
+        "id": 14,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 12,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                [
+                  1,
+                  2,
+                  3
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 2,
+          "client_comment": "",
+          "price": 5000,
+          "product_id": 1,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 2,
+          "client_comment": "",
+          "price": 5000,
+          "product_id": 2,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 2,
+          "client_comment": "",
+          "price": 5000,
+          "product_id": 3,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true
+    ],
+    "description": "Тест для комбо акции '2 Пиццы' с продуктами [1, 2, 3] и [1, 2, 3]"
+  },
+  {
+    "actions": [
+      {
+        "id": 14,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 12,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                [
+                  1,
+                  2,
+                  3
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 14,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 12,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                [
+                  1,
+                  2,
+                  3
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 14,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 12,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                [
+                  1,
+                  2,
+                  3
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 2,
+          "client_comment": "",
+          "price": 5000,
+          "product_id": 1,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 2,
+          "client_comment": "",
+          "price": 5000,
+          "product_id": 2,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 2,
+          "client_comment": "",
+          "price": 5000,
+          "product_id": 3,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true,
+      true,
+      true
+    ],
+    "description": "Тут в заказе хватает на 3 акции связанные с акцией '2 Пиццы' с продуктами [1, 2, 3] и [1, 2, 3]"
+  },
+  {
+    "actions": [
+      {
+        "id": 14,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 12,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                [
+                  1,
+                  2,
+                  3
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 14,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 12,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                [
+                  1,
+                  2,
+                  3
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 14,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 12,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                [
+                  1,
+                  2,
+                  3
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 14,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 12,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                [
+                  1,
+                  2,
+                  3
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 2,
+          "client_comment": "",
+          "price": 5000,
+          "product_id": 1,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 2,
+          "client_comment": "",
+          "price": 5000,
+          "product_id": 2,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 2,
+          "client_comment": "",
+          "price": 5000,
+          "product_id": 3,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true,
+      true,
+      true,
+      false
+    ],
+    "description": "Тут тот же заказ, что и в предыдущих 2, но тут уже 4 акции. Первые 3 проходят, а вот до последнего не остается продуктов"
+  },
+  {
+    "actions": [
+      {
+        "id": 15,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 13,
+            "value": {
+              "product_lists": [
+                [
+                  15,
+                  16,
+                  17
+                ],
+                [
+                  15,
+                  16,
+                  17,
+                  18
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 2,
+          "client_comment": "",
+          "price": 5000,
+          "product_id": 15,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true
+    ],
+    "description": "Тест для комбо акции '2 Напитка' с продуктами [15, 16, 17] и [15, 16, 17, 18]. Тут в заказе присутсвует 2 блюда с айди 15"
+  },
+  {
+    "actions": [
+      {
+        "id": 15,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 13,
+            "value": {
+              "product_lists": [
+                [
+                  15,
+                  16,
+                  17
+                ],
+                [
+                  15,
+                  16,
+                  17,
+                  18
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 2,
+          "client_comment": "",
+          "price": 5000,
+          "product_id": 16,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true
+    ],
+    "description": "Тест для комбо акции '2 Напитка' с продуктами [15, 16, 17] и [15, 16, 17, 18]. Тут в заказе присутсвует 2 блюда с айди 16"
+  },
+  {
+    "actions": [
+      {
+        "id": 15,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 13,
+            "value": {
+              "product_lists": [
+                [
+                  15,
+                  16,
+                  17
+                ],
+                [
+                  15,
+                  16,
+                  17,
+                  18
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 2,
+          "client_comment": "",
+          "price": 5000,
+          "product_id": 17,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true
+    ],
+    "description": "Тест для комбо акции '2 Напитка' с продуктами [15, 16, 17] и [15, 16, 17, 18]. Тут в заказе присутсвует 2 блюда с айди 17"
+  },
+  {
+    "actions": [
+      {
+        "id": 15,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 13,
+            "value": {
+              "product_lists": [
+                [
+                  15,
+                  16,
+                  17
+                ],
+                [
+                  15,
+                  16,
+                  17,
+                  18
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 2,
+          "client_comment": "",
+          "price": 5000,
+          "product_id": 18,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      false
+    ],
+    "description": "Тест для комбо акции '2 Напитка' с продуктами [15, 16, 17] и [15, 16, 17, 18]. Тут в заказе присутсвует 2 блюда с айди 18. Он не пройдет потому что в акции 18 продукт есть только 1, а [15, 16, 17] продуктов нет"
+  },
+  {
+    "actions": [
+      {
+        "id": 15,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 13,
+            "value": {
+              "product_lists": [
+                [
+                  15,
+                  16,
+                  17
+                ],
+                [
+                  15,
+                  16,
+                  17,
+                  18
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 18,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 15,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true
+    ],
+    "description": "Тест для комбо акции '2 Напитка' с продуктами [15, 16, 17] и [15, 16, 17, 18]. В заказе есть 18 и 15 продукт"
+  },
+  {
+    "actions": [
+      {
+        "id": 16,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 14,
+            "value": {
+              "product_lists": [
+                [
+                  15,
+                  16,
+                  17,
+                  18
+                ],
+                [
+                  15,
+                  16,
+                  17
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 18,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 15,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true
+    ],
+    "description": "Тест для комбо акции '2 Напитка' с продуктами [15, 16, 17, 18] и [15, 16, 17]. \\nЯ поменял местами 2 списка в акции для того, чтобы проверить будут ли обратные акции работать так как надо."
+  },
+  {
+    "actions": [
+      {
+        "id": 15,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 13,
+            "value": {
+              "product_lists": [
+                [
+                  15,
+                  16,
+                  17
+                ],
+                [
+                  15,
+                  16,
+                  17,
+                  18
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 15,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 18,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true
+    ],
+    "description": "Тест для комбо акции '2 Напитка' с продуктами [15, 16, 17] и [15, 16, 17, 18]. В заказе есть 15 и 18 продукт. Здесь я тупо поменял местами продукты в заказе"
+  },
+  {
+    "actions": [
+      {
+        "id": 16,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 14,
+            "value": {
+              "product_lists": [
+                [
+                  15,
+                  16,
+                  17,
+                  18
+                ],
+                [
+                  15,
+                  16,
+                  17
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 15,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 18,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true
+    ],
+    "description": "То же самое что и в предыдущих. Поменял местами списки в акции и поменял местами продукты в заказе"
+  },
+  {
+    "actions": [
+      {
+        "id": 15,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 13,
+            "value": {
+              "product_lists": [
+                [
+                  15,
+                  16,
+                  17
+                ],
+                [
+                  15,
+                  16,
+                  17,
+                  18
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 3,
+          "client_comment": "",
+          "price": 7500,
+          "product_id": 15,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 2,
+          "client_comment": "",
+          "price": 5000,
+          "product_id": 16,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true
+    ],
+    "description": "Тут в заказу есть 3 продукта с айди 15 и 2 продукта с айди 16. ТУт проверяются работоспособность мескольких акций подряд. Акции почти одинаковые и продукты, которые использует акции, есть в заказе"
+  },
+  {
+    "actions": [
+      {
+        "id": 16,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 14,
+            "value": {
+              "product_lists": [
+                [
+                  15,
+                  16,
+                  17,
+                  18
+                ],
+                [
+                  15,
+                  16,
+                  17
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 3,
+          "client_comment": "",
+          "price": 7500,
+          "product_id": 15,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 2,
+          "client_comment": "",
+          "price": 5000,
+          "product_id": 16,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true
+    ],
+    "description": "Тут в заказу есть 3 продукта с айди 15 и 2 продукта с айди 16. ТУт проверяются работоспособность мескольких акций подряд. Акции почти одинаковые и продукты, которые использует акции, есть в заказе"
+  },
+  {
+    "actions": [
+      {
+        "id": 15,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 13,
+            "value": {
+              "product_lists": [
+                [
+                  15,
+                  16,
+                  17
+                ],
+                [
+                  15,
+                  16,
+                  17,
+                  18
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 15,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 13,
+            "value": {
+              "product_lists": [
+                [
+                  15,
+                  16,
+                  17
+                ],
+                [
+                  15,
+                  16,
+                  17,
+                  18
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 15,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 13,
+            "value": {
+              "product_lists": [
+                [
+                  15,
+                  16,
+                  17
+                ],
+                [
+                  15,
+                  16,
+                  17,
+                  18
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 3,
+          "client_comment": "",
+          "price": 7500,
+          "product_id": 15,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 2,
+          "client_comment": "",
+          "price": 5000,
+          "product_id": 16,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true,
+      true,
+      false
+    ],
+    "description": "Тут в заказу есть 3 продукта с айди 15 и 2 продукта с айди 16. ТУт проверяются работоспособность мескольких акций подряд. Акции почти одинаковые и продукты, которые использует акции, есть в заказе"
+  },
+  {
+    "actions": [
+      {
+        "id": 16,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 14,
+            "value": {
+              "product_lists": [
+                [
+                  15,
+                  16,
+                  17,
+                  18
+                ],
+                [
+                  15,
+                  16,
+                  17
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 15,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 13,
+            "value": {
+              "product_lists": [
+                [
+                  15,
+                  16,
+                  17
+                ],
+                [
+                  15,
+                  16,
+                  17,
+                  18
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 16,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 14,
+            "value": {
+              "product_lists": [
+                [
+                  15,
+                  16,
+                  17,
+                  18
+                ],
+                [
+                  15,
+                  16,
+                  17
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 3,
+          "client_comment": "",
+          "price": 7500,
+          "product_id": 15,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 2,
+          "client_comment": "",
+          "price": 5000,
+          "product_id": 16,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true,
+      true,
+      false
+    ],
+    "description": "Тут в заказу есть 3 продукта с айди 15 и 2 продукта с айди 16. ТУт проверяются работоспособность нескольких акций подряд. Акции почти одинаковые и продукты, которые использует акции, есть в заказе"
+  },{
+  "actions": [
+    {
+      "id": 13,
+      "company": 1,
+      "name": "Default Name",
+      "description": "Default Description",
+      "triggers": [
+        {
+          "id": 11,
+          "value": {
+            "product_lists": [
+              [
+                1,
+                2,
+                3
+              ],
+              4,
+              [
+                15,
+                16,
+                17
+              ]
+            ]
+          }
+        }
+      ],
+      "can_be_triggered": true,
+      "payloads": []
+    }
+  ],
+  "order": {
+    "products": [
+      {
+        "amount": 1,
+        "client_comment": "",
+        "price": 2500,
+        "product_id": 1,
+        "active_modifier": null,
+        "additions": []
+      },
+      {
+        "amount": 1,
+        "client_comment": "",
+        "price": 2500,
+        "product_id": 15,
+        "active_modifier": null,
+        "additions": []
+      }
+    ],
+    "client_id": "1234249296",
+    "bonus_used": false,
+    "user_name": "Nurzhan",
+    "address": {
+      "lat": 76.876214,
+      "long": 43.218921,
+      "parsed": "улица Жандосова, 49",
+      "exact_address": "94 квартира"
+    },
+    "company_id": 1,
+    "exact_address": "94 квартира",
+    "phone": "77074862447",
+    "kaspi_phone": "77074862447",
+    "is_delivery": true,
+    "client_comment": "",
+    "done_time": "",
+    "bonus_amount": 3270,
+    "delivery_price": 0,
+    "actions": []
+  },
+  "result": [
+    false
+  ],
+  "description": "Тест для комбо акции 'Пицца и напиток' с продуктами [1, 2, 3], 4, [15, 16, 17]]. Тут недостаточно продуктов в заказе"
+},
+  {
+    "actions": [
+      {
+        "id": 13,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 11,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                4,
+                [
+                  15,
+                  16,
+                  17
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 4,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 15,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      false
+    ],
+    "description": "Тест для комбо акции 'Пицца и напиток' с продуктами [1, 2, 3], 4, [15, 16, 17]]. Тут недостаточно продуктов в заказе"
+  },
+  {
+    "actions": [
+      {
+        "id": 14,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 12,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                [
+                  1,
+                  2,
+                  3
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 3,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true
+    ],
+    "description": "Тест для комбо акции '2 Пиццы' с продуктами [1, 2, 3] и [1, 2, 3]. В заказе продукты с айди 3 и 1"
+  },
+  {
+    "actions": [
+      {
+        "id": 14,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 12,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                [
+                  1,
+                  2,
+                  3
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 2,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 3,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true
+    ],
+    "description": "Тест для комбо акции '2 Пиццы' с продуктами [1, 2, 3] и [1, 2, 3]. В заказе продукты с айди 2 и 3"
+  },
+  {
+    "actions": [
+      {
+        "id": 13,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 11,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                4,
+                [
+                  15,
+                  16,
+                  17
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 4,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 15,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 3,
+          "client_comment": "",
+          "price": 7500,
+          "product_id": 3,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true
+    ],
+    "description": "Предварительный тест заказа и акции 'Пицца и напиток'"
+  },
+  {
+    "actions": [
+      {
+        "id": 14,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 12,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                [
+                  1,
+                  2,
+                  3
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 4,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 15,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 3,
+          "client_comment": "",
+          "price": 7500,
+          "product_id": 3,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true
+    ],
+    "description": "Предварительный тест заказа и акции '2 Пиццы'"
+  },
+  {
+    "actions": [
+      {
+        "id": 13,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 11,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                4,
+                [
+                  15,
+                  16,
+                  17
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 14,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 12,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                [
+                  1,
+                  2,
+                  3
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 4,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 15,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 3,
+          "client_comment": "",
+          "price": 7500,
+          "product_id": 3,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true,
+      true
+    ],
+    "description": "Тест комбинированных акций 'Пицца и напиток' и '2 Пиццы'"
+  },
+  {
+    "actions": [
+      {
+        "id": 14,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 12,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                [
+                  1,
+                  2,
+                  3
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 13,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 11,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                4,
+                [
+                  15,
+                  16,
+                  17
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 4,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 15,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 3,
+          "client_comment": "",
+          "price": 7500,
+          "product_id": 3,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true,
+      true
+    ],
+    "description": "Тест комбинированных акций 'Пицца и напиток' и '2 Пиццы'. Здесь акции я поменял уже местами. С начала идет 2 пиццы"
+  },
+  {
+    "actions": [
+      {
+        "id": 13,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 11,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                4,
+                [
+                  15,
+                  16,
+                  17
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 5,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 3,
+            "value": {
+              "product_id": 1
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 6,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 4,
+            "value": {
+              "product_id": 2
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 5,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 3,
+            "value": {
+              "product_id": 1
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 4,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 15,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 3,
+          "client_comment": "",
+          "price": 7500,
+          "product_id": 3,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true,
+      true,
+      false,
+      true
+    ],
+    "description": "Вот уже начинается сложности. Тут я объединил в 1 тест комбо акции 'Пицца и напиток' и продуктых с айди 1, 2 и снова 1. В заказе есть продукты для 1, 2 и 4 акций. Продукта с айди 2 нет"
+  },
+  {
+    "actions": [
+      {
+        "id": 5,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 3,
+            "value": {
+              "product_id": 1
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 5,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 3,
+            "value": {
+              "product_id": 1
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 5,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 3,
+            "value": {
+              "product_id": 1
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 13,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 11,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                4,
+                [
+                  15,
+                  16,
+                  17
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 4,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 15,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 3,
+          "client_comment": "",
+          "price": 7500,
+          "product_id": 3,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true,
+      true,
+      false,
+      true
+    ],
+    "description": "Тут тот же заказ, что и в предыдущем тесте, только другие акции. \nЗдесь я объединил акции 1 комбо 'Пицца и напиток' и 3 продуктных с айди 1. \nПрикол в том, что есть очередность выполнения акций и сначала должны отрабатывать комбо, потом продуктые, продуктные списки, категорийные, категорийные списки и потом остальные (у них нет очередности выполнения, т.к. они являются дополнительными (время и тд.)). \nТут в тесте сначала пройдет акция 'Пицца и напиток' (в списке он последний), а потом по очереди продуктые. Хотя тут поидее, если по очереди делать не должен отработать именно 'Пицца и напиток', но у него приоритет выше и он должен без очереди сработать"
+  },
+  {
+    "actions": [
+      {
+        "id": 13,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 11,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                4,
+                [
+                  15,
+                  16,
+                  17
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 4,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 15,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 2,
+          "client_comment": "",
+          "price": 5000,
+          "product_id": 3,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true
+    ],
+    "description": "Предварительный тест заказа и акции 'Пицца и напиток'"
+  },
+  {
+    "actions": [
+      {
+        "id": 14,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 12,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                [
+                  1,
+                  2,
+                  3
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 4,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 15,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 2,
+          "client_comment": "",
+          "price": 5000,
+          "product_id": 3,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true
+    ],
+    "description": "Предварительный тест заказа и акции '2 Пиццы'"
+  },
+  {
+    "actions": [
+      {
+        "id": 13,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 11,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                4,
+                [
+                  15,
+                  16,
+                  17
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 14,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 12,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                [
+                  1,
+                  2,
+                  3
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 4,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 15,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 2,
+          "client_comment": "",
+          "price": 5000,
+          "product_id": 3,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true,
+      false
+    ],
+    "description": "Тест комбинированных акций 'Пицца и напиток' и '2 Пиццы'. Тут на 2 акцию не хватит продуктов"
+  },
+  {
+    "actions": [
+      {
+        "id": 14,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 12,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                [
+                  1,
+                  2,
+                  3
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 13,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 11,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                4,
+                [
+                  15,
+                  16,
+                  17
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 4,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 15,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 2,
+          "client_comment": "",
+          "price": 5000,
+          "product_id": 3,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true,
+      false
+    ],
+    "description": "Тест комбинированных акций 'Пицца и напиток' и '2 Пиццы'. Здесь акции я поменял уже местами. С начала идет 2 пиццы. Тут на 2 акцию не хватит продуктов"
+  },
+  {
+    "actions": [
+      {
+        "id": 5,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 3,
+            "value": {
+              "product_id": 1
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 13,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 11,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                4,
+                [
+                  15,
+                  16,
+                  17
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 4,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 15,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 2,
+          "client_comment": "",
+          "price": 5000,
+          "product_id": 3,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true,
+      true
+    ],
+    "description": "Тест комбинированной акции 'Пицца и напиток' и продуктной на айди 1. Тут на все хватает продуктов"
+  },
+  {
+    "actions": [
+      {
+        "id": 13,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 11,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                4,
+                [
+                  15,
+                  16,
+                  17
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 13,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 11,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                4,
+                [
+                  15,
+                  16,
+                  17
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 5,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 3,
+            "value": {
+              "product_id": 1
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 4,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 15,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 2,
+          "client_comment": "",
+          "price": 5000,
+          "product_id": 3,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true,
+      false,
+      true
+    ],
+    "description": "Тест 2 комбинированных акций 'Пицца и напиток' и продуктной на айди 1. Тут на все хватает продуктов, кроме 2 раза 'Пицца и напиток'"
+  },
+  {
+    "actions": [
+      {
+        "id": 5,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 3,
+            "value": {
+              "product_id": 1
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 5,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 3,
+            "value": {
+              "product_id": 1
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 5,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 3,
+            "value": {
+              "product_id": 1
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 13,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 11,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                4,
+                [
+                  15,
+                  16,
+                  17
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 4,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 15,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 2,
+          "client_comment": "",
+          "price": 5000,
+          "product_id": 3,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      true,
+      false,
+      false,
+      true
+    ],
+    "description": "Тут тот же заказ, что и в предыдущем тесте, только другие акции. \nЗдесь я объединил акции 1 комбо 'Пицца и напиток' и 3 продуктных с айди 1. \nПрикол в том, что есть очередность выполнения акций и сначала должны отрабатывать комбо, потом продуктые, продуктные списки, категорийные, категорийные списки и потом остальные (у них нет очередности выполнения, т.к. они являются дополнительными (время и тд.)). \nТут в тесте сначала пройдет акция 'Пицца и напиток' (в списке он последний), а потом по очереди продуктые. Хотя тут поидее, если по очереди делать не должен отработать именно 'Пицца и напиток', но у него приоритет выше и он должен без очереди сработать"
+  },{
+  "actions": [
+    {
+      "id": 14,
+      "company": 1,
+      "name": "Default Name",
+      "description": "Default Description",
+      "triggers": [
+        {
+          "id": 12,
+          "value": {
+            "product_lists": [
+              [
+                1,
+                2,
+                3
+              ],
+              [
+                1,
+                2,
+                3
+              ]
+            ]
+          }
+        }
+      ],
+      "can_be_triggered": true,
+      "payloads": []
+    }
+  ],
+  "order": {
+    "products": [
+      {
+        "amount": 1,
+        "client_comment": "",
+        "price": 2500,
+        "product_id": 1,
+        "active_modifier": null,
+        "additions": []
+      },
+      {
+        "amount": 1,
+        "client_comment": "",
+        "price": 2500,
+        "product_id": 4,
+        "active_modifier": null,
+        "additions": []
+      },
+      {
+        "amount": 1,
+        "client_comment": "",
+        "price": 2500,
+        "product_id": 3,
+        "active_modifier": null,
+        "additions": []
+      }
+    ],
+    "client_id": "1234249296",
+    "bonus_used": false,
+    "user_name": "Nurzhan",
+    "address": {
+      "lat": 76.876214,
+      "long": 43.218921,
+      "parsed": "улица Жандосова, 49",
+      "exact_address": "94 квартира"
+    },
+    "company_id": 1,
+    "exact_address": "94 квартира",
+    "phone": "77074862447",
+    "kaspi_phone": "77074862447",
+    "is_delivery": true,
+    "client_comment": "",
+    "done_time": "",
+    "bonus_amount": 3270,
+    "delivery_price": 0,
+    "actions": []
+  },
+  "result": [
+    true
+  ],
+  "description": "Предварительный тест заказа и акции '2 Пиццы'"
+},
+  {
+    "actions": [
+      {
+        "id": 13,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 11,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                4,
+                [
+                  15,
+                  16,
+                  17
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 1,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 4,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 3,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      false
+    ],
+    "description": "Предварительный тест заказа и акции 'Пицца и напиток'. Тут не хватит продуктов"
+  },
+  {
+    "actions": [
+      {
+        "id": 13,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 11,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                4,
+                [
+                  15,
+                  16,
+                  17
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 14,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 12,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                [
+                  1,
+                  2,
+                  3
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 1,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 4,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 3,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      false,
+      true
+    ],
+    "description": "Объединение предыдущих 2 тестов"
+  },
+  {
+    "actions": [
+      {
+        "id": 13,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 11,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                4,
+                [
+                  15,
+                  16,
+                  17
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 15,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 13,
+            "value": {
+              "product_lists": [
+                [
+                  15,
+                  16,
+                  17
+                ],
+                [
+                  15,
+                  16,
+                  17,
+                  18
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 16,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 14,
+            "value": {
+              "product_lists": [
+                [
+                  15,
+                  16,
+                  17,
+                  18
+                ],
+                [
+                  15,
+                  16,
+                  17
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      },
+      {
+        "id": 14,
+        "company": 1,
+        "name": "Default Name",
+        "description": "Default Description",
+        "triggers": [
+          {
+            "id": 12,
+            "value": {
+              "product_lists": [
+                [
+                  1,
+                  2,
+                  3
+                ],
+                [
+                  1,
+                  2,
+                  3
+                ]
+              ]
+            }
+          }
+        ],
+        "can_be_triggered": true,
+        "payloads": []
+      }
+    ],
+    "order": {
+      "products": [
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 1,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 4,
+          "active_modifier": null,
+          "additions": []
+        },
+        {
+          "amount": 1,
+          "client_comment": "",
+          "price": 2500,
+          "product_id": 3,
+          "active_modifier": null,
+          "additions": []
+        }
+      ],
+      "client_id": "1234249296",
+      "bonus_used": false,
+      "user_name": "Nurzhan",
+      "address": {
+        "lat": 76.876214,
+        "long": 43.218921,
+        "parsed": "улица Жандосова, 49",
+        "exact_address": "94 квартира"
+      },
+      "company_id": 1,
+      "exact_address": "94 квартира",
+      "phone": "77074862447",
+      "kaspi_phone": "77074862447",
+      "is_delivery": true,
+      "client_comment": "",
+      "done_time": "",
+      "bonus_amount": 3270,
+      "delivery_price": 0,
+      "actions": []
+    },
+    "result": [
+      false,
+      false,
+      false,
+      true
+    ],
+    "description": "Тут я тупо запихал кучу акций которые не пройдут тесты и в конце добавил акцию '2 Пиццы'"
+  }
+]
