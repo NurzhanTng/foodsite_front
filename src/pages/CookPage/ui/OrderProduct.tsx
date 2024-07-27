@@ -25,7 +25,7 @@ const OrderProduct = ({
       onClick={onClick}
     >
       <div className="my-auto flex flex-col gap-1">
-        <p className="w-full text-sm font-normal leading-none text-fontSecondary">
+        <p className="w-full text-sm font-normal leading-none text-white">
           {product?.name}
         </p>
         <p className="w-full text-sm font-normal leading-none text-fontSecondary">
@@ -45,14 +45,15 @@ const OrderProduct = ({
         </p>
       </div>
 
-      <div
-        className={`${(product?.name?.length || 0) < 30 && additions.length === 0 && active_modifier === null ? "flex-row" : "flex-col"} align-right my-auto flex  gap-3`}
-      >
-        <p className="my-auto text-right text-sm font-normal leading-none text-fontSecondary">
+      <div className={`align-right my-auto flex w-9 flex-col gap-3`}>
+        <p className="my-auto w-9 text-right text-sm font-normal leading-none text-fontSecondary">
           {amount} шт.
         </p>
 
-        <CookSwitch value={value} onClick={() => {}} />
+        <div className="ml-auto">
+          {" "}
+          <CookSwitch value={value} onClick={() => {}} />
+        </div>
       </div>
     </div>
   );
