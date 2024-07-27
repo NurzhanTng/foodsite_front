@@ -26,7 +26,7 @@ const Button: React.FC<ButtonProps> = ({
   children,
   ...rest
 }) => {
-  let buttonStyle = `${showIcon && showText ? "justify-center items-center gap-[10px] inline-flex" : ""} transition-all h-fit rounded-[10px] px-[30px] py-3.5 text-base font-normal leading-none text-white`;
+  let buttonStyle = `${showIcon && showText ? "justify-center items-center gap-[10px] inline-flex" : ""} transition-all h-fit rounded-[10px] px-[30px] py-3.5 text-base font-normal leading-none text-white box-border`;
   switch (styleType) {
     case "primary":
       buttonStyle += " bg-button md:hover:bg-buttonHover active:bg-buttonHover";
@@ -37,7 +37,7 @@ const Button: React.FC<ButtonProps> = ({
       break;
     case "inactive":
       buttonStyle +=
-        " bg-buttonInactive md:hover:bg-buttonInactive active:bg-buttonInactive";
+        " border border-buttonInactive  bg-buttonInactive md:hover:bg-buttonInactive active:bg-buttonInactive";
       break;
     case "outline":
       buttonStyle +=

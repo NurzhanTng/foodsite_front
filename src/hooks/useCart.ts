@@ -114,7 +114,7 @@ const useCart = () => {
       return;
     }
 
-    // console.log(cartToJson());
+    console.log(cartToJson());
     setIsButtonInactive(true);
     setTimeout(() => {
       setIsButtonInactive(false);

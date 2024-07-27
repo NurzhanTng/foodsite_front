@@ -29,6 +29,7 @@ const OrderPage = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [showNotificationPopup, setShowNotificationPopup] = useState(false);
   const [shouldNavigate, setShouldNavigate] = useState(false);
+  const mainPath = "/orders/search";
 
   const [showRejectedPopup, setShowRejectedPopup] = useState<{
     isShow: boolean;
@@ -54,8 +55,8 @@ const OrderPage = () => {
   console.log(JSON.stringify(order));
 
   useEffect(() => {
-    if (order_id === undefined || order === undefined) {
-      navigate("/orders");
+    if (shouldNavigate) {
+      navigate(mainPath);
       return;
     }
   }, [shouldNavigate, navigate]);
@@ -113,7 +114,7 @@ const OrderPage = () => {
 
         <ManagerHeader
           leftIconShow={true}
-          iconOnClick={() => navigate("/orders")}
+          iconOnClick={() => navigate(mainPath)}
         />
 
         <div
@@ -374,7 +375,7 @@ const OrderPage = () => {
 
         {order.is_delivery &&
           order.address?.lat &&
-          ["active", "done"].includes(order?.status) && (
+          ["manager_await", "payment_await"].includes(order?.status) && (
             <Button
               className="mt-5 w-full"
               styleType="outline"
@@ -396,18 +397,21 @@ const OrderPage = () => {
             disabled={
               order.is_delivery &&
               order.delivery_id === null &&
-              order.status === "done"
+              order.status === "payment_await"
             }
             className="mt-5 w-full"
             styleType={
               order.is_delivery &&
               order.delivery_id === null &&
-              order.status === "done"
-                ? "secondary"
+              order.status === "payment_await"
+                ? "inactive"
                 : "outline"
             }
             text="Следующий этап"
-            onClick={() => handleStatusChange(order)}
+            onClick={() => {
+              navigate(mainPath);
+              handleStatusChange(order);
+            }}
           />
         )}
       </div>

@@ -4,7 +4,7 @@ import {
   setOrders,
 } from "../store/slices/managerSlice.ts";
 import { useAppDispatch, useAppSelector } from "../store/hooks/hooks.ts";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const statuses: Array<OrderStatuses> = [
   "manager_await",
@@ -37,14 +37,14 @@ const statusesTitles: { [key in OrderStatuses]: string } = {
 
 const useManager = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const managerState = useAppSelector((state) => state.manager);
 
   const handleStatusChange = async (
     targetOrder: Orders,
     changeStatus: OrderStatuses | undefined = undefined,
   ) => {
-    navigate("/orders");
+    // navigate("/orders/search");
     const newOrders = managerState.orders.map((order) => {
       if (order.id !== targetOrder.id) return order;
       const index = statuses.indexOf(order.status);

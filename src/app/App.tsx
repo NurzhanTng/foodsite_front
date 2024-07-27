@@ -4,7 +4,6 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { TimerProvider } from "./context/TimerContext.tsx";
-
 import TransferPage from "../pages/TransferPage";
 import MenuPage from "../pages/MenuPage";
 import DishPage from "../pages/DishPage";
@@ -21,10 +20,11 @@ import PrivacyPolicy from "../pages/PrivacyPolicy/ui/PrivacyPolicy.tsx";
 import OfferPage from "../pages/OfferPage/ui/OfferPage.tsx";
 import AppThemeProvider from "./context/ThemeProvider.tsx";
 import DeliveryOrderPage from "../pages/DeliveryOrderPage/ui/DeliveryOrderPage.tsx";
-// import HistoryWrapper from "./context/HistoryWrapper.tsx";
 import PhotoPage from "../pages/PhotoPage";
 import SearchTestPage from "../pages/SearchTestPage";
 import ReceiptPage from "../pages/ReceiptPage/ui/ReceiptPage.tsx";
+import CookPage from "../pages/CookPage";
+// import HistoryWrapper from "./context/HistoryWrapper.tsx";
 
 const router = createBrowserRouter([
   {
@@ -98,6 +98,10 @@ const router = createBrowserRouter([
   {
     path: "/receipt",
     element: <ReceiptPage />,
+  },
+  {
+    path: "/cook",
+    element: <CookPage />,
   },
   {
     path: "*",

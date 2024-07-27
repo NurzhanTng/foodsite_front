@@ -54,7 +54,11 @@ const useMainHook = () => {
     } else if (data.role === "manager") {
       dispatch(fetchOrders());
       dispatch(fetchDeliveries());
-      navigate("/orders");
+      navigate("/orders/search");
+    } else if (data.role === "cook") {
+      dispatch(fetchOrders());
+      dispatch(fetchDeliveries());
+      navigate("/cook");
     } else {
       setErrorType("bad request");
     }

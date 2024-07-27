@@ -49,7 +49,7 @@ const CartPrice = ({ className = "" }: CartPriceProps) => {
         {currencyFormatter(
           cartPrice +
             (orderState.bonus_used ? bonusAmount : 0) +
-            deliveryAmount,
+            (orderState.isDelivery ? deliveryAmount : 0),
         )}
       </SelectCard>
     </div>

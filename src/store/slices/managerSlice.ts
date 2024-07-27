@@ -83,7 +83,7 @@ export type Orders = {
   order_time: string;
 };
 
-type OrderProducts = {
+export type OrderProducts = {
   id?: number;
   order_id?: Orders["id"]; // Он не нужен, только для связи 2 таблиц поидее необходим
   product_id: Products["id"];
