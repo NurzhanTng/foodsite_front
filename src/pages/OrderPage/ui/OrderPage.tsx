@@ -18,19 +18,18 @@ import { fetchOrders } from "../../../store/slices/managerSlice.ts";
 
 const OrderPage = () => {
   const dispatch = useAppDispatch();
-  const timers = useAppSelector((state) => state.timer.timers);
   const { stopTimer } = useTimer();
   const { order_id } = useParams();
   const navigate = useNavigate();
+  const timers = useAppSelector((state) => state.timer.timers);
+  const deliveries = useAppSelector((state) => state.manager.deliveries);
   const order = useAppSelector((state) =>
     state.manager.orders.find((order) => order.id === Number(order_id)),
   );
-  const deliveries = useAppSelector((state) => state.manager.deliveries);
   const { handleStatusChange, statusesText } = useManager();
   const { getProductById } = useCart();
   const [showPopup, setShowPopup] = useState(false);
   const [showNotificationPopup, setShowNotificationPopup] = useState(false);
-  const [shouldNavigate, setShouldNavigate] = useState(false);
   const mainPath = "/orders/search";
 
   const [showRejectedPopup, setShowRejectedPopup] = useState<{
@@ -42,44 +41,44 @@ const OrderPage = () => {
   });
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout | undefined;
-
-    if (order_id === undefined || order === undefined) {
-      dispatch(fetchOrders());
-      timeout = setTimeout(() => {
-        setShouldNavigate(true);
-      }, 10_000);
-    } else {
-      clearTimeout(timeout);
-      setShouldNavigate(false);
-    }
-  }, [navigate, order, order_id]);
-
-  console.log(JSON.stringify(order));
+    dispatch(fetchOrders());
+  }, []);
 
   useEffect(() => {
-    if (shouldNavigate) {
-      navigate(mainPath);
-      return;
-    }
-  }, [shouldNavigate, navigate]);
+    console.log("useEffect", order_id, order);
+    let timeout: NodeJS.Timeout | undefined;
 
-  if (order_id === undefined || order === undefined) {
-    return <Loading />;
-  }
+    if (!order_id || !order) {
+      timeout = setTimeout(() => {
+        navigate(mainPath);
+      }, 10_000);
+    } else if (timeout) {
+      clearTimeout(timeout);
+    }
+
+    return () => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+    };
+  }, [navigate, order, order_id]);
 
   const isNotificationExist = useMemo(
-    () => timers.find((timer) => timer.id === order.id),
+    () => timers.find((timer) => timer.id === order?.id),
     [timers],
   );
 
   const onNotificationClick = () => {
-    if (isNotificationExist !== undefined) {
-      stopTimer(order.id);
+    if (isNotificationExist && order) {
+      stopTimer(order?.id);
     } else {
       setShowNotificationPopup(true);
     }
   };
+
+  if (!order_id || !order) {
+    return <Loading />;
+  }
 
   // @ts-ignore
   // @ts-ignore
@@ -231,13 +230,13 @@ const OrderPage = () => {
             </h2>
           </div>
           <div className="flex w-full flex-col gap-2">
-            {order.products.map((orderProduct) => {
+            {order.products.map((orderProduct, index) => {
               const product = getProductById(orderProduct.product_id);
               // if (product === undefined) return <div key={1}></div>;
 
               return (
                 <div
-                  key={orderProduct.order_id}
+                  key={index}
                   className="mb-3 flex w-[calc(100vw-40px)] flex-row justify-between gap-3 align-middle"
                 >
                   <div className="flex flex-col gap-1">
