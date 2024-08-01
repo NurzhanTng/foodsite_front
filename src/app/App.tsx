@@ -24,6 +24,7 @@ import PhotoPage from "../pages/PhotoPage";
 import SearchTestPage from "../pages/SearchTestPage";
 import ReceiptPage from "../pages/ReceiptPage/ui/ReceiptPage.tsx";
 import CookPage from "../pages/CookPage";
+import RunnerMainPage from "../pages/RunnerMainPage";
 // import HistoryWrapper from "./context/HistoryWrapper.tsx";
 
 const router = createBrowserRouter([
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
   {
     path: "/orders/search",
     element: <OrderSearchPage />,
+  },
+  {
+    path: "/runner",
+    element: <RunnerMainPage />,
   },
   {
     path: "/active_orders",

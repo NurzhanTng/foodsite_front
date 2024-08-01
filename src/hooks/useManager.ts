@@ -10,6 +10,7 @@ const statuses: Array<OrderStatuses> = [
   "manager_await",
   "payment_await",
   "active",
+  "on_runner",
   "done",
   "on_delivery",
   "inactive",
@@ -19,6 +20,7 @@ const statusesText = {
   manager_await: "Новый заказ",
   payment_await: "Ожидающий оплаты",
   active: "Активный заказ",
+  on_runner: "Выдача заказа",
   done: "Приготовленный заказ",
   on_delivery: "Переданный доставщику",
   inactive: "Завершенный заказы",
@@ -29,6 +31,7 @@ const statusesTitles: { [key in OrderStatuses]: string } = {
   manager_await: "Новые заказы",
   payment_await: "Ожидающие оплаты",
   active: "Активные заказы",
+  on_runner: "Выдача заказа",
   done: "Приготовленные заказы",
   on_delivery: "Переданные доставщику",
   inactive: "Завершенные заказы",
@@ -50,23 +53,24 @@ const useManager = () => {
       const index = statuses.indexOf(order.status);
       let newStatus;
       if (order.status === "done" && !order.is_delivery) {
-        console.log(1);
         newStatus = statuses.at(index + 2);
-        console.log(newStatus);
+      } else if (order.status === "manager_await") {
+        newStatus = statuses.at(index + 2);
+      } else if (order.status === "on_runner") {
+        if (order.is_delivery) {
+          newStatus = statuses.at(index + 2);
+        } else {
+          newStatus = statuses.at(index + 3);
+        }
       } else {
-        console.log(2);
         newStatus = statuses.at(index + 1);
-        console.log(newStatus);
       }
 
       if (newStatus === undefined) return order;
-      const newOrder = { ...order, status: newStatus };
-      console.log({
+      const newOrder = {
+        ...order,
         status: changeStatus ? changeStatus : newStatus,
-        user_name: order.user_name,
-        phone: order.phone,
-        client_id: order.client_id,
-      });
+      };
 
       fetch(
         import.meta.env.VITE_REACT_APP_API_BASE_URL +

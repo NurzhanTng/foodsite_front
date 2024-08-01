@@ -48,6 +48,7 @@ export type OrderStatuses =
   | "manager_await"
   | "payment_await"
   | "active"
+  | "on_runner"
   | "done"
   | "on_delivery"
   | "inactive"
@@ -116,6 +117,7 @@ const initialState: ManagerState = {
     manager_await: false,
     payment_await: false,
     active: false,
+    on_runner: false,
     done: false,
     on_delivery: false,
     inactive: false,

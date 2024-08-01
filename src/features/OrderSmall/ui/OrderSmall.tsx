@@ -162,7 +162,7 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
           onClick={onNotificationClick}
         />
       )}
-      {order.status !== "inactive" && open && (
+      {order.status !== "inactive" && order.status !== "on_runner" && open && (
         <Button
           className="mt-5 w-full"
           styleType="outline"
@@ -217,7 +217,13 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
               ? "inactive"
               : "outline"
           }
-          text="Следующий этап"
+          text={
+            order.status !== "on_runner"
+              ? "Следующий этап"
+              : order.is_delivery
+                ? "Отдан курьеру"
+                : "Отдан клиенту"
+          }
           onClick={() => handleStatusChange(order)}
         />
       )}

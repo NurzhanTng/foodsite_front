@@ -29,11 +29,6 @@ const OrderCheck = ({ order }: OrderCheckProps) => {
     );
   };
 
-  const onOrderDone = async (order: Orders) => {
-    console.log("fetch");
-    await handleStatusChange(order);
-  };
-
   return (
     <div className="mb-8 w-[calc(100vw-40px)] min-w-[280px] max-w-[380px] lg:w-full">
       <h2 className=" leading-non mb-5 block text-base font-normal text-white">
@@ -66,7 +61,7 @@ const OrderCheck = ({ order }: OrderCheckProps) => {
           isDone.every((value) => value.value) ? "outline" : "inactive"
         }
         text="Следующий этап"
-        onClick={() => onOrderDone(order)}
+        onClick={() => handleStatusChange(order)}
       />
     </div>
   );
