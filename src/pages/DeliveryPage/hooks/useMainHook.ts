@@ -15,7 +15,7 @@ const useMainHook = () => {
     dispatch(setDelivery(isDelivery));
   };
 
-  const onClose = () => navigate("/cart");
+  const onClose = () => navigate("/cart2");
 
   return {
     errorText,

@@ -8,6 +8,8 @@ import TransferPage from "../pages/TransferPage";
 import MenuPage from "../pages/MenuPage";
 import DishPage from "../pages/DishPage";
 import CartPage from "../pages/CartPage";
+import CartPage2 from "../pages/CartPage2";
+import CartPage3 from "../pages/CartPage3";
 import CartDishPage from "../pages/CartDishPage";
 import DeliveryPage from "../pages/DeliveryPage";
 import ManagerMainPage from "../pages/ManagerMainPage";
@@ -43,6 +45,14 @@ const router = createBrowserRouter([
   {
     path: "/cart",
     element: <CartPage />,
+  },
+  {
+    path: "/cart2",
+    element: <CartPage2 />,
+  },
+  {
+    path: "/cart3",
+    element: <CartPage3 />,
   },
   {
     path: "/cartProduct/:product_index",

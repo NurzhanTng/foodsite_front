@@ -17,6 +17,8 @@ const CartAddressAndTime = ({
   const errors = useAppSelector((state) => state.main.errors);
   const navigate = useNavigate();
 
+  console.log(orderState);
+
   return (
     <div className={twMerge("flex flex-col gap-[10px]", className)}>
       <h3 className="mb-4 text-base font-medium text-textSecondary">
@@ -33,7 +35,9 @@ const CartAddressAndTime = ({
             ? orderState.address.parsed
               ? orderState.address.parsed
               : "Ваш адрес"
-            : "С собой"
+            : orderState.company_id !== -1
+              ? "С собой"
+              : "Выберите способ получения заказа"
         }
         description={
           orderState.address.parsed && orderState.isDelivery ? "Ваш адрес" : ""

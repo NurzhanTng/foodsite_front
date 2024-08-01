@@ -335,6 +335,7 @@ const useCart = () => {
     updateCartFromParams,
     deleteCartProducts,
     handleOrderClick,
+    handleErrors,
 
     isButtonInactive,
     usePopup,

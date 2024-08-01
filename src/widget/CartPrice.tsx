@@ -15,10 +15,13 @@ const CartPrice = ({ className = "" }: CartPriceProps) => {
   const orderState = useAppSelector((state) => state.order);
 
   const cartPrice = sumCurrency(state.cart);
-  const bonusAmount = -Math.min(cartPrice, orderState.max_bonus);
   const deliveryAmount = orderState.delivery_amount
     ? orderState.delivery_amount
     : 0;
+  const bonusAmount = -Math.min(
+    cartPrice + (orderState.isDelivery ? deliveryAmount : 0),
+    orderState.max_bonus,
+  );
 
   // const [cartPrice, setCartPrice] = useState(sumCurrency(state.cart));
   // const [bonusAmount, setBonusAmount] = useState(Math.min(cartPrice, orderState.max_bonus));

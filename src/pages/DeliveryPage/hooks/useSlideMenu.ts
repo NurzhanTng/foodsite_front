@@ -275,7 +275,7 @@ const useSlideMenu = ({
     const error = getErrorText("handleSaveButton");
     setErrorText(error);
     if (error === "") {
-      navigate("/cart");
+      navigate("/cart2");
       dispatch(
         setErrors({
           ...errors,
