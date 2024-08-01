@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useAppSelector } from "../../../store/hooks/hooks.ts";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks/hooks.ts";
 import ManagerHeader from "../../../features/Headers";
 import { useEffect, useMemo, useState } from "react";
 import Button from "../../../shared/Button.tsx";
@@ -14,8 +14,10 @@ import timestampToTime from "../../../utils/timestampToTime.ts";
 import Notifications from "../../../widget/Notifications";
 import RejectedTextPopup from "../../../features/Popups/ui/RejectedTextPopup.tsx";
 import Loading from "../../TransferPage/ui/Loading.tsx";
+import { fetchOrders } from "../../../store/slices/managerSlice.ts";
 
 const OrderPage = () => {
+  const dispatch = useAppDispatch();
   const timers = useAppSelector((state) => state.timer.timers);
   const { stopTimer } = useTimer();
   const { order_id } = useParams();
@@ -43,6 +45,7 @@ const OrderPage = () => {
     let timeout: NodeJS.Timeout | undefined;
 
     if (order_id === undefined || order === undefined) {
+      dispatch(fetchOrders());
       timeout = setTimeout(() => {
         setShouldNavigate(true);
       }, 10_000);
