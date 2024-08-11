@@ -36,7 +36,6 @@ const CartPage = () => {
       errors.name ||
       errors.cart ||
       errors.phone ||
-      errors.kaspi_phone ||
       errors.address ||
       errors.time
     ) {

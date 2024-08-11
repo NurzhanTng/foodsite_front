@@ -1217,37 +1217,33 @@ const sumOneOrderProduct = (orderProduct: MyOrderProduct) => {
 
 /* ----- Types creators ----- */
 
-type Triggers = {
-  id: number;
-  value:
-    | {
-        product_id: number;
-      }
-    | {
-        product_ids: number[];
-      }
-    | {
-        category_id: number;
-      }
-    | {
-        category_ids: number[];
-      }
-    | {
-        product_lists: (number | number[])[];
-      }
-    | {
-        date_start?: string;
-        date_end?: string;
-        days?: (0 | 1 | 2 | 3 | 4 | 5 | 6)[];
-        time_start?: string;
-        time_end?: string;
-      }
-    | {
-        order_cost_min?: number;
-        order_cost_max?: number;
-      }
-    | {};
-};
+type Triggers =
+  | {
+      product_id: number;
+    }
+  | {
+      product_ids: number[];
+    }
+  | {
+      category_id: number;
+    }
+  | {
+      category_ids: number[];
+    }
+  | {
+      product_lists: (number | number[])[];
+    }
+  | {
+      date_start?: string;
+      date_end?: string;
+      days?: (0 | 1 | 2 | 3 | 4 | 5 | 6)[];
+      time_start?: string;
+      time_end?: string;
+    }
+  | {
+      order_cost_min?: number;
+      order_cost_max?: number;
+    };
 
 type Payloads = {
   id: number;
@@ -1265,6 +1261,7 @@ type Action = {
   name: string;
   description: string;
   can_be_triggered: boolean;
+  can_be_repeated: boolean;
   triggers: Triggers[];
   payloads: Payloads[];
 };
@@ -1346,48 +1343,29 @@ type Test = {
 /* ----- Action creators ----- */
 
 let actionCounter = 0; // начальное значение счетчика акций
-let triggerCounter = 0; // начальное значение счетчика триггеров
 
-const createEmptyTrigger = (): Triggers => ({
-  id: triggerCounter++,
-  value: {},
-});
+const createEmptyTrigger = (): Triggers => ({});
 
 const createProductTrigger = (productId: number): Triggers => ({
-  id: triggerCounter++,
-  value: {
-    product_id: productId,
-  },
+  product_id: productId,
 });
 
 const createProductListTrigger = (productIds: number[]): Triggers => ({
-  id: triggerCounter++,
-  value: {
-    product_ids: productIds,
-  },
+  product_ids: productIds,
 });
 
 const createCategoryTrigger = (categoryId: number): Triggers => ({
-  id: triggerCounter++,
-  value: {
-    category_id: categoryId,
-  },
+  category_id: categoryId,
 });
 
 const createCategoryListTrigger = (categoryIds: number[]): Triggers => ({
-  id: triggerCounter++,
-  value: {
-    category_ids: categoryIds,
-  },
+  category_ids: categoryIds,
 });
 
 const createProductListsTrigger = (
   productLists: (number | number[])[],
 ): Triggers => ({
-  id: triggerCounter++,
-  value: {
-    product_lists: productLists,
-  },
+  product_lists: productLists,
 });
 
 const createDateTimeTrigger = (
@@ -1413,10 +1391,7 @@ const createDateTimeTrigger = (
     value.time_end = timeEnd;
   }
 
-  return {
-    id: triggerCounter++,
-    value: value,
-  };
+  return value;
 };
 
 const createOrderCostTrigger = (
@@ -1433,10 +1408,7 @@ const createOrderCostTrigger = (
     value.order_cost_max = orderCostMax;
   }
 
-  return {
-    id: triggerCounter++,
-    value: value,
-  };
+  return value;
 };
 
 type createActionProps = {
@@ -1445,6 +1417,7 @@ type createActionProps = {
   name?: string;
   description?: string;
   can_be_triggered?: boolean;
+  can_be_repeated?: boolean;
 };
 
 const createAction = ({
@@ -1453,6 +1426,7 @@ const createAction = ({
   name = "Default Name",
   description = "Default Description",
   can_be_triggered = true,
+  can_be_repeated = true,
 }: createActionProps): Action => {
   actionCounter += 1;
   return {
@@ -1462,6 +1436,7 @@ const createAction = ({
     description,
     triggers,
     can_be_triggered: can_be_triggered,
+    can_be_repeated: can_be_repeated,
     payloads: [],
   };
 };
@@ -1523,8 +1498,8 @@ const createOrderProduct = ({
 
   const emptyProduct = {
     product: products[0],
-    amount: 1,
     client_comment: "",
+    amount: 1,
     price: products[0].price,
     product_id: products[0].id,
     active_modifier: null,
@@ -1535,15 +1510,20 @@ const createOrderProduct = ({
     return emptyProduct;
   }
 
+  const price = sumOneOrderProduct({
+    price: 0,
+    client_comment: "",
+    product: orderProduct,
+    product_id: product_id,
+    amount: amount,
+    active_modifier: active_modifier,
+    additions: additions,
+  });
+
   return {
     amount: amount,
     client_comment: "",
-    price: sumOneOrderProduct({
-      ...emptyProduct,
-      amount: amount,
-      active_modifier: active_modifier,
-      additions: additions,
-    }),
+    price: price,
     product_id: product_id,
     active_modifier: active_modifier,
     additions: additions,
@@ -1793,8 +1773,8 @@ const order23 = createOrder({
 
 const order24 = createOrder({
   products: [
-    createOrderProduct({ product_id: 1, amount: 1 }),
-    createOrderProduct({ product_id: 4, amount: 1 }),
+    createOrderProduct({ product_id: 1, amount: 1, additions: [1, 2] }),
+    createOrderProduct({ product_id: 4, amount: 2 }),
     createOrderProduct({ product_id: 3, amount: 1 }),
   ],
 });
@@ -1802,96 +1782,96 @@ const order24 = createOrder({
 /* ----- Test creators ----- */
 
 const tests: Test[] = [
-  // {
-  //   actions: [emptyAction],
-  //   order: order1,
-  //   result: [true],
-  //   description: "Пустые value всегда проходят тесты",
-  // },
-  // {
-  //   actions: [anotherCompanyAction],
-  //   order: order1,
-  //   result: [false],
-  //   description: "Другая компания. Из-за этого не проходит",
-  // },
-  // {
-  //   actions: [anotherCompanyAction],
-  //   order: order2,
-  //   result: [true],
-  //   description: "Одинаковые компании",
-  // },
-  // {
-  //   actions: [emptyTriggersAction],
-  //   order: order1,
-  //   result: [false],
-  //   description: "Неправильная акция без триггеров. Она не проходит тесты",
-  // },
-  // {
-  //   actions: [cantBeTriggeredAction],
-  //   order: order1,
-  //   result: [false],
-  //   description: "Акция с полем can_be_triggered = false",
-  // },
-  // {
-  //   actions: [productAction1],
-  //   order: order1,
-  //   result: [true],
-  //   description:
-  //     "Тут тупо проверяй айдишки. Если неправильно, еще раз проверяй. Кто прочел, тот осел",
-  // },
-  // {
-  //   actions: [productAction1, productAction2, productAction3],
-  //   order: order3,
-  //   result: [true, true, true],
-  //   description:
-  //     "Тут тупо проверяй айдишки. Если неправильно, еще раз проверяй. Кто прочел, тот осел",
-  // },
-  // {
-  //   actions: [productAction1, productAction2, productAction3],
-  //   order: order4,
-  //   result: [true, false, true],
-  //   description:
-  //     "Тут тупо проверяй айдишки. Если неправильно, еще раз проверяй. Кто прочел, тот осел",
-  // },
-  // {
-  //   actions: [productListAction1],
-  //   order: order1,
-  //   result: [true],
-  //   description:
-  //     "Тут тупо проверяй айдишки. Если неправильно, еще раз проверяй. Кто прочел, тот осел",
-  // },
-  // {
-  //   actions: [productListAction2],
-  //   order: order1,
-  //   result: [false],
-  //   description:
-  //     "Тут тупо проверяй айдишки. Если неправильно, еще раз проверяй. Кто прочел, тот осел",
-  // },
-  // {
-  //   actions: [categoryAction1],
-  //   order: order1,
-  //   result: [true],
-  // },
-  // {
-  //   actions: [categoryAction2],
-  //   order: order1,
-  //   result: [false],
-  // },
-  // {
-  //   actions: [categoryAction2],
-  //   order: order5,
-  //   result: [true],
-  // },
-  // {
-  //   actions: [categoryListAction],
-  //   order: order6,
-  //   result: [false],
-  // },
-  // {
-  //   actions: [categoryListAction],
-  //   order: order1,
-  //   result: [true],
-  // },
+  {
+    actions: [emptyAction],
+    order: order1,
+    result: [true],
+    description: "Пустые value всегда проходят тесты",
+  },
+  {
+    actions: [anotherCompanyAction],
+    order: order1,
+    result: [false],
+    description: "Другая компания. Из-за этого не проходит",
+  },
+  {
+    actions: [anotherCompanyAction],
+    order: order2,
+    result: [true],
+    description: "Одинаковые компании",
+  },
+  {
+    actions: [emptyTriggersAction],
+    order: order1,
+    result: [false],
+    description: "Неправильная акция без триггеров. Она не проходит тесты",
+  },
+  {
+    actions: [cantBeTriggeredAction],
+    order: order1,
+    result: [false],
+    description: "Акция с полем can_be_triggered = false",
+  },
+  {
+    actions: [productAction1],
+    order: order1,
+    result: [true],
+    description:
+      "Тут тупо проверяй айдишки. Если неправильно, еще раз проверяй. Кто прочел, тот осел",
+  },
+  {
+    actions: [productAction1, productAction2, productAction3],
+    order: order3,
+    result: [true, true, true],
+    description:
+      "Тут тупо проверяй айдишки. Если неправильно, еще раз проверяй. Кто прочел, тот осел",
+  },
+  {
+    actions: [productAction1, productAction2, productAction3],
+    order: order4,
+    result: [true, false, true],
+    description:
+      "Тут тупо проверяй айдишки. Если неправильно, еще раз проверяй. Кто прочел, тот осел",
+  },
+  {
+    actions: [productListAction1],
+    order: order1,
+    result: [true],
+    description:
+      "Тут тупо проверяй айдишки. Если неправильно, еще раз проверяй. Кто прочел, тот осел",
+  },
+  {
+    actions: [productListAction2],
+    order: order1,
+    result: [false],
+    description:
+      "Тут тупо проверяй айдишки. Если неправильно, еще раз проверяй. Кто прочел, тот осел",
+  },
+  {
+    actions: [categoryAction1],
+    order: order1,
+    result: [true],
+  },
+  {
+    actions: [categoryAction2],
+    order: order1,
+    result: [false],
+  },
+  {
+    actions: [categoryAction2],
+    order: order5,
+    result: [true],
+  },
+  {
+    actions: [categoryListAction],
+    order: order6,
+    result: [false],
+  },
+  {
+    actions: [categoryListAction],
+    order: order1,
+    result: [true],
+  },
   {
     actions: [dateAction1],
     order: order1,
@@ -1966,24 +1946,24 @@ const tests: Test[] = [
     description:
       "Тут не проходит по времени. Если не проходит сделай так, чтобы текущее время не было между ними",
   },
-  // {
-  //   actions: [costAction1],
-  //   order: order1,
-  //   result: [true],
-  //   description: "Проходит по цене. Заказ до 20 000тг",
-  // },
-  // {
-  //   actions: [costAction1],
-  //   order: order7,
-  //   result: [false],
-  //   description: "Не проходит по цене. Заказ стоит больше 20 000 тг",
-  // },
-  // {
-  //   actions: [costAction2],
-  //   order: order1,
-  //   result: [true],
-  //   description: "Заказ проходит, он между 1 000 и 20 000 тг",
-  // },
+  {
+    actions: [costAction1],
+    order: order1,
+    result: [true],
+    description: "Проходит по цене. Заказ до 20 000тг",
+  },
+  {
+    actions: [costAction1],
+    order: order7,
+    result: [false],
+    description: "Не проходит по цене. Заказ стоит больше 20 000 тг",
+  },
+  {
+    actions: [costAction2],
+    order: order1,
+    result: [true],
+    description: "Заказ проходит, он между 1 000 и 20 000 тг",
+  },
   {
     actions: [costAction2],
     order: order8,
@@ -1991,24 +1971,24 @@ const tests: Test[] = [
     description:
       "Тут заказ не проходит. Тут 1 блюдо по цене 800 тг, а акция с 1 000 до 20 000 тг",
   },
-  // {
-  //   actions: [costAction3],
-  //   order: order1,
-  //   result: [false],
-  //   description: "Тут заказ больше 1 000 тг. Он не проходит",
-  // },
-  // {
-  //   actions: [costAction3],
-  //   order: order8,
-  //   result: [true],
-  //   description: "Тут заказ по цене 800 тг, он проходит",
-  // },
-  // {
-  //   actions: [costAction4],
-  //   order: order1,
-  //   result: [false],
-  //   description: "Тут слишком большая начальная цена",
-  // },
+  {
+    actions: [costAction3],
+    order: order1,
+    result: [false],
+    description: "Тут заказ больше 1 000 тг. Он не проходит",
+  },
+  {
+    actions: [costAction3],
+    order: order8,
+    result: [true],
+    description: "Тут заказ по цене 800 тг, он проходит",
+  },
+  {
+    actions: [costAction4],
+    order: order1,
+    result: [false],
+    description: "Тут слишком большая начальная цена",
+  },
   {
     actions: [pizzaAndDrinkComboAction],
     order: order9,
@@ -2323,5 +2303,22 @@ const tests: Test[] = [
   },
 ];
 
-console.log(JSON.stringify(tests, undefined, "\t"));
+const test2 = createAction({
+  triggers: [createProductListTrigger([1, 2, 3, 4, 10, 12, 22])],
+});
+
+const order25 = createOrder({
+  products: [
+    createOrderProduct({ product_id: 1, amount: 1 }),
+    createOrderProduct({ product_id: 2, amount: 1 }),
+    createOrderProduct({ product_id: 3, amount: 1 }),
+    createOrderProduct({ product_id: 4, amount: 1 }),
+    createOrderProduct({ product_id: 10, amount: 1 }),
+    createOrderProduct({ product_id: 12, amount: 1 }),
+    createOrderProduct({ product_id: 22, amount: 1 }),
+  ],
+});
+
+// console.log(JSON.stringify(tests.slice(5, 15), undefined, "\t"));
+console.log(JSON.stringify(order25, undefined, "\t"));
 // */
