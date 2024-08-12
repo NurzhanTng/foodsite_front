@@ -30,15 +30,9 @@ const CartPage = () => {
   }, []);
 
   const onNext = () => {
-    const errors = handleErrors();
+    const errors = handleErrors({ kaspi_phone: true, cart: true });
 
-    if (
-      errors.name ||
-      errors.cart ||
-      errors.phone ||
-      errors.address ||
-      errors.time
-    ) {
+    if (errors.name || errors.phone || errors.address || errors.time) {
       dispatch(setErrors(errors));
       return;
     }

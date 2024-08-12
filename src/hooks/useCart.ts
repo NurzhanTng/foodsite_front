@@ -59,24 +59,42 @@ const useCart = () => {
     window.scrollTo({ top: element.offsetTop - 100, behavior: "smooth" });
   };
 
-  const handleErrors = () => {
+  type handleErrorsTypes = {
+    cart?: boolean;
+    name?: boolean;
+    phone?: boolean;
+    kaspi_phone?: boolean;
+    address?: boolean;
+    time?: boolean;
+  };
+
+  const handleErrors = ({
+    cart = false,
+    name = false,
+    phone = false,
+    kaspi_phone = false,
+    address = false,
+    time = false,
+  }: handleErrorsTypes) => {
     const errors = {
-      cart: state.cart.length === 0,
-      name: order.user_name.length === 0,
-      phone: order.phone.length !== 11,
-      kaspi_phone: order.kaspi_phone.length !== 11,
+      cart: cart ? false : state.cart.length === 0,
+      name: name ? false : order.user_name.length === 0,
+      phone: phone ? false : order.phone.length !== 11,
+      kaspi_phone: kaspi_phone ? false : order.kaspi_phone.length !== 11,
       // address: !checkIsInPolygon(companies[0].delivery_layers[0].points, [
       //   order.address.long,
       //   order.address.lat,
       // ]),
-      address: order.isDelivery
-        ? !(
-            order.address.long > 0 &&
-            order.address.lat > 0 &&
-            order.address.parsed !== ""
-          )
-        : order.company_id === -1,
-      time: order.done_time === "" || order.done_time === null,
+      address: address
+        ? false
+        : order.isDelivery
+          ? !(
+              order.address.long > 0 &&
+              order.address.lat > 0 &&
+              order.address.parsed !== ""
+            )
+          : order.company_id === -1,
+      time: time ? false : order.done_time === "" || order.done_time === null,
     };
 
     if (errors.cart) {
@@ -100,7 +118,7 @@ const useCart = () => {
   const handleOrderClick = () => {
     if (isButtonInactive) return;
 
-    const errors = handleErrors();
+    const errors = handleErrors({});
 
     if (
       errors.name ||
