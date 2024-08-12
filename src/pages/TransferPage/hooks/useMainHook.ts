@@ -66,7 +66,7 @@ const useMainHook = () => {
     } else if (data.role === "admin") {
       dispatch(fetchOrders());
       dispatch(fetchDeliveries());
-      navigate("/cart");
+      navigate("/orders");
     } else {
       setErrorType("bad request");
     }
