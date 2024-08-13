@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import Button from "../../../shared/Button.tsx";
 import { Orders } from "../../../store/slices/managerSlice.ts";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useManager from "../../../hooks/useManager.ts";
 import OrderOneLine from "../../../pages/OrderPage/ui/OrderOneLine.tsx";
 import DeliveryUserPopup from "../../Popups/ui/DeliveryUserPopup.tsx";
@@ -32,6 +32,7 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
     isShow: false,
     order_id: null,
   });
+  const location = useLocation();
 
   const isNotificationExist = useMemo(
     () => timers.find((timer) => timer.id === order.id),
@@ -98,9 +99,17 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
       </div>
       {open && (
         <div
-          onClick={() => navigate(`/orders/${order.id}`)}
+          onClick={() =>
+            navigate(`/orders/${order.id}?back_path=${location.pathname}`)
+          }
           className="flex w-full flex-col gap-2"
         >
+          <OrderOneLine
+            className="w-[calc(100vw-80px)] gap-0"
+            title="Имя клиента"
+            description={order.user_name}
+          />
+
           <OrderOneLine
             className="w-[calc(100vw-80px)] gap-0"
             title="Время оформления"

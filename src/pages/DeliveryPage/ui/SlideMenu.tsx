@@ -81,7 +81,10 @@ const SlideMenu = ({
 
         {stage !== 0 && !isDelivery && (
           <>
-            <CompanyCards companySpots={companyState.companies} />
+            <CompanyCards
+              companySpots={companyState.companies}
+              handleSaveButton={handleSaveButton}
+            />
 
             {errorText !== "" && (
               <p className="my-[30px] font-medium text-[#BA4747]">

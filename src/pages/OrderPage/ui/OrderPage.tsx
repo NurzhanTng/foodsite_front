@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/hooks.ts";
 import ManagerHeader from "../../../features/Headers";
 import { useEffect, useMemo, useState } from "react";
@@ -30,7 +30,11 @@ const OrderPage = () => {
   const { getProductById } = useCart();
   const [showPopup, setShowPopup] = useState(false);
   const [showNotificationPopup, setShowNotificationPopup] = useState(false);
-  const mainPath = "/orders/search";
+
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const back_path = searchParams.get("back_path");
+  console.log("Order", order);
 
   const [showRejectedPopup, setShowRejectedPopup] = useState<{
     isShow: boolean;
@@ -50,7 +54,7 @@ const OrderPage = () => {
 
     if (!order_id || !order) {
       timeout = setTimeout(() => {
-        navigate(mainPath);
+        back_path && navigate(back_path);
       }, 10_000);
     } else if (timeout) {
       clearTimeout(timeout);
@@ -115,8 +119,8 @@ const OrderPage = () => {
         />
 
         <ManagerHeader
-          leftIconShow={true}
-          iconOnClick={() => navigate(mainPath)}
+          leftIconShow={back_path !== null}
+          iconOnClick={() => back_path && navigate(back_path)}
         />
 
         <div
@@ -138,8 +142,9 @@ const OrderPage = () => {
               }
             </p>
           </div>
-
           <div className="flex w-full flex-col gap-2">
+            <OrderOneLine title="Имя клиента" description={order.user_name} />
+
             <OrderOneLine
               title="Время оформления"
               description={
@@ -159,7 +164,7 @@ const OrderPage = () => {
               description={
                 order.done_time === null || order.done_time === "00:00"
                   ? "Как можно скорее"
-                  : order?.done_time
+                  : order.done_time.split(":").slice(0, 2).join(":")
               }
             />
             <OrderOneLine title="Номер клиента" description={order.phone} />
@@ -362,12 +367,13 @@ const OrderPage = () => {
                 ? "Указать проблему"
                 : `Отклонить заказ: ${order.rejected_text}`
             }
-            onClick={() => {
+            onClick={async () => {
               if (
                 typeof order.rejected_text === "string" &&
                 order.rejected_text !== ""
               ) {
-                handleStatusChange(order, "rejected");
+                await handleStatusChange(order, "rejected");
+                back_path && navigate(back_path);
               } else {
                 setShowRejectedPopup({ isShow: true, order_id: order.id });
               }
@@ -410,9 +416,9 @@ const OrderPage = () => {
                 : "outline"
             }
             text="Следующий этап"
-            onClick={() => {
-              navigate(mainPath);
-              handleStatusChange(order);
+            onClick={async () => {
+              await handleStatusChange(order);
+              back_path && navigate(back_path);
             }}
           />
         )}

@@ -18,7 +18,7 @@ const CartPayments = ({ className = "" }: CartPaymentsProps) => {
   const userBonus = useAppSelector((state) => state.user.bonus);
   const dispatch = useAppDispatch();
   const errors = useAppSelector((state) => state.main.errors);
-  const { ref, scrollToElement } = useScroll(100);
+  const { ref, scrollToElement } = useScroll(300, 0);
 
   return (
     <div className={twMerge("", className)}>

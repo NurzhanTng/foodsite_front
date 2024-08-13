@@ -326,6 +326,7 @@ const useCart = () => {
       user_name: order.user_name,
       address: { ...order.address, exact_address: order.exactAddress },
       company_id: 3,
+      done_time: order.done_time,
       exact_address: order.exactAddress,
       phone: order.phone,
       kaspi_phone: order.kaspi_phone,
