@@ -18,6 +18,14 @@ const useMainHook = () => {
     active_modifier: null,
     additions: [],
     amount: 1,
+    price: sumOneOrderProduct({
+      product: product,
+      active_modifier: null,
+      additions: [],
+      amount: 1,
+      price: 0,
+      client_comment: "",
+    }),
     client_comment: "",
   });
 

@@ -16,6 +16,7 @@ function MenuPage() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    console.log("Cart:", state.cart);
   }, []);
 
   return (

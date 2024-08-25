@@ -25,6 +25,7 @@ type CartErrors = {
   kaspi_phone: boolean;
   address: boolean;
   time: boolean;
+  cost: boolean;
 };
 
 const useCart = () => {
@@ -34,17 +35,6 @@ const useCart = () => {
   const [showComment, setShowComment] = useState(false);
   const [showTime, setShowTime] = useState(false);
   const [isButtonInactive, setIsButtonInactive] = useState(false);
-
-  // useEffect(() => {
-  //   localStorage.setItem("persist:root", "");
-  //   dispatch(mainSliceClear());
-  //   dispatch(companySliceClear());
-  //   dispatch(clientOrderSliceClear());
-  //   dispatch(managerSliceClear());
-  //   dispatch(orderSliceClear());
-  //   dispatch(timerSliceClear());
-  //   dispatch(userSliceClear());
-  // }, []);
 
   const usePopup = {
     showComment,
@@ -66,6 +56,7 @@ const useCart = () => {
     kaspi_phone?: boolean;
     address?: boolean;
     time?: boolean;
+    cost?: boolean;
   };
 
   const handleErrors = ({
@@ -75,6 +66,7 @@ const useCart = () => {
     kaspi_phone = false,
     address = false,
     time = false,
+    cost = false,
   }: handleErrorsTypes) => {
     const errors = {
       cart: cart ? false : state.cart.length === 0,
@@ -95,7 +87,14 @@ const useCart = () => {
             )
           : order.company_id === -1,
       time: time ? false : order.done_time === "" || order.done_time === null,
+      cost: cost
+        ? false
+        : state.cart.reduce((price, product) => price + product.price, 0) <
+          5000,
     };
+    console.log(
+      `handleErrors: ${JSON.stringify(errors)} ${state.cart.reduce((price, product) => price + product.price, 0)}`,
+    );
 
     if (errors.cart) {
       scrollByElementId("cart_input");
@@ -126,7 +125,8 @@ const useCart = () => {
       errors.phone ||
       errors.kaspi_phone ||
       errors.address ||
-      errors.time
+      errors.time ||
+      errors.cost
     ) {
       dispatch(setErrors(errors));
       return;
@@ -136,7 +136,8 @@ const useCart = () => {
     setIsButtonInactive(true);
     setTimeout(() => {
       setIsButtonInactive(false);
-    }, 20000);
+    }, 1000);
+    return;
     fetch(import.meta.env.VITE_REACT_APP_API_BASE_URL + `food/orders/`, {
       method: "POST",
       headers: {
@@ -146,8 +147,6 @@ const useCart = () => {
     })
       .then(async (data) => {
         if (!(data.status >= 200 && data.status < 300)) return;
-
-        localStorage.setItem("persist:root", "");
         dispatch(mainSliceClear());
         dispatch(companySliceClear());
         dispatch(clientOrderSliceClear());
@@ -170,6 +169,7 @@ const useCart = () => {
     if (errors.kaspi_phone) return "Введите корректный номер каспи";
     if (errors.address) return "Необходимо указать правильный адрес";
     if (errors.address) return "Необходимо указать время";
+    if (errors.cost) return "Минимальная сумма заказа 5000тг";
     return "";
   };
 
@@ -193,6 +193,7 @@ const useCart = () => {
             (addition) => addition.id === parseInt(addition_id),
           );
         }),
+        price: cartElement["price"],
         amount: cartElement["amount"],
         client_comment: "",
       });
@@ -219,6 +220,7 @@ const useCart = () => {
       active_modifier: null,
       additions: [],
       amount: 1,
+      price: 0,
       client_comment: "",
     };
 
@@ -229,6 +231,7 @@ const useCart = () => {
       });
       orderProduct.active_modifier = modifiers[0].id;
     }
+    orderProduct.price = sumOneOrderProduct(orderProduct);
 
     dispatch(addProductToCart(orderProduct));
   };
@@ -237,7 +240,8 @@ const useCart = () => {
     dispatch(
       addOneToOrderProduct(
         state.cart.findIndex(
-          (orderProduct) => orderProduct.product?.id === product.id,
+          (orderProduct) =>
+            orderProduct.product?.id === product.id && orderProduct.price !== 0,
         ),
       ),
     );
@@ -247,7 +251,8 @@ const useCart = () => {
     dispatch(
       removeOneToOrderProduct(
         state.cart.findIndex(
-          (orderProduct) => orderProduct.product?.id === product.id,
+          (orderProduct) =>
+            orderProduct.product?.id === product.id && orderProduct.price !== 0,
         ),
       ),
     );
@@ -257,7 +262,7 @@ const useCart = () => {
     let count = 0;
     let types_count = 0;
     for (const orderProduct of state.cart) {
-      if (orderProduct.product?.id === product_id) {
+      if (orderProduct.product?.id === product_id && orderProduct.price !== 0) {
         count += orderProduct.amount;
         types_count += 1;
       }
@@ -268,7 +273,8 @@ const useCart = () => {
   const sumCurrency = (orderProducts: OrderProduct[]) => {
     let sum = 0;
     for (const orderProduct of orderProducts) {
-      sum += sumOneOrderProduct(orderProduct);
+      // sum += sumOneOrderProduct(orderProduct);
+      sum += orderProduct.price;
     }
     return sum;
   };
@@ -314,7 +320,7 @@ const useCart = () => {
             product: getProductById(orderProduct.product.id),
             amount: orderProduct.amount,
             client_comment: "",
-            price: sumOneOrderProduct(orderProduct),
+            price: orderProduct.price,
             product_id: orderProduct.product.id,
             active_modifier: orderProduct.active_modifier,
             additions: orderProduct.additions.map((addition) => addition.id),
@@ -325,7 +331,7 @@ const useCart = () => {
       bonus_used: order.bonus_used,
       user_name: order.user_name,
       address: { ...order.address, exact_address: order.exactAddress },
-      company_id: 3,
+      company_id: order.company_id,
       done_time: order.done_time,
       exact_address: order.exactAddress,
       phone: order.phone,

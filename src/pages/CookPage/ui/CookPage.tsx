@@ -11,7 +11,7 @@ const CookPage = () => {
   ).filter((order) => order.status === "active");
 
   useEffect(() => {
-    const intervalId = setInterval(() => dispatch(fetchOrders()), 5000);
+    const intervalId = setInterval(() => dispatch(fetchOrders({})), 5000);
     return () => clearInterval(intervalId);
   }, []);
 

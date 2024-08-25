@@ -8,6 +8,7 @@ import kaspi from "../data/img/kaspi.svg";
 import useScroll from "../hooks/useScroll.ts";
 import SelectCard from "../entities/SelectCard.tsx";
 import Switch from "../shared/Switch.tsx";
+import { useEffect } from "react";
 
 type CartPaymentsProps = {
   className?: string;
@@ -16,9 +17,16 @@ type CartPaymentsProps = {
 const CartPayments = ({ className = "" }: CartPaymentsProps) => {
   const orderState = useAppSelector((state) => state.order);
   const userBonus = useAppSelector((state) => state.user.bonus);
+  const user_promo = useAppSelector((state) => state.user.promo);
   const dispatch = useAppDispatch();
   const errors = useAppSelector((state) => state.main.errors);
   const { ref, scrollToElement } = useScroll(300, 0);
+
+  useEffect(() => {
+    if (user_promo === "7pQk4Vx9Lm28NwsB3rZj") {
+      dispatch(setBonusUsed(false));
+    }
+  }, []);
 
   return (
     <div className={twMerge("", className)}>
@@ -29,11 +37,22 @@ const CartPayments = ({ className = "" }: CartPaymentsProps) => {
 
       <SelectCard
         name={`Использовать бонус (${userBonus})`}
-        onClick={() => dispatch(setBonusUsed(!orderState.bonus_used))}
-        className="mb-[20px]"
+        onClick={
+          user_promo !== "7pQk4Vx9Lm28NwsB3rZj"
+            ? () => dispatch(setBonusUsed(!orderState.bonus_used))
+            : () => {}
+        }
+        className={user_promo === "7pQk4Vx9Lm28NwsB3rZj" ? "" : "mb-[20px]"}
       >
         <Switch checked={orderState.bonus_used} onChange={() => {}} />
       </SelectCard>
+
+      {user_promo === "7pQk4Vx9Lm28NwsB3rZj" && (
+        <p className="mb-[30px] text-sm font-medium leading-tight text-textSecondary">
+          * бонусы невозможно использовать вместе с данной акцией. Вы сможете
+          использовать бонусы в следующем заказе
+        </p>
+      )}
 
       <Input
         id="kaspi_input"

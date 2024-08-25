@@ -13,6 +13,7 @@ export type UserState = {
   } | null;
   exact_address: string | null;
   bonus: number;
+  company_ids: number[];
   role: "admin" | "client" | "manager" | "delivery" | "cook" | "runner" | "";
   blocked: boolean;
   jwt_token: string;
@@ -31,6 +32,7 @@ const initialState: UserState = {
   },
   exact_address: null,
   bonus: 0,
+  company_ids: [],
   role: "",
   blocked: false,
   jwt_token: "",
@@ -50,6 +52,7 @@ const userSlice = createSlice({
       state.address = data.address;
       state.exact_address = data.exact_address;
       state.bonus = data.bonus;
+      state.company_ids = data.company_ids;
       state.role = data.role;
       state.blocked = data.blocked;
       state.jwt_token = data.jwt_token;
@@ -63,6 +66,7 @@ const userSlice = createSlice({
       state.address = initialState.address;
       state.exact_address = initialState.exact_address;
       state.bonus = initialState.bonus;
+      state.company_ids = initialState.company_ids;
       state.role = initialState.role;
       state.blocked = initialState.blocked;
       state.jwt_token = initialState.jwt_token;

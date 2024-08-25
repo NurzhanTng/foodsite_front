@@ -17,8 +17,6 @@ const CartAddressAndTime = ({
   const errors = useAppSelector((state) => state.main.errors);
   const navigate = useNavigate();
 
-  console.log(orderState);
-
   return (
     <div className={twMerge("flex flex-col gap-[10px]", className)}>
       <h3 className="mb-4 text-base font-medium text-textSecondary">

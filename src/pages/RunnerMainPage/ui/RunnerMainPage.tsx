@@ -10,7 +10,7 @@ const RunnerMainPage = () => {
   );
 
   useEffect(() => {
-    const intervalId = setInterval(() => dispatch(fetchOrders()), 5000);
+    const intervalId = setInterval(() => dispatch(fetchOrders({})), 5000);
     return () => clearInterval(intervalId);
   }, []);
 

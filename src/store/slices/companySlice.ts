@@ -35,9 +35,7 @@ export const fetchCompanies = createAsyncThunk("companies", async () => {
       method: "GET",
     },
   );
-  const data = response.json();
-  console.log(data);
-  return data;
+  return response.json();
 });
 
 const companySlice = createSlice({

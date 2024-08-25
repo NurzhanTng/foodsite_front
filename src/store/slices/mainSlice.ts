@@ -16,6 +16,7 @@ export type MainState = {
     kaspi_phone: boolean;
     address: boolean;
     time: boolean;
+    cost: boolean;
   };
   errorText: string | null;
 };
@@ -33,6 +34,7 @@ const initialState: MainState = {
     kaspi_phone: false,
     address: false,
     time: false,
+    cost: false,
   },
   errorText: null,
 };
@@ -46,7 +48,6 @@ const mainSlice = createSlice({
   initialState,
   reducers: {
     setLoginTime: (state, action: PayloadAction<string>) => {
-      console.log(`state changing: lastLogin[${action.payload}]`);
       state.lastLogin = action.payload;
     },
 
@@ -90,6 +91,7 @@ const mainSlice = createSlice({
         kaspi_phone: boolean;
         address: boolean;
         time: boolean;
+        cost: boolean;
       }>,
     ) => {
       state.errors = action.payload;
@@ -117,11 +119,11 @@ const mainSlice = createSlice({
 });
 
 export const {
+  addProductToCart,
   setLoginTime,
   setCart,
   setIsParamsCartUpdated,
   setActiveCategory,
-  addProductToCart,
   addOneToOrderProduct,
   removeOneToOrderProduct,
   setErrors,

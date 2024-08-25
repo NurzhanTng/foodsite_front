@@ -9,6 +9,7 @@ import useCart from "../../../hooks/useCart.ts";
 import { setCart } from "../../../store/slices/mainSlice.ts";
 import { setUserData } from "../../../store/slices/orderSlice.ts";
 import { useDispatch } from "react-redux";
+import { Orders } from "../../../store/slices/managerSlice.ts";
 
 const ClientOrderPage = () => {
   const { from, order } = useAppSelector((state) => state.clientOrder);
@@ -38,31 +39,22 @@ const ClientOrderPage = () => {
   //     price = orderProduct.product.price;
   // }
 
-  const handleRepeatButton = () => {
-    console.log("handleRepeatButton", order);
+  const handleRepeatButton = (order: Orders | null) => {
     if (order === null) return;
-
     dispatch(
       setCart(
-        order.products.map((order) => {
-          const product = getProductById(order.product_id);
+        order.products.map((order_product) => {
+          const product = getProductById(order_product.product_id);
           const additions = product?.additions.filter((addition) =>
-            order.additions.includes(addition.id),
+            order_product.additions.includes(addition.id),
           );
-          console.log({
-            product: product,
-            active_modifier: order.active_modifier,
-            additions: additions === undefined ? [] : additions,
-            amount: order.amount,
-            client_comment: order.client_comment,
-          });
-
           return {
             product: product,
-            active_modifier: order.active_modifier,
+            active_modifier: order_product.active_modifier,
             additions: additions === undefined ? [] : additions,
-            amount: order.amount,
-            client_comment: order.client_comment,
+            amount: order_product.amount,
+            price: order_product.price,
+            client_comment: order_product.client_comment,
           };
         }),
       ),
@@ -78,7 +70,7 @@ const ClientOrderPage = () => {
         exact_address: order.exact_address,
       }),
     );
-    navigate(`/?telegram_id=${order.client_id}`);
+    navigate(`/cart/?telegram_id=${order.client_id}`);
   };
 
   const handleBackButton = () => {
@@ -265,7 +257,7 @@ const ClientOrderPage = () => {
           className="mt-5 w-full"
           styleType="outline"
           text="Открыть"
-          onClick={handleRepeatButton}
+          onClick={() => handleRepeatButton(order)}
         />
 
         <Button

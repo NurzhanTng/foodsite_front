@@ -101,7 +101,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         {/* Картинка */}
         <div
           style={{ backgroundImage: `url(${product.image_url})` }}
-          className="h-[120px] rounded-t-[10px] bg-cover sm:h-[200px] bg-center"
+          className="h-[120px] rounded-t-[10px] bg-cover bg-center sm:h-[200px]"
         />
 
         {/* Данные блюда */}

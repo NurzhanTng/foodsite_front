@@ -34,6 +34,8 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
   });
   const location = useLocation();
 
+  // console.log("location:", location.pathname);
+
   const isNotificationExist = useMemo(
     () => timers.find((timer) => timer.id === order.id),
     [timers],
@@ -100,6 +102,7 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
       {open && (
         <div
           onClick={() =>
+            location.pathname !== "/runner" &&
             navigate(`/orders/${order.id}?back_path=${location.pathname}`)
           }
           className="flex w-full flex-col gap-2"
@@ -132,7 +135,7 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
             description={
               order?.done_time === null || order?.done_time === "00:00"
                 ? "Как можно скорее"
-                : order?.done_time
+                : order?.done_time.split(":").slice(0, 2).join(":")
             }
           />
 
@@ -157,20 +160,34 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
                 : "Самовывоз"
             }
           />
+
+          {location.pathname === "/runner" && order?.is_delivery && (
+            <OrderOneLine
+              className="w-[calc(100vw-80px)] gap-0"
+              title="Доставщик"
+              description={
+                deliveries.find(
+                  (user) => user.telegram_id === order.delivery_id,
+                )?.telegram_fullname
+              }
+            />
+          )}
         </div>
       )}
-      {order.status !== "inactive" && open && (
-        <Button
-          className="mt-5 w-full"
-          styleType="outline"
-          text={
-            isNotificationExist === undefined
-              ? "Создать напоминание"
-              : `Удалить напоминание в ${timestampToTime(isNotificationExist.endTimestamp)}`
-          }
-          onClick={onNotificationClick}
-        />
-      )}
+      {order.status !== "inactive" &&
+        location.pathname !== "/runner" &&
+        open && (
+          <Button
+            className="mt-5 w-full"
+            styleType="outline"
+            text={
+              isNotificationExist === undefined
+                ? "Создать напоминание"
+                : `Удалить напоминание в ${timestampToTime(isNotificationExist.endTimestamp)}`
+            }
+            onClick={onNotificationClick}
+          />
+        )}
       {order.status !== "inactive" && order.status !== "on_runner" && open && (
         <Button
           className="mt-5 w-full"

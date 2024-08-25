@@ -91,7 +91,7 @@ export type OrderProducts = {
   additions: Array<Additions["id"]>;
   active_modifier: Modifiers["id"] | null;
   amount: number;
-  price: number | null;
+  price: number;
   client_comment: string;
 };
 
@@ -127,32 +127,90 @@ const initialState: ManagerState = {
   notifications: [],
 };
 
-function isToday(dateString: string) {
-  const date = new Date(dateString);
-  const today = new Date();
-  return (
-    date.getDate() === today.getDate() &&
-    date.getMonth() === today.getMonth() &&
-    date.getFullYear() === today.getFullYear()
-  );
-}
+// function isToday(dateString: string) {
+//   const date = new Date(dateString);
+//   const today = new Date();
+//   return (
+//     date.getDate() === today.getDate() &&
+//     date.getMonth() === today.getMonth() &&
+//     date.getFullYear() === today.getFullYear()
+//   );
+// }
 
-export const fetchOrders = createAsyncThunk("orders", async () => {
+type fetchOrdersProps = {
+  statuses?: OrderStatuses[];
+  company_ids?: number[];
+};
+
+type fetchOrdersByFilter = {
+  status?: OrderStatuses;
+  company_id?: number;
+};
+
+const fetchOrdersByFilter = async ({
+  status,
+  company_id,
+}: fetchOrdersByFilter) => {
+  const queryParams: any = {};
+
+  if (status) {
+    queryParams.status = status;
+  }
+
+  if (company_id) {
+    queryParams.company_id = company_id;
+  }
+
+  const queryString = new URLSearchParams(queryParams).toString();
+
   const response = await fetch(
-    import.meta.env.VITE_REACT_APP_API_BASE_URL + "food/orders/",
+    `${import.meta.env.VITE_REACT_APP_API_BASE_URL}food/orders/?${queryString}`,
     {
       method: "GET",
     },
   );
   const data: Array<Orders> = await response.json();
-  const filteredData = data
-    .filter((order) => isToday(order.created_at))
-    .map((order) => {
-      return { ...order, delivery_name: "" };
-    });
-  console.log(filteredData);
-  return filteredData;
-});
+  return data.map((order) => {
+    return { ...order, delivery_name: "" };
+  });
+};
+
+export const fetchOrders = createAsyncThunk(
+  "orders",
+  async ({ statuses, company_ids }: fetchOrdersProps) => {
+    let result: Orders[] = [];
+
+    if (statuses === undefined) {
+      if (company_ids === undefined) {
+        result = await fetchOrdersByFilter({});
+      } else {
+        for (const company_id of company_ids) {
+          const orders = await fetchOrdersByFilter({ company_id: company_id });
+          result.push(...orders);
+        }
+      }
+    } else {
+      if (company_ids === undefined) {
+        for (const status of statuses) {
+          const orders = await fetchOrdersByFilter({ status: status });
+          result.push(...orders);
+        }
+      } else {
+        for (const status of statuses) {
+          for (const company_id of company_ids) {
+            const orders = await fetchOrdersByFilter({
+              status: status,
+              company_id: company_id,
+            });
+            result.push(...orders);
+          }
+        }
+      }
+    }
+
+    return result;
+  },
+);
 
 export const fetchDeliveries = createAsyncThunk("deliveries", async () => {
   const response = await fetch(
@@ -198,11 +256,9 @@ const managerSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchOrders.fulfilled, (state, action) => {
       state.orders = action.payload;
-      console.log("fetchOrders fulfilled: ", action.payload);
     });
     builder.addCase(fetchDeliveries.fulfilled, (state, action) => {
       state.deliveries = action.payload;
-      console.log("fetchDeliveries fulfilled: ", action.payload);
     });
   },
 });

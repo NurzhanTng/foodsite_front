@@ -41,28 +41,20 @@ const InactiveOrdersPage = () => {
   }, [orders]);
 
   const handleRepeatButton = (order: Orders) => {
-    console.log("handleRepeatButton", order);
     dispatch(
       setCart(
-        order.products.map((order) => {
-          const product = getProductById(order.product_id);
+        order.products.map((order_product) => {
+          const product = getProductById(order_product.product_id);
           const additions = product?.additions.filter((addition) =>
-            order.additions.includes(addition.id),
+            order_product.additions.includes(addition.id),
           );
-          console.log({
-            product: product,
-            active_modifier: order.active_modifier,
-            additions: additions === undefined ? [] : additions,
-            amount: order.amount,
-            client_comment: order.client_comment,
-          });
-
           return {
             product: product,
-            active_modifier: order.active_modifier,
+            active_modifier: order_product.active_modifier,
             additions: additions === undefined ? [] : additions,
-            amount: order.amount,
-            client_comment: order.client_comment,
+            amount: order_product.amount,
+            price: order_product.price,
+            client_comment: order_product.client_comment,
           };
         }),
       ),

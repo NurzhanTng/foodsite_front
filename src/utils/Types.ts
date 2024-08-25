@@ -44,6 +44,7 @@ export type OrderProduct = {
   product: Product | undefined;
   active_modifier: Modifiers["id"] | null;
   additions: Array<Additions>;
+  price: number;
   amount: number;
   client_comment: string;
 };

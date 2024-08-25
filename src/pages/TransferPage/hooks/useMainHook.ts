@@ -26,45 +26,73 @@ const useMainHook = () => {
   >(null);
 
   const updateLoginTime = () => {
-    const lastLogin = main.lastLogin;
-    console.log("main:", main);
-    console.log(new Date().toISOString());
-    const now = new Date();
-    const diffInMilliseconds = Math.abs(
-      now.getTime() - new Date(lastLogin).getTime(),
-    );
-    console.log("difference:", diffInMilliseconds);
-    console.log("diff min:", diffInMilliseconds / (1000 * 60));
-    if (Math.floor(diffInMilliseconds / (1000 * 60)) > 30) {
-      console.log("clean cart");
-      dispatch(setCart([]));
-    }
+    // const lastLogin = main.lastLogin;
+    // const now = new Date();
+    // const diffInMilliseconds = Math.abs(
+    //   now.getTime() - new Date(lastLogin).getTime(),
+    // );
+    // if (Math.floor(diffInMilliseconds / (1000 * 60)) > 30) {
+    //   dispatch(setCart([]));
+    // }
     dispatch(setLoginTime(new Date().toISOString()));
   };
 
-  const updateGeneralData = (data: UserState) => {
+  const checkIsNeededToAdd = async () => {
+    return true;
+  };
+
+  const temporaryActionAdd = async (data: UserState) => {
+    if (data.promo !== "7pQk4Vx9Lm28NwsB3rZj") {
+      console.log("promo is bad");
+      return;
+    }
+    if (!(await checkIsNeededToAdd())) return;
+
+    for (const category of main.categories) {
+      const product = category.products.find((prod) => prod.id === 1);
+
+      if (product === undefined) continue;
+
+      dispatch(
+        setCart([
+          {
+            product: product,
+            active_modifier: null,
+            additions: [],
+            amount: 1,
+            price: 0,
+            client_comment: "",
+          },
+        ]),
+      );
+    }
+  };
+
+  const updateGeneralData = async (data: UserState) => {
     dispatch(fetchCategories());
-    dispatch(fetchCompanies());
     dispatch(setUser(data));
     dispatch(setUserData(data));
+    console.log("User: ", data);
 
     if (data.role === "client") {
       updateLoginTime();
+      await temporaryActionAdd(data);
+      dispatch(fetchCompanies());
       navigate("/menu");
     } else if (data.role === "manager") {
-      dispatch(fetchOrders());
+      dispatch(fetchOrders({}));
       dispatch(fetchDeliveries());
       navigate("/orders/search");
     } else if (data.role === "cook") {
-      dispatch(fetchOrders());
+      dispatch(fetchOrders({}));
       dispatch(fetchDeliveries());
       navigate("/cook");
     } else if (data.role === "runner") {
-      dispatch(fetchOrders());
+      dispatch(fetchOrders({}));
       dispatch(fetchDeliveries());
       navigate("/runner");
     } else if (data.role === "admin") {
-      dispatch(fetchOrders());
+      dispatch(fetchOrders({}));
       dispatch(fetchDeliveries());
       navigate("/orders");
     } else {
@@ -85,7 +113,7 @@ const useMainHook = () => {
 
     const postData = {
       telegram_id: `${telegram_id}`,
-      telegram_fullname: "",
+      telegram_fullname: "-|- error -|- error -|-",
       promo: "",
     };
 

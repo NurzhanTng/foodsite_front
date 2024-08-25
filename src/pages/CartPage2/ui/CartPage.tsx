@@ -25,6 +25,7 @@ const CartPage = () => {
         kaspi_phone: false,
         address: false,
         time: false,
+        cost: false,
       }),
     );
   }, []);

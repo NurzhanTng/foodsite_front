@@ -2309,16 +2309,21 @@ const test2 = createAction({
 
 const order25 = createOrder({
   products: [
-    createOrderProduct({ product_id: 1, amount: 1 }),
-    createOrderProduct({ product_id: 2, amount: 1 }),
-    createOrderProduct({ product_id: 3, amount: 1 }),
+    createOrderProduct({ product_id: 1, amount: 4 }),
+    createOrderProduct({ product_id: 2, amount: 2 }),
+    createOrderProduct({ product_id: 3, amount: 2 }),
     createOrderProduct({ product_id: 4, amount: 1 }),
-    createOrderProduct({ product_id: 10, amount: 1 }),
-    createOrderProduct({ product_id: 12, amount: 1 }),
-    createOrderProduct({ product_id: 22, amount: 1 }),
   ],
 });
 
 // console.log(JSON.stringify(tests.slice(5, 15), undefined, "\t"));
-console.log(JSON.stringify(order25, undefined, "\t"));
+console.log(
+  JSON.stringify(
+    products.map((product) => {
+      return `${product.id} [${product.name}] - ${product.price}`;
+    }),
+    undefined,
+    "\t",
+  ),
+);
 // */
