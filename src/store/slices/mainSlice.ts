@@ -69,15 +69,23 @@ const mainSlice = createSlice({
     },
 
     addOneToOrderProduct: (state, action: PayloadAction<number>) => {
+      const oldPrice = state.cart[action.payload].price;
+      const oldAmount = state.cart[action.payload].amount;
+      state.cart[action.payload].price =
+        (oldPrice / oldAmount) * (oldAmount + 1);
       state.cart[action.payload].amount += 1;
     },
 
     removeOneToOrderProduct: (state, action: PayloadAction<number>) => {
+      const oldPrice = state.cart[action.payload].price;
+      const oldAmount = state.cart[action.payload].amount;
       if (state.cart[action.payload].amount === 1) {
         state.cart = state.cart
           .slice(0, action.payload)
           .concat(state.cart.slice(action.payload + 1));
       } else {
+        state.cart[action.payload].price =
+          (oldPrice / oldAmount) * (oldAmount - 1);
         state.cart[action.payload].amount -= 1;
       }
     },
