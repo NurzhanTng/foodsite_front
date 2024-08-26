@@ -137,7 +137,6 @@ const useCart = () => {
     setTimeout(() => {
       setIsButtonInactive(false);
     }, 1000);
-    return;
     fetch(import.meta.env.VITE_REACT_APP_API_BASE_URL + `food/orders/`, {
       method: "POST",
       headers: {
