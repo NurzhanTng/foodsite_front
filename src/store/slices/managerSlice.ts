@@ -80,6 +80,7 @@ export type Orders = {
   updated_at: string;
 
   actions: []; // change
+  rating: number | null;
 
   order_time: string;
 };
@@ -164,7 +165,7 @@ const fetchOrdersByFilter = async ({
   const queryString = new URLSearchParams(queryParams).toString();
 
   const response = await fetch(
-    `${import.meta.env.VITE_REACT_APP_API_BASE_URL}food/orders/?${queryString}`,
+    `${import.meta.env.VITE_REACT_APP_API_BASE_URL}food/filter_orders/?${queryString}`,
     {
       method: "GET",
     },

@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import {
   OrderState,
   setAddress,
+  setCompanyId,
   setDeliveryAmount,
   setExactAddress,
 } from "../../../store/slices/orderSlice.ts";
@@ -251,6 +252,21 @@ const useSlideMenu = ({
       .join(", ");
   };
 
+  const updateCompanyByAddress = (address: OrderAddress) => {
+    let min_range = 9999999;
+    let min_company_id = -1;
+    for (const company of companyState.companies) {
+      const distance =
+        ((company.address.long - address.lat) ** 2 +
+          (company.address.lat - address.long) ** 2) **
+        0.5;
+      if (!company.is_delivery || min_range <= distance) continue;
+      min_range = distance;
+      min_company_id = company.id;
+    }
+    dispatch(setCompanyId(min_company_id));
+  };
+
   const updateAddress = (address: OrderAddress) => {
     setAddressText(address.parsed);
     setFetchResult(null);
@@ -260,6 +276,7 @@ const useSlideMenu = ({
     dispatch(
       setDeliveryAmount(companyState.companies[0].delivery_layers[0].cost),
     );
+    updateCompanyByAddress(address);
     setErrorText(
       getErrorText(
         "updateAddress",
@@ -324,11 +341,9 @@ const useSlideMenu = ({
         ? orderState.address.parsed === ""
         : parsed === ""
     ) {
-      // console.log("Необходимо выбрать адрес для доставки");
       return "Необходимо выбрать адрес для доставки";
     }
     if (!isDelivery && orderState.company_id === -1) {
-      // console.log("Необходимо выбрать точку для самовывоза");
       return "Необходимо выбрать точку для самовывоза";
     }
     if (
@@ -338,7 +353,6 @@ const useSlideMenu = ({
         lat === null ? orderState.address.lat : lat,
       ])
     ) {
-      console.log("Ваш адрес вне зоны доставки");
       return "Ваш адрес вне зоны доставки";
     }
     if (
@@ -346,7 +360,6 @@ const useSlideMenu = ({
         ? orderState.exactAddress === ""
         : exact === ""
     ) {
-      console.log("Необходимо выбрать квартиру/офис");
       return "Необходимо выбрать квартиру/офис";
     }
     if (
@@ -356,10 +369,8 @@ const useSlideMenu = ({
       exact === null &&
       isSearchActive
     ) {
-      console.log("Необходимо выбрать новый адрес перед сохранением");
       return "Необходимо выбрать новый адрес перед сохранением";
     }
-    console.log("");
     return "";
   };
 
@@ -370,7 +381,6 @@ const useSlideMenu = ({
   };
 
   const handleTouchEnd = () => {
-    // console.log("touch end");
     setStartCoords(0);
     setActive(false);
     const windowHeight = window.visualViewport?.height
@@ -385,8 +395,6 @@ const useSlideMenu = ({
     } else {
       newStage = 0;
     }
-    console.log("handleTouchEnd:", scrollPercent, newStage);
-    // console.log(newStage);
     setHeight(getHeight(newStage));
     setStage(newStage);
   };

@@ -15,6 +15,7 @@ export type CompanySpot = {
   link: string;
   address: { long: number; lat: number; parsed?: string };
   address_link: string;
+  is_delivery: boolean;
 
   open_time: string;
   close_time: string;

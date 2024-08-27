@@ -172,6 +172,14 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
               }
             />
           )}
+
+          {order.rating !== null && order.status === "inactive" && (
+            <OrderOneLine
+              className="w-[calc(100vw-80px)] gap-0"
+              title="Оценка"
+              description={order.rating}
+            />
+          )}
         </div>
       )}
       {order.status !== "inactive" &&

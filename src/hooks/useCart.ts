@@ -43,6 +43,15 @@ const useCart = () => {
     toggleTime: () => setShowTime((value) => !value),
   };
 
+  const isMargaritaAdded = (): boolean => {
+    for (const cartElement of state.cart) {
+      if (cartElement.price === 0 && cartElement.product?.id === 1) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   const scrollByElementId = (id: string) => {
     const element = document.getElementById(id);
     if (!element) return;
@@ -89,7 +98,8 @@ const useCart = () => {
       time: time ? false : order.done_time === "" || order.done_time === null,
       cost: cost
         ? false
-        : state.cart.reduce((price, product) => price + product.price, 0) <
+        : state.cart.reduce((price, product) => price + product.price, 0) +
+            (order.isDelivery ? order.delivery_amount : 0) <
           5000,
     };
     console.log(
@@ -132,11 +142,27 @@ const useCart = () => {
       return;
     }
 
-    console.log(cartToJson());
+    for (const cartElement of state.cart) {
+      if (cartElement.price === 0 && cartElement.product?.id === 1) {
+        fetch(
+          import.meta.env.VITE_REACT_APP_API_BASE_URL + `service/add_user_id/`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ user_id: order.client_id }),
+          },
+        )
+          .then(() => console.log("action used"))
+          .catch((e) => console.log("action used error", e));
+      }
+    }
+
     setIsButtonInactive(true);
     setTimeout(() => {
       setIsButtonInactive(false);
-    }, 1000);
+    }, 20000);
     fetch(import.meta.env.VITE_REACT_APP_API_BASE_URL + `food/orders/`, {
       method: "POST",
       headers: {
@@ -363,6 +389,7 @@ const useCart = () => {
 
     isButtonInactive,
     usePopup,
+    isMargaritaAdded,
   };
 };
 

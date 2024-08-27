@@ -13,6 +13,7 @@ import { fetchCompanies } from "../../../store/slices/companySlice.ts";
 import {
   fetchDeliveries,
   fetchOrders,
+  OrderStatuses,
 } from "../../../store/slices/managerSlice.ts";
 
 const useMainHook = () => {
@@ -37,8 +38,16 @@ const useMainHook = () => {
     dispatch(setLoginTime(new Date().toISOString()));
   };
 
-  const checkIsNeededToAdd = async () => {
-    return true;
+  const checkIsNeededToAdd = async (telegram_id: string) => {
+    const response = await fetch(
+      import.meta.env.VITE_REACT_APP_API_BASE_URL +
+        `service/check-user-id/?user_id=${telegram_id}`,
+      {
+        method: "GET",
+      },
+    );
+    const data: { exists: boolean } = await response.json();
+    return !data.exists;
   };
 
   const temporaryActionAdd = async (data: UserState) => {
@@ -46,7 +55,7 @@ const useMainHook = () => {
       console.log("promo is bad");
       return;
     }
-    if (!(await checkIsNeededToAdd())) return;
+    if (!(await checkIsNeededToAdd(data.telegram_id))) return;
 
     for (const category of main.categories) {
       const product = category.products.find((prod) => prod.id === 1);
@@ -68,36 +77,78 @@ const useMainHook = () => {
     }
   };
 
+  const getUserCompanies = async (user_id: string) => {
+    console.log(user_id);
+    return [3, 4];
+  };
+
   const updateGeneralData = async (data: UserState) => {
     dispatch(fetchCategories());
     dispatch(setUser(data));
     dispatch(setUserData(data));
     console.log("User: ", data);
+    const routes = {
+      client: "/menu",
+      manager: "/orders/search",
+      cook: "/cook",
+      runner: "/runner",
+      admin: "/orders",
+      delivery: "",
+      "": "",
+    };
+    if (!["client", "manager", "cook", "runner", "admin"].includes(data.role)) {
+      setErrorType("bad request");
+      return;
+    }
 
     if (data.role === "client") {
       updateLoginTime();
       await temporaryActionAdd(data);
       dispatch(fetchCompanies());
-      navigate("/menu");
-    } else if (data.role === "manager") {
-      dispatch(fetchOrders({}));
+    } else if (
+      data.role === "manager" ||
+      data.role === "cook" ||
+      data.role === "admin" ||
+      data.role === "runner"
+    ) {
+      type OrderFilters = {
+        [key in "manager" | "cook" | "admin" | "runner"]: {
+          statuses: OrderStatuses[];
+          company_ids: number[];
+        };
+      };
+      const companies = await getUserCompanies(data.telegram_id);
+      const orderFilters: OrderFilters = {
+        manager: {
+          statuses: ["manager_await", "payment_await"],
+          company_ids: companies,
+        },
+        cook: {
+          statuses: ["active"],
+          company_ids: companies,
+        },
+        admin: {
+          statuses: [
+            "manager_await",
+            "payment_await",
+            "active",
+            "on_runner",
+            "done",
+            "on_delivery",
+            "inactive",
+            "rejected",
+          ],
+          company_ids: companies,
+        },
+        runner: {
+          statuses: ["on_runner"],
+          company_ids: companies,
+        },
+      };
+      dispatch(fetchOrders(orderFilters[data.role]));
       dispatch(fetchDeliveries());
-      navigate("/orders/search");
-    } else if (data.role === "cook") {
-      dispatch(fetchOrders({}));
-      dispatch(fetchDeliveries());
-      navigate("/cook");
-    } else if (data.role === "runner") {
-      dispatch(fetchOrders({}));
-      dispatch(fetchDeliveries());
-      navigate("/runner");
-    } else if (data.role === "admin") {
-      dispatch(fetchOrders({}));
-      dispatch(fetchDeliveries());
-      navigate("/orders");
-    } else {
-      setErrorType("bad request");
     }
+    navigate(routes[data.role]);
   };
 
   const fetchData = () => {

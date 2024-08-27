@@ -10,20 +10,18 @@ type OrderCheckProps = {
 
 const OrderCheck = ({ order }: OrderCheckProps) => {
   const { handleStatusChange } = useManager();
-  const [isDone, setIsDone] = useState<
-    { product_id: number; value: boolean }[]
-  >(
-    order.products.map((product) => {
-      return { product_id: product.product_id, value: false };
+  const [isDone, setIsDone] = useState<{ index: number; value: boolean }[]>(
+    order.products.map((_, index) => {
+      return { index: index, value: false };
     }),
   );
 
   const toggleIsDone = (order_id: number) => {
     setIsDone((oldData) =>
-      oldData.map((value) => {
+      oldData.map((value, index) => {
         return {
-          product_id: value.product_id,
-          value: value.product_id === order_id ? !value.value : value.value,
+          index: index,
+          value: index === order_id ? !value.value : value.value,
         };
       }),
     );
@@ -35,15 +33,12 @@ const OrderCheck = ({ order }: OrderCheckProps) => {
         Заказ № {order.id}
       </h2>
 
-      {order.products.map((product) => {
+      {order.products.map((product, index) => {
         return (
           <OrderProduct
             {...product}
-            value={
-              isDone.find((value) => value.product_id === product.product_id)
-                ?.value
-            }
-            onClick={() => toggleIsDone(product.product_id)}
+            value={isDone.find((value) => value.index === index)?.value}
+            onClick={() => toggleIsDone(index)}
           />
         );
       })}
