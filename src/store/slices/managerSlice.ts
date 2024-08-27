@@ -183,8 +183,10 @@ export const fetchOrders = createAsyncThunk(
 
     if (statuses === undefined) {
       if (company_ids === undefined) {
+        console.log("1");
         result = await fetchOrdersByFilter({});
       } else {
+        console.log("2");
         for (const company_id of company_ids) {
           const orders = await fetchOrdersByFilter({ company_id: company_id });
           result.push(...orders);
@@ -192,11 +194,13 @@ export const fetchOrders = createAsyncThunk(
       }
     } else {
       if (company_ids === undefined) {
+        console.log("3");
         for (const status of statuses) {
           const orders = await fetchOrdersByFilter({ status: status });
           result.push(...orders);
         }
       } else {
+        console.log("4");
         for (const status of statuses) {
           for (const company_id of company_ids) {
             const orders = await fetchOrdersByFilter({

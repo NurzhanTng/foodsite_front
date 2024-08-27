@@ -36,6 +36,10 @@ const OrderPage = () => {
   const back_path = searchParams.get("back_path");
   console.log("Order", order);
 
+  const company = useAppSelector((state) =>
+    state.companies.companies.find((value) => order?.company_id === value.id),
+  );
+
   const [showRejectedPopup, setShowRejectedPopup] = useState<{
     isShow: boolean;
     order_id: number | null;
@@ -143,6 +147,10 @@ const OrderPage = () => {
             </p>
           </div>
           <div className="flex w-full flex-col gap-2">
+            {company && (
+              <OrderOneLine title="Точка" description={company.name} />
+            )}
+
             <OrderOneLine title="Имя клиента" description={order.user_name} />
 
             <OrderOneLine

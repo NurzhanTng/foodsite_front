@@ -12,6 +12,7 @@ export type UserState = {
     parsed: string;
   } | null;
   exact_address: string | null;
+  companies: number[];
   bonus: number;
   company_ids: number[];
   role: "admin" | "client" | "manager" | "delivery" | "cook" | "runner" | "";
@@ -36,6 +37,7 @@ const initialState: UserState = {
   role: "",
   blocked: false,
   jwt_token: "",
+  companies: [],
 };
 
 const userSlice = createSlice({
@@ -71,9 +73,13 @@ const userSlice = createSlice({
       state.blocked = initialState.blocked;
       state.jwt_token = initialState.jwt_token;
     },
+    setUserCompanies: (state, action: PayloadAction<number[]>) => {
+      console.log("setUserCompanies", action);
+      state.company_ids = action.payload;
+    },
   },
 });
 
-export const { setUser, clearState } = userSlice.actions;
+export const { setUser, clearState, setUserCompanies } = userSlice.actions;
 
 export default userSlice.reducer;

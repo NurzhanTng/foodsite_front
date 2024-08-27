@@ -5,13 +5,20 @@ import { useEffect } from "react";
 
 const CookPage = () => {
   const dispatch = useAppDispatch();
-
-  const orders: Orders[] = useAppSelector(
-    (state) => state.manager.orders,
-  ).filter((order) => order.status === "active");
+  const orders: Orders[] = useAppSelector((state) => state.manager.orders);
+  const companies = useAppSelector((state) => state.user.company_ids);
 
   useEffect(() => {
-    const intervalId = setInterval(() => dispatch(fetchOrders({})), 5000);
+    const intervalId = setInterval(
+      () =>
+        dispatch(
+          fetchOrders({
+            statuses: ["active"],
+            company_ids: companies,
+          }),
+        ),
+      5000,
+    );
     return () => clearInterval(intervalId);
   }, []);
 

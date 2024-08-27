@@ -12,11 +12,31 @@ import { useEffect } from "react";
 
 const ManagerMainPage = () => {
   const manager = useAppSelector((state) => state.manager);
+  const companies = useAppSelector((state) => state.user.company_ids);
   const dispatch = useAppDispatch();
   const { statuses, statusesTitles } = useManager();
 
   useEffect(() => {
-    const intervalId = setInterval(() => dispatch(fetchOrders({})), 5000);
+    console.log("main page: ", companies);
+    const intervalId = setInterval(
+      () =>
+        dispatch(
+          fetchOrders({
+            statuses: [
+              "manager_await",
+              "payment_await",
+              "active",
+              "on_runner",
+              "done",
+              "on_delivery",
+              "inactive",
+              "rejected",
+            ],
+            company_ids: companies,
+          }),
+        ),
+      5000,
+    );
     return () => clearInterval(intervalId);
   }, []);
 

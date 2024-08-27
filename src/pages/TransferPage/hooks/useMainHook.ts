@@ -1,7 +1,11 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import { setUser, UserState } from "../../../store/slices/userSlice.ts";
+import {
+  setUser,
+  setUserCompanies,
+  UserState,
+} from "../../../store/slices/userSlice.ts";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/hooks.ts";
 import { setUserData } from "../../../store/slices/orderSlice.ts";
 import {
@@ -79,15 +83,25 @@ const useMainHook = () => {
   };
 
   const getUserCompanies = async (user_id: string) => {
-    console.log(user_id);
-    return [3, 4];
+    // service/user/1234249296/companies/
+    const response = await fetch(
+      import.meta.env.VITE_REACT_APP_API_BASE_URL +
+        `service/user/${user_id}/companies/`,
+      {
+        method: "GET",
+      },
+    );
+    return response.json();
   };
 
   const updateGeneralData = async (data: UserState) => {
     dispatch(fetchCategories());
     dispatch(setUser(data));
     dispatch(setUserData(data));
+    const companies: number[] = await getUserCompanies(data.telegram_id);
+    dispatch(setUserCompanies(companies));
     console.log("User: ", data);
+    console.log("Companies: ", companies);
     const routes = {
       client: "/menu",
       manager: "/orders/search",
@@ -102,10 +116,10 @@ const useMainHook = () => {
       return;
     }
 
+    dispatch(fetchCompanies());
     if (data.role === "client") {
       updateLoginTime();
       await temporaryActionAdd(data);
-      dispatch(fetchCompanies());
     } else if (
       data.role === "manager" ||
       data.role === "cook" ||
@@ -118,7 +132,10 @@ const useMainHook = () => {
           company_ids: number[];
         };
       };
-      const companies = await getUserCompanies(data.telegram_id);
+      if (companies.length === 0) {
+        setErrorType("bad request");
+        return;
+      }
       const orderFilters: OrderFilters = {
         manager: {
           statuses: ["manager_await", "payment_await"],

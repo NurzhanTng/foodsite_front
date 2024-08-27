@@ -16,9 +16,19 @@ const OrderSearchPage = () => {
     (order) =>
       order.status === "manager_await" || order.status === "payment_await",
   );
+  const companies = useAppSelector((state) => state.user.company_ids);
 
   useEffect(() => {
-    const intervalId = setInterval(() => dispatch(fetchOrders({})), 5000);
+    const intervalId = setInterval(
+      () =>
+        dispatch(
+          fetchOrders({
+            statuses: ["manager_await", "payment_await"],
+            company_ids: companies,
+          }),
+        ),
+      5000,
+    );
     return () => clearInterval(intervalId);
   }, []);
 

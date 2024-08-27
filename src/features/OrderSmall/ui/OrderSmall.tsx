@@ -33,6 +33,9 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
     order_id: null,
   });
   const location = useLocation();
+  const company = useAppSelector((state) =>
+    state.companies.companies.find((value) => order.company_id === value.id),
+  );
 
   // console.log("location:", location.pathname);
 
@@ -107,6 +110,14 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
           }
           className="flex w-full flex-col gap-2"
         >
+          {company && (
+            <OrderOneLine
+              className="w-[calc(100vw-80px)] gap-0"
+              title="Точка"
+              description={company.name}
+            />
+          )}
+
           <OrderOneLine
             className="w-[calc(100vw-80px)] gap-0"
             title="Имя клиента"
