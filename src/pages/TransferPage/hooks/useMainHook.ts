@@ -47,6 +47,7 @@ const useMainHook = () => {
       },
     );
     const data: { exists: boolean } = await response.json();
+    console.log(data);
     return !data.exists;
   };
 
