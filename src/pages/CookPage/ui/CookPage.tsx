@@ -12,7 +12,6 @@ const CookPage = () => {
   const audio = new Audio(soundFile);
 
   useEffect(() => {
-    alert(companies);
     const intervalId = setInterval(
       () =>
         dispatch(
@@ -27,8 +26,9 @@ const CookPage = () => {
   }, []);
 
   useEffect(() => {
+    audio.play();
+
     if (oldOrders.length < orders.length) {
-      audio.play();
       setOldOrders(orders);
     } else {
       setOldOrders(orders);

@@ -95,9 +95,6 @@ const useMainHook = () => {
   };
 
   const updateGeneralData = async (data: UserState) => {
-    if (data.telegram_id === "1234249296") {
-      alert("Все работает верно");
-    }
     dispatch(fetchCategories());
     dispatch(setUser(data));
     dispatch(setUserData(data));
