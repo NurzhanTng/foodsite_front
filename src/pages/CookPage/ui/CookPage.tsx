@@ -1,12 +1,15 @@
 import { fetchOrders, Orders } from "../../../store/slices/managerSlice.ts";
 import OrderCheck from "./OrderCheck.tsx";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/hooks.ts";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import soundFile from "../../../data/audio/message_sound.mp3";
 
 const CookPage = () => {
   const dispatch = useAppDispatch();
   const orders: Orders[] = useAppSelector((state) => state.manager.orders);
   const companies = useAppSelector((state) => state.user.company_ids);
+  const [oldOrders, setOldOrders] = useState(orders);
+  const audio = new Audio(soundFile);
 
   useEffect(() => {
     alert(companies);
@@ -22,6 +25,15 @@ const CookPage = () => {
     );
     return () => clearInterval(intervalId);
   }, []);
+
+  useEffect(() => {
+    if (oldOrders.length < orders.length) {
+      audio.play();
+      setOldOrders(orders);
+    } else {
+      setOldOrders(orders);
+    }
+  }, [orders]);
 
   return (
     <div
