@@ -29,12 +29,41 @@ const CookPage = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  useEffect(() => {
-    if (oldOrders.length < orders.length) {
+  const playSound = () => {
+    // Создаем элемент (например, кнопку)
+    const button = document.createElement("button");
+    button.style.display = "none"; // Скрываем кнопку
+
+    // Создаем аудио объект
+    const audio = new Audio("your-sound-file.mp3");
+
+    // Обработчик клика для воспроизведения звука
+    const handleClick = () => {
       alert("Звук");
       audio.play().catch((error) => {
         console.error("Ошибка воспроизведения звука:", error);
       });
+    };
+
+    // Вешаем обработчик клика на элемент
+    button.addEventListener("click", handleClick);
+
+    // Добавляем элемент на страницу
+    document.body.appendChild(button);
+
+    // Симулируем клик по элементу
+    button.click();
+
+    // Удаляем обработчик клика
+    button.removeEventListener("click", handleClick);
+
+    // Удаляем элемент из DOM
+    document.body.removeChild(button);
+  };
+
+  useEffect(() => {
+    if (oldOrders.length < orders.length) {
+      playSound();
       setOldOrders(orders);
     } else {
       setOldOrders(orders);
