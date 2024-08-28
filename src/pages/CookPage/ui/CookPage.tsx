@@ -34,9 +34,6 @@ const CookPage = () => {
     const button = document.createElement("button");
     button.style.display = "none"; // Скрываем кнопку
 
-    // Создаем аудио объект
-    const audio = new Audio("your-sound-file.mp3");
-
     // Обработчик клика для воспроизведения звука
     const handleClick = () => {
       alert("Звук");
