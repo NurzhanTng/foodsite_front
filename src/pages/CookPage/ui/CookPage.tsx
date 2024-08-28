@@ -11,6 +11,10 @@ const CookPage = () => {
   const [oldOrders, setOldOrders] = useState(orders);
   const audio = new Audio(soundFile);
 
+  audio.onerror = () => {
+    console.error("Ошибка загрузки аудиофайла");
+  };
+
   useEffect(() => {
     const intervalId = setInterval(
       () =>
@@ -28,7 +32,9 @@ const CookPage = () => {
   useEffect(() => {
     if (oldOrders.length < orders.length) {
       alert("Звук");
-      audio.play();
+      audio.play().catch((error) => {
+        console.error("Ошибка воспроизведения звука:", error);
+      });
       setOldOrders(orders);
     } else {
       setOldOrders(orders);
