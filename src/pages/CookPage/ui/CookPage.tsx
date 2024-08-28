@@ -26,9 +26,9 @@ const CookPage = () => {
   }, []);
 
   useEffect(() => {
-    audio.play();
-
     if (oldOrders.length < orders.length) {
+      alert("Звук");
+      audio.play();
       setOldOrders(orders);
     } else {
       setOldOrders(orders);
