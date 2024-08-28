@@ -9,6 +9,7 @@ const CookPage = () => {
   const companies = useAppSelector((state) => state.user.company_ids);
 
   useEffect(() => {
+    alert(companies);
     const intervalId = setInterval(
       () =>
         dispatch(
