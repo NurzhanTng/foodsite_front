@@ -120,7 +120,7 @@ const router = createBrowserRouter([
     element: <CookPage />,
   },
   {
-    path: "/redirect",
+    path: "/redirect2",
     element: <RedirectPage />,
   },
   {
