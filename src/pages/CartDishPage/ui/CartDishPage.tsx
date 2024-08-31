@@ -25,6 +25,7 @@ function CartDishPage() {
   });
 
   const handleClick = useCallback(() => {
+    console.log(orderProduct);
     const same_product = state.cart.findIndex((oldOrderProduct) => {
       return (
         oldOrderProduct.product?.id === orderProduct.product?.id &&
@@ -44,10 +45,13 @@ function CartDishPage() {
             if (index !== orderProductIndex) {
               return {
                 ...oldOrderProduct,
-                price:
-                  (oldOrderProduct.price / oldOrderProduct.amount) *
-                  (oldOrderProduct.amount +
-                    (same_product === -1 ? 0 : orderProduct.amount)),
+                price: sumOneOrderProduct({
+                  ...oldOrderProduct,
+                  amount:
+                    same_product === -1
+                      ? oldOrderProduct.amount
+                      : oldOrderProduct.amount + orderProduct.amount,
+                }),
                 amount:
                   same_product === -1
                     ? oldOrderProduct.amount
@@ -56,9 +60,10 @@ function CartDishPage() {
             } else {
               return {
                 ...orderProduct,
-                price:
-                  (oldOrderProduct.price / oldOrderProduct.amount) *
-                  orderProduct.amount,
+                price: sumOneOrderProduct({
+                  ...orderProduct,
+                  amount: same_product === -1 ? orderProduct.amount : 0,
+                }),
                 amount: same_product === -1 ? orderProduct.amount : 0,
               };
             }
