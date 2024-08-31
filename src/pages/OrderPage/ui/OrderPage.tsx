@@ -426,7 +426,12 @@ const OrderPage = () => {
             text="Следующий этап"
             onClick={async () => {
               await handleStatusChange(order);
-              back_path && navigate(back_path);
+              if (back_path) {
+                navigate(back_path);
+              } else {
+                const tg = window.Telegram.WebApp;
+                tg.close();
+              }
             }}
           />
         )}
