@@ -20,7 +20,7 @@ import {
 } from "../../../store/slices/managerSlice.ts";
 import { fetchUserActions } from "../../../store/slices/loyaltySlice.ts";
 
-const useMainHook = () => {
+const useMainHook = (promo: string = "") => {
   const user = useAppSelector((state) => state.user);
   const main = useAppSelector((state) => state.main);
   const [searchParams] = useSearchParams();
@@ -182,7 +182,7 @@ const useMainHook = () => {
     const postData = {
       telegram_id: `${telegram_id}`,
       telegram_fullname: "-|- error -|- error -|-",
-      promo: "",
+      promo: promo,
     };
 
     fetch(import.meta.env.VITE_REACT_APP_API_BASE_URL + "auth/register/", {

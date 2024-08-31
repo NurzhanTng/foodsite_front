@@ -1,17 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { twMerge } from "tailwind-merge";
+import useMainHook from "../../TransferPage/hooks/useMainHook.ts";
+import Error from "../../TransferPage/ui/Error.tsx";
 
 const RedirectPage: React.FC = () => {
-  useEffect(() => {
-    window.location.href =
-      "https://t.me/monopizza_bot?start=7pQk4Vx9Lm28NwsB3rZj";
-    const tg = window.Telegram.WebApp;
-    setTimeout(() => {
-      tg.close();
-    }, 1000);
-  }, []);
+  const data = useMainHook("7pQk4Vx9Lm28NwsB3rZj");
 
-  return (
+  return data.errorType === null ? (
     <div className="flex h-screen items-center justify-center">
       <p>Добавляем акцию</p>
       <div
@@ -21,6 +16,8 @@ const RedirectPage: React.FC = () => {
         )}
       />
     </div>
+  ) : (
+    <Error {...data} />
   );
 };
 
