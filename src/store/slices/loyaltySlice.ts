@@ -1,5 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-// PayloadAction
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type Triggers = {
   product_id?: number;
@@ -49,14 +48,18 @@ type UserActions = {
   is_active: boolean;
 };
 
+export type ProductActions = { [key: string]: Action[] };
+
 export type LoyaltyState = {
   actions: Action[];
   userActions: UserActions[];
+  productActions: ProductActions;
 };
 
 const initialState: LoyaltyState = {
   actions: [],
   userActions: [],
+  productActions: {},
 };
 
 export const fetchActions = createAsyncThunk(
@@ -120,7 +123,12 @@ export const fetchUserActions = createAsyncThunk(
 const loyaltySlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    setProductActions: (state, action: PayloadAction<ProductActions>) => {
+      console.log(`setProductActions: ${action.payload}`);
+      state.productActions = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchActions.fulfilled, (state, action) => {
       state.actions = action.payload;
@@ -131,6 +139,6 @@ const loyaltySlice = createSlice({
   },
 });
 
-export const {} = loyaltySlice.actions;
+export const { setProductActions } = loyaltySlice.actions;
 
 export default loyaltySlice.reducer;

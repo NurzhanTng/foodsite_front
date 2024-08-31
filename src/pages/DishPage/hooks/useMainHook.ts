@@ -50,6 +50,8 @@ const useMainHook = () => {
       orderProduct.active_modifier === null
     )
       return;
+    orderProduct.price = sumOneOrderProduct(orderProduct);
+    console.log(`handleClick: ${JSON.stringify(orderProduct)}`);
     dispatch(addProductToCart(orderProduct));
     navigate("/menu");
   }, [dispatch, navigate, orderProduct, product?.modifiers.length]);

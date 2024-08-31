@@ -1,6 +1,5 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-
 import {
   setUser,
   setUserCompanies,
@@ -19,6 +18,7 @@ import {
   fetchOrders,
   OrderStatuses,
 } from "../../../store/slices/managerSlice.ts";
+import { fetchUserActions } from "../../../store/slices/loyaltySlice.ts";
 
 const useMainHook = () => {
   const user = useAppSelector((state) => state.user);
@@ -51,13 +51,11 @@ const useMainHook = () => {
       },
     );
     const data: { exists: boolean } = await response.json();
-    console.log(data);
     return !data.exists;
   };
 
   const temporaryActionAdd = async (data: UserState) => {
     if (data.promo !== "7pQk4Vx9Lm28NwsB3rZj") {
-      console.log("promo is bad");
       return;
     }
     if (!(await checkIsNeededToAdd(data.telegram_id))) return;
@@ -120,6 +118,7 @@ const useMainHook = () => {
     if (data.role === "client") {
       updateLoginTime();
       await temporaryActionAdd(data);
+      dispatch(fetchUserActions(data.telegram_id));
     } else if (
       data.role === "manager" ||
       data.role === "cook" ||

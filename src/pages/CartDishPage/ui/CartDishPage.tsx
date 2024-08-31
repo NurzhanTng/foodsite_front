@@ -36,7 +36,6 @@ function CartDishPage() {
         oldOrderProduct.product?.price === null
       );
     });
-    console.log(same_product);
 
     dispatch(
       setCart(
@@ -45,6 +44,10 @@ function CartDishPage() {
             if (index !== orderProductIndex) {
               return {
                 ...oldOrderProduct,
+                price:
+                  (oldOrderProduct.price / oldOrderProduct.amount) *
+                  (oldOrderProduct.amount +
+                    (same_product === -1 ? 0 : orderProduct.amount)),
                 amount:
                   same_product === -1
                     ? oldOrderProduct.amount
@@ -53,6 +56,9 @@ function CartDishPage() {
             } else {
               return {
                 ...orderProduct,
+                price:
+                  (oldOrderProduct.price / oldOrderProduct.amount) *
+                  orderProduct.amount,
                 amount: same_product === -1 ? orderProduct.amount : 0,
               };
             }
