@@ -24,6 +24,7 @@ export default {
 
         error: "#BA4747",
         error2: "#8B3A3A",
+        error3: "#DD0000",
 
         button: "#5288C1",
         buttonHover: "#4A7AAE",

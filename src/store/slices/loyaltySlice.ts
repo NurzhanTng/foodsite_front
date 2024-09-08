@@ -27,10 +27,11 @@ type Payloads = {
   };
 };
 
-type Action = {
+export type Action = {
   id: number;
   company: number;
   name: string;
+  image_url: string | null;
   description: string;
   can_be_triggered: boolean;
   can_be_repeated: boolean;
@@ -54,12 +55,14 @@ export type LoyaltyState = {
   actions: Action[];
   userActions: UserActions[];
   productActions: ProductActions;
+  orderActions: Action[];
 };
 
 const initialState: LoyaltyState = {
   actions: [],
   userActions: [],
   productActions: {},
+  orderActions: [],
 };
 
 export const fetchActions = createAsyncThunk(
@@ -73,6 +76,7 @@ export const fetchActions = createAsyncThunk(
         description: "",
         can_be_triggered: true,
         can_be_repeated: true,
+        image_url: null,
         triggers: [
           {
             product_id: 1,
@@ -81,6 +85,89 @@ export const fetchActions = createAsyncThunk(
         payloads: [
           {
             new_price: 1500,
+          },
+        ],
+      },
+      {
+        id: 2,
+        company: company_id,
+        name: "",
+        description: "",
+        can_be_triggered: true,
+        can_be_repeated: true,
+        image_url: null,
+        triggers: [
+          {
+            product_id: 2,
+          },
+        ],
+        payloads: [
+          {
+            discount_amount: 500,
+          },
+        ],
+      },
+      {
+        id: 3,
+        company: company_id,
+        name: "",
+        description: "",
+        can_be_triggered: true,
+        can_be_repeated: true,
+        image_url: null,
+        triggers: [
+          {
+            product_id: 3,
+          },
+        ],
+        payloads: [
+          {
+            discount_percent: 20,
+          },
+        ],
+      },
+      {
+        id: 4,
+        company: company_id,
+        name: "",
+        description: "",
+        can_be_triggered: true,
+        can_be_repeated: true,
+        image_url: null,
+        triggers: [
+          {
+            category_id: 2,
+          },
+        ],
+        payloads: [
+          {
+            discount_percent: 10,
+          },
+        ],
+      },
+      {
+        id: 5,
+        company: company_id,
+        name: "2 пиццы и напиток",
+        description: "Закажи 2 пиццы и любой напиток и получи скидку",
+        can_be_triggered: true,
+        can_be_repeated: true,
+        image_url:
+          "https://sun6-20.userapi.com/impg/YPnQ-S8ijXFWQFc-lu_CiQ4b10UF0nc-lKLHKw/maOhcUUnIuY.jpg?size=520x0&quality=95&sign=8170db368b33d5f6935f11a3467a1c75",
+        triggers: [
+          {
+            product_lists: [
+              [1, 2, 3, 4, 5, 6, 7, 8, 9],
+              [1, 2, 3, 4, 5, 6, 7, 8, 9],
+              [1, 2, 3, 4, 5, 6, 7, 8, 9],
+              [18, 19, 20, 21, 22, 23, 24],
+              14,
+            ],
+          },
+        ],
+        payloads: [
+          {
+            new_price: 4000,
           },
         ],
       },
@@ -125,20 +212,27 @@ const loyaltySlice = createSlice({
   initialState,
   reducers: {
     setProductActions: (state, action: PayloadAction<ProductActions>) => {
-      console.log(`setProductActions: ${action.payload}`);
+      console.log(`setProductActions: ${JSON.stringify(action.payload)}`);
       state.productActions = action.payload;
+    },
+    setOrderActions: (state, action: PayloadAction<Action[]>) => {
+      state.orderActions = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchActions.fulfilled, (state, action) => {
+      console.log(`fetchActions.fulfilled: ${JSON.stringify(action.payload)}`);
       state.actions = action.payload;
     });
     builder.addCase(fetchUserActions.fulfilled, (state, action) => {
-      state.actions = action.payload;
+      console.log(
+        `fetchUserActions.fulfilled: ${JSON.stringify(action.payload)}`,
+      );
+      state.userActions = action.payload;
     });
   },
 });
 
-export const { setProductActions } = loyaltySlice.actions;
+export const { setProductActions, setOrderActions } = loyaltySlice.actions;
 
 export default loyaltySlice.reducer;

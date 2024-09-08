@@ -12,18 +12,18 @@ const ErrorPopup = () => {
 
   useEffect(() => {
     if (errorText === "") dispatch(setErrorText(null));
-  }, [errorText]);
+  }, [errorText, dispatch]);
 
   return (
     <div
       className={`fixed left-1/2 top-0 z-[1000] w-[calc(100%-40px)] -translate-x-1/2 transform transition-transform duration-500 ${
-        errorText !== null ? "translate-y-4" : "-translate-y-full"
+        errorText ? "translate-y-[20px]" : "-translate-y-full"
       }`}
     >
-      <div className="flex flex-row justify-between rounded-full bg-buttonSecondary2 px-5 py-3 shadow-lg">
+      <div className="flex flex-row justify-between rounded-[10px] border-[1px] border-error3 bg-buttonSecondary2 px-5 py-3 text-error3 shadow-lg">
         {errorText}
         <button
-          className="text-gray-500 hover:text-gray-800"
+          className="text-error3 hover:text-gray-800"
           onClick={handleClose}
         >
           &#10005;

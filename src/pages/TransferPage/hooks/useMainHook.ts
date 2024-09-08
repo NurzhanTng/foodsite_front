@@ -18,7 +18,10 @@ import {
   fetchOrders,
   OrderStatuses,
 } from "../../../store/slices/managerSlice.ts";
-import { fetchUserActions } from "../../../store/slices/loyaltySlice.ts";
+import {
+  fetchActions,
+  fetchUserActions,
+} from "../../../store/slices/loyaltySlice.ts";
 
 const useMainHook = (promo: string = "") => {
   const user = useAppSelector((state) => state.user);
@@ -118,6 +121,7 @@ const useMainHook = (promo: string = "") => {
     if (data.role === "client") {
       updateLoginTime();
       await temporaryActionAdd(data);
+      dispatch(fetchActions(1));
       dispatch(fetchUserActions(data.telegram_id));
     } else if (
       data.role === "manager" ||

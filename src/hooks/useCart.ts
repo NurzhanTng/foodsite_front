@@ -239,7 +239,10 @@ const useCart = () => {
     return;
   };
 
-  const addOneProductToCart = (product: Product) => {
+  const addOneProductToCart = (
+    product: Product,
+    price: number | null = null,
+  ) => {
     const orderProduct: OrderProduct = {
       product: product,
       active_modifier: null,
@@ -256,7 +259,7 @@ const useCart = () => {
       });
       orderProduct.active_modifier = modifiers[0].id;
     }
-    orderProduct.price = sumOneOrderProduct(orderProduct);
+    orderProduct.price = price ? price : sumOneOrderProduct(orderProduct);
 
     dispatch(addProductToCart(orderProduct));
   };

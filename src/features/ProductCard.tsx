@@ -4,6 +4,7 @@ import React, { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import useCart from "../hooks/useCart.ts";
 import currencyFormatter from "../utils/currencyFormatter.ts";
+import useActions from "../hooks/useActions.ts";
 
 type ProductCardProps = {
   product: Product;
@@ -16,24 +17,41 @@ const ProductAddButton = (product: Product) => {
     increaseProduct,
     decreaseProduct,
   } = useCart();
+  const { getProductPriceByActions, isProductHaveActions } = useActions();
+
+  const getProductPrice = (old_price: boolean = false) => {
+    return isProductHaveActions(product) && !old_price
+      ? getProductPriceByActions(product)
+      : product.price
+        ? product.price
+        : product.modifiers[0].price;
+  };
+
   const [count, typesCount] = countProductInCart(product.id);
 
   return (
     <>
       {/* Когда корзина пуста */}
-      {typesCount === 0 && (
-        <div
-          className="exclude-click rounded-[6px] bg-button py-3 text-center text-sm leading-[14px] text-white"
-          onClick={() => addOneProductToCart(product)}
-        >
-          <p>
-            {currencyFormatter(
-              product.price ? product.price : product.modifiers[0].price,
-              product.currency,
-            )}
-          </p>
-        </div>
-      )}
+      {typesCount === 0 &&
+        (isProductHaveActions(product) ? (
+          <div
+            className="exclude-click flex flex-row flex-wrap justify-evenly gap-1 rounded-[6px] bg-button py-3 text-center align-middle text-sm leading-[14px] text-white"
+            onClick={() => addOneProductToCart(product, getProductPrice())}
+          >
+            <p className="font-sm relative my-auto inline-block w-fit text-[#FF0000] after:absolute after:left-[-5%] after:top-1/2 after:block after:h-[1px] after:w-[110%] after:origin-center after:rotate-[-7deg] after:bg-current after:content-['']">
+              {currencyFormatter(getProductPrice(true), product.currency)}
+            </p>
+
+            <p>{currencyFormatter(getProductPrice(), product.currency)}</p>
+          </div>
+        ) : (
+          <div
+            className="exclude-click rounded-[6px] bg-button py-3 text-center text-sm leading-[14px] text-white"
+            onClick={() => addOneProductToCart(product)}
+          >
+            <p>{currencyFormatter(getProductPrice(), product.currency)}</p>
+          </div>
+        ))}
 
       {/* Когда в корзине 1 тип этого блюда */}
       {typesCount === 1 && (
@@ -70,6 +88,8 @@ const ProductAddButton = (product: Product) => {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const navigate = useNavigate();
+  const { getTagTextByAction } = useActions();
+  const tagText = getTagTextByAction(product);
 
   const handleClick = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
@@ -91,6 +111,15 @@ const ProductCard = ({ product }: ProductCardProps) => {
         {product.tags.map((tag, index) => (
           <ProductTag key={index} tag={tag} />
         ))}
+        {tagText && (
+          <ProductTag
+            key={-1}
+            tag={{
+              name: tagText,
+              tag_color: "#FF0000",
+            }}
+          />
+        )}
       </div>
 
       {/* Тень под блюдом */}

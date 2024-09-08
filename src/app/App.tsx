@@ -28,6 +28,7 @@ import ReceiptPage from "../pages/ReceiptPage/ui/ReceiptPage.tsx";
 import CookPage from "../pages/CookPage";
 import RunnerMainPage from "../pages/RunnerMainPage";
 import RedirectPage from "../pages/RedirectPage";
+import ComboPage from "../pages/ComboPage";
 // import HistoryWrapper from "./context/HistoryWrapper.tsx";
 
 const router = createBrowserRouter([
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
   {
     path: "/cartProduct/:product_index",
     element: <CartDishPage />,
+  },
+  {
+    path: "/combo/:action_id",
+    element: <ComboPage />,
   },
   {
     path: "/delivery",

@@ -4,9 +4,11 @@ import useCart from "../../../hooks/useCart.ts";
 import { useCallback, useEffect, useState } from "react";
 import { OrderProduct } from "../../../utils/Types.ts";
 import { addProductToCart } from "../../../store/slices/mainSlice.ts";
+import { setOrderActions } from "../../../store/slices/loyaltySlice.ts";
 
 const useMainHook = () => {
   const state = useAppSelector((state) => state.main);
+  const loyaltyState = useAppSelector((state) => state.loyalty);
   const dispatch = useAppDispatch();
   const { dishId } = useParams();
   const { getProductById, sumOneOrderProduct } = useCart();
@@ -44,17 +46,31 @@ const useMainHook = () => {
     }
   }, [dishId, getProductById, orderProduct.product, state.categories]);
 
-  const handleClick = useCallback(() => {
-    if (
-      product?.modifiers.length !== 0 &&
-      orderProduct.active_modifier === null
-    )
-      return;
-    orderProduct.price = sumOneOrderProduct(orderProduct);
-    console.log(`handleClick: ${JSON.stringify(orderProduct)}`);
-    dispatch(addProductToCart(orderProduct));
-    navigate("/menu");
-  }, [dispatch, navigate, orderProduct, product?.modifiers.length]);
+  const handleClick = useCallback(
+    (isProductOnAction: boolean, price: number) => {
+      if (
+        product?.modifiers.length !== 0 &&
+        orderProduct.active_modifier === null
+      )
+        return;
+      orderProduct.price = price;
+      const usedAction = product?.id
+        ? loyaltyState.productActions[product?.id][0]
+        : undefined;
+      if (isProductOnAction && usedAction !== undefined) {
+        orderProduct.usedAction = usedAction.id;
+        const isActionUsedBefore =
+          loyaltyState.orderActions.find(
+            (action) => action.id === usedAction.id,
+          ) !== undefined;
+        isActionUsedBefore &&
+          dispatch(setOrderActions([...loyaltyState.orderActions, usedAction]));
+      }
+      dispatch(addProductToCart(orderProduct));
+      navigate("/menu");
+    },
+    [dispatch, navigate, orderProduct, product?.modifiers.length],
+  );
 
   return {
     product,

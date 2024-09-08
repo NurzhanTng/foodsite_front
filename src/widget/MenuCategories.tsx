@@ -2,6 +2,7 @@ import React from "react";
 import { Category } from "../utils/Types.ts";
 import MenuCategory from "../features/MenuCategory.tsx";
 import { CategoryRefs } from "../hooks/useScrollEffect.ts";
+import ComboCategory from "../pages/MenuPage/ui/ComboCategory.tsx";
 
 type MenuCategoriesProps = {
   categories: Category[];
@@ -18,6 +19,7 @@ const MenuCategories = ({ categories, categoryRefs }: MenuCategoriesProps) => {
           categoryRefs={categoryRefs}
         />
       ))}
+      <ComboCategory categoryRefs={categoryRefs} />
     </div>
   );
 };

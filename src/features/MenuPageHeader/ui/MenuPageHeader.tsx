@@ -3,7 +3,7 @@ import useHeader from "../hooks/useHeader.ts";
 import Button from "../../../shared/Button.tsx";
 
 const MenuPageHeader = () => {
-  const { state, scrollToCategory, mainRef, navRef } = useHeader();
+  const { state, scrollToCategory, mainRef, navRef, combos } = useHeader();
 
   return (
     <Header myRef={mainRef}>
@@ -19,10 +19,20 @@ const MenuPageHeader = () => {
               state.activeCategory === category.id ? "primary" : "secondary"
             }
             className="cursor-default rounded-full px-3 py-2"
-            onClick={() => scrollToCategory(category)}
+            onClick={() => scrollToCategory(category.name)}
             text={category.name}
           />
         ))}
+        {combos.length !== 0 && (
+          <Button
+            key={-1}
+            id={`combo-link`}
+            styleType={state.activeCategory === -1 ? "primary" : "secondary"}
+            className="cursor-default rounded-full px-3 py-2"
+            onClick={() => scrollToCategory("Комбо")}
+            text={"Комбо"}
+          />
+        )}
       </nav>
     </Header>
   );

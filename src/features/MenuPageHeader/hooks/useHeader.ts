@@ -4,12 +4,18 @@ import { useAppSelector } from "../../../store/hooks/hooks.ts";
 
 const useHeader = () => {
   const state = useAppSelector((state) => state.main);
+  const combos = useAppSelector((state) => state.loyalty.actions).filter(
+    (action) =>
+      action.triggers.some((trigger) => trigger.product_lists !== undefined) &&
+      action.image_url !== null &&
+      action.image_url !== "",
+  );
   const navigationHeight = 100;
   const mainRef: React.MutableRefObject<HTMLElement | null> = useRef(null);
   const navRef: React.MutableRefObject<HTMLUListElement | null> = useRef(null);
 
-  const scrollToCategory = (category: Category) => {
-    const element = document.getElementById(category.name);
+  const scrollToCategory = (name: string) => {
+    const element = document.getElementById(name);
     if (element) {
       const offset = element.offsetTop - navigationHeight;
       window.scrollTo({ top: offset, behavior: "smooth" });
@@ -43,7 +49,7 @@ const useHeader = () => {
     }
   }, [state.activeCategory, state.categories]);
 
-  return { state, scrollToCategory, navRef, mainRef };
+  return { state, scrollToCategory, navRef, mainRef, combos };
 };
 
 export default useHeader;

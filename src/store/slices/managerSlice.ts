@@ -23,7 +23,7 @@ type Tags = {
   tag_color: string;
 };
 
-type Modifiers = {
+export type Modifiers = {
   id: number;
   price: number;
   currency: "KZT";

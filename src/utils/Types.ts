@@ -3,7 +3,7 @@ export type ProductTag = {
   tag_color: string;
 };
 
-type Modifiers = {
+export type Modifiers = {
   id: number;
   price: number;
   currency: "KZT";
@@ -47,4 +47,5 @@ export type OrderProduct = {
   price: number;
   amount: number;
   client_comment: string;
+  usedAction?: number;
 };

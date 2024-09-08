@@ -9,6 +9,7 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { OrderProduct } from "../../../utils/Types.ts";
 import { setCart } from "../../../store/slices/mainSlice.ts";
 import isArraysEqual from "../../../utils/isArraysEqual.ts";
+import useActions from "../../../hooks/useActions.ts";
 
 function CartDishPage() {
   const state = useAppSelector((state) => state.main);
@@ -16,6 +17,12 @@ function CartDishPage() {
   const { product_index } = useParams();
   const { sumOneOrderProduct } = useCart();
   const navigate = useNavigate();
+  const {
+    getTagTextByAction,
+    isProductHaveActions,
+    getProductModifierPriceByActions,
+    getProductPriceByActions,
+  } = useActions();
 
   const orderProductIndex = parseInt(
     product_index === undefined ? "0" : product_index,
@@ -24,62 +31,107 @@ function CartDishPage() {
     ...state.cart[orderProductIndex],
   });
 
-  const handleClick = useCallback(() => {
-    console.log(orderProduct);
-    const same_product = state.cart.findIndex((oldOrderProduct) => {
-      return (
-        oldOrderProduct.product?.id === orderProduct.product?.id &&
-        oldOrderProduct.active_modifier === orderProduct.active_modifier &&
-        isArraysEqual(
-          oldOrderProduct.additions.map((addition) => addition.id),
-          orderProduct.additions.map((addition) => addition.id),
-        ) &&
-        oldOrderProduct.product?.price === null
-      );
-    });
+  const handleClick = useCallback(
+    (price: number | null = null) => {
+      console.log(orderProduct);
+      const same_product = state.cart.findIndex((oldOrderProduct) => {
+        return (
+          oldOrderProduct.product?.id === orderProduct.product?.id &&
+          oldOrderProduct.active_modifier === orderProduct.active_modifier &&
+          isArraysEqual(
+            oldOrderProduct.additions.map((addition) => addition.id),
+            orderProduct.additions.map((addition) => addition.id),
+          ) &&
+          oldOrderProduct.product?.price === null
+        );
+      });
 
-    dispatch(
-      setCart(
-        state.cart
-          .map((oldOrderProduct, index) => {
-            if (index !== orderProductIndex) {
-              return {
-                ...oldOrderProduct,
-                price: sumOneOrderProduct({
+      dispatch(
+        setCart(
+          state.cart
+            .map((oldOrderProduct, index) => {
+              if (index !== orderProductIndex) {
+                return {
                   ...oldOrderProduct,
+                  price: sumOneOrderProduct({
+                    ...oldOrderProduct,
+                    amount:
+                      same_product === -1
+                        ? oldOrderProduct.amount
+                        : oldOrderProduct.amount + orderProduct.amount,
+                  }),
                   amount:
                     same_product === -1
                       ? oldOrderProduct.amount
                       : oldOrderProduct.amount + orderProduct.amount,
-                }),
-                amount:
-                  same_product === -1
-                    ? oldOrderProduct.amount
-                    : oldOrderProduct.amount + orderProduct.amount,
-              };
-            } else {
-              return {
-                ...orderProduct,
-                price: sumOneOrderProduct({
+                };
+              } else {
+                return {
                   ...orderProduct,
+                  price: price
+                    ? price
+                    : sumOneOrderProduct({
+                        ...orderProduct,
+                        amount: same_product === -1 ? orderProduct.amount : 0,
+                      }),
                   amount: same_product === -1 ? orderProduct.amount : 0,
-                }),
-                amount: same_product === -1 ? orderProduct.amount : 0,
-              };
-            }
-          })
-          .filter((orderProduct) => orderProduct.amount !== 0),
-      ),
-    );
-    navigate("/cart");
-  }, [dispatch, navigate, orderProduct, orderProductIndex, state.cart]);
+                };
+              }
+            })
+            .filter((orderProduct) => orderProduct.amount !== 0),
+        ),
+      );
+      navigate("/cart");
+    },
+    [dispatch, navigate, orderProduct, orderProductIndex, state.cart],
+  );
+
+  const getOrderPrice = () => {
+    if (isProductOnAction && orderProduct.product) {
+      const additionsPrice = orderProduct.additions.reduce(
+        (sum, addition) => sum + addition.price,
+        0,
+      );
+      const price =
+        orderProduct.product.modifiers.length === 0
+          ? getProductPriceByActions(orderProduct.product)
+          : orderProduct.active_modifier === null
+            ? 0
+            : getProductPriceByActions(orderProduct.product);
+      return (price + additionsPrice) * orderProduct.amount;
+    } else {
+      return sumOneOrderProduct(orderProduct);
+    }
+  };
+
+  if (orderProduct.product === undefined) {
+    navigate("/cart3");
+    return;
+  }
+
+  const isProductOnAction = isProductHaveActions(orderProduct.product);
+  const tagText = getTagTextByAction(orderProduct.product);
+  let tags = orderProduct.product.tags;
+  if (tagText) {
+    tags = [
+      ...tags,
+      {
+        name: tagText,
+        tag_color: "#FF0000",
+      },
+    ];
+  }
 
   return (
-    <div className="relative mb-[70px] min-h-[calc(100vh-70px)]">
+    <div className="relative mb-[90px] min-h-[calc(100vh-90px)]">
       {/* Абсолютные расположенные теги */}
-      <div className="absolute right-3 top-3 flex flex-col gap-2">
-        {orderProduct.product?.tags.map((tag, index) => (
-          <ProductTag className={"ml-auto px-2"} key={index} tag={tag} />
+      <div className="absolute right-5 top-5 flex flex-col gap-2">
+        {tags.map((tag, index) => (
+          <ProductTag
+            className={"ml-auto px-2 text-sm"}
+            key={index}
+            tag={tag}
+          />
         ))}
       </div>
 
@@ -134,15 +186,30 @@ function CartDishPage() {
                     }}
                   >
                     <p>{modifier.name}</p>
-                    <p
-                      className={
-                        modifier.id === orderProduct.active_modifier
-                          ? ""
-                          : "text-button"
-                      }
-                    >
-                      {currencyFormatter(modifier.price, modifier.currency)}
-                    </p>
+                    <div>
+                      {orderProduct.product && (
+                        <p
+                          className={
+                            modifier.id === orderProduct.active_modifier
+                              ? ""
+                              : "text-button"
+                          }
+                        >
+                          {currencyFormatter(
+                            getProductModifierPriceByActions(
+                              modifier,
+                              orderProduct.product,
+                            ),
+                            modifier.currency,
+                          )}
+                        </p>
+                      )}
+                      {isProductOnAction && (
+                        <p className="relative my-auto inline-block w-fit text-xs text-[#FF0000] after:absolute after:left-[-5%] after:top-1/2 after:block after:h-[1px] after:w-[110%] after:origin-center after:rotate-[-7deg] after:bg-current after:content-['']">
+                          {currencyFormatter(modifier.price, modifier.currency)}
+                        </p>
+                      )}
+                    </div>
                   </div>
                 );
               })}
@@ -231,9 +298,9 @@ function CartDishPage() {
         </div>
         <div
           className="flex-1 rounded-[6px] bg-button p-3 text-center text-sm leading-[14px] text-white"
-          onClick={handleClick}
+          onClick={() => handleClick(getOrderPrice())}
         >
-          Сохранить {currencyFormatter(sumOneOrderProduct(orderProduct))}
+          Сохранить {currencyFormatter(getOrderPrice())}
         </div>
       </div>
     </div>
