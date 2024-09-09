@@ -31,6 +31,7 @@ type CartErrors = {
 const useCart = () => {
   const state = useAppSelector((state) => state.main);
   const order = useAppSelector((state) => state.order);
+  const actions = useAppSelector((state) => state.loyalty.orderActions);
   const dispatch = useAppDispatch();
   const [showComment, setShowComment] = useState(false);
   const [showTime, setShowTime] = useState(false);
@@ -45,7 +46,11 @@ const useCart = () => {
 
   const isMargaritaAdded = (): boolean => {
     for (const cartElement of state.cart) {
-      if (cartElement.price === 0 && cartElement.product?.id === 1) {
+      if (
+        cartElement.price === 0 &&
+        cartElement.product?.id === 1 &&
+        cartElement.usedAction === undefined
+      ) {
         return true;
       }
     }
@@ -96,11 +101,7 @@ const useCart = () => {
             )
           : order.company_id === -1,
       time: time ? false : order.done_time === "" || order.done_time === null,
-      cost: cost
-        ? false
-        : state.cart.reduce((price, product) => price + product.price, 0) +
-            (order.isDelivery ? order.delivery_amount : 0) <
-          5000,
+      cost: cost ? false : sumCurrency(state.cart) < 5000,
     };
     console.log(
       `handleErrors: ${JSON.stringify(errors)} ${state.cart.reduce((price, product) => price + product.price, 0)}`,
@@ -302,7 +303,22 @@ const useCart = () => {
     let sum = 0;
     for (const orderProduct of orderProducts) {
       // sum += sumOneOrderProduct(orderProduct);
-      sum += orderProduct.price;
+      if (orderProduct.usedAction === undefined) sum += orderProduct.price;
+      else
+        sum +=
+          orderProduct.price === 0
+            ? orderProduct.additions.reduce(
+                (sum, addition) => sum + addition.price,
+                0,
+              )
+            : orderProduct.price;
+    }
+    if (!actions) return sum;
+    for (const action of actions) {
+      if (!action.payloads[0].comboProducts || !action.payloads[0].new_price)
+        continue;
+      sum +=
+        action.payloads[0].comboProducts.length * action.payloads[0].new_price;
     }
     return sum;
   };

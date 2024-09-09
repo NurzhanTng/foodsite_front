@@ -101,8 +101,8 @@ const useMainHook = (promo: string = "") => {
     dispatch(setUserData(data));
     const companies: number[] = await getUserCompanies(data.telegram_id);
     dispatch(setUserCompanies(companies));
-    console.log("User: ", data);
-    console.log("Companies: ", companies);
+    // console.log("User: ", data);
+    // console.log("Companies: ", companies);
     const routes = {
       client: "/menu",
       manager: "/orders/search",

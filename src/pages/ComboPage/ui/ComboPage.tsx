@@ -1,13 +1,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAppSelector } from "../../../store/hooks/hooks.ts";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks/hooks.ts";
 import { useEffect, useState } from "react";
 import { OrderProduct, Product } from "../../../utils/Types.ts";
 import ComboElement from "./ComboElement.tsx";
 import ComboElementPopup from "./ComboElementPopup.tsx";
 import Button from "../../../shared/Button.tsx";
 import currencyFormatter from "../../../utils/currencyFormatter.ts";
+import { setOrderActions } from "../../../store/slices/loyaltySlice.ts";
+import { addProductToCart } from "../../../store/slices/mainSlice.ts";
 
 const ComboPage = () => {
   const navigate = useNavigate();
@@ -17,11 +19,13 @@ const ComboPage = () => {
       (action) => action.id === parseInt(action_id ? action_id : ""),
     ),
   );
+  const orderActions = useAppSelector((state) => state.loyalty.orderActions);
   const products = useAppSelector((state) =>
     state.main.categories.reduce((products: Product[], category) => {
       return [...products, ...category.products];
     }, []),
   );
+  const dispatch = useAppDispatch();
   const [showPopup, setShowPopup] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [selectedProducts, setSelectedProducts] = useState<OrderProduct[]>(
@@ -50,7 +54,6 @@ const ComboPage = () => {
   );
 
   const handleOrderProductChange = (orderProduct: OrderProduct) => {
-    console.log("handleOrderProductChange");
     setSelectedProducts(
       selectedProducts.map((product, index) =>
         index === activeIndex ? orderProduct : product,
@@ -82,7 +85,57 @@ const ComboPage = () => {
     );
   };
 
-  const handleAddComboToOrder = () => {};
+  const handleAddComboToOrder = () => {
+    let newAction = orderActions?.find(
+      (action) => action.id === comboAction.id,
+    );
+
+    if (newAction === undefined) newAction = comboAction;
+
+    const payloads = [
+      ...newAction.payloads.map((value) => {
+        return { ...value };
+      }),
+    ];
+
+    if (
+      payloads[0].comboProducts?.length === 0 ||
+      payloads[0].comboProducts === undefined
+    )
+      payloads[0].comboProducts = [selectedProducts];
+    else
+      payloads[0].comboProducts = [
+        ...payloads[0].comboProducts,
+        selectedProducts,
+      ];
+
+    newAction = { ...newAction, payloads: payloads };
+
+    console.log(
+      orderActions && orderActions.length !== 0
+        ? orderActions.map((action) => {
+            return action.id === newAction?.id ? newAction : action;
+          })
+        : [newAction],
+    );
+
+    dispatch(
+      setOrderActions(
+        orderActions && orderActions.length !== 0
+          ? orderActions.map((action) => {
+              return action.id === newAction?.id ? newAction : action;
+            })
+          : [newAction],
+      ),
+    );
+    for (const selectedProduct of selectedProducts) {
+      dispatch(
+        addProductToCart({ ...selectedProduct, usedAction: newAction.id }),
+      );
+    }
+
+    navigate("/menu");
+  };
 
   return (
     <div className="relative mb-[90px] min-h-[calc(100vh-90px)]">

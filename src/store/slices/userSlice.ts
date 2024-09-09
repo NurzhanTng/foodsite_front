@@ -74,7 +74,6 @@ const userSlice = createSlice({
       state.jwt_token = initialState.jwt_token;
     },
     setUserCompanies: (state, action: PayloadAction<number[]>) => {
-      console.log("setUserCompanies", action);
       state.company_ids = action.payload;
     },
   },

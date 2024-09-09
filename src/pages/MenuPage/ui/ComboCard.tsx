@@ -3,33 +3,26 @@ import { useNavigate } from "react-router-dom";
 import { Action } from "../../../store/slices/loyaltySlice.ts";
 import useActions from "../../../hooks/useActions.ts";
 import currencyFormatter from "../../../utils/currencyFormatter.ts";
+import { useAppSelector } from "../../../store/hooks/hooks.ts";
 
 type ComboCardProps = {
   comboAction: Action;
 };
 
 const ComboAddButton = ({ comboAction }: ComboCardProps) => {
-  const isInCard = false;
+  console.log(comboAction);
+  const productsOnCart = useAppSelector(
+    (state) =>
+      state.loyalty.orderActions.find((action) => action.id === comboAction.id)
+        ?.payloads[0].comboProducts,
+  );
+  const isInCard = productsOnCart?.length !== 0;
   const price = comboAction.payloads[0].new_price;
 
   return isInCard ? (
     <div className="exclude-click flex flex-row justify-between gap-2 text-center text-sm leading-[14px] text-white md:gap-5">
-      <div
-        className="min-w-[20px] flex-1 rounded-[6px] bg-button py-3"
-        onClick={() => {}}
-      >
-        -
-      </div>
-
       <div className="flex-2 rounded-[6px] bg-bgColor2 px-3 py-3">
-        <p>{1}</p>
-      </div>
-
-      <div
-        className="min-w-[20px] flex-1 rounded-[6px] bg-button py-3"
-        onClick={() => {}}
-      >
-        +
+        <p>{productsOnCart?.length}</p>
       </div>
     </div>
   ) : (

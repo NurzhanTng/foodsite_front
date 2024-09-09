@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { OrderProduct } from "../../utils/Types.ts";
 
 type Triggers = {
   product_id?: number;
@@ -25,6 +26,7 @@ type Payloads = {
     product_ids: number[];
     new_price: number[];
   };
+  comboProducts?: OrderProduct[][] | undefined;
 };
 
 export type Action = {
@@ -172,7 +174,17 @@ export const fetchActions = createAsyncThunk(
         ],
       },
     ];
-    return actions;
+    const array: OrderProduct[][] = [];
+    return actions.map((action) =>
+      action.triggers[0].product_lists
+        ? {
+            ...action,
+            payloads: action.payloads.map((payload, index) =>
+              index === 0 ? { ...payload, comboProducts: array } : payload,
+            ),
+          }
+        : action,
+    );
 
     // const response = await fetch(
     //   import.meta.env.VITE_REACT_APP_API_BASE_URL +
@@ -191,8 +203,8 @@ export const fetchActions = createAsyncThunk(
 export const fetchUserActions = createAsyncThunk(
   "user-actions",
   async (user_id: string) => {
-    console.log(user_id);
     return [];
+    console.log(user_id);
     // const response = await fetch(
     //   import.meta.env.VITE_REACT_APP_API_BASE_URL +
     //     "loy/find_action/?user_id=" +
@@ -212,22 +224,22 @@ const loyaltySlice = createSlice({
   initialState,
   reducers: {
     setProductActions: (state, action: PayloadAction<ProductActions>) => {
-      console.log(`setProductActions: ${JSON.stringify(action.payload)}`);
+      // console.log(`setProductActions: ${JSON.stringify(action.payload)}`);
       state.productActions = action.payload;
     },
     setOrderActions: (state, action: PayloadAction<Action[]>) => {
+      console.log("setOrderActions");
+      console.log(action.payload);
       state.orderActions = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchActions.fulfilled, (state, action) => {
-      console.log(`fetchActions.fulfilled: ${JSON.stringify(action.payload)}`);
+      // console.log(`fetchActions.fulfilled: ${JSON.stringify(action.payload)}`);
       state.actions = action.payload;
     });
     builder.addCase(fetchUserActions.fulfilled, (state, action) => {
-      console.log(
-        `fetchUserActions.fulfilled: ${JSON.stringify(action.payload)}`,
-      );
+      // console.log(`fetchUserActions.fulfilled: ${JSON.stringify(action.payload)}`);
       state.userActions = action.payload;
     });
   },

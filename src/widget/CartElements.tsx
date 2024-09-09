@@ -2,19 +2,33 @@ import { useAppSelector } from "../store/hooks/hooks.ts";
 import CartElement from "../features/CartElement";
 import Button from "../shared/Button.tsx";
 import { useNavigate } from "react-router-dom";
+import ComboElement from "./ComboElement.tsx";
 
 type CartElementsProps = {
   toggleComment: () => void;
 };
 
 const CartElements = ({ toggleComment }: CartElementsProps) => {
-  const cart = useAppSelector((state) => state.main.cart);
+  const orderActions = useAppSelector((state) => state.loyalty.orderActions);
+  const comboActions = orderActions.filter(
+    (action) => action.triggers[0].product_lists !== undefined,
+  );
+  const comboIds = comboActions.map((action) => action.id);
+  const cart = useAppSelector((state) =>
+    state.main.cart.filter(
+      (value) => !(value.usedAction && comboIds.includes(value.usedAction)),
+    ),
+  );
   const comment = useAppSelector((state) => state.order.client_comment);
   const navigate = useNavigate();
 
   return (
     <div id="cart_input">
       <h3 className="text-base font-medium text-textSecondary">Ваш заказ</h3>
+
+      {comboActions.map((action, index) => {
+        return <ComboElement index={index} key={action.id} action={action} />;
+      })}
 
       {cart.map((cartElement, index) => {
         return (
@@ -27,9 +41,12 @@ const CartElements = ({ toggleComment }: CartElementsProps) => {
         );
       })}
 
-      {cart.length === 0 && (
-        <p className="mb-[20px] pt-3 text-base font-normal text-white">Пусто</p>
-      )}
+      {cart.length === 0 &&
+        !comboActions.some((action) => action.payloads[0].comboProducts) && (
+          <p className="mb-[20px] pt-3 text-base font-normal text-white">
+            Пусто
+          </p>
+        )}
 
       <Button
         type="submit"
