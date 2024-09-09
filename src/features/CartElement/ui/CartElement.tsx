@@ -4,7 +4,7 @@ import { twMerge } from "tailwind-merge";
 import ElementCounter from "./ElementCounter.tsx";
 import { useAppDispatch } from "../../../store/hooks/hooks.ts";
 import currencyFormatter from "../../../utils/currencyFormatter.ts";
-// import useCart from "../../../hooks/useCart.ts";
+import useCart from "../../../hooks/useCart.ts";
 import { useNavigate } from "react-router-dom";
 import {
   addOneToOrderProduct,
@@ -18,7 +18,7 @@ type CartElementProps = {
 };
 
 const CartElement = ({ className, element, index }: CartElementProps) => {
-  // const { sumOneOrderProduct } = useCart();
+  const { sumOneOrderProduct } = useCart();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -83,18 +83,25 @@ const CartElement = ({ className, element, index }: CartElementProps) => {
           {element.price !== 0 && (
             <ElementCounter
               id="click_ignore"
+              className="mt-auto"
               onIncrease={() => dispatch(addOneToOrderProduct(index))}
               onDecrease={() => dispatch(removeOneToOrderProduct(index))}
               count={element.amount}
             />
           )}
+          <div className="flex flex-col">
+            {element.price !== sumOneOrderProduct(element) && (
+              <p className="font-sm relative my-auto inline-block w-fit text-[#FF0000] after:absolute after:left-[-5%] after:top-1/2 after:block after:h-[1px] after:w-[110%] after:origin-center after:rotate-[-7deg] after:bg-current after:content-['']">
+                {currencyFormatter(sumOneOrderProduct(element))}
+              </p>
+            )}
 
-          <p /* Element cost */
-            className="my-auto w-fit text-base text-button "
-          >
-            {/*{currencyFormatter(sumOneOrderProduct(element))}*/}
-            {currencyFormatter(element.price)}
-          </p>
+            <p /* Element cost */
+              className="my-auto w-fit text-base text-button "
+            >
+              {currencyFormatter(element.price)}
+            </p>
+          </div>
         </div>
       </div>
     </div>

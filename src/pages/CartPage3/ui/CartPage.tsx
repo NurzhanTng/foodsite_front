@@ -9,23 +9,52 @@ import { CommentPopup, TimePopup } from "../../../features/Popups";
 import useCart from "../../../hooks/useCart.ts";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/hooks.ts";
 import { useEffect } from "react";
-import { setErrors } from "../../../store/slices/mainSlice.ts";
+import { setCart, setErrors } from "../../../store/slices/mainSlice.ts";
 import ErrorPopup from "./ErrorPopup.tsx";
 import { useNavigate } from "react-router-dom";
+import { Action } from "../../../store/slices/loyaltySlice.ts";
+import { OrderProduct } from "../../../utils/Types.ts";
 // import Footer from "./Footer.tsx";
 
 const CartPage = () => {
   const state = useAppSelector((state) => state.main);
   const orderState = useAppSelector((state) => state.order);
+  const DeliveryActions = useAppSelector((state) =>
+    state.loyalty.actions.filter(
+      (action) => action.triggers[0].isDelivery !== undefined,
+    ),
+  );
   const {
     isButtonInactive,
     deleteCartProducts,
     handleOrderClick,
     usePopup,
     sumCurrency,
+    sumOneOrderProduct,
   } = useCart();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const getPriceByDeliveryAction = (
+    action: Action,
+    orderProduct: OrderProduct,
+  ) => {
+    let productPrice = sumOneOrderProduct(orderProduct);
+
+    for (const payload of action.payloads) {
+      if (payload.new_price) {
+        productPrice = payload.new_price;
+      } else if (payload.discount_amount) {
+        productPrice =
+          Math.max(productPrice, payload.discount_amount) -
+          payload.discount_amount;
+      } else if (payload.discount_percent) {
+        productPrice *= 1 - payload.discount_percent / 100;
+      }
+    }
+
+    return productPrice;
+  };
 
   useEffect(() => {
     dispatch(
@@ -38,6 +67,37 @@ const CartPage = () => {
         time: false,
         cost: false,
       }),
+    );
+
+    console.log(DeliveryActions);
+    const action = DeliveryActions[0];
+
+    dispatch(
+      setCart(
+        state.cart.map((orderProduct) =>
+          orderProduct.usedAction === undefined
+            ? {
+                ...orderProduct,
+                price:
+                  action.triggers[0].isDelivery === orderState.isDelivery
+                    ? getPriceByDeliveryAction(action, orderProduct)
+                    : orderProduct.price,
+                usedAction:
+                  action.triggers[0].isDelivery === orderState.isDelivery
+                    ? action.id
+                    : undefined,
+              }
+            : orderProduct.usedAction === action.id
+              ? action.triggers[0].isDelivery === orderState.isDelivery
+                ? orderProduct
+                : {
+                    ...orderProduct,
+                    price: sumOneOrderProduct(orderProduct),
+                    usedAction: undefined,
+                  }
+              : orderProduct,
+        ),
+      ),
     );
   }, []);
 

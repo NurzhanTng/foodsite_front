@@ -19,6 +19,7 @@ const useActions = () => {
       .flatMap((action) =>
         action.triggers.some((trigger) => {
           return (
+            trigger.isDelivery === undefined ||
             trigger.product_id === product.id ||
             trigger.product_ids?.includes(product.id) ||
             trigger.category_id === categoryId ||
@@ -72,7 +73,14 @@ const useActions = () => {
   };
 
   const isProductHaveActions = (product: Product) => {
-    return product.id in loyaltyState.productActions;
+    return (
+      product.id in loyaltyState.productActions &&
+      loyaltyState.productActions[product.id].some(
+        (action) =>
+          action.triggers[0].isDelivery !== undefined &&
+          action.triggers[0].product_lists !== undefined,
+      )
+    );
   };
 
   const getProductPriceByActions = (product: Product) => {

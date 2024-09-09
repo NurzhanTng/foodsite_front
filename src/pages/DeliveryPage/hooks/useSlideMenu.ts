@@ -324,18 +324,19 @@ const useSlideMenu = ({
     lat: number | null = null,
     exact: string | null = null,
   ) => {
-    console.log(`-- getErrorText [${from}]--`, {
-      addressParsed: parsed === null ? orderState.address.parsed : parsed,
-      addressLong: long === null ? orderState.address.long : long,
-      addressLat: lat === null ? orderState.address.lat : lat,
-      exactAddress: orderState.exactAddress,
-      company_id: orderState.company_id,
-      checkInPolygon: checkIsInPolygon(
-        companyState.companies[0].delivery_layers[0].points,
-        [orderState.address.long, orderState.address.lat],
-      ),
-      isSearchActive: isSearchActive,
-    });
+    console.log(from);
+    // console.log(`-- getErrorText [${from}]--`, {
+    //   addressParsed: parsed === null ? orderState.address.parsed : parsed,
+    //   addressLong: long === null ? orderState.address.long : long,
+    //   addressLat: lat === null ? orderState.address.lat : lat,
+    //   exactAddress: orderState.exactAddress,
+    //   company_id: orderState.company_id,
+    //   checkInPolygon: checkIsInPolygon(
+    //     companyState.companies[0].delivery_layers[0]?.points,
+    //     [orderState.address.long, orderState.address.lat],
+    //   ),
+    //   isSearchActive: isSearchActive,
+    // });
     if (
       isDelivery && parsed === null
         ? orderState.address.parsed === ""
@@ -348,6 +349,7 @@ const useSlideMenu = ({
     }
     if (
       isDelivery &&
+      companyState.companies[0].delivery_layers[0] &&
       !checkIsInPolygon(companyState.companies[0].delivery_layers[0].points, [
         long === null ? orderState.address.long : long,
         lat === null ? orderState.address.lat : lat,

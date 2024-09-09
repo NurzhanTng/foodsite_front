@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { OrderProduct } from "../../utils/Types.ts";
 
 type Triggers = {
+  isDelivery?: boolean;
   product_id?: number;
   product_ids?: number[];
   category_id?: number;
@@ -71,82 +72,101 @@ export const fetchActions = createAsyncThunk(
   "actions",
   async (company_id: number) => {
     const actions: Action[] = [
-      {
-        id: 1,
-        company: company_id,
-        name: "",
-        description: "",
-        can_be_triggered: true,
-        can_be_repeated: true,
-        image_url: null,
-        triggers: [
-          {
-            product_id: 1,
-          },
-        ],
-        payloads: [
-          {
-            new_price: 1500,
-          },
-        ],
-      },
-      {
-        id: 2,
-        company: company_id,
-        name: "",
-        description: "",
-        can_be_triggered: true,
-        can_be_repeated: true,
-        image_url: null,
-        triggers: [
-          {
-            product_id: 2,
-          },
-        ],
-        payloads: [
-          {
-            discount_amount: 500,
-          },
-        ],
-      },
-      {
-        id: 3,
-        company: company_id,
-        name: "",
-        description: "",
-        can_be_triggered: true,
-        can_be_repeated: true,
-        image_url: null,
-        triggers: [
-          {
-            product_id: 3,
-          },
-        ],
-        payloads: [
-          {
-            discount_percent: 20,
-          },
-        ],
-      },
-      {
-        id: 4,
-        company: company_id,
-        name: "",
-        description: "",
-        can_be_triggered: true,
-        can_be_repeated: true,
-        image_url: null,
-        triggers: [
-          {
-            category_id: 2,
-          },
-        ],
-        payloads: [
-          {
-            discount_percent: 10,
-          },
-        ],
-      },
+      // {
+      //   id: 1,
+      //   company: company_id,
+      //   name: "",
+      //   description: "",
+      //   can_be_triggered: true,
+      //   can_be_repeated: true,
+      //   image_url: null,
+      //   triggers: [
+      //     {
+      //       product_id: 1,
+      //     },
+      //   ],
+      //   payloads: [
+      //     {
+      //       new_price: 1500,
+      //     },
+      //   ],
+      // },
+      // {
+      //   id: 2,
+      //   company: company_id,
+      //   name: "",
+      //   description: "",
+      //   can_be_triggered: true,
+      //   can_be_repeated: true,
+      //   image_url: null,
+      //   triggers: [
+      //     {
+      //       product_id: 2,
+      //     },
+      //   ],
+      //   payloads: [
+      //     {
+      //       discount_amount: 500,
+      //     },
+      //   ],
+      // },
+      // {
+      //   id: 3,
+      //   company: company_id,
+      //   name: "",
+      //   description: "",
+      //   can_be_triggered: true,
+      //   can_be_repeated: true,
+      //   image_url: null,
+      //   triggers: [
+      //     {
+      //       product_id: 3,
+      //     },
+      //   ],
+      //   payloads: [
+      //     {
+      //       discount_percent: 20,
+      //     },
+      //   ],
+      // },
+      // {
+      //   id: 3,
+      //   company: company_id,
+      //   name: "",
+      //   description: "",
+      //   can_be_triggered: true,
+      //   can_be_repeated: true,
+      //   image_url: null,
+      //   triggers: [
+      //     {
+      //       product_id: 3,
+      //     },
+      //   ],
+      //   payloads: [
+      //     {
+      //       discount_percent: 20,
+      //     },
+      //   ],
+      // },
+      // {
+      //   id: 4,
+      //   company: company_id,
+      //   name: "",
+      //   description: "",
+      //   can_be_triggered: true,
+      //   can_be_repeated: true,
+      //   image_url: null,
+      //   triggers: [
+      //     {
+      //       category_id: 2,
+      //     },
+      //   ],
+      //   payloads: [
+      //     {
+      //       discount_percent: 10,
+      //     },
+      //   ],
+      // },
       {
         id: 5,
         company: company_id,
@@ -170,6 +190,30 @@ export const fetchActions = createAsyncThunk(
         payloads: [
           {
             new_price: 4000,
+          },
+        ],
+      },
+      {
+        id: 9,
+        company: company_id,
+        name: "2 пиццы и напиток",
+        description: "Закажи 2 пиццы и любой напиток и получи скидку",
+        can_be_triggered: true,
+        can_be_repeated: true,
+        image_url:
+          "https://sun6-20.userapi.com/impg/YPnQ-S8ijXFWQFc-lu_CiQ4b10UF0nc-lKLHKw/maOhcUUnIuY.jpg?size=520x0&quality=95&sign=8170db368b33d5f6935f11a3467a1c75",
+        triggers: [
+          {
+            isDelivery: true,
+            product_ids: [
+              1, 2, 3, 4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+              21, 22, 23, 24, 25, 26, 27, 28,
+            ],
+          },
+        ],
+        payloads: [
+          {
+            discount_percent: 50,
           },
         ],
       },
@@ -224,7 +268,7 @@ const loyaltySlice = createSlice({
   initialState,
   reducers: {
     setProductActions: (state, action: PayloadAction<ProductActions>) => {
-      // console.log(`setProductActions: ${JSON.stringify(action.payload)}`);
+      console.log(`setProductActions: ${JSON.stringify(action.payload)}`);
       state.productActions = action.payload;
     },
     setOrderActions: (state, action: PayloadAction<Action[]>) => {
