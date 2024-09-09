@@ -19,7 +19,9 @@ const ComboAddButton = ({ comboAction }: ComboCardProps) => {
   const isInCard = productsOnCart?.length !== 0;
   const price = comboAction.payloads[0].new_price;
 
-  return isInCard ? (
+  console.log(productsOnCart?.length);
+
+  return productsOnCart && isInCard ? (
     <div className="exclude-click flex flex-row justify-between gap-2 text-center text-sm leading-[14px] text-white md:gap-5">
       <div className="flex-2 rounded-[6px] bg-bgColor2 px-3 py-3">
         <p>{productsOnCart?.length}</p>

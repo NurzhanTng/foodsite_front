@@ -181,9 +181,7 @@ export const fetchActions = createAsyncThunk(
             product_lists: [
               [1, 2, 3, 4, 5, 6, 7, 8, 9],
               [1, 2, 3, 4, 5, 6, 7, 8, 9],
-              [1, 2, 3, 4, 5, 6, 7, 8, 9],
               [18, 19, 20, 21, 22, 23, 24],
-              14,
             ],
           },
         ],
@@ -196,12 +194,15 @@ export const fetchActions = createAsyncThunk(
       {
         id: 9,
         company: company_id,
-        name: "2 пиццы и напиток",
-        description: "Закажи 2 пиццы и любой напиток и получи скидку",
+        name: "Скидка 50% на доставку",
+        description:
+          "Получите скидку 50% на все блюда на доставку при заказе в нашем онлайн-кафе! Наслаждайтесь" +
+          " любимыми блюдами, не выходя из дома, с выгодными условиями доставки. Акция действует автоматически при" +
+          " оформлении заказа через наш бот.",
         can_be_triggered: true,
         can_be_repeated: true,
         image_url:
-          "https://sun6-20.userapi.com/impg/YPnQ-S8ijXFWQFc-lu_CiQ4b10UF0nc-lKLHKw/maOhcUUnIuY.jpg?size=520x0&quality=95&sign=8170db368b33d5f6935f11a3467a1c75",
+          "https://ucarecdn.com/6d35201e-acc6-46e9-b13c-c53d3d0d170d/-/format/auto/-/preview/3000x3000/-/quality/lighter/pf-dfc945db--50sale.png",
         triggers: [
           {
             isDelivery: true,

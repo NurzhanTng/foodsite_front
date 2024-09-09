@@ -11,7 +11,7 @@ type MenuCategoriesProps = {
 
 const MenuCategories = ({ categories, categoryRefs }: MenuCategoriesProps) => {
   return (
-    <div className="mb-[30px] mt-[90px] w-full px-[10px]">
+    <div className="mb-[30px] w-full px-[10px]">
       {categories.map((category) => (
         <MenuCategory
           key={category.id}

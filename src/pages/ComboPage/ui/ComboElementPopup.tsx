@@ -138,8 +138,8 @@ const ComboElementPopup = ({
       container.addEventListener("touchstart", onTouchStart);
       container.addEventListener("touchend", onTouchEnd);
     }
-    selectedOrderProduct.product &&
-      scrollToProduct(selectedOrderProduct.product);
+    // selectedOrderProduct.product &&
+    //   scrollToProduct(selectedOrderProduct.product);
 
     return () => {
       if (container) {
@@ -182,13 +182,13 @@ const ComboElementPopup = ({
         <div
           ref={mainRef}
           onClick={handleClose}
-          className="no-scrollbar flex w-full flex-row gap-10 overflow-x-scroll scroll-smooth py-[30px]"
+          className="no-scrollbar flex w-full flex-row gap-2 overflow-x-scroll scroll-smooth px-[20px] py-[30px]"
         >
           {allProducts.map((product) => (
             <div
               key={product.id}
               id={`prod-${product.id}`}
-              className={`no-scrollbar mx-[30px] h-[calc(100vh-60px)] min-w-[calc(100vw-60px)] overflow-y-scroll rounded-[20px] bg-bgColor`}
+              className={`no-scrollbar mx-[6px] h-[calc(100vh-60px)] min-w-[calc(100vw-80px)] overflow-y-scroll rounded-[20px] bg-bgColor`}
             >
               <div
                 style={{ backgroundImage: `url(${product?.image_url})` }}

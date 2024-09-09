@@ -29,6 +29,7 @@ import CookPage from "../pages/CookPage";
 import RunnerMainPage from "../pages/RunnerMainPage";
 import RedirectPage from "../pages/RedirectPage";
 import ComboPage from "../pages/ComboPage";
+import ActionPage from "../pages/ActionPage";
 // import HistoryWrapper from "./context/HistoryWrapper.tsx";
 
 const router = createBrowserRouter([
@@ -127,6 +128,10 @@ const router = createBrowserRouter([
   {
     path: "/redirect2",
     element: <RedirectPage />,
+  },
+  {
+    path: "/action/:actionId",
+    element: <ActionPage />,
   },
   {
     path: "*",

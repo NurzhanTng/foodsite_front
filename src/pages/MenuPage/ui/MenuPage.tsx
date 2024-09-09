@@ -8,9 +8,11 @@ import useCart from "../../../hooks/useCart.ts";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import useActions from "../../../hooks/useActions.ts";
+import MenuActions from "./MenuActions.tsx";
 
 function MenuPage() {
   const state = useAppSelector((state) => state.main);
+  const actions = useAppSelector((state) => state.loyalty.actions);
   const { categoryRefs } = useScrollEffect();
   const { sumCurrency } = useCart();
   const navigate = useNavigate();
@@ -24,6 +26,7 @@ function MenuPage() {
   return (
     <>
       <MenuPageHeader />
+      <MenuActions actions={actions} />
       <MenuCategories
         categories={state.categories}
         categoryRefs={categoryRefs}
