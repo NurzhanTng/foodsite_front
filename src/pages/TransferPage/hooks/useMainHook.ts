@@ -58,6 +58,7 @@ const useMainHook = (promo: string = "") => {
   };
 
   const temporaryActionAdd = async (data: UserState) => {
+    console.log("temporaryActionAdd");
     if (data.promo !== "7pQk4Vx9Lm28NwsB3rZj") {
       return;
     }

@@ -36,15 +36,19 @@ const MenuAction = ({ action }: { action: Action }) => {
 const MenuActions = ({ actions }: { actions: Action[] }) => {
   return (
     <div className="mb-[80px] mt-[90px]">
-      <h2 className="mb-5 w-fit px-3 text-xl font-semibold">Акции</h2>
+      {actions.length !== 0 && (
+        <div className="">
+          <h2 className="mb-5 w-fit px-3 text-xl font-semibold">Акции</h2>
 
-      <div className="no-scrollbar mb-[20px] mr-3 w-full flex-row overflow-x-scroll pl-3">
-        <div className="flex flex-row">
-          {actions.map((action) => (
-            <MenuAction key={action.id} action={action} />
-          ))}
+          <div className="no-scrollbar mb-[20px] mr-3 w-full flex-row overflow-x-scroll pl-3">
+            <div className="flex flex-row">
+              {actions.map((action) => (
+                <MenuAction key={action.id} action={action} />
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

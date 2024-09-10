@@ -70,6 +70,7 @@ const CartPage = () => {
     );
 
     console.log(DeliveryActions);
+    if (DeliveryActions.length === 0) return;
     const action = DeliveryActions[0];
 
     dispatch(

@@ -130,6 +130,10 @@ const router = createBrowserRouter([
     element: <RedirectPage />,
   },
   {
+    path: "/redirect",
+    element: <RedirectPage />,
+  },
+  {
     path: "/action/:actionId",
     element: <ActionPage />,
   },
