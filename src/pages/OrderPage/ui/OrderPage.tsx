@@ -175,7 +175,10 @@ const OrderPage = () => {
                   : order.done_time.split(":").slice(0, 2).join(":")
               }
             />
-            <OrderOneLine title="Номер клиента" description={order.phone} />
+            <OrderOneLine
+              title="Номер клиента"
+              description={`+${order.phone}`}
+            />
             <OrderOneLine
               title="Доставка"
               description={
@@ -215,7 +218,10 @@ const OrderPage = () => {
           </div>
 
           <div className="flex w-full flex-col gap-2">
-            <OrderOneLine title="Номер каспи" description={order.kaspi_phone} />
+            <OrderOneLine
+              title="Номер каспи"
+              description={order.kaspi_phone.slice(1)}
+            />
 
             <OrderOneLine
               title="Стоимость заказа"
