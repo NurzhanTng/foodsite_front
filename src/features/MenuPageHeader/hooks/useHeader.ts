@@ -7,8 +7,8 @@ const useHeader = () => {
   const combos = useAppSelector((state) => state.loyalty.actions).filter(
     (action) =>
       action.triggers.some((trigger) => trigger.product_lists !== undefined) &&
-      action.image_url !== null &&
-      action.image_url !== "",
+      action.image !== null &&
+      action.image !== "",
   );
   const navigationHeight = 100;
   const mainRef: React.MutableRefObject<HTMLElement | null> = useRef(null);

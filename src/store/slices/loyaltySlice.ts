@@ -34,7 +34,7 @@ export type Action = {
   id: number;
   company: number;
   name: string;
-  image_url: string | null;
+  image: string | null;
   description: string;
   can_be_triggered: boolean;
   can_be_repeated: boolean;
@@ -70,7 +70,13 @@ const initialState: LoyaltyState = {
 
 export const fetchActions = createAsyncThunk(
   "actions",
-  async (company_id: number) => {
+  async ({
+    company_id,
+    user_id = undefined,
+  }: {
+    company_id: number;
+    user_id: string | undefined;
+  }) => {
     // const actions: Action[] = [
     //   // {
     //   //   id: 1,
@@ -231,40 +237,46 @@ export const fetchActions = createAsyncThunk(
     //     : action,
     // );
 
-    // const response = await fetch(
-    //   import.meta.env.VITE_REACT_APP_API_BASE_URL +
-    //     "loy/actions_company/" +
-    //     company_id,
-    //   {
-    //     method: "GET",
-    //   },
-    // );
-    // // return [];
-    //
-    // return response.json();
     console.log(company_id);
-    return [];
+
+    const response = await fetch(
+      import.meta.env.VITE_REACT_APP_API_BASE_URL + "loy/actions/",
+      {
+        method: "GET",
+      },
+    );
+    const data: Action[] = await response.json();
+    let filteredActions = data.filter((action) => action.can_be_triggered);
+    if (user_id !== undefined) {
+      const response2 = await fetch(
+        import.meta.env.VITE_REACT_APP_API_BASE_URL +
+          `service/user/${user_id}/actions/`,
+        {
+          method: "GET",
+        },
+      );
+      const userActions: Action[] = await response2.json();
+      filteredActions = [...filteredActions, ...userActions];
+    }
+    console.log(`fetchActions: ${filteredActions}`);
+    return filteredActions;
   },
 );
 
-export const fetchUserActions = createAsyncThunk(
-  "user-actions",
-  async (user_id: string) => {
-    return [];
-    console.log(user_id);
-    // const response = await fetch(
-    //   import.meta.env.VITE_REACT_APP_API_BASE_URL +
-    //     "loy/find_action/?user_id=" +
-    //     user_id,
-    //   {
-    //     method: "GET",
-    //   },
-    // );
-    // // return [];
-    //
-    // return response.json();
-  },
-);
+// export const fetchUserActions = createAsyncThunk(
+//   "user-actions",
+//   async (user_id: string) => {
+//     const response = await fetch(
+//       import.meta.env.VITE_REACT_APP_API_BASE_URL +
+//         `service/user/${user_id}/actions/`,
+//       {
+//         method: "GET",
+//       },
+//     );
+//
+//     return response.json();
+//   },
+// );
 
 const loyaltySlice = createSlice({
   name: "user",
@@ -282,13 +294,15 @@ const loyaltySlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchActions.fulfilled, (state, action) => {
-      // console.log(`fetchActions.fulfilled: ${JSON.stringify(action.payload)}`);
+      console.log(`fetchActions.fulfilled: ${JSON.stringify(action.payload)}`);
       state.actions = action.payload;
     });
-    builder.addCase(fetchUserActions.fulfilled, (state, action) => {
-      // console.log(`fetchUserActions.fulfilled: ${JSON.stringify(action.payload)}`);
-      state.userActions = action.payload;
-    });
+    // builder.addCase(fetchUserActions.fulfilled, (state, action) => {
+    //   console.log(
+    //     `fetchUserActions.fulfilled: ${JSON.stringify(action.payload)}`,
+    //   );
+    //   state.actions = [...state.actions, ...action.payload];
+    // });
   },
 });
 

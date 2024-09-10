@@ -156,7 +156,7 @@ const ComboPage = () => {
 
       {/* Картинка блюда */}
       <div
-        style={{ backgroundImage: `url(${comboAction.image_url})` }}
+        style={{ backgroundImage: `url(${comboAction.image})` }}
         className="mb-5 h-[300px] bg-buttonSecondary2 bg-cover bg-center shadow-image"
       />
 

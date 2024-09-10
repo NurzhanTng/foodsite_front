@@ -143,22 +143,7 @@ const useCart = () => {
       return;
     }
 
-    for (const cartElement of state.cart) {
-      if (cartElement.price === 0 && cartElement.product?.id === 1) {
-        fetch(
-          import.meta.env.VITE_REACT_APP_API_BASE_URL + `service/add_user_id/`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ user_id: `${order.client_id}` }),
-          },
-        )
-          .then(() => console.log("action used"))
-          .catch((e) => console.log("action used error", e));
-      }
-    }
+    console.log(cartToJson());
 
     setIsButtonInactive(true);
     setTimeout(() => {
@@ -384,7 +369,25 @@ const useCart = () => {
       client_comment: order.client_comment,
       bonus_amount: Math.min(sumCurrency(state.cart), order.max_bonus),
       delivery_price: order.delivery_amount,
-      actions: [],
+      actions: getOrderActions(),
+    });
+  };
+
+  const getOrderActions = () => {
+    return actions.map((action) => {
+      return {
+        ...action,
+        payloads: action.payloads.map((payload) => {
+          return {
+            ...payload,
+            comboProducts:
+              payload.comboProducts &&
+              payload.comboProducts.map((comboProduct) =>
+                comboProduct.map((product) => product.product?.id),
+              ),
+          };
+        }),
+      };
     });
   };
 

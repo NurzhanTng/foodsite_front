@@ -11,8 +11,8 @@ const MenuCategories = ({ categoryRefs }: MenuCategoriesProps) => {
   const combos = useAppSelector((state) => state.loyalty.actions).filter(
     (action) =>
       action.triggers.some((trigger) => trigger.product_lists !== undefined) &&
-      action.image_url !== null &&
-      action.image_url !== "",
+      action.image !== null &&
+      action.image !== "",
   );
 
   if (combos.length === 0) return;

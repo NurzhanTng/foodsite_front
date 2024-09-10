@@ -48,7 +48,7 @@ const ComboCard = ({ comboAction }: ComboCardProps) => {
     [navigate, comboAction],
   );
 
-  if (comboAction.image_url === null || comboAction.image_url === "")
+  if (comboAction.image === null || comboAction.image === "")
     return <div className="hidden" />;
 
   return (
@@ -63,7 +63,7 @@ const ComboCard = ({ comboAction }: ComboCardProps) => {
       <div className="h-full w-full rounded-[10px] bg-bgColor">
         {/* Картинка */}
         <div
-          style={{ backgroundImage: `url(${comboAction.image_url})` }}
+          style={{ backgroundImage: `url(${comboAction.image})` }}
           className="h-[120px] rounded-t-[10px] bg-white bg-cover bg-center sm:h-[200px]"
         />
 

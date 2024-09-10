@@ -12,7 +12,7 @@ import { useEffect } from "react";
 import { setCart, setErrors } from "../../../store/slices/mainSlice.ts";
 import ErrorPopup from "./ErrorPopup.tsx";
 import { useNavigate } from "react-router-dom";
-import { Action } from "../../../store/slices/loyaltySlice.ts";
+import { Action, setOrderActions } from "../../../store/slices/loyaltySlice.ts";
 import { OrderProduct } from "../../../utils/Types.ts";
 // import Footer from "./Footer.tsx";
 
@@ -24,6 +24,7 @@ const CartPage = () => {
       (action) => action.triggers[0].isDelivery !== undefined,
     ),
   );
+  const orderActions = useAppSelector((state) => state.loyalty.orderActions);
   const {
     isButtonInactive,
     deleteCartProducts,
@@ -100,7 +101,30 @@ const CartPage = () => {
         ),
       ),
     );
+
+    const indexOfDelivery = orderActions.findIndex(
+      (orAction) => action.id === orAction.id,
+    );
+    const areUsed = action.triggers[0].isDelivery === orderState.isDelivery;
+    if (areUsed && indexOfDelivery === -1)
+      dispatch(setOrderActions([...orderActions, action]));
+    else if (!areUsed && indexOfDelivery !== -1)
+      dispatch(
+        setOrderActions(
+          orderActions.filter((orderAction) => orderAction.id !== action.id),
+        ),
+      );
+
+    // else if (areUsed && indexOfDelivery !== -1)
+    //   continue
+    // else if (!areUsed && indexOfDelivery === -1)
+    //   continue
   }, []);
+
+  useEffect(() => {
+    console.log("orderActions");
+    console.log(orderActions);
+  }, [orderActions]);
 
   if (state.errors === undefined) return <div />;
 

@@ -18,10 +18,7 @@ import {
   fetchOrders,
   OrderStatuses,
 } from "../../../store/slices/managerSlice.ts";
-import {
-  fetchActions,
-  fetchUserActions,
-} from "../../../store/slices/loyaltySlice.ts";
+import { fetchActions } from "../../../store/slices/loyaltySlice.ts";
 
 const useMainHook = (promo: string = "") => {
   const user = useAppSelector((state) => state.user);
@@ -34,54 +31,15 @@ const useMainHook = (promo: string = "") => {
   >(null);
 
   const updateLoginTime = () => {
-    // const lastLogin = main.lastLogin;
-    // const now = new Date();
-    // const diffInMilliseconds = Math.abs(
-    //   now.getTime() - new Date(lastLogin).getTime(),
-    // );
-    // if (Math.floor(diffInMilliseconds / (1000 * 60)) > 30) {
-    //   dispatch(setCart([]));
-    // }
-    dispatch(setLoginTime(new Date().toISOString()));
-  };
-
-  const checkIsNeededToAdd = async (telegram_id: string) => {
-    const response = await fetch(
-      import.meta.env.VITE_REACT_APP_API_BASE_URL +
-        `service/check-user-id/?user_id=${telegram_id}`,
-      {
-        method: "GET",
-      },
+    const lastLogin = main.lastLogin;
+    const now = new Date();
+    const diffInMilliseconds = Math.abs(
+      now.getTime() - new Date(lastLogin).getTime(),
     );
-    const data: { exists: boolean } = await response.json();
-    return !data.exists;
-  };
-
-  const temporaryActionAdd = async (data: UserState) => {
-    console.log("temporaryActionAdd");
-    if (data.promo !== "7pQk4Vx9Lm28NwsB3rZj") {
-      return;
+    if (Math.floor(diffInMilliseconds / (1000 * 60)) > 30) {
+      dispatch(setCart([]));
     }
-    if (!(await checkIsNeededToAdd(data.telegram_id))) return;
-
-    for (const category of main.categories) {
-      const product = category.products.find((prod) => prod.id === 1);
-
-      if (product === undefined) continue;
-
-      dispatch(
-        setCart([
-          {
-            product: product,
-            active_modifier: null,
-            additions: [],
-            amount: 1,
-            price: 0,
-            client_comment: "",
-          },
-        ]),
-      );
-    }
+    dispatch(setLoginTime(new Date().toISOString()));
   };
 
   const getUserCompanies = async (user_id: string) => {
@@ -121,9 +79,7 @@ const useMainHook = (promo: string = "") => {
     dispatch(fetchCompanies());
     if (data.role === "client") {
       updateLoginTime();
-      await temporaryActionAdd(data);
-      dispatch(fetchActions(1));
-      dispatch(fetchUserActions(data.telegram_id));
+      dispatch(fetchActions({ company_id: 1, user_id: data.telegram_id }));
     } else if (
       data.role === "manager" ||
       data.role === "cook" ||

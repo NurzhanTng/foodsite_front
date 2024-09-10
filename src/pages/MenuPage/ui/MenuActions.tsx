@@ -12,7 +12,7 @@ const MenuAction = ({ action }: { action: Action }) => {
     >
       {/* Картинка */}
       <div
-        style={{ backgroundImage: `url(${action.image_url})` }}
+        style={{ backgroundImage: `url(${action.image})` }}
         className="h-[150px] w-[150px] rounded-[10px] bg-white bg-cover bg-center sm:h-[200px]"
       />
 

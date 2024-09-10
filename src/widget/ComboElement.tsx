@@ -63,7 +63,7 @@ const ComboElement = ({ className, action }: ComboElementProps) => {
         onClick={(e) => handleElementClick(e)}
       >
         <div
-          style={{ backgroundImage: `url(${action.image_url})` }}
+          style={{ backgroundImage: `url(${action.image})` }}
           className="h-[100px] min-w-[100px] rounded-[10px] bg-cover bg-center"
         />
 

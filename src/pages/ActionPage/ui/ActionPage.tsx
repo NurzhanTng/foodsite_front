@@ -17,7 +17,7 @@ const ActionPage = () => {
     <div>
       {/* Картинка */}
       <div
-        style={{ backgroundImage: `url(${action.image_url})` }}
+        style={{ backgroundImage: `url(${action.image})` }}
         className="h-[250px] rounded-[10px] bg-white bg-cover bg-center "
       />
 
