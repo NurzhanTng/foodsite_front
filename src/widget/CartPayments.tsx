@@ -9,19 +9,20 @@ import useScroll from "../hooks/useScroll.ts";
 import SelectCard from "../entities/SelectCard.tsx";
 import Switch from "../shared/Switch.tsx";
 import { useEffect } from "react";
-import useCart from "../hooks/useCart.ts";
 
 type CartPaymentsProps = {
   className?: string;
 };
 
 const CartPayments = ({ className = "" }: CartPaymentsProps) => {
-  const isActionApplied = useCart().isMargaritaAdded();
   const orderState = useAppSelector((state) => state.order);
   const userBonus = useAppSelector((state) => state.user.bonus);
   const dispatch = useAppDispatch();
   const errors = useAppSelector((state) => state.main.errors);
   const { ref, scrollToElement } = useScroll(300, 0);
+  const isActionApplied = useAppSelector((state) =>
+    state.loyalty.orderActions.some((action) => !action.can_use_bonus),
+  );
 
   useEffect(() => {
     if (isActionApplied) {
@@ -48,7 +49,7 @@ const CartPayments = ({ className = "" }: CartPaymentsProps) => {
         <Switch checked={orderState.bonus_used} onChange={() => {}} />
       </SelectCard>
 
-      {isActionApplied && (
+      {isActionApplied && userBonus !== 0 && (
         <p className="mb-[30px] text-sm font-medium leading-tight text-textSecondary">
           * бонусы невозможно использовать вместе с данной акцией. Вы сможете
           использовать бонусы в следующем заказе

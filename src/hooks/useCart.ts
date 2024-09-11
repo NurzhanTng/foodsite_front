@@ -82,6 +82,12 @@ const useCart = () => {
     time = false,
     cost = false,
   }: handleErrorsTypes) => {
+    const minCost = actions.some((action) =>
+      action.triggers.some((trigger) => trigger.isDelivery !== undefined),
+    )
+      ? 2000
+      : 5000;
+
     const errors = {
       cart: cart ? false : state.cart.length === 0,
       name: name ? false : order.user_name.length === 0,
@@ -101,7 +107,7 @@ const useCart = () => {
             )
           : order.company_id === -1,
       time: time ? false : order.done_time === "" || order.done_time === null,
-      cost: cost ? false : sumCurrency(state.cart) < 5000,
+      cost: cost ? false : sumCurrency(state.cart) < minCost,
     };
     console.log(
       `handleErrors: ${JSON.stringify(errors)} ${state.cart.reduce((price, product) => price + product.price, 0)}`,
@@ -174,13 +180,19 @@ const useCart = () => {
   };
 
   const getErrorText = (errors: CartErrors) => {
+    const minCost = actions.some((action) =>
+      action.triggers.some((trigger) => trigger.isDelivery !== undefined),
+    )
+      ? 3000
+      : 5000;
+
     if (errors.cart) return "Корзина не может быть пустой";
     if (errors.name) return "Имя не может быть пустым";
     if (errors.phone) return "Введите корректный номер телефона";
     if (errors.kaspi_phone) return "Введите корректный номер каспи";
     if (errors.address) return "Необходимо указать правильный адрес";
     if (errors.address) return "Необходимо указать время";
-    if (errors.cost) return "Минимальная сумма заказа 5000тг";
+    if (errors.cost) return `Минимальная сумма заказа ${minCost}тг`;
     return "";
   };
 
