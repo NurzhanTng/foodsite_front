@@ -30,6 +30,7 @@ import RunnerMainPage from "../pages/RunnerMainPage";
 import RedirectPage from "../pages/RedirectPage";
 import ComboPage from "../pages/ComboPage";
 import ActionPage from "../pages/ActionPage";
+import DeliveryPageTest from "../pages/NewDeliveryPage";
 // import HistoryWrapper from "./context/HistoryWrapper.tsx";
 
 const router = createBrowserRouter([
@@ -138,8 +139,12 @@ const router = createBrowserRouter([
     element: <ActionPage />,
   },
   {
+    path: "/testYandex",
+    element: <DeliveryPageTest />,
+  },
+  {
     path: "*",
-    element: <Navigate to={"/menu"} replace={true} />,
+    element: <Navigate to={"/"} replace={true} />,
   },
 ]);
 
