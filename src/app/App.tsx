@@ -30,7 +30,9 @@ import RunnerMainPage from "../pages/RunnerMainPage";
 import RedirectPage from "../pages/RedirectPage";
 import ComboPage from "../pages/ComboPage";
 import ActionPage from "../pages/ActionPage";
-import DeliveryPageTest from "../pages/NewDeliveryPage";
+import DeliveryPageTest, {
+  DeliveryPage as DeliveryPage2,
+} from "../pages/NewDeliveryPage";
 // import HistoryWrapper from "./context/HistoryWrapper.tsx";
 
 const router = createBrowserRouter([
@@ -68,6 +70,10 @@ const router = createBrowserRouter([
   },
   {
     path: "/delivery",
+    element: <DeliveryPage2 />,
+  },
+  {
+    path: "/delivery2",
     element: <DeliveryPage />,
   },
   {

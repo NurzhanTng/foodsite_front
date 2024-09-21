@@ -101,7 +101,7 @@ export const fetchActions = createAsyncThunk(
       const userActions: Action[] = await response2.json();
       filteredActions = [...filteredActions, ...userActions];
     }
-    console.log(`fetchActions: ${filteredActions}`);
+    // console.log(`fetchActions: ${filteredActions}`);
     return filteredActions;
   },
 );
@@ -126,18 +126,18 @@ const loyaltySlice = createSlice({
   initialState,
   reducers: {
     setProductActions: (state, action: PayloadAction<ProductActions>) => {
-      console.log(`setProductActions: ${JSON.stringify(action.payload)}`);
+      // console.log(`setProductActions: ${JSON.stringify(action.payload)}`);
       state.productActions = action.payload;
     },
     setOrderActions: (state, action: PayloadAction<Action[]>) => {
-      console.log("setOrderActions");
-      console.log(action.payload);
+      // console.log("setOrderActions");
+      // console.log(action.payload);
       state.orderActions = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchActions.fulfilled, (state, action) => {
-      console.log(`fetchActions.fulfilled: ${JSON.stringify(action.payload)}`);
+      // console.log(`fetchActions.fulfilled: ${JSON.stringify(action.payload)}`);
       state.actions = action.payload;
     });
     // builder.addCase(fetchUserActions.fulfilled, (state, action) => {
