@@ -149,13 +149,11 @@ const useCart = () => {
       return;
     }
 
-    console.log(cartToJson());
-    return;
-
     setIsButtonInactive(true);
     setTimeout(() => {
       setIsButtonInactive(false);
     }, 20000);
+
     fetch(import.meta.env.VITE_REACT_APP_API_BASE_URL + `food/orders/`, {
       method: "POST",
       headers: {
