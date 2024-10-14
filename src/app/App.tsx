@@ -11,7 +11,6 @@ import CartPage from "../pages/CartPage";
 import CartPage2 from "../pages/CartPage2";
 import CartPage3 from "../pages/CartPage3";
 import CartDishPage from "../pages/CartDishPage";
-import DeliveryPage from "../pages/DeliveryPage";
 import ManagerMainPage from "../pages/ManagerMainPage";
 import OrderPage from "../pages/OrderPage";
 import OrderSearchPage from "../pages/OrderSearchPage";
@@ -71,10 +70,6 @@ const router = createBrowserRouter([
   {
     path: "/delivery",
     element: <DeliveryPage2 />,
-  },
-  {
-    path: "/delivery2",
-    element: <DeliveryPage />,
   },
   {
     path: "/orders",

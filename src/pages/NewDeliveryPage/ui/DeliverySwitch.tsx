@@ -21,7 +21,7 @@ const DeliverySwitch = ({ isDelivery, setIsDelivery, className }: DeliverySwitch
 
       <Button
         className="py-auto h-10 rounded-full px-5"
-        text="С собой"
+        text="В заведении / с собой"
         showIcon={true}
         iconType="humanWalk"
         styleType={!isDelivery ? "primary" : "secondary"}
