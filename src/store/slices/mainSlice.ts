@@ -5,6 +5,7 @@ import _fetchCategories from "../../utils/fetchCategories.ts";
 
 export type MainState = {
   lastLogin: string;
+  orderId: number | null,
   categories: Category[];
   activeCategory: number | null;
   cart: OrderProduct[];
@@ -23,6 +24,7 @@ export type MainState = {
 
 const initialState: MainState = {
   lastLogin: "",
+  orderId: null,
   categories: [],
   activeCategory: 0,
   cart: [],
@@ -109,6 +111,10 @@ const mainSlice = createSlice({
       state.errorText = action.payload;
     },
 
+    setOrderId: (state, action: PayloadAction<number | null>) => {
+      state.orderId = action.payload;
+    },
+
     clearState: (state) => {
       state.lastLogin = initialState.lastLogin;
       state.categories = initialState.categories;
@@ -117,6 +123,7 @@ const mainSlice = createSlice({
       state.isParamsCartUpdated = initialState.isParamsCartUpdated;
       state.errors = initialState.errors;
       state.errorText = initialState.errorText;
+      state.orderId = initialState.orderId;
     },
   },
   extraReducers: (builder) => {
@@ -137,6 +144,7 @@ export const {
   setErrors,
   setErrorText,
   clearState,
+  setOrderId
 } = mainSlice.actions;
 
 export default mainSlice.reducer;

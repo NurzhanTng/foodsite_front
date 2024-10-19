@@ -32,6 +32,7 @@ import ActionPage from "../pages/ActionPage";
 import DeliveryPageTest, {
   DeliveryPage as DeliveryPage2,
 } from "../pages/NewDeliveryPage";
+import KaspiPaymentPage from "../pages/KaspiPaymentPage";
 // import HistoryWrapper from "./context/HistoryWrapper.tsx";
 
 const router = createBrowserRouter([
@@ -142,6 +143,10 @@ const router = createBrowserRouter([
   {
     path: "/testYandex",
     element: <DeliveryPageTest />,
+  },
+  {
+    path: "/kaspiTest",
+    element: <KaspiPaymentPage />,
   },
   {
     path: "*",
