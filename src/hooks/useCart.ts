@@ -358,7 +358,7 @@ const useCart = () => {
       bonus_used: order.bonus_used,
       user_name: order.user_name,
       address: { ...order.address, exact_address: order.exactAddress },
-      company_id: order.company_id,
+      company: order.company_id,
       done_time: order.done_time,
       exact_address: order.exactAddress,
       phone: order.phone,

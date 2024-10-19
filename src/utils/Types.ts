@@ -21,7 +21,8 @@ type Additions = {
 
 export type Product = {
   id: number;
-  category_id: number;
+  category: number;
+  company: number;
   image_url: string;
   name: string;
   description: string | null;
