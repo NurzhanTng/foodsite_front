@@ -35,7 +35,7 @@ const KaspiPaymentPage: React.FC = () => {
         );
         const response = await fetch(
           import.meta.env.VITE_REACT_APP_API_BASE_URL +
-            `food/newPayment/${orderId}/`,
+          `food/newPayment/${orderId}/`,
         );
 
         if (!response.ok) {
@@ -43,7 +43,7 @@ const KaspiPaymentPage: React.FC = () => {
         }
 
         const data: PaymentStatus = await response.json();
-        console.log(data)
+        console.log(data);
 
         // Проверка, что получены нужные данные
         if (data && data.qr_link) {
@@ -67,7 +67,6 @@ const KaspiPaymentPage: React.FC = () => {
       dispatch(orderSliceClear());
       dispatch(timerSliceClear());
       dispatch(userSliceClear());
-      window.location.href = `https://pay.kaspi.kz/pay/${qrLink}`;
     }
   }, [dispatch, qrLink]);
 
@@ -78,7 +77,21 @@ const KaspiPaymentPage: React.FC = () => {
         {!qrLink ? (
           <p className="text-gray-500">Ожидание...</p>
         ) : (
-          <p className="text-green-500">Перенаправление на Kaspi...</p>
+          <>
+            <p className="text-green-500 mb-4">Заказ сохранен. Нажмите на кнопку ниже для оплаты через Kaspi:</p>
+            <a
+              href={`https://pay.kaspi.kz/pay/${qrLink}`}
+              className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600"
+            >
+              Открыть в Kaspi
+            </a>
+            <a
+              href={`kaspikz://pay/${qrLink}`}
+              className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600"
+            >
+              Открыть в Kaspi 2
+            </a>
+          </>
         )}
       </div>
     </div>
