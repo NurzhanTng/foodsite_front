@@ -2,15 +2,20 @@ import { useAppDispatch, useAppSelector } from "../store/hooks/hooks.ts";
 import { Product, OrderProduct } from "../utils/Types.ts";
 import {
   addOneToOrderProduct,
-  addProductToCart,
+  addProductToCart, clearState as mainSliceClear,
   removeOneToOrderProduct,
   setCart,
   setErrors,
   setErrorText,
-  setIsParamsCartUpdated, setOrderId
+  setIsParamsCartUpdated
 } from "../store/slices/mainSlice.ts";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { clearState as companySliceClear } from "../store/slices/companySlice.ts";
+import { clearState as clientOrderSliceClear } from "../store/slices/clientOrderSlice.ts";
+import { clearState as managerSliceClear } from "../store/slices/managerSlice.ts";
+import { clearState as orderSliceClear } from "../store/slices/orderSlice.ts";
+import { deleteAllTimers as timerSliceClear } from "../store/slices/timerSlice.ts";
+import { clearState as userSliceClear } from "../store/slices/userSlice.ts";
 
 type CartErrors = {
   cart: boolean;
@@ -27,7 +32,6 @@ const useCart = () => {
   const order = useAppSelector((state) => state.order);
   const actions = useAppSelector((state) => state.loyalty.orderActions);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const [showComment, setShowComment] = useState(false);
   const [showTime, setShowTime] = useState(false);
   const [isButtonInactive, setIsButtonInactive] = useState(false);
@@ -158,9 +162,17 @@ const useCart = () => {
     })
       .then(async (data) => {
         if (!(data.status >= 200 && data.status < 300)) return;
-        const order: {id: number} = await data.json()
-        dispatch(setOrderId(order.id))
-        navigate('/kaspiTest')
+        dispatch(mainSliceClear());
+        dispatch(companySliceClear());
+        dispatch(clientOrderSliceClear());
+        dispatch(managerSliceClear());
+        dispatch(orderSliceClear());
+        dispatch(timerSliceClear());
+        dispatch(userSliceClear());
+      })
+      .then(() => {
+        const tg = window.Telegram.WebApp;
+        tg.close();
       })
       .catch((err) => console.log("Error: " + err));
   };
