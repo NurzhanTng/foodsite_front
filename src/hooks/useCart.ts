@@ -106,7 +106,7 @@ const useCart = () => {
             )
           : order.company_id === -1,
       time: time ? false : order.done_time === "" || order.done_time === null,
-      cost: cost ? false : sumCurrency(state.cart) < minCost,
+      cost: cost ? false : sumCurrency(state.cart) < minCost && sumCurrency(state.cart) > 10,
     };
     console.log(
       `handleErrors: ${JSON.stringify(errors)} ${state.cart.reduce((price, product) => price + product.price, 0)}`,
