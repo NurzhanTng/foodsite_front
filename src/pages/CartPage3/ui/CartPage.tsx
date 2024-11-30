@@ -151,7 +151,7 @@ const CartPage = () => {
         <CartElements toggleComment={usePopup.toggleComment} />
         {/*<CartAdditions />*/}
         {/*<CartAddressAndTime toggleTime={usePopup.toggleTime} />*/}
-        <CartPayments />
+        {/*<CartPayments />*/}
         <CartPrice />
       </form>
       {/*<Footer />*/}

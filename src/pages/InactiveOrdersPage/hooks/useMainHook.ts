@@ -48,9 +48,9 @@ const useMainHook = () => {
   const [orders, setOrders] = useState<Orders[]>([]);
 
   useEffect(() => {
-    const bot_id = window.Telegram.WebApp?.initDataUnsafe?.user?.id;
-    const params_id = searchParams.get("telegram_id");
-    const telegram_id = String(bot_id ? bot_id : params_id);
+    const telegram_id = searchParams.get("telegram_id");
+    if (telegram_id === null) return;
+
     fetchOrders(telegram_id).then((data) => {
       console.log("Orders: ", data);
       console.log("telegram_id: ", telegram_id);
@@ -59,9 +59,7 @@ const useMainHook = () => {
   }, []);
 
   const getLink = (generalLink: string) => {
-    const bot_id = window.Telegram.WebApp?.initDataUnsafe?.user?.id;
-    const params_id = searchParams.get("telegram_id");
-    return bot_id ? generalLink : `${generalLink}?telegram_id=${params_id}`;
+    return `${generalLink}?telegram_id=${searchParams.get("telegram_id")}`;
   };
 
   return { navigate, orders, getLink };

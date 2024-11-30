@@ -32,8 +32,6 @@ export type OrderAddress = {
   exact_address: string;
 };
 
-const tg = window?.Telegram?.WebApp;
-
 const useSlideMenu = ({
   setErrorText,
   isDelivery,
@@ -103,7 +101,6 @@ const useSlideMenu = ({
     const handleTouchMove = (event: TouchEvent) => {
       event.preventDefault();
       if (!active) return;
-      if (!tg.isExpanded) tg.expand;
       const deltaY = event.touches[0].clientY - startCoords;
       const newHeight = startHeight - deltaY;
       setHeight(Math.min(Math.max(newHeight, getHeight(0)), getHeight(2)));

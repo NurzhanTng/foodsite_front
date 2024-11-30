@@ -1,9 +1,6 @@
-import { useAppDispatch, useAppSelector } from "../store/hooks/hooks.ts";
+import { useAppSelector } from "../store/hooks/hooks.ts";
 import Input from "../shared/Input.tsx";
-import { setUserName, setUserPhone } from "../store/slices/orderSlice.ts";
-import formatPhoneNumber from "../utils/formatPhoneNumber.ts";
 import { twMerge } from "tailwind-merge";
-import { setErrors } from "../store/slices/mainSlice.ts";
 import { useEffect } from "react";
 import useScroll from "../hooks/useScroll.ts";
 
@@ -14,13 +11,13 @@ type CartAdditionsProps = {
 const CartAdditions = ({ className = "" }: CartAdditionsProps) => {
   // const state = useAppSelector((state) => state.main);
   const orderState = useAppSelector((state) => state.order);
-  const dispatch = useAppDispatch();
   const errors = useAppSelector((state) => state.main.errors);
   const nameScroll = useScroll(100);
   const phoneScroll = useScroll(100);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    console.log(orderState)
   }, []);
 
   return (
@@ -31,45 +28,28 @@ const CartAdditions = ({ className = "" }: CartAdditionsProps) => {
 
       <Input
         id="name_input"
+        disabled={true}
         ref={nameScroll.ref}
-        onClick={() => nameScroll.scrollToElement()}
         isCorrect={!errors.name}
         aria-required={true}
         aria-valuemin={3}
         type="text"
         className="mb-2"
-        label="Введите ваше имя"
-        onChange={(event) => {
-          if (errors.name) dispatch(setErrors({ ...errors, name: false }));
-          dispatch(setUserName(event.target.value));
-        }}
+        label="Ваше имя"
         value={orderState.user_name}
       />
 
       <Input
         id="phone_input"
+        disabled={true}
         ref={phoneScroll.ref}
-        onClick={() => phoneScroll.scrollToElement()}
         isCorrect={!errors.phone}
         aria-required={true}
         aria-valuemin={10}
         inputMode="tel"
         type="tel"
-        label="Введите номер для связи"
-        onChange={(event) => {
-          dispatch(setErrors({ ...errors, phone: false }));
-          dispatch(setUserPhone(event.target.value.replace(/\D/g, "")));
-          if (event.target.value.replace(/\D/g, "").length < 11) return;
-
-          event.target.setAttribute("readonly", "readonly");
-          event.target.setAttribute("disabled", "true");
-          setTimeout(function () {
-            event.target.blur();
-            event.target.removeAttribute("readonly");
-            event.target.removeAttribute("disabled");
-          }, 100);
-        }}
-        value={formatPhoneNumber(orderState.phone)}
+        label="Ваш номер для связи"
+        value={orderState.phone}
       />
     </div>
   );

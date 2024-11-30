@@ -69,14 +69,13 @@ const orderSlice = createSlice({
       const data = action.payload;
       state.client_id = data.telegram_id;
       state.user_name = data.telegram_fullname;
-      state.phone = data.phone;
-      state.kaspi_phone = data.kaspi_phone;
       state.max_bonus = data.bonus;
     },
     setUserName: (state, action: PayloadAction<string>) => {
       state.user_name = action.payload;
     },
     setUserPhone: (state, action: PayloadAction<string>) => {
+      console.log(`set User Phone: ${action.payload}`)
       state.phone = action.payload;
     },
     setAddress: (

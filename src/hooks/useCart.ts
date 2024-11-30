@@ -170,10 +170,6 @@ const useCart = () => {
         dispatch(timerSliceClear());
         dispatch(userSliceClear());
       })
-      .then(() => {
-        const tg = window.Telegram.WebApp;
-        tg.close();
-      })
       .catch((err) => console.log("Error: " + err));
   };
 

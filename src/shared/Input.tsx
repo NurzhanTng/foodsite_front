@@ -21,12 +21,14 @@ const Input = forwardRef(
       onClick,
       onFocus,
       onBlur,
+      disabled = false,
     }: InputProps,
     ref: ForwardedRef<HTMLInputElement> | undefined,
   ) => {
     return (
       <div id={id} ref={ref} className={className}>
         <TextField
+          disabled={disabled}
           multiline={multiline}
           type={type}
           value={value}

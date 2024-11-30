@@ -8,9 +8,6 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { persistor, store } from "./store/store.ts";
 import { PersistGate } from "redux-persist/integration/react";
 
-const tg = window.Telegram.WebApp;
-tg.expand();
-
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>

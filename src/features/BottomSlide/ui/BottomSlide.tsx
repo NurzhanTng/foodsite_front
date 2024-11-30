@@ -7,8 +7,6 @@ type BottomSlideProps = React.ButtonHTMLAttributes<HTMLDivElement> & {
   isAnimating: boolean;
 };
 
-const tg = window.Telegram.WebApp;
-
 const BottomSlide = ({
   className,
   children,
@@ -108,7 +106,6 @@ const BottomSlide = ({
     const handleTouchMove = (event: TouchEvent) => {
       event.preventDefault();
       if (!active || isAnimating) return;
-      if (!tg.isExpanded) tg.expand;
       const deltaY = event.touches[0].clientY - startCoords;
       const newHeight = startHeight - deltaY;
       setHeight(Math.min(Math.max(newHeight, getHeight(0)), getHeight(2)));

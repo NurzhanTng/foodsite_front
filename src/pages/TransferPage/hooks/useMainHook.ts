@@ -6,7 +6,7 @@ import {
   UserState,
 } from "../../../store/slices/userSlice.ts";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/hooks.ts";
-import { setUserData } from "../../../store/slices/orderSlice.ts";
+import { setKaspiPhone, setUserData, setUserName, setUserPhone } from "../../../store/slices/orderSlice.ts";
 import {
   fetchCategories,
   setCart,
@@ -131,18 +131,18 @@ const useMainHook = (promo: string = "") => {
 
   const fetchData = () => {
     setErrorType(null);
-    const bot_id = window.Telegram.WebApp?.initDataUnsafe?.user?.id;
-    const params_id = searchParams.get("telegram_id");
-    const telegram_id = bot_id ? bot_id : params_id;
+    const telegram_id = searchParams.get("telegram_id");
+    const phone = searchParams.get("phone");
+    const name = searchParams.get("name");
 
-    if (telegram_id === null) {
+    if (telegram_id === null || phone === null || name === null) {
       setErrorType("unauthorised");
       return;
     }
 
     const postData = {
       telegram_id: `${telegram_id}`,
-      telegram_fullname: "-|- error -|- error -|-",
+      telegram_fullname: name,
       promo: promo,
     };
 
@@ -161,6 +161,11 @@ const useMainHook = (promo: string = "") => {
         return response.json();
       })
       .then((data: UserState) => {
+        console.log(phone)
+        console.log(name)
+        dispatch(setUserPhone(phone));
+        dispatch(setUserName(name));
+        dispatch(setKaspiPhone(phone))
         updateGeneralData(data);
       })
       .catch((error) => {
@@ -175,7 +180,6 @@ const useMainHook = (promo: string = "") => {
     dispatch,
     navigate,
     searchParams,
-    window.Telegram.WebApp?.initDataUnsafe?.user?.id,
   ]);
 
   return { user, navigate, errorType, fetchData };
