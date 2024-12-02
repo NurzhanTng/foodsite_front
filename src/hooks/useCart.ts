@@ -1,13 +1,14 @@
 import { useAppDispatch, useAppSelector } from "../store/hooks/hooks.ts";
-import { Product, OrderProduct } from "../utils/Types.ts";
+import { OrderProduct, Product } from "../utils/Types.ts";
 import {
   addOneToOrderProduct,
-  addProductToCart, clearState as mainSliceClear,
+  addProductToCart,
+  clearState as mainSliceClear,
   removeOneToOrderProduct,
   setCart,
   setErrors,
   setErrorText,
-  setIsParamsCartUpdated
+  setIsParamsCartUpdated,
 } from "../store/slices/mainSlice.ts";
 import { useState } from "react";
 import { clearState as companySliceClear } from "../store/slices/companySlice.ts";
@@ -106,7 +107,9 @@ const useCart = () => {
             )
           : order.company_id === -1,
       time: time ? false : order.done_time === "" || order.done_time === null,
-      cost: cost ? false : sumCurrency(state.cart) < minCost && sumCurrency(state.cart) > 10,
+      cost: cost
+        ? false
+        : sumCurrency(state.cart) < minCost && sumCurrency(state.cart) > 10,
     };
     console.log(
       `handleErrors: ${JSON.stringify(errors)} ${state.cart.reduce((price, product) => price + product.price, 0)}`,
@@ -169,6 +172,9 @@ const useCart = () => {
         dispatch(orderSliceClear());
         dispatch(timerSliceClear());
         dispatch(userSliceClear());
+      })
+      .then(() => {
+        window.location.href = import.meta.env.VITE_REACT_APP_API_BOT_URL;
       })
       .catch((err) => console.log("Error: " + err));
   };

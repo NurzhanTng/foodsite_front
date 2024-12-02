@@ -1,5 +1,5 @@
 import { useAppSelector } from "../../../store/hooks/hooks.ts";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Header from "../../../entities/Header.tsx";
 import OrderOneLine from "../../OrderPage/ui/OrderOneLine.tsx";
 import currencyFormatter from "../../../utils/currencyFormatter.ts";
@@ -10,6 +10,11 @@ import { setCart } from "../../../store/slices/mainSlice.ts";
 import { setUserData } from "../../../store/slices/orderSlice.ts";
 import { useDispatch } from "react-redux";
 import { Orders } from "../../../store/slices/managerSlice.ts";
+import {
+  clearState,
+  setClientOrder,
+} from "../../../store/slices/clientOrderSlice.ts";
+import { useEffect } from "react";
 
 const ClientOrderPage = () => {
   const { from, order } = useAppSelector((state) => state.clientOrder);
@@ -17,30 +22,60 @@ const ClientOrderPage = () => {
   const { getProductById } = useCart();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
-  // const sumOneOrderProduct = (order: Orders, product: Product) => {
-  //   if (!product) return 0;
-  //
-  //   let price = 0;
-  //   if (
-  //     order.products
-  //     product.price === null ||
-  //     product.price === undefined ||
-  //     product.price === 0 ||
-  //     product.modifiers.length !== 0
-  //   ) {
-  //     if (orderProduct.active_modifier !== null) {
-  //       price =
-  //         orderProduct.product.modifiers.find(
-  //           (modifier) => modifier.id === orderProduct.active_modifier
-  //         )?.price || 0;
-  //     }
-  //   } else {
-  //     price = orderProduct.product.price;
-  // }
+  const telegramId = searchParams.get("telegram_id");
+  const orderId = searchParams.get("order_id");
+
+  useEffect(() => {
+    console.log(order);
+    console.log(from);
+
+    const notFromPage = from === "" && order === null;
+
+    if (
+      notFromPage ||
+      (telegramId === null && orderId === null) ||
+      (order !== null && order.client_id !== telegramId)
+    ) {
+      console.log("Выход с сайта");
+      console.log(from === "" && order === null);
+      console.log(telegramId === null && orderId === null);
+      console.log(order !== null && order.client_id !== telegramId);
+
+      dispatch(clearState());
+      window.location.href = import.meta.env.VITE_REACT_APP_API_BOT_URL;
+      return;
+    }
+
+    if (
+      order === null ||
+      (orderId !== null && parseInt(orderId) !== order.id)
+    ) {
+      fetch(
+        `${import.meta.env.VITE_REACT_APP_API_BASE_URL}food/orders/${orderId}/`,
+      )
+        .then((response) => {
+          if (!response.ok) {
+            return Promise.reject(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          dispatch(clearState());
+          dispatch(setClientOrder({ order: data, from: "" }));
+        })
+        .catch((error) => {
+          dispatch(clearState());
+          console.error(error);
+          window.location.href = import.meta.env.VITE_REACT_APP_API_BOT_URL;
+        });
+    }
+  }, [dispatch, order]);
 
   const handleRepeatButton = (order: Orders | null) => {
     if (order === null) return;
+    dispatch(clearState());
     dispatch(
       setCart(
         order.products.map((order_product) => {
@@ -74,8 +109,14 @@ const ClientOrderPage = () => {
   };
 
   const handleBackButton = () => {
+    if (from === "") {
+      window.location.href = import.meta.env.VITE_REACT_APP_API_BOT_URL;
+      return;
+    }
     navigate(from);
   };
+
+  if (order === null) return <div/>
 
   return (
     <div>
@@ -256,7 +297,7 @@ const ClientOrderPage = () => {
         <Button
           className="mt-5 w-full"
           styleType="outline"
-          text="Открыть"
+          text="Повторить"
           onClick={() => handleRepeatButton(order)}
         />
 

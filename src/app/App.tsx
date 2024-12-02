@@ -33,6 +33,7 @@ import DeliveryPageTest, {
   DeliveryPage as DeliveryPage2,
 } from "../pages/NewDeliveryPage";
 import KaspiPaymentPage from "../pages/KaspiPaymentPage";
+import WaRedirectPage from "../pages/WaRedirectPage/ui/WaRedirectPage.tsx";
 // import HistoryWrapper from "./context/HistoryWrapper.tsx";
 
 const router = createBrowserRouter([
@@ -147,6 +148,10 @@ const router = createBrowserRouter([
   {
     path: "/kaspiTest",
     element: <KaspiPaymentPage />,
+  },
+  {
+    path: "/wa/:wa_number",
+    element: <WaRedirectPage />,
   },
   {
     path: "*",
