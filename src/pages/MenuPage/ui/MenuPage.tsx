@@ -33,7 +33,7 @@ function MenuPage() {
       />
       <Button
         className={"fixed bottom-0 h-[50px] w-full rounded-none"}
-        onClick={() => navigate("/cart2")}
+        onClick={() => navigate("/cart3")}
         text={`Корзина: ${currencyFormatter(sumCurrency(state.cart))}`}
       />
     </>

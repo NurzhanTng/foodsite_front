@@ -6,7 +6,14 @@ import {
   UserState,
 } from "../../../store/slices/userSlice.ts";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/hooks.ts";
-import { setKaspiPhone, setUserData, setUserName, setUserPhone } from "../../../store/slices/orderSlice.ts";
+import {
+  setCompanyId,
+  setIsDelivery,
+  setKaspiPhone,
+  setUserData,
+  setUserName,
+  setUserPhone
+} from "../../../store/slices/orderSlice.ts";
 import {
   fetchCategories,
   setCart,
@@ -166,6 +173,8 @@ const useMainHook = (promo: string = "") => {
         dispatch(setUserPhone(phone));
         dispatch(setUserName(name));
         dispatch(setKaspiPhone(phone))
+        dispatch(setIsDelivery(false));
+        dispatch(setCompanyId(1));
         updateGeneralData(data);
       })
       .catch((error) => {

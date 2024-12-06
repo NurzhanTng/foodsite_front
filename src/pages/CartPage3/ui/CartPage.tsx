@@ -1,7 +1,6 @@
 // import Cashback from "../../../shared/Cashback.tsx";
 import CartPageHeader from "./CartPageHeader.tsx";
 import CartElements from "../../../widget/CartElements.tsx";
-import CartPayments from "../../../widget/CartPayments.tsx";
 import Button from "../../../shared/Button.tsx";
 import currencyFormatter from "../../../utils/currencyFormatter.ts";
 import CartPrice from "../../../widget/CartPrice.tsx";
@@ -14,9 +13,13 @@ import ErrorPopup from "./ErrorPopup.tsx";
 import { useNavigate } from "react-router-dom";
 import { Action, setOrderActions } from "../../../store/slices/loyaltySlice.ts";
 import { OrderProduct } from "../../../utils/Types.ts";
+import CartAdditions from "../../../widget/CartAdditions.tsx";
+import Icon from "../../../shared/Icon";
+import SelectCard from "../../../entities/SelectCard.tsx";
 // import Footer from "./Footer.tsx";
 
 const CartPage = () => {
+  const errors = useAppSelector((state) => state.main.errors);
   const state = useAppSelector((state) => state.main);
   const orderState = useAppSelector((state) => state.order);
   const DeliveryActions = useAppSelector((state) =>
@@ -149,6 +152,25 @@ const CartPage = () => {
       >
         {/*<Cashback amount={10000} cashback={7} />*/}
         <CartElements toggleComment={usePopup.toggleComment} />
+        <CartAdditions />
+
+        <SelectCard
+          id="time_input"
+          leftIcon="clock"
+          name={
+            orderState.done_time === null || orderState.done_time === ""
+              ? "Время приготовления"
+              : orderState.done_time === "00:00"
+                ? "Как можно скорее"
+                : orderState.done_time
+          }
+          isError={errors.time}
+          description={orderState.done_time ? "Время приготовления" : ""}
+          onClick={usePopup.toggleTime}
+        >
+          <Icon className="my-auto h-5 w-5" type="arrowRight" />
+        </SelectCard>
+
         {/*<CartAdditions />*/}
         {/*<CartAddressAndTime toggleTime={usePopup.toggleTime} />*/}
         {/*<CartPayments />*/}
@@ -158,13 +180,13 @@ const CartPage = () => {
       <div className="fixed bottom-0 left-0 z-10 flex w-full flex-col gap-[2px] bg-bgColor2">
         <Button
           type="submit"
-          onClick={() => navigate("/cart2")}
+          onClick={() => navigate("/menu")}
           disabled={isButtonInactive}
           styleType={isButtonInactive ? "inactive" : "primary"}
           showIcon={true}
           iconType="arrowLeft"
           className={"h-[50px] w-full rounded-none"}
-          text={`Данные заказа`}
+          text={`Открыть меню`}
         />
 
         <Button
