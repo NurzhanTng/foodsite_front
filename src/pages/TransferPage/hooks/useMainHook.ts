@@ -174,7 +174,7 @@ const useMainHook = (promo: string = "") => {
         dispatch(setUserName(name));
         dispatch(setKaspiPhone(phone))
         dispatch(setIsDelivery(false));
-        dispatch(setCompanyId(1));
+        dispatch(setCompanyId(3));
         updateGeneralData(data);
       })
       .catch((error) => {
