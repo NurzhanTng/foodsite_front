@@ -85,8 +85,8 @@ const useCart = () => {
     const minCost = actions.some((action) =>
       action.triggers.some((trigger) => trigger.isDelivery !== undefined),
     )
-      ? 2000
-      : 5000;
+      ? 3000
+      : 3000;
 
     const errors = {
       cart: cart ? false : state.cart.length === 0,
