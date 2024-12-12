@@ -183,7 +183,7 @@ const OrderPage = () => {
               title="Доставка"
               description={
                 order?.is_delivery
-                  ? `${order?.address?.parsed} ${order?.exact_address}`
+                  ? `${order?.address?.parsed} ${order?.exact_address !== null ? order?.exact_address : ''}`
                   : "Самовывоз"
               }
             />
@@ -396,8 +396,7 @@ const OrderPage = () => {
         )}
 
         {order.is_delivery &&
-          order.address?.lat &&
-          ["manager_await", "payment_await"].includes(order?.status) && (
+          ["manager_await", "payment_await", "done"].includes(order?.status) && (
             <Button
               className="mt-5 w-full"
               styleType="outline"

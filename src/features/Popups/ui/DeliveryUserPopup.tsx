@@ -29,13 +29,12 @@ const DeliveryUserPopup = ({
       <Icon type="magnifier" className="mx-auto mb-[10px] h-[90px] w-[90px]" />
 
       <h2 className="mb-[10px] text-center text-base font-medium text-white">
-        Фильтры поиска
+        Выберите доставщика
       </h2>
 
       <p className="mb-[20px] text-center font-medium text-fontSecondary">
-        Введите параметры для фильтра заказов
+        Введите одного доставщика из списка ниже
       </p>
-
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Доставщик</InputLabel>
         <Select
@@ -104,6 +103,7 @@ const DeliveryUserPopup = ({
       <div>
         <div className="mb-4 mt-8 flex w-full justify-center">
           <Button
+            className="w-full"
             text="Сохранить"
             onClick={async () => {
               await changeDeliveryId(order, activeDelivery);
@@ -113,7 +113,8 @@ const DeliveryUserPopup = ({
         </div>
 
         <div className="flex w-full justify-center">
-          <Button text="Закрыть" onClick={toggleShow} />
+          <Button
+            className="w-full" text="Закрыть" onClick={toggleShow} />
         </div>
       </div>
     </Popup>
