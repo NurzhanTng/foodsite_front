@@ -54,7 +54,7 @@ const useMainHook = () => {
       )
         return;
       orderProduct.price = price;
-      const usedAction = product?.id
+      const usedAction = product?.id && loyaltyState.productActions[product?.id]
         ? loyaltyState.productActions[product?.id][0]
         : undefined;
       if (isProductOnAction && usedAction !== undefined) {

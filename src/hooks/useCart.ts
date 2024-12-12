@@ -184,7 +184,7 @@ const useCart = () => {
       action.triggers.some((trigger) => trigger.isDelivery !== undefined),
     )
       ? 3000
-      : 5000;
+      : 3000;
 
     if (errors.cart) return "Корзина не может быть пустой";
     if (errors.name) return "Имя не может быть пустым";
