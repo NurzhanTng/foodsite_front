@@ -228,10 +228,10 @@ const OrderSmall = ({ order, additionalText = false }: OrderSmallProps) => {
           }}
         />
       )}
-      {order.is_delivery &&
+      {(order.is_delivery &&
         order.address?.lat &&
         ["manager_await", "payment_await", "done"].includes(order?.status) &&
-        open && (
+        open) && (
           <Button
             className="mt-5 w-full"
             styleType="outline"
