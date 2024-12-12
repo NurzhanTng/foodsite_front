@@ -395,7 +395,7 @@ const OrderPage = () => {
 
         {order.is_delivery &&
           order.address?.lat &&
-          ["manager_await", "payment_await"].includes(order?.status) && (
+          ["manager_await", "payment_await", "done"].includes(order?.status) && (
             <Button
               className="mt-5 w-full"
               styleType="outline"

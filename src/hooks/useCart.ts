@@ -377,7 +377,7 @@ const useCart = () => {
       exact_address: order.exactAddress,
       phone: order.phone,
       kaspi_phone: order.kaspi_phone,
-      is_delivery: order.isDelivery,
+      is_delivery: true,
       client_comment: order.client_comment,
       bonus_amount: Math.min(sumCurrency(state.cart), order.max_bonus),
       delivery_price: order.delivery_amount,

@@ -52,15 +52,15 @@ const useManager = () => {
       if (order.id !== targetOrder.id) return order;
       const index = statuses.indexOf(order.status);
       let newStatus;
-      if (order.status === "done" && !order.is_delivery) {
+      if (order.status === "manager_await") {
         newStatus = statuses.at(index + 2);
-      } else if (order.status === "manager_await") {
-        newStatus = statuses.at(index + 2);
-      } else if (order.status === "on_runner") {
+      } else if (order.status === "active") {
+        newStatus = statuses.at(index + 1);
+      } else if (order.status === "done") {
         if (order.is_delivery) {
-          newStatus = statuses.at(index + 2);
+          newStatus = statuses.at(index + 1);
         } else {
-          newStatus = statuses.at(index + 3);
+          newStatus = statuses.at(index + 2);
         }
       } else {
         newStatus = statuses.at(index + 1);
