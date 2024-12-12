@@ -55,7 +55,7 @@ const useManager = () => {
       if (order.status === "manager_await") {
         newStatus = statuses.at(index + 2);
       } else if (order.status === "active") {
-        newStatus = statuses.at(index + 1);
+        newStatus = statuses.at(index + 2);
       } else if (order.status === "done") {
         if (order.is_delivery) {
           newStatus = statuses.at(index + 1);
